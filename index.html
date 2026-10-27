@@ -137,6 +137,16 @@ section.block{padding:84px 0;scroll-margin-top:64px}
 .timeline li:not(:last-child)::after{content:'';position:absolute;left:6px;top:22px;bottom:2px;width:2px;background:var(--line)}
 .timeline b{font-family:var(--display);font-weight:600;display:block}
 .timeline span{color:var(--muted);font-size:.95rem}
+.timeline .when{display:block;font-family:var(--display);font-size:.85rem;color:var(--teal-deep);font-weight:500;margin:2px 0 6px}
+.timeline ul.res{margin:8px 0 0;padding-left:18px;color:var(--ink);font-size:.95rem}
+.timeline ul.res li{display:list-item;padding:0 0 4px}
+.timeline ul.res li::before,.timeline ul.res li::after{content:none}
+.subhead{font-family:var(--display);font-size:1.15rem;font-weight:600;margin:34px 0 16px}
+.awards{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.awards li{padding:14px 18px;border-radius:12px;border:1px solid var(--line);background:var(--surface)}
+.awards li b{font-family:var(--display);font-weight:600;display:block}
+.awards li span{color:var(--muted);font-size:.92rem}
+.awards li.top{background:linear-gradient(110deg,rgba(14,138,134,.10),rgba(242,169,59,.16))}
 .skillset{display:grid;gap:18px}
 .skillset h4{font-family:var(--display);font-size:1rem;margin:0 0 8px;font-weight:600}
 .award{margin-top:26px;padding:18px 20px;border-radius:14px;background:linear-gradient(110deg,rgba(14,138,134,.10),rgba(242,169,59,.16));border:1px solid var(--line)}
@@ -294,27 +304,69 @@ section.block{padding:84px 0;scroll-margin-top:64px}
     <div>
       <h2 style="margin-bottom:28px">Experience</h2>
       <ol class="timeline">
-        <li><div><b>Direct Channel Manager, Robi Axiata PLC</b><span>Since January 2025, Chandpur Region, after joining Robi in 2022. Leads a 104-person field team, 30 live RSSPs, a 73-bike fleet and the FWA launch in the region.</span></div></li>
-        <li><div><b>Banglalink</b><span>Sales and distribution in the field.</span></div></li>
-        <li><div><b>PepsiCo</b><span>Marketing internship.</span></div></li>
-        <li><div><b>BBA, East West University</b><span>Major in Marketing.</span></div></li>
+        <li><div><b>Direct Channel Manager, Robi Axiata PLC</b><span class="when">January 2025 to present, Chandpur Region</span>
+          <ul class="res">
+            <li>Built 45 Robi Sales and Service Points from scratch, from site selection and landlord agreements to renovation, hiring and agent training. 30 are live today.</li>
+            <li>Founding contributor to Robi WiFi (FWA) in the region, now at 1,500+ customers.</li>
+            <li>Lead a 104-person field team and a 73-bike fleet, serving 50,000+ customers a year.</li>
+          </ul></div></li>
+        <li><div><b>Sales Manager, Robi Axiata PLC</b><span class="when">July 2023 to December 2024, Faridganj, Chandpur</span>
+          <ul class="res">
+            <li>Ran the Robi and Airtel business for a 150,000 customer base across 1,250 retail outlets.</li>
+            <li>Grew thana revenue 16% year on year, from 25 million to 29 million BDT a month.</li>
+            <li>Raised ARPU from 166 to 193 taka and grew CMS share by 3%.</li>
+            <li>Delivered 60,000+ new customers a year and looked after 670 million BDT of Robi investment.</li>
+          </ul></div></li>
+        <li><div><b>Territory Manager, Robi Axiata PLC</b><span class="when">January 2022 to June 2023</span>
+          <ul class="res">
+            <li>Owned a Robi and Airtel business worth 360 million BDT a year, with a 42-person sales team across two distribution points.</li>
+            <li>Gained 3.66% 4G market share and grew data revenue 7.1% year on year.</li>
+            <li>Brought 56% of retailers onto RedCube and reached 85% SIM POS parity for Airtel.</li>
+            <li>Launched Project Bondhu Retailer, Robi Service Desk and Pothe Pothe Robi Sheba.</li>
+          </ul></div></li>
+        <li><div><b>Market Development Officer, Banglalink</b><span class="when">June 2021 to December 2021</span>
+          <ul class="res">
+            <li>Led an 18-person sales team across three thanas and 31 BTS sites.</li>
+            <li>Grew internet revenue 12% year on year and built the business under two newly launched BTS.</li>
+            <li>Pushed distribution deeper into rural areas with 3 new DSRs and 6 new routes.</li>
+          </ul></div></li>
+        <li><div><b>Marketing Intern, PepsiCo</b><span class="when">April 2021 to May 2021</span>
+          <ul class="res">
+            <li>Worked on "Iftar with 7 UP", the national Ramadan campaign for 7 UP across social media and offline.</li>
+          </ul></div></li>
       </ol>
-      <div class="award"><b>National Best Regional Operation Manager, Q2 2025.</b> Also the first line manager nationally among Robi's DCMs to get a full team through the 2026 mandatory compliance courses.</div>
+
     </div>
     <div>
       <h2 style="margin-bottom:28px">Skills and learning</h2>
       <div class="skillset">
-        <div><h4>Analytics</h4><div class="tags"><span>SQL</span><span>Python</span><span>pandas</span><span>Excel</span><span>Power BI</span><span>Tableau</span><span>KPI design</span><span>Data cleaning</span></div></div>
-        <div><h4>Business</h4><div class="tags"><span class="amb">Channel distribution</span><span class="amb">Sales operations</span><span class="amb">Field team leadership</span><span class="amb">Target setting</span><span class="amb">Retail network rollout</span></div></div>
+        <div><h4>Analytics</h4><div class="tags"><span>SQL</span><span>Python</span><span>pandas</span><span>Excel</span><span>Power BI</span><span>Tableau</span><span>SPSS</span><span>KPI design</span><span>Data cleaning</span></div></div>
+        <div><h4>Business</h4><div class="tags"><span class="amb">Channel distribution</span><span class="amb">Sales operations</span><span class="amb">Field team leadership</span><span class="amb">Target setting</span><span class="amb">Retail network rollout</span><span class="amb">Trade marketing</span><span class="amb">Field force training</span></div></div>
+        <div><h4>Also</h4><div class="tags"><span>Photoshop</span><span>Premiere Pro</span><span>Audition</span><span>PowerPoint</span></div></div>
         <div><h4>Certificates</h4>
           <ul style="margin:0;padding-left:20px">
             <li>Google Data Analytics Professional Certificate, in progress</li>
             <li>Claude 101, Anthropic</li>
-            <li>Google Ads and Google Analytics</li>
-            <li>Microsoft Excel</li>
+            <li>Excel Analytics: Linear Regression Analysis</li>
+            <li>Microsoft Excel: Beginner to Intermediate Data Analysis</li>
+            <li>Google Analytics, Google Ads Search and Display, Digital Sales, Fundamentals of Digital Marketing</li>
           </ul>
         </div>
       </div>
+      <h3 class="subhead" style="margin-top:40px">Awards</h3>
+      <ul class="awards">
+        <li class="top"><b>National Best Regional Operation Manager, Q2 2025</b><span>Robi Axiata</span></li>
+        <li><b>First line manager in the country to get a full team through Robi's 2026 compliance courses</b><span>Every member passed, October 2026</span></li>
+        <li><b>Cluster Top RnR Champion, Q3 2024</b><span>Robi Axiata</span></li>
+        <li><b>Nationally nominated as Digital Distribution Maestro, 2022</b><span>Robi Axiata</span></li>
+        <li><b>Red Thunderbolt Warriors, awarded twice</b><span>Robi Management Council, for team effort and dedication</span></li>
+      </ul>
+
+      <h3 class="subhead">Education</h3>
+      <ol class="timeline">
+        <li><div><b>BBA, East West University</b><span class="when">2016 to 2020</span><span>Major in Marketing, minor in Human Resource Management, CGPA 3.51. Medha Lalon Scholarship twice. Logistics lead at the EWU Creative Marketing Club.</span></div></li>
+        <li><div><b>HSC, Comilla Cantonment College</b><span class="when">2015</span><span>Business Studies, GPA 4.25.</span></div></li>
+      </ol>
     </div>
   </div>
 </section>
@@ -329,6 +381,7 @@ section.block{padding:84px 0;scroll-margin-top:64px}
       <a class="btn" data-link="whatsapp" href="#">WhatsApp</a>
       <a class="btn" data-link="phone" href="#">Call</a>
       <a class="btn" href="https://github.com/imtiaz99000" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="https://youtube.com/@androidarmybdofficial" target="_blank" rel="noopener">YouTube</a>
     </div>
     <div class="foot"><span>© 2026 Mohd Imtiaz Karim, Chandpur, Bangladesh</span><span>Built and hosted by me, like the RSSP tracker.</span></div>
   </div>
