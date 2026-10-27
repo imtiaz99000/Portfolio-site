@@ -1,0 +1,13 @@
+{
+  "trailingSlash": true,
+  "headers": [
+    {
+      "source": "/tools/pixelshrink/(.*)\\.(wasm|mjs)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/tools/pixelshrink/heic-to.js",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    }
+  ]
+}
