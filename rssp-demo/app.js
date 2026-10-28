@@ -309,7 +309,7 @@ function renderCore(){
   if(S.needPin){main.innerHTML='<div class="panel empty"><h2>Enter the viewer PIN</h2><p class="note">Ask Mohd Imtiaz Karim for the PIN to see the RSSP numbers.</p><div class="addrow" style="max-width:360px;width:100%"><input id="pinIn" type="password" placeholder="Viewer PIN" aria-label="Viewer PIN"><button class="btn" id="pinBtn">Open</button></div></div>';$('pinBtn').addEventListener('click',function(){S.viewKey=$('pinIn').value.trim();tryLS('viewKey',S.viewKey);S.needPin=false;loadData()});return}
   if(S.err){main.innerHTML='<div class="panel empty"><h2>Could not load the data</h2><p class="note">'+esc(S.err)+'</p><button class="btn" id="retryBtn">Try again</button></div>';$('retryBtn').addEventListener('click',loadData);return}
   if(!(S.loaded.meta&&S.loaded.master)){return}
-  if(S.tab==='dev'){main.innerHTML=viewDev();var ti=$('teamImg');if(ti)ti.addEventListener('click',function(){var O=openOverlay('Elite force of Chandpur RSSP','/team.jpg','elite-force-chandpur-rssp.jpg');O.body.innerHTML='<div class="lbimg pvcenter"><img src="/team.jpg" alt="Elite force of Chandpur RSSP"></div>'});return}
+  if(S.tab==='dev'){main.innerHTML=viewDev();var ti=$('teamImg');if(ti)ti.addEventListener('click',function(){var O=openOverlay('Elite force of Chandpur RSSP','team.jpg','elite-force-chandpur-rssp.jpg');O.body.innerHTML='<div class="lbimg pvcenter"><img src="team.jpg" alt="Elite force of Chandpur RSSP"></div>'});return}
   if(S.tab==='download'){main.innerHTML=viewDownload();bindDownload();return}
   if(S.tab==='camp'){main.innerHTML=viewCamps();bindCommon();bindCamps();return}
   if(S.tab==='prices'){main.innerHTML=viewPrices();bindCommon();bindPrices();return}
@@ -944,7 +944,8 @@ function viewDev(){
    '<p class="devbrief">Mohd Imtiaz Karim leads Robi\'s direct channel across the Chandpur Region, managing a 104 member field team and 45 Robi Sales and Service Points he built from the ground up. His region serves more than 50,000 customers a year, and he was named National Best Regional Operation Manager for Q2 2025. With a BBA in Marketing from East West University and a career spanning PepsiCo, Banglalink and Robi, he now pairs field experience with data analytics, building tools like this tracker to turn daily numbers into faster decisions.</p>'+
    '<div class="devfacts"><div><b>45</b><span>RSSPs built</span></div><div><b>104</b><span>Field team</span></div><div><b>50K+</b><span>Customers a year</span></div><div><b>Q2\'25</b><span>National Best Regional Operation Manager</span></div></div>'+
    '</div></div></section>'+
-   viewChangelog();
+   '<section class="section"><figure class="teamfig"><button type="button" class="teamimg" id="teamImg" aria-label="View the team photo full screen"><img src="team.jpg" alt="Elite force of Chandpur RSSP: the RSSP Supervisor team with Mohd Imtiaz Karim" loading="lazy" width="1800" height="1450"></button>'+
+   '<figcaption><b>Elite force of Chandpur RSSP</b><span>The core RSSP Supervisor team, working directly under the supervision of Mohd Imtiaz Karim</span></figcaption></figure></section>'+viewChangelog();
 }
 
 /* ---------- Live GA (Sales, last tab): today's GA by RSSP from a same-day Activation Details file ---------- */
