@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="light">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>RSSP Business Tracker · Demo</title>
+<meta name="description" content="Live demo of the RSSP Business Tracker built by Mohd Imtiaz Karim: a daily sales, field force, SIM stock and bike operations dashboard. All data is made up.">
+<meta property="og:title" content="RSSP Business Tracker · Demo">
+<meta property="og:description" content="A daily telecom field operations dashboard, shown with made-up data.">
+<meta property="og:image" content="https://imtiazkarim.com/rssp-demo/og.png">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#C62832">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="app.css?v=21a0dcd5">
+<style>.demobar{background:#1f2430;color:#fff;font:600 14px/1.45 "Source Sans 3",system-ui,sans-serif;padding:9px 0}.demobar b{color:#ffd166}.demobar a{color:#fff;text-decoration:underline;text-underline-offset:3px;margin-left:4px}</style>
+<script>
+/* Demo mode: no server. /api/data is answered from the bundled made-up data; every other API call gets an empty reply. */
+(function(){
+  var real=window.fetch.bind(window),base=new URL('./',location.href).href;
+  function ok(o){return Promise.resolve(new Response(JSON.stringify(o||{}),{status:200,headers:{'content-type':'application/json'}}))}
+  window.fetch=function(u,o){
+    var s=typeof u==='string'?u:(u&&u.url)||'';
+    if(/^\/api\/data/.test(s)){var q=new URL(s,location.origin).searchParams,m=q.get('month'),b=q.get('bmonth');
+      var f=(m||b)?(m||'2026-10')+'_'+(b||'2026-10'):'latest';return real(base+'data/'+f+'.json');}
+    if(/^\/api\//.test(s))return ok({});
+    return real(u,o);
+  };
+  try{navigator.sendBeacon=function(){return true}}catch(e){}
+  try{localStorage.removeItem('adminKey');localStorage.setItem('seenDev','1')}catch(e){}
+})();
+</script>
+</head>
+<body>
+<div class="demobar" data-noi18n><div class="wrap"><b>Demo with made-up data.</b> Every RSSP, person and number here is invented. The real tracker runs on live Robi data behind a team PIN. <a href="/">Back to Mohd Imtiaz Karim</a></div></div>
+
+<div class="band">
+  <div class="wrap">
+    <div class="brandrow">
+      <button type="button" class="langbtn" id="langBtn" data-noi18n>বাংলা</button><div class="brandblock"><img class="logo" src="logo.png" alt="Robi" width="62" height="50"><div><h1>RSSP Business Tracker</h1><div class="dev">Developed by <b>Mohd Imtiaz Karim</b><br><span class="devrole">Direct Channel Manager, Robi Axiata PLC.</span></div></div></div>
+      <div class="sub dlines" id="dataline">Loading data…</div>
+      <div class="pickers" id="pickers"></div>
+    </div>
+    <div class="pace" id="pacebar" hidden>
+      <span>Day <b id="dayno">–</b></span>
+      <div class="track" role="img" id="track"><div class="fill" id="fill" style="width:0"></div></div>
+      <span>Time gone <b id="tg">–</b></span>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="Filter by area"></div>
+  </div>
+</div>
+<div class="tabbar"><div class="wrap">
+    <nav class="grpbar" id="grpbar" aria-label="Sections">
+      <button type="button" data-grp="brief"><span aria-hidden="true">🌅</span>Brief</button>
+      <button type="button" data-grp="sales"><span aria-hidden="true">📈</span>Sales</button>
+      <button type="button" data-grp="field"><span aria-hidden="true">👥</span>Field force</button>
+      <button type="button" data-grp="stock"><span aria-hidden="true">📦</span>Stock</button>
+      <button type="button" data-grp="bikes"><span aria-hidden="true">🏍️</span>Bikes</button>
+      
+      <button type="button" data-grp="dev"><span aria-hidden="true">👨‍💻</span>Developer</button>
+      <button type="button" data-grp="admin" id="grpAdmin" hidden><span aria-hidden="true">🔒</span>Admin</button>
+    </nav>
+    <div class="tabs" role="tablist" id="tabs">
+      <button class="tab" role="tab" data-tab="overview" aria-selected="true">Overview</button>
+      <button class="tab" role="tab" data-tab="dcm" aria-selected="false" id="dcmTab" hidden>DCM KPI</button>
+      <button class="tab" role="tab" data-tab="bank" aria-selected="false" id="bankTab" hidden>Data Bank</button>
+      <button class="tab" role="tab" data-tab="iddb" aria-selected="false" id="iddbTab" hidden>ID Database</button>
+      <button class="tab" role="tab" data-tab="visits" aria-selected="false" id="visTab" hidden>Visitors</button>
+      <button class="tab" role="tab" data-tab="brief" aria-selected="false">Morning Brief</button>
+      <button class="tab" role="tab" data-tab="board" aria-selected="false">Leaderboard</button>
+      <button class="tab" role="tab" data-tab="rssp" aria-selected="false">RSSP Detail</button>
+      <button class="tab" role="tab" data-tab="rfo" aria-selected="false">RFO</button>
+      <button class="tab" role="tab" data-tab="agent" aria-selected="false">Agent</button>
+      <button class="tab" role="tab" data-tab="sup" aria-selected="false">Supervisor</button>
+      <button class="tab" role="tab" data-tab="wifi" aria-selected="false">WiFi</button>
+      <button class="tab" role="tab" data-tab="stock" aria-selected="false">SIM Stock</button>
+      <button class="tab" role="tab" data-tab="quality" aria-selected="false">Fake Location</button>
+      <button class="tab" role="tab" hidden data-tab="live" aria-selected="false">Live GA</button>
+      <button class="tab" role="tab" data-tab="bike" aria-selected="false">Bike Operation</button>
+      <button class="tab" role="tab" data-tab="bikestat" aria-selected="false">Bike Status</button>
+      <button class="tab" role="tab" data-tab="bikes" aria-selected="false">Bike Detail</button>
+      <button class="tab" role="tab" data-tab="faulty" aria-selected="false">Faulty Bike</button>
+      <button class="tab" role="tab" hidden data-tab="camp" aria-selected="false">Ongoing Campaigns</button>
+      <button class="tab" role="tab" hidden data-tab="prices" aria-selected="false">Product Price List</button>
+      <button class="tab" role="tab" hidden data-tab="download" aria-selected="false">Download</button>
+      <button class="tab" role="tab" data-tab="dev" aria-selected="false">Developer</button>
+      <button class="tab" role="tab" data-tab="setup" aria-selected="false" id="setupTab" hidden>Upload &amp; Targets</button>
+    </div>
+  </div>
+</div>
+<main class="wrap" id="main"><div class="panel empty"><h2>Loading the tracker</h2><p class="note">Connecting to the shared data store.</p></div></main>
+<footer class="wrap" style="padding-block:0 32px;display:grid;gap:8px;justify-items:start">
+  
+  <button class="more" id="adminLink" hidden>Admin</button>
+  <div class="panel" id="adminBox" hidden style="display:grid;gap:8px;max-width:420px;width:100%">
+    <b>Admin sign-in</b><span class="note">Only the tracker owner can upload files and set targets.</span>
+    <div class="addrow"><input id="adminIn" type="password" placeholder="Admin key" aria-label="Admin key"><button class="btn" id="adminBtn">Sign in</button></div>
+    <div class="status" id="adminStatus" role="status"></div>
+  </div>
+</footer>
+<div class="tip" id="tip" hidden></div>
+
+<script src="agg.js?v=54d19e3f"></script>
+
+<script src="app.js?v=1b379add"></script>
+
+</body>
+</html>
