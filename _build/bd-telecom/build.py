@@ -54,6 +54,7 @@ ICON = {
  'alert': '<path d="M12 3l10 18H2z"/><path d="M12 10v4M12 17h.01"/>',
  'download': '<path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/>',
  'shield': '<path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z"/><path d="M9 12l2 2 4-4"/>',
+ 'ban': '<circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/>',
  'layers': '<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/><path d="M3 17.5l9 5 9-5"/>',
  'code': '<path d="M8 6l-6 6 6 6"/><path d="M16 6l6 6-6 6"/>',
 }
