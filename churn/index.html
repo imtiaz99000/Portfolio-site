@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who leaves a telecom, and how early you can tell · Mohd Imtiaz Karim</title>
+<meta name="description" content="A SQL case study on 7,043 telecom customers: which customers churn, how early you can spot them, and what a channel manager would do about it. By Mohd Imtiaz Karim.">
+<meta property="og:title" content="Who leaves a telecom, and how early you can tell">
+<meta property="og:description" content="Telco churn case study by Mohd Imtiaz Karim: SQL analysis of 7,043 customers, plus a field playbook from a telecom channel manager.">
+<meta property="og:image" content="https://imtiazkarim.com/photo.jpg">
+<meta property="og:type" content="article">
+<link rel="canonical" href="https://imtiazkarim.com/churn/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%230E8A86'/%3E%3Cstop offset='1' stop-color='%23F2A93B'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='%23102A2B'/%3E%3Cpath d='M12 44 C24 44 26 22 38 22 S50 34 54 20' stroke='url(%23g)' stroke-width='6' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='44' r='5' fill='%230E8A86'/%3E%3Ccircle cx='54' cy='20' r='5' fill='%23F2A93B'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6FAF9; --surface:#FFFFFF; --ink:#102A2B; --muted:#56706F; --line:#D6E6E4;
+  --teal:#0E8A86; --teal-deep:#0A6664; --amber:#F2A93B; --amber-deep:#B9740F; --mist:#E7F2F1;
+  --display:'Space Grotesk',system-ui,sans-serif; --body:'Source Sans 3',system-ui,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --wrap:1120px; --read:760px;
+}
+*{box-sizing:border-box}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.0625rem/1.6 var(--body);-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:var(--teal-deep);text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:var(--ink)}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+.read{max-width:var(--read)}
+h1,h2,h3{font-family:var(--display);line-height:1.12;margin:0;letter-spacing:-.01em}
+h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:600;margin-bottom:18px}
+h3{font-size:1.2rem;font-weight:600;margin:0 0 8px}
+p{margin:0 0 1em;max-width:68ch}
+@media (max-width:480px){.wrap{padding:0 16px}}
+
+/* header, same as the home page */
+.top{position:sticky;top:0;z-index:10;background:rgba(246,250,249,.92);backdrop-filter:blur(8px);border-bottom:1px solid transparent;transition:border-color .2s}
+.top.scrolled{border-bottom-color:var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.mark{font-family:var(--display);font-weight:600;font-size:1.05rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:10px}
+.mark svg{flex:none}
+.nav{display:flex;gap:22px;font-family:var(--display);font-size:.95rem}
+.nav a{color:var(--muted);text-decoration:none}.nav a:hover{color:var(--ink)}
+@media (max-width:720px){.nav{display:none}}
+
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:600;font-size:.98rem;padding:12px 18px;border-radius:10px;text-decoration:none;border:1.5px solid var(--ink);color:var(--ink);background:transparent}
+.btn.primary{background:var(--ink);color:#fff}
+.btn:hover{border-color:var(--teal);color:var(--teal-deep)}
+.btn.primary:hover{background:var(--teal-deep);border-color:var(--teal-deep);color:#fff}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+
+/* intro */
+.intro{padding:48px 0 36px}
+.back{font-family:var(--display);font-size:.92rem;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:22px}
+.back:hover{color:var(--ink)}
+.kicker{font-family:var(--display);font-size:.9rem;font-weight:600;color:var(--teal-deep);letter-spacing:.02em;margin:0 0 12px}
+.intro h1{font-size:clamp(2.1rem,5.2vw,3.6rem);font-weight:700;letter-spacing:-.025em;max-width:18ch}
+.intro .lede{color:var(--muted);font-size:1.15rem;max-width:58ch;margin-top:18px}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+.meta span{font-size:.82rem;padding:3px 10px;border-radius:99px;background:var(--mist);color:var(--teal-deep);font-weight:600}
+
+/* headline numbers */
+.proof{border-block:1px solid var(--line);background:var(--surface)}
+.proof dl{display:grid;grid-template-columns:repeat(4,1fr);margin:0}
+.proof dl>div{padding:22px 20px;border-left:1px solid var(--line)}
+.proof dl>div:first-child{border-left:0;padding-left:0}
+.proof dt{font-family:var(--display);font-weight:700;font-size:1.7rem}
+.proof dd{margin:2px 0 0;color:var(--muted);font-size:.95rem;line-height:1.35}
+@media (max-width:860px){.proof dl{grid-template-columns:1fr 1fr;column-gap:16px}.proof dl>div{border-left:0;padding:18px 0;border-top:1px solid var(--line)}.proof dl>div:nth-child(-n+2){border-top:0}}
+
+section.block{padding:72px 0 0;scroll-margin-top:64px}
+.num{font-family:var(--display);font-size:.85rem;font-weight:600;color:var(--amber-deep);display:block;margin-bottom:8px;letter-spacing:.04em}
+
+/* findings */
+.finding{padding:30px 0;border-top:1px solid var(--line)}
+.finding:first-of-type{border-top:0;padding-top:4px}
+.finding .so{font-weight:600}
+
+/* bar charts drawn in HTML so they read on any phone */
+.chart{--max:80;--b:26.5;margin:18px 0 8px;padding:18px 18px 12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;max-width:var(--read)}
+.chart .ctitle{font-family:var(--display);font-weight:600;font-size:.95rem;margin:0 0 12px}
+.row{display:grid;grid-template-columns:minmax(7rem,11rem) 1fr 3.4rem;gap:12px;align-items:center;margin:8px 0}
+.row .lab{font-size:.93rem;line-height:1.25}
+.track{position:relative;height:22px;background:var(--mist);border-radius:5px}
+.track::after{content:"";position:absolute;top:-4px;bottom:-4px;left:calc(var(--b) / var(--max) * 100%);border-left:2px dashed var(--ink);opacity:.45}
+.fill{position:absolute;left:0;top:0;bottom:0;width:calc(var(--v) / var(--max) * 100%);background:var(--teal);border-radius:5px}
+.fill.hot{background:var(--amber)}
+.row .val{font-family:var(--display);font-weight:600;font-size:.95rem;text-align:right}
+.legend{font-size:.82rem;color:var(--muted);margin:10px 0 0;display:flex;flex-wrap:wrap;gap:4px 16px}
+.legend i{display:inline-block;width:14px;border-top:2px dashed var(--ink);opacity:.6;vertical-align:middle;margin-right:6px}
+@media (max-width:480px){.row{grid-template-columns:6.4rem 1fr 3rem;gap:8px}.row .lab{font-size:.85rem}.chart{padding:14px 12px 10px}}
+
+details{margin:10px 0 0;max-width:var(--read)}
+summary{cursor:pointer;font-family:var(--display);font-size:.92rem;font-weight:600;color:var(--teal-deep)}
+pre{margin:10px 0 0;padding:14px 16px;background:var(--ink);color:#DDEFED;border-radius:10px;overflow-x:auto;font:400 .82rem/1.55 var(--mono)}
+code{font-family:var(--mono);font-size:.9em}
+p code{background:var(--mist);padding:1px 5px;border-radius:4px}
+
+/* the profile */
+.profile{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:start}
+@media (max-width:900px){.profile{grid-template-columns:1fr;gap:28px}}
+.card{background:var(--ink);color:#EAF4F3;border-radius:18px;padding:26px 24px;box-shadow:14px 16px 0 var(--mist)}
+.card h3{color:#fff;font-size:1.25rem;margin-bottom:14px}
+.card ul{margin:0 0 18px;padding-left:20px;color:#CFE3E1}.card li{margin:4px 0}
+.card .big{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;border-top:1px solid rgba(255,255,255,.16);padding-top:16px}
+.card .big b{font-family:var(--display);font-size:1.6rem;color:var(--amber);display:block;line-height:1.1}
+.card .big span{font-size:.84rem;color:#B9D3D1;line-height:1.3;display:block;margin-top:4px}
+table{width:100%;border-collapse:collapse;font-size:.95rem;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+th{font-family:var(--display);font-weight:600;font-size:.85rem;color:var(--muted);background:var(--mist)}
+tr.cut td{background:#FDF0DA;font-weight:600}
+tr:last-child td{border-bottom:0}
+.tnote{font-size:.9rem;color:var(--muted);margin-top:10px}
+
+/* the playbook */
+.field{background:var(--surface);border-block:1px solid var(--line);margin-top:72px;padding:72px 0}
+.field .intro-p{font-size:1.1rem}
+.plays{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:0;counter-reset:play;border-top:1px solid var(--line)}
+.plays li{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:24px 0;border-bottom:1px solid var(--line);counter-increment:play}
+.plays li::before{content:counter(play,decimal-leading-zero);font-family:var(--display);font-weight:700;font-size:1.5rem;color:var(--amber-deep);line-height:1.2}
+.plays h3{font-size:1.12rem}
+.plays p{margin:0 0 .6em}
+.plays .data{font-size:.92rem;color:var(--muted)}
+@media (max-width:480px){.plays li{grid-template-columns:1fr;gap:4px}}
+.translate{margin-top:36px;padding:22px 22px 8px;border-radius:14px;background:linear-gradient(110deg,rgba(14,138,134,.10),rgba(242,169,59,.16));border:1px solid var(--line);max-width:var(--read)}
+.translate h3{margin-bottom:10px}
+
+.limits ul{padding-left:20px;max-width:68ch}.limits li{margin:6px 0}
+
+/* contact, same as home */
+.contact{background:var(--ink);color:#EAF4F3;padding:84px 0 56px;margin-top:84px}
+.contact h2{color:#fff;max-width:20ch;margin-bottom:16px}
+.contact p{color:#B9D3D1}
+.contact .cta .btn{border-color:#EAF4F3;color:#fff}
+.contact .cta .btn.primary{background:var(--amber);border-color:var(--amber);color:var(--ink)}
+.contact .cta .btn:hover{border-color:var(--amber);color:var(--amber)}
+.contact .cta .btn.primary:hover{background:#fff;border-color:#fff;color:var(--ink)}
+.foot{margin-top:56px;padding-top:20px;border-top:1px solid rgba(255,255,255,.14);font-size:.9rem;color:#8FB0AE;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.foot a{color:#B9D3D1}
+</style>
+</head>
+<body>
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="mark" href="/" aria-label="Mohd Imtiaz Karim, home">
+      <svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="mg" x1="0" x2="1"><stop offset="0" stop-color="#0E8A86"/><stop offset="1" stop-color="#F2A93B"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="#102A2B"/><path d="M12 44 C24 44 26 22 38 22 S50 34 54 20" stroke="url(#mg)" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="12" cy="44" r="5" fill="#0E8A86"/><circle cx="54" cy="20" r="5" fill="#F2A93B"/></svg>
+      Mohd Imtiaz Karim
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#question">Question</a><a href="#findings">Findings</a><a href="#profile">Who leaves</a><a href="#field">What I'd do</a><a href="/#projects">All projects</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="intro">
+  <div class="wrap">
+    <a class="back" href="/#projects">← Back to projects</a>
+    <p class="kicker">Case study · Telecom customer churn</p>
+    <h1>Who leaves a telecom, and how early you can tell</h1>
+    <p class="lede">I took a public dataset of 7,043 telecom customers and asked it the question I deal with in the field every month: which customers are about to go, what do they have in common, and what could a channel team do before they leave. Every number on this page comes from SQL I wrote and you can run yourself.</p>
+    <div class="meta"><span>SQL</span><span>SQLite</span><span>Segmentation</span><span>Window functions</span><span>CTEs</span></div>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/imtiaz99000/portfolio-site/blob/main/churn/churn_analysis.sql" target="_blank" rel="noopener">See all the SQL</a>
+      <a class="btn" href="#field">Skip to the field playbook</a>
+    </div>
+  </div>
+</section>
+
+<section class="proof" aria-label="Headline numbers">
+  <div class="wrap">
+    <dl>
+      <div><dt>26.5%</dt><dd>of customers left, 1,869 out of 7,043</dd></div>
+      <div><dt>30.5%</dt><dd>of monthly revenue left with them, because leavers paid more than average</dd></div>
+      <div><dt>55%</dt><dd>of everyone who left did it in their first 12 months</dd></div>
+      <div><dt>1 in 5</dt><dd>customers, picked by five simple rules, account for half of all churn</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="block" id="question">
+  <div class="wrap read">
+    <span class="num">01 · THE QUESTION</span>
+    <h2>What was I trying to find out?</h2>
+    <p>Most churn projects stop at "build a model that predicts churn". That is not how a telecom business uses the answer. A field team needs three things: a short list of who to call this week, a reason those people are at risk, and a change at the point of sale that stops the next batch from becoming risky in the first place.</p>
+    <p>So I set four questions before writing any SQL:</p>
+    <ol>
+      <li>How big is the problem in customers and in revenue?</li>
+      <li>When in the customer's life does churn happen?</li>
+      <li>Which contract, product and payment patterns separate leavers from stayers?</li>
+      <li>Can a handful of rules, simple enough for a supervisor to apply by hand, find most of the leavers?</li>
+    </ol>
+
+    <h3 style="margin-top:34px">The data and how I worked</h3>
+    <p>The data is IBM's Telco Customer Churn sample, the version published on <a href="https://www.kaggle.com/datasets/blastchar/telco-customer-churn" target="_blank" rel="noopener">Kaggle</a>: one row per customer of a fictional US telecom, with 21 columns covering contract, tenure in months, services, billing and whether the customer left in the last month.</p>
+    <p>I loaded the CSV into SQLite and built one clean view on top of it. <code>TotalCharges</code> arrives as text and is blank for 11 customers who had just joined, so I converted it and turned the blanks into nulls instead of dropping them. Churn became a 1 or 0, which makes <code>AVG(churned)</code> the churn rate directly, and tenure went into bands a sales team would actually use.</p>
+    <details>
+      <summary>Show the cleaning view</summary>
+<pre>CREATE VIEW customers AS
+SELECT
+  customerID                                   AS customer_id,
+  CAST(tenure AS INTEGER)                      AS tenure,
+  CASE
+    WHEN CAST(tenure AS INTEGER) &lt;= 6  THEN '1. 0-6 months'
+    WHEN CAST(tenure AS INTEGER) &lt;= 12 THEN '2. 7-12 months'
+    WHEN CAST(tenure AS INTEGER) &lt;= 24 THEN '3. 13-24 months'
+    WHEN CAST(tenure AS INTEGER) &lt;= 48 THEN '4. 25-48 months'
+    ELSE                                    '5. 49+ months'
+  END                                          AS tenure_band,
+  Contract                                     AS contract,
+  InternetService                              AS internet,
+  OnlineSecurity                               AS online_security,
+  TechSupport                                  AS tech_support,
+  PaymentMethod                                AS payment_method,
+  CAST(MonthlyCharges AS REAL)                 AS monthly_charges,
+  CAST(NULLIF(TRIM(TotalCharges), '') AS REAL) AS total_charges,
+  CASE WHEN Churn = 'Yes' THEN 1 ELSE 0 END    AS churned
+  -- plus the remaining service and demographic columns
+FROM raw;</pre>
+    </details>
+  </div>
+</section>
+
+<section class="block" id="findings">
+  <div class="wrap read">
+    <span class="num">02 · WHAT SQL SHOWED</span>
+    <h2>Six things the data says</h2>
+    <p>In every chart the dashed line is the overall churn rate of 26.5%. Amber bars are the groups well above it.</p>
+
+    <article class="finding">
+      <h3>1. Contract type decides almost everything</h3>
+      <p>Month-to-month customers left at 42.7%. Customers on a two-year contract left at 2.8%, fifteen times less. <span class="so">Month-to-month customers are 55% of the base but 88.6% of all churn.</span></p>
+      <div class="chart" role="img" aria-label="Churn rate by contract: month-to-month 42.7 percent, one year 11.3 percent, two year 2.8 percent">
+        <p class="ctitle">Churn rate by contract</p>
+        <div class="row"><span class="lab">Month-to-month</span><span class="track"><span class="fill hot" style="--v:42.7"></span></span><span class="val">42.7%</span></div>
+        <div class="row"><span class="lab">One year</span><span class="track"><span class="fill" style="--v:11.3"></span></span><span class="val">11.3%</span></div>
+        <div class="row"><span class="lab">Two year</span><span class="track"><span class="fill" style="--v:2.8"></span></span><span class="val">2.8%</span></div>
+        <p class="legend"><span><i></i>Average, 26.5%</span><span>3,875 · 1,473 · 1,695 customers</span></p>
+      </div>
+      <details>
+        <summary>Show the SQL</summary>
+<pre>SELECT
+  contract,
+  COUNT(*)                        AS customers,
+  SUM(churned)                    AS churned,
+  ROUND(100.0 * AVG(churned), 1)  AS churn_pct,
+  ROUND(100.0 * SUM(churned)
+        / (SELECT SUM(churned) FROM customers), 1) AS share_of_all_churn
+FROM customers
+GROUP BY contract
+ORDER BY churn_pct DESC;</pre>
+      </details>
+    </article>
+
+    <article class="finding">
+      <h3>2. The first months are where customers are lost</h3>
+      <p>More than half of customers in their first six months had already left (52.9%). In month one alone it was 62%. Using a running total, <span class="so">42% of all churners left within six months and 55.5% within a year.</span> After four years churn falls to 9.5%.</p>
+      <p>Month-to-month stays risky for longer, though: even after four years those customers churn at 26%, while long-tenure contract customers barely move.</p>
+      <div class="chart" role="img" aria-label="Churn rate by tenure: 0 to 6 months 52.9 percent, 7 to 12 months 35.9, 13 to 24 months 28.7, 25 to 48 months 20.4, 49 plus months 9.5">
+        <p class="ctitle">Churn rate by how long the customer has been with us</p>
+        <div class="row"><span class="lab">0 to 6 months</span><span class="track"><span class="fill hot" style="--v:52.9"></span></span><span class="val">52.9%</span></div>
+        <div class="row"><span class="lab">7 to 12 months</span><span class="track"><span class="fill hot" style="--v:35.9"></span></span><span class="val">35.9%</span></div>
+        <div class="row"><span class="lab">13 to 24 months</span><span class="track"><span class="fill" style="--v:28.7"></span></span><span class="val">28.7%</span></div>
+        <div class="row"><span class="lab">25 to 48 months</span><span class="track"><span class="fill" style="--v:20.4"></span></span><span class="val">20.4%</span></div>
+        <div class="row"><span class="lab">49+ months</span><span class="track"><span class="fill" style="--v:9.5"></span></span><span class="val">9.5%</span></div>
+        <p class="legend"><span><i></i>Average, 26.5%</span></p>
+      </div>
+      <details>
+        <summary>Show the SQL (running share with a window function)</summary>
+<pre>WITH by_month AS (
+  SELECT tenure, COUNT(*) AS customers, SUM(churned) AS churned
+  FROM customers
+  WHERE tenure BETWEEN 1 AND 12
+  GROUP BY tenure
+)
+SELECT
+  tenure,
+  customers,
+  churned,
+  ROUND(100.0 * churned / customers, 1) AS churn_pct,
+  ROUND(100.0 * SUM(churned) OVER (ORDER BY tenure)
+        / (SELECT SUM(churned) FROM customers), 1) AS cumulative_share_of_churn
+FROM by_month
+ORDER BY tenure;</pre>
+      </details>
+    </article>
+
+    <article class="finding">
+      <h3>3. Fiber customers without support are the weakest spot</h3>
+      <p>Fiber had the highest churn of any internet type at 41.9%, and also the highest average bill at $91.50 a month. The difference comes from support. <span class="so">Fiber customers with neither online security nor tech support left at 55%</span>; fiber customers with either one left at 24.5%. The same pattern holds on DSL, at 35.4% against 11%.</p>
+      <div class="chart" role="img" aria-label="Churn by internet type and support: fiber with neither 55 percent, fiber with security or support 24.5, DSL with neither 35.4, DSL with security or support 11">
+        <p class="ctitle">Churn rate by internet type and support add-ons</p>
+        <div class="row"><span class="lab">Fiber, no security or support</span><span class="track"><span class="fill hot" style="--v:55"></span></span><span class="val">55.0%</span></div>
+        <div class="row"><span class="lab">Fiber, has one</span><span class="track"><span class="fill" style="--v:24.5"></span></span><span class="val">24.5%</span></div>
+        <div class="row"><span class="lab">DSL, no security or support</span><span class="track"><span class="fill hot" style="--v:35.4"></span></span><span class="val">35.4%</span></div>
+        <div class="row"><span class="lab">DSL, has one</span><span class="track"><span class="fill" style="--v:11"></span></span><span class="val">11.0%</span></div>
+        <p class="legend"><span><i></i>Average, 26.5%</span></p>
+      </div>
+      <p>Every extra service makes a customer stickier. Internet customers with none of the six add-ons churned at 52.2%. With all six, 5.3%. The drop is steady at every step.</p>
+      <div class="chart" role="img" aria-label="Churn by number of add-on services: 0 add-ons 52.2 percent, 1 45.8, 2 35.8, 3 27.4, 4 22.3, 5 12.4, 6 5.3">
+        <p class="ctitle">Churn rate by number of add-on services, internet customers</p>
+        <div class="row"><span class="lab">None</span><span class="track"><span class="fill hot" style="--v:52.2"></span></span><span class="val">52.2%</span></div>
+        <div class="row"><span class="lab">1</span><span class="track"><span class="fill hot" style="--v:45.8"></span></span><span class="val">45.8%</span></div>
+        <div class="row"><span class="lab">2</span><span class="track"><span class="fill hot" style="--v:35.8"></span></span><span class="val">35.8%</span></div>
+        <div class="row"><span class="lab">3</span><span class="track"><span class="fill" style="--v:27.4"></span></span><span class="val">27.4%</span></div>
+        <div class="row"><span class="lab">4</span><span class="track"><span class="fill" style="--v:22.3"></span></span><span class="val">22.3%</span></div>
+        <div class="row"><span class="lab">5</span><span class="track"><span class="fill" style="--v:12.4"></span></span><span class="val">12.4%</span></div>
+        <div class="row"><span class="lab">All 6</span><span class="track"><span class="fill" style="--v:5.3"></span></span><span class="val">5.3%</span></div>
+        <p class="legend"><span><i></i>Average, 26.5%</span></p>
+      </div>
+      <details>
+        <summary>Show the SQL (counting add-ons in a CTE)</summary>
+<pre>WITH add_ons AS (
+  SELECT
+    churned,
+    (online_security   = 'Yes') + (online_backup    = 'Yes') +
+    (device_protection = 'Yes') + (tech_support     = 'Yes') +
+    (streaming_tv      = 'Yes') + (streaming_movies = 'Yes') AS n_add_ons
+  FROM customers
+  WHERE internet &lt;&gt; 'No'
+)
+SELECT n_add_ons,
+       COUNT(*)                       AS customers,
+       ROUND(100.0 * AVG(churned), 1) AS churn_pct
+FROM add_ons
+GROUP BY n_add_ons
+ORDER BY n_add_ons;</pre>
+      </details>
+    </article>
+
+    <article class="finding">
+      <h3>4. Customers who pay by hand leave more</h3>
+      <p>Customers paying by electronic check churned at 45.3%, almost three times the rate of customers on automatic bank or card payments (15 to 17%). <span class="so">Electronic check users are a third of the base but 57% of everyone who left.</span> Paperless billing customers also left twice as often, 33.6% against 16.3%.</p>
+      <div class="chart" role="img" aria-label="Churn by payment method: electronic check 45.3 percent, mailed check 19.1, bank transfer automatic 16.7, credit card automatic 15.2">
+        <p class="ctitle">Churn rate by payment method</p>
+        <div class="row"><span class="lab">Electronic check</span><span class="track"><span class="fill hot" style="--v:45.3"></span></span><span class="val">45.3%</span></div>
+        <div class="row"><span class="lab">Mailed check</span><span class="track"><span class="fill" style="--v:19.1"></span></span><span class="val">19.1%</span></div>
+        <div class="row"><span class="lab">Bank transfer, automatic</span><span class="track"><span class="fill" style="--v:16.7"></span></span><span class="val">16.7%</span></div>
+        <div class="row"><span class="lab">Credit card, automatic</span><span class="track"><span class="fill" style="--v:15.2"></span></span><span class="val">15.2%</span></div>
+        <p class="legend"><span><i></i>Average, 26.5%</span></p>
+      </div>
+      <p>My reading: a payment the customer has to make every month is a monthly decision to stay or go. An automatic payment removes that decision.</p>
+    </article>
+
+    <article class="finding">
+      <h3>5. Household matters, gender does not</h3>
+      <p>Senior citizens churned at 41.7% against 23.6% for everyone else. Customers without a partner (33%) or without dependents (31.3%) also left more. Men and women churned at the same rate, 26.2% and 26.9%, so gender is not worth targeting on.</p>
+    </article>
+
+    <article class="finding">
+      <h3>6. Price matters, but in the middle more than at the top</h3>
+      <p>Churn rises with the bill from 10.9% under $35 a month to 38% between $70 and $90, then dips to 32.9% above $90. The highest payers usually hold many services, which keeps them. The customers paying a lot for a thin bundle are the ones who feel the price.</p>
+    </article>
+  </div>
+</section>
+
+<section class="block" id="profile">
+  <div class="wrap">
+    <span class="num">03 · WHO LEAVES</span>
+    <h2>The customer most likely to go</h2>
+    <div class="profile">
+      <div class="card">
+        <h3>High-risk profile</h3>
+        <ul>
+          <li>On a month-to-month plan</li>
+          <li>Uses fiber internet</li>
+          <li>Has neither online security nor tech support</li>
+          <li>In the first 12 months</li>
+        </ul>
+        <div class="big">
+          <div><b>10.8%</b><span>of all customers</span></div>
+          <div><b>72.9%</b><span>of them left</span></div>
+          <div><b>29.8%</b><span>of all churn</span></div>
+        </div>
+      </div>
+      <div>
+        <p>Put the findings together and one group stands out. These 764 customers are about a tenth of the base, yet nearly three in four of them left, and they alone explain close to 30% of all churn and $45,486 of lost monthly revenue.</p>
+        <p>A field team cannot work only one profile, so I also built a score anyone can calculate without a model. One point each for month-to-month, first 12 months, fiber, no security or support, and electronic check.</p>
+        <table>
+          <thead><tr><th>Risk points</th><th>Customers</th><th>Churn rate</th><th>Share of all churn</th></tr></thead>
+          <tbody>
+            <tr><td>0</td><td>1,703</td><td>2.5%</td><td>2.3%</td></tr>
+            <tr><td>1</td><td>1,295</td><td>9.0%</td><td>6.2%</td></tr>
+            <tr><td>2</td><td>1,387</td><td>21.3%</td><td>15.8%</td></tr>
+            <tr><td>3</td><td>1,170</td><td>39.4%</td><td>24.7%</td></tr>
+            <tr class="cut"><td>4</td><td>944</td><td>58.2%</td><td>29.4%</td></tr>
+            <tr class="cut"><td>5</td><td>544</td><td>74.4%</td><td>21.7%</td></tr>
+          </tbody>
+        </table>
+        <p class="tnote">Customers with 4 or 5 points are 21% of the base, churn at 64%, and hold 51% of all churners. That is the call list.</p>
+        <details>
+          <summary>Show the SQL for the score</summary>
+<pre>WITH scored AS (
+  SELECT churned,
+    (contract = 'Month-to-month')
+  + (tenure &lt;= 12)
+  + (internet = 'Fiber optic')
+  + (internet &lt;&gt; 'No' AND online_security = 'No'
+                      AND tech_support    = 'No')
+  + (payment_method = 'Electronic check') AS risk_points
+  FROM customers
+)
+SELECT risk_points,
+       COUNT(*)                       AS customers,
+       ROUND(100.0 * AVG(churned), 1) AS churn_pct,
+       ROUND(100.0 * SUM(churned)
+             / (SELECT SUM(churned) FROM customers), 1) AS share_of_all_churn
+FROM scored
+GROUP BY risk_points
+ORDER BY risk_points;</pre>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="field" id="field">
+  <div class="wrap read">
+    <span class="num">04 · THE FIELD VIEW</span>
+    <h2>What I would do about it as a channel manager</h2>
+    <p class="intro-p">I lead a 104-person field team in the Chandpur Region, built 45 Robi Sales and Service Points from scratch, and helped take a home internet product to 1,500+ households. The SQL tells me who leaves. This part is what I would actually change on the ground.</p>
+
+    <ol class="plays">
+      <li>
+        <div>
+          <h3>Treat the first 90 days as part of the sale</h3>
+          <p>Churn is highest in month one and more than half of it happens in the first year. A sale that is not looked after in those weeks is often a sale we lose. I would give every new customer a named contact at the nearest sales point, with a check in at day 7, day 30 and day 60: is it working, do they understand the bill, do they need help.</p>
+          <p class="data">From the data: 62% churn in month one, 42% of all churners gone within six months.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Pay the field for customers who stay, not only for activations</h3>
+          <p>If incentives only count gross adds, the field has every reason to sell the easiest plan to whoever walks in and move on. I would count part of each person's incentive only when the customer is still active after 90 days. That one change pushes the team toward longer plans, bundles and proper setup without a single extra instruction.</p>
+          <p class="data">From the data: month-to-month is 55% of customers and 88.6% of churn.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Sell the commitment and the support at the counter</h3>
+          <p>Customers on longer plans and customers with support or extra services leave far less. At the point of sale that means offering a longer validity plan with a real reason to take it, and making setup help and a support channel part of every home internet sale rather than an extra. For a product like home internet, installation and the first week of help are the support.</p>
+          <p class="data">From the data: two-year contracts 2.8% churn; fiber without support 55% against 24.5% with it.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Make staying automatic</h3>
+          <p>Every manual payment is a monthly moment to reconsider. I would push auto renewal and wallet based auto pay at the time of sale, and give a small, clear reason to switch on it, such as a bonus on the first auto renewal.</p>
+          <p class="data">From the data: electronic check 45.3% churn against 15 to 17% for automatic payment.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Turn the score into a weekly call list</h3>
+          <p>A risk score is only useful if someone acts on it on Monday morning. I already run a morning brief with an action list for my supervisors in the RSSP tracker I built. The churn score would sit in the same place: each supervisor gets the 4 and 5 point customers in their area, with the reason they are flagged, and logs the outcome of each call.</p>
+          <p class="data">From the data: the 4 to 5 point group is 21% of customers and 51% of churn.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Prove it with a test before rolling it out</h3>
+          <p>I would run the first 90 day programme in half of the areas and keep the other half as they are, then compare how many new customers are still active after three months. If the difference is real, roll it out to every area. If not, the data saved us from spending the field's time on the wrong thing.</p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="translate">
+      <h3>What changes in a market like Bangladesh</h3>
+      <p>This dataset is a US postpaid business with contracts and monthly bills. Most mobile customers in Bangladesh are prepaid, so a customer rarely cancels. They simply stop recharging and the SIM goes quiet. That means churn has to be defined from behaviour, for example no recharge or usage for a set number of days, and the warning signs are falling recharge amounts and days since the last recharge, not a contract type.</p>
+      <p>The lessons still carry over. The first weeks matter most, a thin bundle is easy to leave, a customer who recharges by hand decides again every time, and the people best placed to keep a customer are the ones who sold to them.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block limits" id="limits">
+  <div class="wrap read">
+    <span class="num">05 · LIMITS AND NEXT STEPS</span>
+    <h2>What this analysis can and can't say</h2>
+    <ul>
+      <li><b>It is a snapshot.</b> Each row shows a customer at one point in time, so the tenure results compare different customers, not the same customers over time.</li>
+      <li><b>These are patterns, not causes.</b> Electronic check users may differ in ways the data doesn't show. The way to know whether moving them to auto pay helps is a test, like the one above.</li>
+      <li><b>The company is fictional.</b> The patterns are realistic for a US postpaid telecom, but the numbers should not be read as any real operator's figures.</li>
+      <li><b>The score is rules, not a model.</b> That is deliberate, so a supervisor can check it by hand. My next step is a logistic regression in Python to see how much better a model ranks customers than these five rules, and whether that gain is worth the loss in simplicity.</li>
+    </ul>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/imtiaz99000/portfolio-site/blob/main/churn/churn_analysis.sql" target="_blank" rel="noopener">Read the full SQL file</a>
+      <a class="btn" href="/#projects">Back to all projects</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="contact" id="contact">
+  <div class="wrap">
+    <h2>Looking for someone who knows both the field and the data?</h2>
+    <p>I'm open to business analyst and analytics roles where operations experience counts. The quickest way to reach me is LinkedIn or WhatsApp.</p>
+    <div class="cta">
+      <a class="btn primary" data-link="linkedin" href="#">Message me on LinkedIn</a>
+      <a class="btn" data-link="whatsapp" href="#">WhatsApp</a>
+      <a class="btn" href="https://github.com/imtiaz99000" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <div class="foot"><span>© 2026 Mohd Imtiaz Karim, Chandpur, Bangladesh</span><span>Data: IBM Telco Customer Churn sample via Kaggle.</span></div>
+  </div>
+</footer>
+
+<script>
+var CONTACT={linkedin:'https://www.linkedin.com/in/mohdimtiazkarim/',phone:'+8801833183477'};
+(function(){
+  var wa='https://wa.me/'+CONTACT.phone.replace(/\D/g,'');
+  document.querySelectorAll('[data-link]').forEach(function(a){var k=a.getAttribute('data-link');
+    if(k==='linkedin'){a.href=CONTACT.linkedin;a.target='_blank';a.rel='noopener'}
+    if(k==='whatsapp'){a.href=wa;a.target='_blank';a.rel='noopener'}});
+  var top=document.getElementById('top');addEventListener('scroll',function(){top.classList.toggle('scrolled',scrollY>8)},{passive:true});
+})();
+</script>
+</body>
+</html>
