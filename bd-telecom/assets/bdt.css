@@ -186,5 +186,12 @@ html[lang="bn"] .stepsv li::before{content:counter(s,bengali)}
 .chart .schart text.lbl{font-weight:700;fill:var(--ink)}
 .chart .schart text.note{font-size:11.5px}
 .prose code{font-family:ui-monospace,Menlo,Consolas,monospace;background:var(--band);padding:1px 6px;border-radius:6px;font-size:.95em}
+.prose table.law{margin:12px 0 18px;font-size:.95rem}
+.prose table.law th,.prose table.law td{text-align:left;white-space:normal;vertical-align:top;padding:9px 10px}
+.prose table.law td:first-child{white-space:nowrap;color:var(--muted)}
+.prose table.law td:last-child{font-weight:600}
+.prose .tablewrap{border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.btns.inprose{margin:14px 0 6px}
+@media (max-width:600px){.prose table.law thead{display:none}.prose table.law tr{display:block;padding:10px 12px;border-bottom:1px solid var(--line)}.prose table.law td{display:block;border:0;padding:2px 0}.prose table.law td:first-child::before{content:"§ "}.prose table.law tr:last-child{border-bottom:0}}
 
 .chart svg.schart{display:block;width:100%;height:auto}
