@@ -221,3 +221,13 @@ table.dir tr[hidden]{display:none!important}
 .hp{display:block;height:100%;background:var(--accent)}
 .hv span{color:var(--muted);font-size:.88rem}
 @media (max-width:480px){.hb{grid-template-columns:76px 1fr auto;gap:8px;font-size:.88rem}}
+.tiles.kpis{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+.tile.kpi .meta{margin-top:auto;padding-top:10px;font-size:.78rem;color:var(--faint,var(--muted));line-height:1.35}
+.tile.kpi.wait{border-style:dashed}
+.tile.kpi.wait .v{font-size:1rem}
+.tile.kpi .pill{background:var(--band);color:var(--muted);font-size:.8rem}
+.jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px}
+.jump a{font-size:.9rem;padding:6px 12px;border:1px solid var(--line);border-radius:99px;text-decoration:none;color:var(--ink);background:var(--surface)}
+.jump a:hover{border-color:var(--accent)}
+.tile.kpi .l .badge{width:20px;height:20px;font-size:8.5px;vertical-align:-4px;margin-right:4px}
+@media (max-width:640px){.tiles.kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.tile.kpi{padding:12px}.tile.kpi .v{font-size:1.45rem}}

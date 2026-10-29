@@ -1,0 +1,121 @@
+{
+ "_note": "KPIs filled from files the owner sends each month. value null = awaiting data. Add {period, value, source, updated} to 'series' as files arrive.",
+ "kpis": [
+  {
+   "id": "qos_4g_dl",
+   "group": "qos",
+   "en": "4G average download speed (network)",
+   "bn": "4G গড় ডাউনলোড গতি (নেটওয়ার্ক)",
+   "unit": "Mbps",
+   "target": "≥ 3.5 Mbps",
+   "target_bn": "≥ ৩.৫ Mbps",
+   "per_operator": true,
+   "series": []
+  },
+  {
+   "id": "qos_drop",
+   "group": "qos",
+   "en": "2G call drop rate (network)",
+   "bn": "2G কল ড্রপ হার (নেটওয়ার্ক)",
+   "unit": "%",
+   "target": "≤ 1%",
+   "target_bn": "≤ ১%",
+   "per_operator": true,
+   "series": []
+  },
+  {
+   "id": "qos_cssr",
+   "group": "qos",
+   "en": "2G call setup success (network)",
+   "bn": "2G কল সেটআপ সাফল্য (নেটওয়ার্ক)",
+   "unit": "%",
+   "target": "≥ 99%",
+   "target_bn": "≥ ৯৯%",
+   "per_operator": true,
+   "series": []
+  },
+  {
+   "id": "qos_drive_dl",
+   "group": "qos",
+   "en": "4G speed in drive tests",
+   "bn": "ড্রাইভ টেস্টে 4G গতি",
+   "unit": "Mbps",
+   "target": "> 10 Mbps",
+   "target_bn": "> ১০ Mbps",
+   "per_operator": true,
+   "series": []
+  },
+  {
+   "id": "fin_rev",
+   "group": "fin",
+   "en": "Revenue (quarter)",
+   "bn": "রেভিনিউ (ত্রৈমাসিক)",
+   "unit": "Tk crore",
+   "per_operator": true,
+   "series": []
+  },
+  {
+   "id": "fin_arpu",
+   "group": "fin",
+   "en": "ARPU (monthly)",
+   "bn": "ARPU (মাসিক)",
+   "unit": "Tk",
+   "per_operator": true,
+   "series": []
+  },
+  {
+   "id": "fin_ebitda",
+   "group": "fin",
+   "en": "EBITDA margin",
+   "bn": "EBITDA মার্জিন",
+   "unit": "%",
+   "per_operator": true,
+   "series": []
+  },
+  {
+   "id": "fin_capex",
+   "group": "fin",
+   "en": "Capex (quarter)",
+   "bn": "ক্যাপেক্স (ত্রৈমাসিক)",
+   "unit": "Tk crore",
+   "per_operator": true,
+   "series": []
+  },
+  {
+   "id": "inf_4g",
+   "group": "inf",
+   "en": "4G sites",
+   "bn": "4G সাইট",
+   "unit": "sites",
+   "per_operator": true,
+   "series": []
+  },
+  {
+   "id": "inf_5g",
+   "group": "inf",
+   "en": "5G sites",
+   "bn": "5G সাইট",
+   "unit": "sites",
+   "per_operator": true,
+   "series": []
+  },
+  {
+   "id": "inf_bw",
+   "group": "inf",
+   "en": "International internet bandwidth in use",
+   "bn": "ব্যবহৃত আন্তর্জাতিক ইন্টারনেট ব্যান্ডউইথ",
+   "unit": "Gbps",
+   "per_operator": false,
+   "series": []
+  },
+  {
+   "id": "inf_mnp",
+   "group": "inf",
+   "en": "Numbers ported (MNP, month)",
+   "bn": "নম্বর পোর্ট (MNP, মাসে)",
+   "unit": "numbers",
+   "per_operator": false,
+   "series": []
+  }
+ ]
+}
