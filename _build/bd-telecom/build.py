@@ -53,6 +53,7 @@ ICON = {
  'info': '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
  'alert': '<path d="M12 3l10 18H2z"/><path d="M12 10v4M12 17h.01"/>',
  'download': '<path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/>',
+ 'layers': '<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/><path d="M3 17.5l9 5 9-5"/>',
  'code': '<path d="M8 6l-6 6 6 6"/><path d="M16 6l6 6-6 6"/>',
 }
 def ic(name): return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">%s</svg>' % ICON[name]

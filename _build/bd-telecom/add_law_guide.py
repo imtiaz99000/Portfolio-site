@@ -3,8 +3,8 @@ INFO='<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-wi
 WARN='<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3l10 18H2z"/><path d="M12 10v4M12 17h.01"/></svg></span>'
 DL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>'
 PDF='/bd-telecom/docs/telecom-amendment-act-2026.pdf'
-def table(h, rows):
-    return '<div class="tablewrap"><table class="law"><thead><tr>'+''.join('<th>%s</th>'%x for x in h)+'</tr></thead><tbody>'+''.join('<tr>'+''.join('<td>%s</td>'%c for c in r)+'</tr>' for r in rows)+'</tbody></table></div>'
+def table(h, rows, sec=False):
+    return '<div class="tablewrap"><table class="law'+(' sec' if sec else '')+'"><thead><tr>'+''.join('<th>%s</th>'%x for x in h)+'</tr></thead><tbody>'+''.join('<tr>'+''.join('<td>%s</td>'%c for c in r)+'</tr>' for r in rows)+'</tbody></table></div>'
 
 en = f'''<div class="callout">{INFO}<p><b>In short:</b> Act No. 51 of 2026 rewrites large parts of the Bangladesh Telecommunication Regulation Act, 2001. It was passed by Parliament, received the President's assent on 10 April 2026, and counts as in force from 5 February 2026. It replaces the 2026 ordinance on the same subject.</p></div>
 <div class="btns inprose"><a class="btn primary" href="{PDF}" download>{DL}<span>Download the gazette (PDF, Bangla)</span></a></div>
@@ -38,7 +38,7 @@ en = f'''<div class="callout">{INFO}<p><b>In short:</b> Act No. 51 of 2026 rewri
 ['71','Wiretapping two or more people; surveillance or harassment using SIM or device registration data','2 years, Tk 1.5 crore, or both'],
 ['72A','Running a network or disrupting service without approval; cyber attacks on networks; posing as someone else to get call records or user data','5 years, Tk 49 crore, or both'],
 ['40','An operator renting out its licensed network commercially without a BTRC permit','3 years or Tk 75 crore (5 years for repeat offences)'],
-])}
+],sec=True)}
 <p>Most offences under the Act can be investigated without a warrant (cognizable). All except the national-security offence in section 66A(1)(a) are bailable and can be settled by compensation and an administrative fine (section 77). Mobile courts can also impose penalties (section 79).</p>
 <h2>What changes for operators and BTRC</h2>
 <ul>
@@ -86,7 +86,7 @@ bn = f'''<div class="callout">{INFO}<p><b>সংক্ষেপে:</b> ২০�
 ['৭১','দুই বা ততোধিক ব্যক্তির আলাপে আড়ি পাতা; SIM বা ডিভাইস রেজিস্ট্রেশনের তথ্য দিয়ে নজরদারি বা হয়রানি','২ বছর, দেড় কোটি টাকা, বা উভয়'],
 ['৭২ক','অনুমোদন ছাড়া নেটওয়ার্ক চালানো বা সেবায় বিঘ্ন; নেটওয়ার্কে সাইবার হামলা; ছদ্মবেশে কল রেকর্ড বা গ্রাহকের তথ্য সংগ্রহ','৫ বছর, ৪৯ কোটি টাকা, বা উভয়'],
 ['৪০','BTRC এর পারমিট ছাড়া অপারেটরের লাইসেন্সকৃত নেটওয়ার্ক বাণিজ্যিকভাবে অন্যকে ব্যবহার করতে দেওয়া','৩ বছর বা ৭৫ কোটি টাকা (পুনরায় করলে ৫ বছর)'],
-])}
+],sec=True)}
 <p>এই আইনের বেশিরভাগ অপরাধ আমলযোগ্য। ধারা ৬৬ক(১)(ক) এর জাতীয় নিরাপত্তা সংক্রান্ত অপরাধ ছাড়া সব অপরাধ জামিনযোগ্য, আর ক্ষতিপূরণ ও প্রশাসনিক জরিমানা দিয়ে আপোষযোগ্য (ধারা ৭৭)। মোবাইল কোর্টও দণ্ড দিতে পারবে (ধারা ৭৯)।</p>
 <h2>অপারেটর আর BTRC এর জন্য কী বদলেছে</h2>
 <ul>
@@ -102,14 +102,18 @@ bn = f'''<div class="callout">{INFO}<p><b>সংক্ষেপে:</b> ২০�
 </ul>
 <div class="callout warn">{WARN}<p>এটা গেজেটের সহজ ভাষার সারাংশ, আইনি পরামর্শ নয়। অনেক খুঁটিনাটি পরে বিধি ও প্রবিধানে আসবে। আপনার সাথে সরাসরি সম্পর্কিত বিষয়ে মূল গেজেট পড়ুন বা আইনজীবীর পরামর্শ নিন।</p></div>'''
 
-g = dict(slug='telecom-amendment-act-2026', icon='book', color='--gp',
-  title_en='Bangladesh Telecommunication (Amendment) Act, 2026, explained',
-  title_bn='বাংলাদেশ টেলিযোগাযোগ (সংশোধন) আইন, ২০২৬: সহজ ভাষায়',
-  sum_en='What the 2026 amendment changes for users, operators and BTRC: no internet shutdowns, complaint deadlines, interception rules, new penalties and licensing.',
-  sum_bn='২০২৬ এর সংশোধনী গ্রাহক, অপারেটর আর BTRC এর জন্য কী বদলেছে: ইন্টারনেট বন্ধে নিষেধাজ্ঞা, অভিযোগের সময়সীমা, ইন্টারসেপশনের নিয়ম, নতুন শাস্তি ও লাইসেন্স।',
-  sources=[['Bangladesh Gazette, Extraordinary, 10 April 2026: Act No. 51 of 2026 (PDF)', PDF]],
-  body_en=en, body_bn=bn)
-G = json.load(open('guides.json', encoding='utf8'))
-G = [x for x in G if x['slug'] != g['slug']]; G.insert(0, g)
-json.dump(G, open('guides.json', 'w', encoding='utf8'), ensure_ascii=False, indent=0)
-print(len(G), 'guides')
+def main():
+    g = dict(slug='telecom-amendment-act-2026', icon='book', color='--gp',
+      title_en='Bangladesh Telecommunication (Amendment) Act, 2026, explained',
+      title_bn='বাংলাদেশ টেলিযোগাযোগ (সংশোধন) আইন, ২০২৬: সহজ ভাষায়',
+      sum_en='What the 2026 amendment changes for users, operators and BTRC: no internet shutdowns, complaint deadlines, interception rules, new penalties and licensing.',
+      sum_bn='২০২৬ এর সংশোধনী গ্রাহক, অপারেটর আর BTRC এর জন্য কী বদলেছে: ইন্টারনেট বন্ধে নিষেধাজ্ঞা, অভিযোগের সময়সীমা, ইন্টারসেপশনের নিয়ম, নতুন শাস্তি ও লাইসেন্স।',
+      sources=[['Bangladesh Gazette, Extraordinary, 10 April 2026: Act No. 51 of 2026 (PDF)', PDF]],
+      body_en=en, body_bn=bn)
+    G = json.load(open('guides.json', encoding='utf8'))
+    G = [x for x in G if x['slug'] != g['slug']]; G.insert(0, g)
+    json.dump(G, open('guides.json', 'w', encoding='utf8'), ensure_ascii=False, indent=0)
+    print(len(G), 'guides')
+
+if __name__=='__main__':
+    main()
