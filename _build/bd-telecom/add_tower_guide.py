@@ -43,7 +43,7 @@ en=f'''<div class="callout">{INFO}<p><b>In short:</b> BTRC issued these guidelin
 <h2>Fees</h2>
 {table(['Fee','Amount (excluding VAT)'],fees_en)}
 <p>Late payment of the annual fee or revenue share costs 15% a year for up to 60 days. After that the licence can be cancelled (section 19.06). The bank guarantee is released 10% a year when that year's rollout target is met, or 10% is deducted if it is missed. The remaining 50% stays as security (section 24).</p>
-<h2>Who holds the licences</h2>
+<h2 id="licences">Who holds the licences</h2>
 <p>BTRC's list of tower sharing licensees as of <b>23 December 2024</b> shows four companies. All four licences are dated 1 November 2018 and valid until 31 October 2033, the full 15-year term.</p>
 {table(['Licensee','Licence number','Valid until'],lic_en)}
 <div class="btns inprose"><a class="btn" href="{LIST}" download>{DL}<span>Download BTRC's licensee list (PDF)</span></a></div>
@@ -83,7 +83,7 @@ bn=f'''<div class="callout">{INFO}<p><b>সংক্ষেপে:</b> সরক�
 <h2>ফি</h2>
 {table(['ফি','পরিমাণ (ভ্যাট ছাড়া)'],fees_bn)}
 <p>বার্ষিক ফি বা রেভিনিউ শেয়ার দেরিতে দিলে ৬০ দিন পর্যন্ত বছরে ১৫% হারে বিলম্ব ফি। তারপরও না দিলে লাইসেন্স বাতিল হতে পারে (অনুচ্ছেদ ১৯.০৬)। প্রতি বছরের রোলআউট লক্ষ্য পূরণ হলে ব্যাংক গ্যারান্টির ১০% ফেরত দেওয়া হয়, আর না হলে ১০% কেটে নেওয়া হয়। বাকি ৫০% জামানত হিসেবে থাকে (অনুচ্ছেদ ২৪)।</p>
-<h2>কারা লাইসেন্স ধারণ করছে</h2>
+<h2 id="licences">কারা লাইসেন্স ধারণ করছে</h2>
 <p><b>২৩ ডিসেম্বর ২০২৪</b> পর্যন্ত BTRC এর টাওয়ার শেয়ারিং লাইসেন্সধারীর তালিকায় চারটি প্রতিষ্ঠান আছে। চারটি লাইসেন্সই ১ নভেম্বর ২০১৮ তারিখের, আর পুরো ১৫ বছর মেয়াদে ৩১ অক্টোবর ২০৩৩ পর্যন্ত বৈধ।</p>
 {table(['লাইসেন্সধারী','লাইসেন্স নম্বর','মেয়াদ'],lic_bn)}
 <div class="btns inprose"><a class="btn" href="{LIST}" download>{DL}<span>BTRC এর লাইসেন্সধারী তালিকা ডাউনলোড (PDF)</span></a></div>

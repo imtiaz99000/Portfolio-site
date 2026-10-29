@@ -68,7 +68,7 @@ LOGO = ('<svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true"><def
         '<stop offset="1" stop-color="#F2A93B"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="#102A2B"/><path d="M12 44 C24 44 26 22 38 22 S50 34 54 20" '
         'stroke="url(#mg)" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="12" cy="44" r="5" fill="#0E8A86"/><circle cx="54" cy="20" r="5" fill="#F2A93B"/></svg>')
 NAV = [('dash', '/bd-telecom/', 'Dashboard', 'ড্যাশবোর্ড'), ('ops', '/bd-telecom/operators/', 'Operators', 'অপারেটর'),
-       ('data', '/bd-telecom/data/', 'Data', 'ডেটা'), ('guides', '/bd-telecom/guides/', 'Guides', 'গাইড')]
+       ('data', '/bd-telecom/data/', 'Data', 'ডেটা'), ('lic', '/bd-telecom/licensees/', 'Licensees', 'লাইসেন্সধারী'), ('guides', '/bd-telecom/guides/', 'Guides', 'গাইড')]
 def header(active):
     nav = ''.join('<a href="%s"%s>%s</a>' % (u, ' aria-current="page"' if k == active else '', T(e, b)) for k, u, e, b in NAV)
     return ('<div class="top"><div class="wrap">\n  <a class="mark" href="/" aria-label="Mohd Imtiaz Karim, home">%s<span>%s</span></a>\n'
@@ -260,9 +260,11 @@ def build():
           'Simple guides to SIM limits, checking SIMs on your NID and checking if a phone is legal under NEIR in Bangladesh.', body, default_lang='bn',
           crumbs=[('/bd-telecom/', 'BD Telecom', 'BD Telecom')]))
 
+    import licensees, sys
+    licpages = licensees.build_licensees(sys.modules[__name__])
     # sitemap + robots for the whole site
     pages = ['', 'tools/pdf-squeeze/', 'tools/pixelshrink/', 'rssp-demo/', 'bd-telecom/', 'bd-telecom/operators/', 'bd-telecom/data/', 'bd-telecom/guides/'] + \
-            ['bd-telecom/operators/%s/' % o['slug'] for o in OPS] + ['bd-telecom/guides/%s/' % g['slug'] for g in guides]
+            ['bd-telecom/operators/%s/' % o['slug'] for o in OPS] + ['bd-telecom/guides/%s/' % g['slug'] for g in guides] + licpages
     if os.path.isdir(os.path.join(SITE, 'churn')): pages.append('churn/')
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join('  <url><loc>https://imtiazkarim.com/%s</loc></url>\n' % p for p in pages) + '</urlset>\n'
     open(os.path.join(SITE, 'sitemap.xml'), 'w').write(sm)
