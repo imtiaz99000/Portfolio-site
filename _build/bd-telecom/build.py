@@ -53,6 +53,7 @@ ICON = {
  'info': '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
  'alert': '<path d="M12 3l10 18H2z"/><path d="M12 10v4M12 17h.01"/>',
  'download': '<path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/>',
+ 'shield': '<path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z"/><path d="M9 12l2 2 4-4"/>',
  'layers': '<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/><path d="M3 17.5l9 5 9-5"/>',
  'code': '<path d="M8 6l-6 6 6 6"/><path d="M16 6l6 6-6 6"/>',
 }
@@ -249,8 +250,8 @@ def build():
             T('Rules change. Check with BTRC (helpline 100) or your operator (121) before acting.', 'নিয়ম বদলাতে পারে। কিছু করার আগে BTRC (হেল্পলাইন ১০০) বা আপনার অপারেটরের (১২১) সাথে মিলিয়ে নিন।'))
         write('guides/%s/index.html' % g['slug'], page('guides/%s/' % g['slug'], 'guides', g['title_en'] + ' | BD Telecom', g['title_bn'] + ' | BD Telecom', g['sum_en'], gb, default_lang='bn',
               crumbs=[('/bd-telecom/', 'BD Telecom', 'BD Telecom'), ('/bd-telecom/guides/', 'Guides', 'গাইড')]))
-    body = '<header class="pagehead"><h1>%s</h1><p class="dek">%s</p></header><div class="cards">%s</div>' % (
-        T('Telecom guides for Bangladesh', 'বাংলাদেশের টেলিকম গাইড'), T('Plain-language answers to common questions about SIMs, handsets and mobile rules, with sources.', 'SIM, হ্যান্ডসেট আর মোবাইলের নিয়ম নিয়ে সাধারণ প্রশ্নের সহজ উত্তর, সূত্র সহ।'), cards)
+    body = '<header class="pagehead"><h1>%s</h1><p class="dek">%s</p></header><div class="cards g3">%s</div>' % (
+        T('Telecom guides for Bangladesh', 'বাংলাদেশের টেলিকম গাইড'), T('Plain-language guides to telecom laws, policies, SIMs and handsets in Bangladesh, with sources.', 'বাংলাদেশের টেলিকম আইন, নীতিমালা, SIM আর হ্যান্ডসেট নিয়ে সহজ ভাষার গাইড, সূত্র সহ।'), cards)
     write('guides/index.html', page('guides/', 'guides', 'Telecom guides for Bangladesh | BD Telecom', 'বাংলাদেশের টেলিকম গাইড | BD Telecom',
           'Simple guides to SIM limits, checking SIMs on your NID and checking if a phone is legal under NEIR in Bangladesh.', body, default_lang='bn',
           crumbs=[('/bd-telecom/', 'BD Telecom', 'BD Telecom')]))
