@@ -72,7 +72,7 @@ def header(active):
             '<button class="ctl icon" id="themeBtn" type="button" aria-label="Switch light or dark mode"></button></div>\n</div></div>') % (LOGO, T('Mohd Imtiaz Karim', 'মোহাম্মদ ইমতিয়াজ করিম'), nav)
 
 FAVICON = open(os.path.join(HERE, 'dashboard.tpl.html')).read().split('<link rel="icon" href="')[1].split('"')[0]
-FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">'
+FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&family=Anek+Bangla:wght@400;500;600;700&display=swap" rel="stylesheet">'
 
 def page(path, active, title_en, title_bn, desc_en, body, default_lang='en', crumbs=None):
     url = 'https://imtiazkarim.com/bd-telecom/' + path
