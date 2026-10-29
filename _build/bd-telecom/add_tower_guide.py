@@ -1,6 +1,9 @@
 import json
 from add_law_guide import table, INFO, WARN, DL
 PDF='/bd-telecom/docs/tower-sharing-licensing-guidelines-2018.pdf'
+LIST='/bd-telecom/docs/tower-sharing-licensees-2024-12.pdf'
+lic_en=[['edotco Bangladesh Co. Limited','14.32.0000.702.44.205.18.01','31 Oct 2033'],['Summit Towers Limited','14.32.0000.702.44.204.18.02','31 Oct 2033'],['Kirtonkhola Tower Bangladesh Limited','14.32.0000.702.44.203.18.03','31 Oct 2033'],['Frontier Towers Bangladesh Ltd.','14.32.0000.702.44.206.18.04','31 Oct 2033']]
+lic_bn=[['edotco Bangladesh Co. Limited','১৪.৩২.০০০০.৭০২.৪৪.২০৫.১৮.০১','৩১ অক্টোবর ২০৩৩'],['Summit Towers Limited','১৪.৩২.০০০০.৭০২.৪৪.২০৪.১৮.০২','৩১ অক্টোবর ২০৩৩'],['Kirtonkhola Tower Bangladesh Limited','১৪.৩২.০০০০.৭০২.৪৪.২০৩.১৮.০৩','৩১ অক্টোবর ২০৩৩'],['Frontier Towers Bangladesh Ltd.','১৪.৩২.০০০০.৭০২.৪৪.২০৬.১৮.০৪','৩১ অক্টোবর ২০৩৩']]
 DS='https://www.thedailystar.net/business/news/four-firms-get-tower-licences-1655044'
 fees_en=[['Application / processing fee','Tk 5 lakh'],['Licence acquisition fee (one time, within 30 days of the award)','Tk 25 crore'],['Annual licence fee (from the 2nd year)','Tk 5 crore'],['Gross revenue sharing','0% in the 1st year, 5.5% from the 2nd year'],['Social Obligation Fund','1% from the 2nd year'],['Performance bank guarantee (5-year validity)','Tk 20 crore'],['Offer security money','Tk 1 crore']]
 fees_bn=[['আবেদন / প্রসেসিং ফি','৫ লাখ টাকা'],['লাইসেন্স অ্যাকুইজিশন ফি (একবার, নির্বাচনের ৩০ দিনের মধ্যে)','২৫ কোটি টাকা'],['বার্ষিক লাইসেন্স ফি (২য় বছর থেকে)','৫ কোটি টাকা'],['গ্রস রেভিনিউ শেয়ারিং','১ম বছরে ০%, ২য় বছর থেকে ৫.৫%'],['সোশ্যাল অবলিগেশন ফান্ড','২য় বছর থেকে ১%'],['পারফরম্যান্স ব্যাংক গ্যারান্টি (৫ বছর মেয়াদি)','২০ কোটি টাকা'],['অফার সিকিউরিটি মানি','১ কোটি টাকা']]
@@ -40,8 +43,11 @@ en=f'''<div class="callout">{INFO}<p><b>In short:</b> BTRC issued these guidelin
 <h2>Fees</h2>
 {table(['Fee','Amount (excluding VAT)'],fees_en)}
 <p>Late payment of the annual fee or revenue share costs 15% a year for up to 60 days. After that the licence can be cancelled (section 19.06). The bank guarantee is released 10% a year when that year's rollout target is met, or 10% is deducted if it is missed. The remaining 50% stays as security (section 24).</p>
-<h2>Who got the licences</h2>
-<p>In October 2018 BTRC gave licences to four of the eight applicants: <b>edotco Bangladesh</b>, <b>Summit Tower Limited</b>, <b>Kirtonkhola Tower Bangladesh</b> and <b>AB Hightech Consortium</b>. By then Robi had already sold most of its towers to edotco, its sister company (The Daily Star, 1 November 2018).</p>
+<h2>Who holds the licences</h2>
+<p>BTRC's list of tower sharing licensees as of <b>23 December 2024</b> shows four companies. All four licences are dated 1 November 2018 and valid until 31 October 2033, the full 15-year term.</p>
+{table(['Licensee','Licence number','Valid until'],lic_en)}
+<div class="btns inprose"><a class="btn" href="{LIST}" download>{DL}<span>Download BTRC's licensee list (PDF)</span></a></div>
+<p>When the licences were awarded in October 2018, news reports named <b>AB Hightech Consortium</b> as the fourth winner, alongside edotco, Summit and Kirtonkhola. BTRC's 2024 list shows <b>Frontier Towers Bangladesh Ltd.</b> in fourth place instead. By 2018 Robi had already sold most of its towers to edotco, its sister company (The Daily Star, 1 November 2018).</p>
 <div class="callout warn">{WARN}<p>This is a plain-language summary of the BTRC guidelines, not legal advice. BTRC can amend them at any time with 30 days' notice to licensees (section 35).</p></div>'''
 
 bn=f'''<div class="callout">{INFO}<p><b>সংক্ষেপে:</b> সরকারের অনুমোদন নিয়ে BTRC এই গাইডলাইন জারি করেছে ১ এপ্রিল ২০১৮ এ। এতে টাওয়ার বানানো, কেনা আর ভাড়া দেওয়ার জন্য আলাদা লাইসেন্স তৈরি হয়। মোবাইল অপারেটরদের নিজেদের মধ্যে টাওয়ার ভাড়া দেওয়া বন্ধ করে পাঁচ বছরে এলাকা ধরে ধরে সেই কাজ টাওয়ার কোম্পানির হাতে দিতে হয়।</p></div>
@@ -77,8 +83,11 @@ bn=f'''<div class="callout">{INFO}<p><b>সংক্ষেপে:</b> সরক�
 <h2>ফি</h2>
 {table(['ফি','পরিমাণ (ভ্যাট ছাড়া)'],fees_bn)}
 <p>বার্ষিক ফি বা রেভিনিউ শেয়ার দেরিতে দিলে ৬০ দিন পর্যন্ত বছরে ১৫% হারে বিলম্ব ফি। তারপরও না দিলে লাইসেন্স বাতিল হতে পারে (অনুচ্ছেদ ১৯.০৬)। প্রতি বছরের রোলআউট লক্ষ্য পূরণ হলে ব্যাংক গ্যারান্টির ১০% ফেরত দেওয়া হয়, আর না হলে ১০% কেটে নেওয়া হয়। বাকি ৫০% জামানত হিসেবে থাকে (অনুচ্ছেদ ২৪)।</p>
-<h2>কারা লাইসেন্স পেয়েছে</h2>
-<p>অক্টোবর ২০১৮ এ BTRC আটটি আবেদনকারীর মধ্যে চারটিকে লাইসেন্স দেয়: <b>edotco Bangladesh</b>, <b>Summit Tower Limited</b>, <b>Kirtonkhola Tower Bangladesh</b> আর <b>AB Hightech Consortium</b>। ততদিনে রবি তার বেশিরভাগ টাওয়ার সহযোগী প্রতিষ্ঠান edotco এর কাছে বিক্রি করে দিয়েছিল (দ্য ডেইলি স্টার, ১ নভেম্বর ২০১৮)।</p>
+<h2>কারা লাইসেন্স ধারণ করছে</h2>
+<p><b>২৩ ডিসেম্বর ২০২৪</b> পর্যন্ত BTRC এর টাওয়ার শেয়ারিং লাইসেন্সধারীর তালিকায় চারটি প্রতিষ্ঠান আছে। চারটি লাইসেন্সই ১ নভেম্বর ২০১৮ তারিখের, আর পুরো ১৫ বছর মেয়াদে ৩১ অক্টোবর ২০৩৩ পর্যন্ত বৈধ।</p>
+{table(['লাইসেন্সধারী','লাইসেন্স নম্বর','মেয়াদ'],lic_bn)}
+<div class="btns inprose"><a class="btn" href="{LIST}" download>{DL}<span>BTRC এর লাইসেন্সধারী তালিকা ডাউনলোড (PDF)</span></a></div>
+<p>অক্টোবর ২০১৮ এ লাইসেন্স দেওয়ার সময় সংবাদমাধ্যমে edotco, Summit আর Kirtonkhola এর পাশাপাশি চতুর্থ হিসেবে <b>AB Hightech Consortium</b> এর নাম এসেছিল। BTRC এর ২০২৪ এর তালিকায় চতুর্থ স্থানে আছে <b>Frontier Towers Bangladesh Ltd.</b>। ২০১৮ সালের মধ্যেই রবি তার বেশিরভাগ টাওয়ার সহযোগী প্রতিষ্ঠান edotco এর কাছে বিক্রি করে দিয়েছিল (দ্য ডেইলি স্টার, ১ নভেম্বর ২০১৮)।</p>
 <div class="callout warn">{WARN}<p>এটা BTRC গাইডলাইনের সহজ ভাষার সারাংশ, আইনি পরামর্শ নয়। লাইসেন্সধারীদের ৩০ দিনের নোটিশ দিয়ে BTRC যেকোনো সময় এটি সংশোধন করতে পারে (অনুচ্ছেদ ৩৫)।</p></div>'''
 
 g=dict(slug='tower-sharing-licensing-guidelines-2018',icon='tower',color='--amber',
@@ -86,7 +95,7 @@ g=dict(slug='tower-sharing-licensing-guidelines-2018',icon='tower',color='--ambe
  title_bn='বাংলাদেশে টাওয়ার শেয়ারিং: BTRC লাইসেন্সিং গাইডলাইন ২০১৮, সহজ ভাষায়',
  sum_en='How BTRC moved mobile towers to four tower companies: who could apply, what they can do, the five-year rollout, fees, and what changed for operators.',
  sum_bn='BTRC কীভাবে মোবাইল টাওয়ার চার টাওয়ার কোম্পানির হাতে দিল: কারা আবেদন করতে পারত, কী করতে পারে, পাঁচ বছরের রোলআউট, ফি আর অপারেটরদের যা বদলেছে।',
- sources=[['BTRC: Regulatory and Licensing Guidelines for Issuing License for Tower Sharing in Bangladesh, 1 April 2018 (PDF)',PDF],['The Daily Star: Four firms get tower licences (1 November 2018)',DS]],
+ sources=[['BTRC: Tower Sharing License List as on 23-12-2024 (PDF)',LIST],['BTRC: Regulatory and Licensing Guidelines for Issuing License for Tower Sharing in Bangladesh, 1 April 2018 (PDF)',PDF],['The Daily Star: Four firms get tower licences (1 November 2018)',DS]],
  body_en=en,body_bn=bn)
 G=json.load(open('guides.json',encoding='utf8'))
 G=[x for x in G if x['slug']!=g['slug']]; G.insert(2,g)
