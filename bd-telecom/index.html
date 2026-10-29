@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bangladesh Mobile Market 2024–2026 | Mohd Imtiaz Karim</title>
+<meta name="description" content="Two years of BTRC subscriber data: how Bangladesh's mobile market shrank to a low in January 2026 and recovered, operator by operator. Analysis by Mohd Imtiaz Karim.">
+<link rel="canonical" href="https://imtiazkarim.com/bd-telecom/">
+<meta property="og:title" content="Bangladesh mobile market, Aug 2024 to Aug 2026">
+<meta property="og:description" content="BTRC data, cleaned and analysed with SQL: market shrink, recovery and operator share.">
+<meta property="og:image" content="https://imtiazkarim.com/bd-telecom/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light;
+  --paper:#F6FAF9; --surface:#FFFFFF; --ink:#102A2B; --muted:#56706F; --faint:#7C918F; --line:#D6E6E4; --grid:#E6EFEE;
+  --accent:#0A6664; --band:rgba(14,138,134,.08);
+  --gp:#2a78d6; --robi:#eb6834; --bl:#1baf7a; --tt:#eda100; --total:#0E8A86;
+  --up:#127a52; --down:#b3261e;
+  --display:'Space Grotesk',system-ui,sans-serif; --body:'Source Sans 3',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --paper:#0F1A1A; --surface:#152323; --ink:#E6F0EF; --muted:#A3B8B6; --faint:#7F9694; --line:#28403F; --grid:#203535;
+  --accent:#5CC9C3; --band:rgba(92,201,195,.09);
+  --gp:#3987e5; --robi:#d95926; --bl:#199e70; --tt:#c98500; --total:#3FB4AE; --up:#5fd3a0; --down:#ff8a80;
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#0F1A1A; --surface:#152323; --ink:#E6F0EF; --muted:#A3B8B6; --faint:#7F9694; --line:#28403F; --grid:#203535;
+  --accent:#5CC9C3; --band:rgba(92,201,195,.09);
+  --gp:#3987e5; --robi:#d95926; --bl:#199e70; --tt:#c98500; --total:#3FB4AE; --up:#5fd3a0; --down:#ff8a80;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.0625rem/1.6 var(--body);-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+h1,h2,h3{font-family:var(--display);line-height:1.12;margin:0;letter-spacing:-.01em}
+.top{border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:60px}
+.top a{font-family:var(--display);font-weight:600;color:var(--ink);text-decoration:none}
+.top .back{font-weight:500;color:var(--muted);font-size:.95rem}
+header.intro{padding:44px 0 28px}
+.kicker{font-family:var(--display);font-weight:600;color:var(--accent);font-size:.98rem;margin:0 0 12px}
+header.intro h1{font-size:clamp(1.9rem,4.6vw,3.1rem);font-weight:700;max-width:22ch;letter-spacing:-.025em}
+.dek{color:var(--muted);font-size:1.15rem;max-width:62ch;margin:16px 0 0}
+.meta{font-size:.92rem;color:var(--faint);margin-top:14px}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:8px 0 8px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 16px 14px}
+.tile .l{font-size:.92rem;color:var(--muted)}
+.tile .v{font-family:var(--display);font-weight:600;font-size:clamp(1.6rem,3.4vw,2.2rem);letter-spacing:-.02em;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+.tile .v small{font-size:.5em;color:var(--muted);font-weight:500;margin-left:3px}
+.tile .d{font-size:.9rem;color:var(--muted)}
+.tile .d b.up{color:var(--up)}.tile .d b.down{color:var(--down)}
+section.block{padding:30px 0 6px}
+.sechead{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 16px;margin-bottom:12px}
+.sechead h2{font-size:clamp(1.3rem,2.6vw,1.7rem)}
+.sechead p{margin:0;color:var(--muted);max-width:60ch}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 16px 14px;position:relative}
+.card h3{font-size:1.08rem;font-weight:600}
+.card .sub{color:var(--muted);font-size:.95rem;margin:2px 0 8px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.chart{position:relative;width:100%}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart text{font-family:var(--body);font-size:12px;fill:var(--muted)}
+.chart .axis line,.chart .grid line{stroke:var(--grid);stroke-width:1}
+.chart .lbl{font-weight:600;fill:var(--ink);font-size:12.5px}
+.chart .note{fill:var(--muted);font-size:12px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:4px 0 6px;font-size:.93rem;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{display:inline-block;width:16px;height:2.5px;border-radius:2px}
+.legend i.rect{width:11px;height:11px;border-radius:3px}
+.tip{position:absolute;pointer-events:none;z-index:5;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px;box-shadow:0 8px 24px -12px rgba(0,0,0,.35);font-size:.88rem;min-width:150px;opacity:0;transition:opacity .1s}
+.tip .m{color:var(--muted);font-size:.82rem;margin-bottom:4px}
+.tip .r{display:flex;align-items:center;gap:8px;justify-content:space-between}
+.tip .r span{display:inline-flex;align-items:center;gap:6px;color:var(--muted)}
+.tip .r i{width:12px;height:2.5px;border-radius:2px;display:inline-block}
+.tip .r b{font-variant-numeric:tabular-nums;color:var(--ink)}
+.findings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;counter-reset:f}
+.find{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.find b{font-family:var(--display);font-weight:600;display:block;margin-bottom:4px;font-size:1.05rem}
+.find p{margin:0;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:.93rem;font-variant-numeric:tabular-nums}
+th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{font-family:var(--display);font-weight:600;font-size:.86rem;color:var(--muted)}
+td.gap{color:var(--faint)}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+td .pos{color:var(--up);font-weight:600}td .neg{color:var(--down);font-weight:600}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 0}
+.btn{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:10px;border:1.5px solid var(--ink);color:var(--ink);text-decoration:none;font-family:var(--display);font-weight:600;font-size:.95rem;background:none;cursor:pointer}
+.btn.primary{background:var(--ink);color:var(--paper)}
+details.more{margin-top:12px}
+details.more summary{cursor:pointer;font-family:var(--display);font-weight:600;color:var(--accent)}
+.method{columns:2 320px;column-gap:28px;color:var(--muted)}
+.method p{margin:0 0 12px;break-inside:avoid}
+pre{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:.82rem;line-height:1.45;color:var(--ink)}
+footer{padding:36px 0 48px;color:var(--faint);font-size:.92rem;border-top:1px solid var(--line);margin-top:36px}
+@media (max-width:820px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2,.findings{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap"><a href="/">Mohd Imtiaz Karim</a><a class="back" href="/#projects">More projects</a></div></div>
+
+<main class="wrap">
+<header class="intro">
+  <p class="kicker">Data project · BTRC subscriber data, Aug 2024 to Aug 2026</p>
+  <h1>Bangladesh lost 6.6 million mobile subscriptions in 17 months, then won 5.3 million back</h1>
+  <p class="dek">I collected two years of the telecom regulator's monthly figures, checked every month against its published total, and analysed them with SQL. Here is how the market fell, where it bottomed, and which operators gained.</p>
+  <p class="meta">Figures are active mobile subscriptions in millions, as reported by BTRC. Last month in the data: <span id="lastMonth"></span>.</p>
+</header>
+
+<div class="tiles" id="tiles"></div>
+
+<section class="block">
+  <div class="sechead"><h2>The market fell, bottomed and recovered</h2><p>Total active mobile subscriptions, all four operators.</p></div>
+  <div class="card"><div class="chart" id="cTotal"></div></div>
+</section>
+
+<section class="block">
+  <div class="sechead"><h2>What the numbers say</h2></div>
+  <div class="findings" id="findings"></div>
+</section>
+
+<section class="block">
+  <div class="sechead"><h2>Operators</h2><p>Market share moves slowly, so the two-year change tells the story better.</p></div>
+  <div class="grid2">
+    <div class="card"><h3>Market share</h3><p class="sub">Share of active subscriptions, %</p><div class="legend" id="lgShare"></div><div class="chart" id="cShare"></div></div>
+    <div class="card"><h3>Two-year change</h3><p class="sub" id="chgSub">Net subscriptions gained or lost, millions</p><div class="chart" id="cChange"></div></div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <h3>Two very different periods</h3>
+    <p class="sub">Net change in millions. The second half of 2025 covers the clean-up after the SIM limit per NID was cut from 15 to 10; February to August 2026 is the recovery.</p>
+    <div class="tablewrap"><table id="tPeriods"></table></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="sechead"><h2>Internet subscriptions</h2><p>Different scales, so two charts instead of one with two axes.</p></div>
+  <div class="grid2">
+    <div class="card"><h3>Mobile internet</h3><p class="sub">Active mobile internet subscriptions, millions</p><div class="chart" id="cMob"></div></div>
+    <div class="card"><h3>Fixed broadband</h3><p class="sub">ISP and PSTN subscriptions, millions</p><div class="chart" id="cFix"></div></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="sechead"><h2>The data</h2><p>Every month, with its source. Blank cells are months where no published figure was found.</p></div>
+  <div class="card">
+    <div class="tablewrap"><table id="tData"></table></div>
+    <div class="btns">
+      <a class="btn primary" href="subscribers.csv" download>Download the CSV</a>
+      <a class="btn" href="analysis.sql" download>Download the SQL</a>
+    </div>
+    <details class="more"><summary>See the SQL queries</summary><pre id="sqlBox">Loading…</pre></details>
+  </div>
+</section>
+
+<section class="block">
+  <div class="sechead"><h2>How I built this</h2></div>
+  <div class="method">
+    <p><b>Collect.</b> BTRC publishes one month at a time, and older months are hard to find on its site. I took each month from the regulator's figures as reported by the Financial Express, The Business Standard, The Daily Star, Prothom Alo, Ittefaq and AMTOB, and noted the source for every row.</p>
+    <p><b>Validate.</b> For every month with an operator split, the four operators must add up to the published total. All 19 such months match within rounding. Where two outlets disagreed, the sum check decided: one outlet had swapped Robi's August and September 2025 figures.</p>
+    <p><b>Gaps.</b> No operator split was found for October and November 2024, January to March 2025 and April 2026, and some early months have no internet figures. They are left blank rather than estimated, and lines break across them.</p>
+    <p><b>Analyse.</b> The CSV loads into SQLite. The queries compute market share, two-year change, month-on-month net adds with a window function that skips gaps, and period comparisons. Charts are drawn in plain JavaScript from the same numbers.</p>
+    <p><b>Precision.</b> Months reported in crore are only exact to 0.1 million. A subscription is a biometric-verified SIM with activity in the last 90 days, so one person can hold several.</p>
+    <p><b>Disclosure.</b> I work at Robi Axiata. This project uses only public regulator data and makes no use of internal figures.</p>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">Analysis and dashboard by <a href="/">Mohd Imtiaz Karim</a> · Data: Bangladesh Telecommunication Regulatory Commission (BTRC), via the outlets listed in the table.</div></footer>
+
+<script>
+var DATA = [{"month":"2024-08","grameenphone":85.08,"robi":58.36,"banglalink":42.47,"teletalk":6.53,"total_mobile":192.43,"mobile_internet":null,"fixed_internet":null,"total_internet":null,"precision":0.01,"source":"Biz Data Insights (Jul-Aug 2024); Daily Star 26 Oct 2024"},{"month":"2024-09","grameenphone":84.8,"robi":57.9,"banglalink":41.6,"teletalk":6.52,"total_mobile":190.8,"mobile_internet":null,"fixed_internet":null,"total_internet":null,"precision":0.1,"source":"Daily Star (Sep 2024, figures in crore)"},{"month":"2024-10","grameenphone":null,"robi":null,"banglalink":null,"teletalk":null,"total_mobile":189.96,"mobile_internet":null,"fixed_internet":null,"total_internet":137.18,"precision":0.01,"source":"Biz Data Insights (Nov 2024 report)"},{"month":"2024-11","grameenphone":null,"robi":null,"banglalink":40.53,"teletalk":6.56,"total_mobile":188.78,"mobile_internet":119.0,"fixed_internet":13.7,"total_internet":132.8,"precision":0.1,"source":"Biz Data Insights; Daily Star (Nov 2024); FE 6 Dec 2025 for Banglalink and Teletalk"},{"month":"2024-12","grameenphone":84.5,"robi":56.7,"banglalink":39.8,"teletalk":6.56,"total_mobile":187.6,"mobile_internet":null,"fixed_internet":null,"total_internet":null,"precision":0.1,"source":"Daily Star: Mobile subscribers see slight dip in 2025 (Dec 2024 column)"},{"month":"2025-01","grameenphone":null,"robi":null,"banglalink":null,"teletalk":null,"total_mobile":186.59,"mobile_internet":116.0,"fixed_internet":14.0,"total_internet":130.0,"precision":1.0,"source":"TBS 15 Nov 2025 (total mobile); Prothom Alo 15 Mar 2025 (internet, approximate)"},{"month":"2025-02","grameenphone":null,"robi":null,"banglalink":null,"teletalk":null,"total_mobile":null,"mobile_internet":null,"fixed_internet":null,"total_internet":null,"precision":null,"source":""},{"month":"2025-03","grameenphone":null,"robi":null,"banglalink":null,"teletalk":null,"total_mobile":186.22,"mobile_internet":null,"fixed_internet":null,"total_internet":null,"precision":0.01,"source":"TBS 15 Nov 2025"},{"month":"2025-04","grameenphone":85.48,"robi":56.6,"banglalink":38.0,"teletalk":6.56,"total_mobile":186.64,"mobile_internet":116.54,"fixed_internet":14.32,"total_internet":130.86,"precision":0.01,"source":"Financial Express 11 Jul 2025"},{"month":"2025-05","grameenphone":86.17,"robi":56.98,"banglalink":37.88,"teletalk":6.58,"total_mobile":187.61,"mobile_internet":117.68,"fixed_internet":14.32,"total_internet":132.0,"precision":0.01,"source":"Financial Express 11 Jul 2025"},{"month":"2025-06","grameenphone":86.51,"robi":57.4,"banglalink":37.95,"teletalk":6.59,"total_mobile":188.45,"mobile_internet":119.29,"fixed_internet":14.32,"total_internet":133.61,"precision":0.01,"source":"Wikipedia: Internet in Bangladesh (BTRC, Jun 2025)"},{"month":"2025-07","grameenphone":86.64,"robi":57.54,"banglalink":38.08,"teletalk":6.61,"total_mobile":188.87,"mobile_internet":121.53,"fixed_internet":14.46,"total_internet":135.99,"precision":0.01,"source":"Financial Express 5 Sep 2025"},{"month":"2025-08","grameenphone":86.47,"robi":57.41,"banglalink":38.05,"teletalk":6.64,"total_mobile":188.57,"mobile_internet":120.87,"fixed_internet":14.46,"total_internet":135.33,"precision":0.01,"source":"Financial Express 3 Nov 2025; TBS 15 Nov 2025"},{"month":"2025-09","grameenphone":85.85,"robi":57.52,"banglalink":37.93,"teletalk":6.67,"total_mobile":187.97,"mobile_internet":119.7,"fixed_internet":14.46,"total_internet":134.16,"precision":0.01,"source":"TBS 15 Nov 2025"},{"month":"2025-10","grameenphone":85.39,"robi":57.54,"banglalink":37.81,"teletalk":6.72,"total_mobile":187.46,"mobile_internet":116.87,"fixed_internet":14.62,"total_internet":131.49,"precision":0.01,"source":"Financial Express 6 Dec 2025"},{"month":"2025-11","grameenphone":85.01,"robi":57.57,"banglalink":37.7,"teletalk":6.78,"total_mobile":187.06,"mobile_internet":115.27,"fixed_internet":14.62,"total_internet":129.89,"precision":0.01,"source":"Financial Express 8 Jan 2026"},{"month":"2025-12","grameenphone":84.16,"robi":57.4,"banglalink":37.52,"teletalk":6.8,"total_mobile":185.89,"mobile_internet":115.04,"fixed_internet":14.62,"total_internet":129.67,"precision":0.01,"source":"Financial Express 7 Feb 2026"},{"month":"2026-01","grameenphone":84.33,"robi":57.24,"banglalink":37.4,"teletalk":6.83,"total_mobile":185.8,"mobile_internet":114.22,"fixed_internet":14.77,"total_internet":128.99,"precision":0.01,"source":"Financial Express 9 Mar 2026; Ittefaq 9 May 2026"},{"month":"2026-02","grameenphone":84.36,"robi":57.3,"banglalink":37.35,"teletalk":6.82,"total_mobile":185.84,"mobile_internet":113.5,"fixed_internet":14.77,"total_internet":128.27,"precision":0.01,"source":"Financial Express 5 Apr 2026; Ittefaq 9 May 2026"},{"month":"2026-03","grameenphone":84.48,"robi":57.39,"banglalink":37.37,"teletalk":6.82,"total_mobile":186.06,"mobile_internet":114.85,"fixed_internet":14.77,"total_internet":129.62,"precision":0.01,"source":"Financial Express 9 May 2026; Ittefaq 9 May 2026"},{"month":"2026-04","grameenphone":null,"robi":null,"banglalink":null,"teletalk":null,"total_mobile":null,"mobile_internet":116.4,"fixed_internet":14.9,"total_internet":131.4,"precision":0.1,"source":"Daily Star (Apr 2026, internet in crore)"},{"month":"2026-05","grameenphone":85.9,"robi":58.2,"banglalink":37.7,"teletalk":6.81,"total_mobile":188.6,"mobile_internet":119.1,"fixed_internet":14.9,"total_internet":134.1,"precision":0.1,"source":"Prothom Alo / BSS 18 Jul 2026"},{"month":"2026-06","grameenphone":86.59,"robi":58.57,"banglalink":37.86,"teletalk":6.8,"total_mobile":189.83,"mobile_internet":120.84,"fixed_internet":15.1,"total_internet":135.94,"precision":0.01,"source":"Financial Express 3 Aug 2026"},{"month":"2026-07","grameenphone":87.01,"robi":58.77,"banglalink":37.84,"teletalk":6.82,"total_mobile":190.44,"mobile_internet":121.52,"fixed_internet":15.23,"total_internet":136.75,"precision":0.01,"source":"AMTOB industry statistics (BTRC, Jul 2026); FE 24 Sep 2026"},{"month":"2026-08","grameenphone":87.2,"robi":59.04,"banglalink":37.95,"teletalk":6.9,"total_mobile":191.09,"mobile_internet":122.26,"fixed_internet":15.4,"total_internet":137.66,"precision":0.01,"source":"Financial Express 24 Sep 2026"}];
+(function(){
+'use strict';
+var OPS=[{k:'grameenphone',n:'Grameenphone',c:'--gp'},{k:'robi',n:'Robi',c:'--robi'},{k:'banglalink',n:'Banglalink',c:'--bl'},{k:'teletalk',n:'Teletalk',c:'--tt'}];
+var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var css=function(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim()};
+var ml=function(m,y){var p=m.split('-');return MON[+p[1]-1]+(y===false?'':' '+p[0])};
+var f2=function(v){return v==null?'–':v.toFixed(2)};
+var sgn=function(v,d){return (v>0?'+':v<0?'−':'')+Math.abs(v).toFixed(d==null?2:d)};
+var el=function(t,a,txt){var e=document.createElementNS('http://www.w3.org/2000/svg',t);for(var k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;return e};
+var months=DATA.map(function(r){return r.month});
+var by={};DATA.forEach(function(r){by[r.month]=r});
+var full=DATA.filter(function(r){return r.grameenphone!=null&&r.total_mobile!=null});
+var first=full[0],last=full[full.length-1];
+var tot=DATA.filter(function(r){return r.total_mobile!=null});
+var low=tot.reduce(function(a,r){return r.total_mobile<a.total_mobile?r:a},tot[0]);
+document.getElementById('lastMonth').textContent=ml(last.month);
+
+/* ---------- tiles ---------- */
+var lastNet=DATA.filter(function(r){return r.total_internet!=null}).slice(-1)[0];
+var T=[
+  {l:'Mobile subscriptions, '+ml(last.month),v:last.total_mobile.toFixed(1),u:'m',d:'<b class="'+(last.total_mobile-first.total_mobile>=0?'up':'down')+'">'+sgn(last.total_mobile-first.total_mobile,1)+'m</b> vs '+ml(first.month)},
+  {l:'Low point, '+ml(low.month),v:low.total_mobile.toFixed(1),u:'m',d:'<b class="down">'+sgn(low.total_mobile-first.total_mobile,1)+'m</b> from '+ml(first.month)},
+  {l:'Recovered since the low',v:'+'+(last.total_mobile-low.total_mobile).toFixed(1),u:'m',d:'in '+((+last.month.slice(0,4)-+low.month.slice(0,4))*12+(+last.month.slice(5)-+low.month.slice(5)))+' months'},
+  {l:'Internet subscriptions, '+ml(lastNet.month),v:lastNet.total_internet.toFixed(1),u:'m',d:lastNet.mobile_internet.toFixed(1)+'m mobile · '+lastNet.fixed_internet.toFixed(1)+'m fixed'}
+];
+document.getElementById('tiles').innerHTML=T.map(function(t){return '<div class="tile"><div class="l">'+t.l+'</div><div class="v">'+t.v+'<small>'+t.u+'</small></div><div class="d">'+t.d+'</div></div>'}).join('');
+
+/* ---------- findings (computed from the data) ---------- */
+var ch=OPS.map(function(o){return {o:o,d:last[o.k]-first[o.k],p:(last[o.k]-first[o.k])/first[o.k]*100,s0:first[o.k]/first.total_mobile*100,s1:last[o.k]/last.total_mobile*100}});
+var C=function(k){return ch.filter(function(x){return x.o.k===k})[0]};
+var d=function(a,b,k){return by[b][k]-by[a][k]};
+var rsh=full.map(function(r){return r.robi/r.total_mobile*100}),rs=[Math.min.apply(null,rsh),Math.max.apply(null,rsh)];
+var F=[
+  ['A 17-month slide, then a steady climb','From '+ml(first.month)+' the market lost '+(first.total_mobile-low.total_mobile).toFixed(1)+' million subscriptions and bottomed at '+low.total_mobile.toFixed(1)+' million in '+ml(low.month)+'. It has risen in every reported month since and is now '+(first.total_mobile-last.total_mobile).toFixed(1)+' million short of where it started.'],
+  ['Banglalink carried most of the loss','Banglalink is down '+Math.abs(C('banglalink').d).toFixed(1)+' million ('+Math.abs(C('banglalink').p).toFixed(1)+'%) over two years, and its share fell from '+C('banglalink').s0.toFixed(1)+'% to '+C('banglalink').s1.toFixed(1)+'%. Every other operator ended above its starting point.'],
+  ['The SIM-limit clean-up hit Grameenphone hardest','Between July and December 2025, Grameenphone lost '+Math.abs(d('2025-07','2025-12','grameenphone')).toFixed(2)+' million, Banglalink '+Math.abs(d('2025-07','2025-12','banglalink')).toFixed(2)+' million and Robi '+Math.abs(d('2025-07','2025-12','robi')).toFixed(2)+' million, while Teletalk added '+d('2025-07','2025-12','teletalk').toFixed(2)+' million.'],
+  ['The recovery is broad but led by the top two','From February to August 2026, Grameenphone added '+d('2026-02','2026-08','grameenphone').toFixed(2)+' million and Robi '+d('2026-02','2026-08','robi').toFixed(2)+' million. Robi\'s share has held between '+rs[0].toFixed(1)+'% and '+rs[1].toFixed(1)+'% for two years, the steadiest of the four.'],
+  ['Fixed broadband grows quietly','ISP and PSTN subscriptions rose from 13.7 million in November 2024 to '+last.fixed_internet.toFixed(1)+' million, up about '+Math.round((last.fixed_internet/13.7-1)*100)+'%, without a single quarter of decline.'],
+  ['Mobile internet tracks the subscriber base','Mobile internet subscriptions equal about '+Math.round(last.mobile_internet/last.total_mobile*100)+'% of mobile subscriptions. The ratio dipped to 61% in early 2026 and recovered with the market.']
+];
+document.getElementById('findings').innerHTML=F.map(function(x){return '<div class="find"><b></b><p></p></div>'}).join('');
+[].forEach.call(document.querySelectorAll('#findings .find'),function(n,i){n.querySelector('b').textContent=F[i][0];n.querySelector('p').textContent=F[i][1]});
+
+/* ---------- line chart ---------- */
+function lineChart(id,o){
+  var host=document.getElementById(id),tip=document.createElement('div');tip.className='tip';
+  function draw(){
+    host.innerHTML='';host.appendChild(tip);
+    var W=Math.max(300,host.clientWidth),H=o.h||(W<560?240:300),m={t:16,r:o.rPad||(W<560?78:96),b:28,l:40};
+    var iw=W-m.l-m.r,ih=H-m.t-m.b,n=months.length;
+    var x=function(i){return m.l+i*iw/(n-1)},y=function(v){return m.t+ih-(v-o.min)/(o.max-o.min)*ih};
+    var s=el('svg',{viewBox:'0 0 '+W+' '+H,role:'img','aria-label':o.aria});
+    (o.bands||[]).forEach(function(b){var i0=months.indexOf(b.from),i1=months.indexOf(b.to);
+      s.appendChild(el('rect',{x:x(i0),y:m.t,width:x(i1)-x(i0),height:ih,fill:css('--band')}));
+      s.appendChild(el('text',{x:x(i0)+6,y:m.t+14,class:'note'},b.label))});
+    var g=el('g',{class:'grid'});o.ticks.forEach(function(t){g.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:y(t),y2:y(t)}));s.appendChild(el('text',{x:m.l-8,y:y(t)+4,'text-anchor':'end'},o.tf?o.tf(t):t))});s.insertBefore(g,s.firstChild);
+    var step=W<560?6:3;months.forEach(function(mm,i){if((i%step===0&&x(n-1)-x(i)>78)||i===n-1)s.appendChild(el('text',{x:x(i),y:H-8,'text-anchor':i===n-1?'end':'middle'},ml(mm,false)+(mm.slice(5)==='01'||i===0||i===n-1?' '+mm.slice(2,4):'')))});
+    o.series.forEach(function(se){var col=css(se.c),path='',pen=false;
+      months.forEach(function(mm,i){var v=se.v(by[mm]);if(v==null){pen=false;return}path+=(pen?'L':'M')+x(i).toFixed(1)+' '+y(v).toFixed(1);pen=true});
+      s.appendChild(el('path',{d:path,fill:'none',stroke:col,'stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'}));
+      months.forEach(function(mm,i){var v=se.v(by[mm]),pv=i>0?se.v(by[months[i-1]]):null,nv=i<n-1?se.v(by[months[i+1]]):null;if(v!=null&&pv==null&&nv==null)s.appendChild(el('circle',{cx:x(i),cy:y(v),r:2.5,fill:col}))});
+      var li=-1;months.forEach(function(mm,i){if(se.v(by[mm])!=null)li=i});
+      if(li>=0){var lv=se.v(by[months[li]]);s.appendChild(el('circle',{cx:x(li),cy:y(lv),r:4.5,fill:col,stroke:css('--surface'),'stroke-width':2}));
+        var lab=el('text',{x:x(li)+9,y:y(lv)+4+(se.dy||0),class:'lbl'});lab.appendChild(el('tspan',{},se.short||se.n));lab.appendChild(el('tspan',{x:x(li)+9,dy:15,class:'note'},o.vf(lv)));s.appendChild(lab)}});
+    (o.marks||[]).forEach(function(mk){var i=months.indexOf(mk.m),v=mk.v;s.appendChild(el('circle',{cx:x(i),cy:y(v),r:4.5,fill:css(mk.c),stroke:css('--surface'),'stroke-width':2}));
+      s.appendChild(el('text',{x:x(i)+(mk.dx||0),y:y(v)+(mk.below?20:-10),'text-anchor':mk.anchor||'middle',class:'lbl'},mk.t))});
+    var cross=el('line',{y1:m.t,y2:m.t+ih,stroke:css('--faint'),'stroke-width':1,opacity:0});s.appendChild(cross);
+    var hit=el('rect',{x:m.l,y:m.t,width:iw,height:ih,fill:'transparent',tabindex:0,'aria-label':'Move across the chart to read each month'});s.appendChild(hit);
+    function show(i){var mm=months[i];cross.setAttribute('x1',x(i));cross.setAttribute('x2',x(i));cross.setAttribute('opacity',1);
+      tip.innerHTML='<div class="m"></div>'+o.series.map(function(){return '<div class="r"><span><i></i><em></em></span><b></b></div>'}).join('');
+      tip.querySelector('.m').textContent=ml(mm);
+      [].forEach.call(tip.querySelectorAll('.r'),function(r,j){var se=o.series[j],v=se.v(by[mm]);r.querySelector('i').style.background=css(se.c);r.querySelector('em').textContent=se.n;r.querySelector('em').style.fontStyle='normal';r.querySelector('b').textContent=v==null?'No data':o.vf(v)});
+      tip.style.opacity=1;var px=x(i)/W*host.clientWidth,tw=tip.offsetWidth;tip.style.left=Math.min(host.clientWidth-tw,Math.max(0,px+(px>host.clientWidth/2?-tw-12:12)))+'px';tip.style.top='8px'}
+    function hide(){cross.setAttribute('opacity',0);tip.style.opacity=0}
+    var cur=n-1;hit.addEventListener('pointermove',function(e){var r=s.getBoundingClientRect(),px=(e.clientX-r.left)*W/r.width;cur=Math.max(0,Math.min(n-1,Math.round((px-m.l)/(iw/(n-1)))));show(cur)});
+    hit.addEventListener('pointerleave',hide);hit.addEventListener('blur',hide);hit.addEventListener('focus',function(){show(cur)});
+    hit.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){cur=Math.max(0,cur-1);show(cur);e.preventDefault()}if(e.key==='ArrowRight'){cur=Math.min(n-1,cur+1);show(cur);e.preventDefault()}});
+    host.appendChild(s);
+  }
+  draw();var t;window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(draw,120)});
+  if(window.matchMedia)window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);
+}
+
+lineChart('cTotal',{aria:'Total mobile subscriptions by month, August 2024 to August 2026',min:184,max:194,ticks:[184,186,188,190,192,194],tf:function(t){return t+'m'},vf:function(v){return v.toFixed(2)+'m'},
+  series:[{n:'All operators',short:'Total',c:'--total',v:function(r){return r.total_mobile}}],
+  bands:[{from:'2025-07',to:'2025-12',label:'SIM limit clean-up'}],
+  marks:[{m:low.month,v:low.total_mobile,c:'--total',t:'Low: '+low.total_mobile.toFixed(1)+'m',below:true},{m:first.month,v:first.total_mobile,c:'--total',t:first.total_mobile.toFixed(1)+'m',dx:10,anchor:'start'}]});
+
+document.getElementById('lgShare').innerHTML=OPS.map(function(o){return '<span><i style="background:var('+o.c+')"></i>'+o.n+'</span>'}).join('');
+lineChart('cShare',{aria:'Market share by operator, percent',min:0,max:50,ticks:[0,10,20,30,40,50],tf:function(t){return t+'%'},vf:function(v){return v.toFixed(1)+'%'},rPad:92,h:280,
+  series:OPS.map(function(o){return {n:o.n,short:o.n==='Grameenphone'?'GP':o.n,c:o.c,v:function(r){return r[o.k]!=null&&r.total_mobile?r[o.k]/r.total_mobile*100:null}}})});
+
+/* ---------- two-year change bars (diverging from zero) ---------- */
+(function(){
+  var host=document.getElementById('cChange'),tip=document.createElement('div');tip.className='tip';
+  document.getElementById('chgSub').textContent='Net subscriptions gained or lost, '+ml(first.month)+' to '+ml(last.month)+', millions';
+  var rows=ch.slice().sort(function(a,b){return b.d-a.d});
+  function draw(){host.innerHTML='';host.appendChild(tip);
+    var W=Math.max(300,host.clientWidth),bh=22,gap=26,m={t:8,r:58,b:24,l:104},H=m.t+rows.length*(bh+gap)-gap+m.b+8;
+    var mn=-5,mx=3,iw=W-m.l-m.r,x=function(v){return m.l+(v-mn)/(mx-mn)*iw};
+    var s=el('svg',{viewBox:'0 0 '+W+' '+H,role:'img','aria-label':'Two-year net change in subscriptions by operator'});
+    [-4,-2,0,2].forEach(function(t){s.appendChild(el('line',{x1:x(t),x2:x(t),y1:m.t,y2:H-m.b,stroke:css(t===0?'--faint':'--grid'),'stroke-width':1}));s.appendChild(el('text',{x:x(t),y:H-6,'text-anchor':'middle'},(t>0?'+':'')+t+'m'))});
+    rows.forEach(function(r,i){var y0=m.t+i*(bh+gap),v=r.d,x0=x(0),x1=x(v),w=Math.abs(x1-x0),xa=Math.min(x0,x1),rr=4;
+      var p=v>=0?'M'+xa+' '+y0+'h'+(w-rr)+'a'+rr+' '+rr+' 0 0 1 '+rr+' '+rr+'v'+(bh-2*rr)+'a'+rr+' '+rr+' 0 0 1 -'+rr+' '+rr+'h-'+(w-rr)+'z'
+                :'M'+(xa+w)+' '+y0+'h-'+(w-rr)+'a'+rr+' '+rr+' 0 0 0 -'+rr+' '+rr+'v'+(bh-2*rr)+'a'+rr+' '+rr+' 0 0 0 '+rr+' '+rr+'h'+(w-rr)+'z';
+      var bar=el('path',{d:p,fill:css(r.o.c),tabindex:0,'aria-label':r.o.n+' '+sgn(v)+' million'});s.appendChild(bar);
+      s.appendChild(el('text',{x:m.l-10,y:y0+bh/2+4,'text-anchor':'end',class:'lbl'},r.o.n));
+      s.appendChild(el('text',{x:v>=0?x1+6:x0+6,y:y0+bh/2+4,'text-anchor':'start',class:'lbl'},sgn(v,2)+'m'));
+      var sh=function(){tip.innerHTML='<div class="m"></div><div class="r"><span><i></i><em></em></span><b></b></div><div class="r"><span>Change</span><b></b></div><div class="r"><span>Share</span><b></b></div>';
+        tip.querySelector('.m').textContent=ml(first.month)+' to '+ml(last.month);var rs=tip.querySelectorAll('.r');rs[0].querySelector('i').style.background=css(r.o.c);rs[0].querySelector('em').textContent=r.o.n;rs[0].querySelector('em').style.fontStyle='normal';rs[0].querySelector('b').textContent=f2(first[r.o.k])+' → '+f2(last[r.o.k])+'m';
+        rs[1].querySelector('b').textContent=sgn(r.p,1)+'%';rs[2].querySelector('b').textContent=r.s0.toFixed(1)+'% → '+r.s1.toFixed(1)+'%';
+        tip.style.opacity=1;tip.style.left=Math.max(0,Math.min(host.clientWidth-tip.offsetWidth,(x(0)/W*host.clientWidth)-tip.offsetWidth/2))+'px';tip.style.top=(y0+bh+8)/H*host.clientHeight+'px';bar.setAttribute('opacity',.85)};
+      var hd=function(){tip.style.opacity=0;bar.setAttribute('opacity',1)};
+      bar.addEventListener('pointerenter',sh);bar.addEventListener('focus',sh);bar.addEventListener('pointerleave',hd);bar.addEventListener('blur',hd)});
+    host.appendChild(s)}
+  draw();var t;window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(draw,120)});
+  if(window.matchMedia)window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);
+})();
+
+/* ---------- period table ---------- */
+(function(){var P=[['Jul to Dec 2025','2025-07','2025-12'],['Feb to Aug 2026','2026-02','2026-08']];
+  var c=function(v){return '<span class="'+(v>0?'pos':v<0?'neg':'')+'">'+sgn(v)+'</span>'};
+  var h='<thead><tr><th>Period</th>'+OPS.map(function(o){return '<th>'+o.n+'</th>'}).join('')+'<th>Total</th></tr></thead><tbody>';
+  P.forEach(function(p){h+='<tr><td>'+p[0]+'</td>'+OPS.map(function(o){return '<td>'+c(d(p[1],p[2],o.k))+'</td>'}).join('')+'<td>'+c(d(p[1],p[2],'total_mobile'))+'</td></tr>'});
+  document.getElementById('tPeriods').innerHTML=h+'</tbody>'})();
+
+lineChart('cMob',{aria:'Mobile internet subscriptions by month',min:110,max:125,ticks:[110,115,120,125],tf:function(t){return t+'m'},vf:function(v){return v.toFixed(1)+'m'},h:240,rPad:70,
+  series:[{n:'Mobile internet',short:'Mobile',c:'--total',v:function(r){return r.mobile_internet}}]});
+lineChart('cFix',{aria:'Fixed broadband subscriptions by month',min:13,max:16,ticks:[13,14,15,16],tf:function(t){return t+'m'},vf:function(v){return v.toFixed(2)+'m'},h:240,rPad:70,
+  series:[{n:'Fixed broadband',short:'Fixed',c:'--gp',v:function(r){return r.fixed_internet}}]});
+
+/* ---------- data table ---------- */
+(function(){var cols=[['grameenphone','GP'],['robi','Robi'],['banglalink','Banglalink'],['teletalk','Teletalk'],['total_mobile','Total mobile'],['mobile_internet','Mobile internet'],['fixed_internet','Fixed'],['total_internet','Total internet']];
+  var tb=document.getElementById('tData'),th=document.createElement('thead'),tr=document.createElement('tr');
+  ['Month'].concat(cols.map(function(c){return c[1]})).concat(['Source']).forEach(function(t,i){var e=document.createElement('th');e.textContent=t;if(i===cols.length+1)e.style.textAlign='left';tr.appendChild(e)});th.appendChild(tr);tb.appendChild(th);
+  var body=document.createElement('tbody');DATA.slice().reverse().forEach(function(r){var tr=document.createElement('tr'),a=document.createElement('td');a.textContent=ml(r.month);tr.appendChild(a);
+    cols.forEach(function(c){var td=document.createElement('td');if(r[c[0]]==null){td.textContent='–';td.className='gap'}else td.textContent=r.precision===0.1&&c[0]!=='total_internet'?r[c[0]].toFixed(1):r[c[0]].toFixed(2);tr.appendChild(td)});
+    var s=document.createElement('td');s.textContent=r.source||'No published figure found';s.style.textAlign='left';s.style.whiteSpace='normal';s.style.minWidth='220px';s.style.color='var(--muted)';tr.appendChild(s);body.appendChild(tr)});
+  tb.appendChild(body)})();
+
+fetch('analysis.sql').then(function(r){return r.text()}).then(function(t){document.getElementById('sqlBox').textContent=t}).catch(function(){document.getElementById('sqlBox').textContent='Download the SQL file above.'});
+})();
+</script>
+</body>
+</html>
