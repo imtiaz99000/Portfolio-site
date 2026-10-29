@@ -188,7 +188,7 @@ html[lang="bn"] .stepsv li::before{content:counter(s,bengali)}
 .prose code{font-family:ui-monospace,Menlo,Consolas,monospace;background:var(--band);padding:1px 6px;border-radius:6px;font-size:.95em}
 .prose table.law{margin:12px 0 18px;font-size:.95rem}
 .prose table.law th,.prose table.law td{text-align:left;white-space:normal;vertical-align:top;padding:9px 10px}
-.prose table.law td:first-child{white-space:nowrap;color:var(--muted)}
+.prose table.law td:first-child{color:var(--muted)}.prose table.law.sec td:first-child{white-space:nowrap}
 .prose table.law td:last-child{font-weight:600}
 .prose .tablewrap{border:1px solid var(--line);border-radius:12px;background:var(--surface)}
 .btns.inprose{margin:14px 0 6px}
