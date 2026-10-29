@@ -17,29 +17,29 @@ try{var t=localStorage.getItem('bdt-theme');if(t)document.documentElement.setAtt
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   color-scheme:light;
   --paper:#F6FAF9; --surface:#FFFFFF; --ink:#102A2B; --muted:#56706F; --faint:#7C918F; --line:#D6E6E4; --grid:#E6EFEE;
   --accent:#0A6664; --amber:#C98214; --band:rgba(14,138,134,.08); --hero:linear-gradient(120deg,rgba(14,138,134,.10),rgba(242,169,59,.12));
-  --gp:#2a78d6; --robi:#eb6834; --bl:#1baf7a; --tt:#eda100; --total:#0E8A86;
+  --gp:#1f6fd6; --robi:#e2231a; --bl:#f59b2f; --tt:#248a40; --total:#0E8A86; --bl-ink:#2a1a05;
   --up:#127a52; --down:#b3261e;
-  --display:'Space Grotesk','Hind Siliguri',system-ui,sans-serif; --body:'Source Sans 3','Hind Siliguri',system-ui,sans-serif;
+  --display:'Space Grotesk','Noto Sans Bengali',system-ui,sans-serif; --body:'Source Sans 3','Noto Sans Bengali',system-ui,sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   color-scheme:dark;
   --paper:#0F1A1A; --surface:#152323; --ink:#E6F0EF; --muted:#A3B8B6; --faint:#7F9694; --line:#28403F; --grid:#203535;
   --accent:#5CC9C3; --amber:#F2B254; --band:rgba(92,201,195,.09); --hero:linear-gradient(120deg,rgba(92,201,195,.10),rgba(242,178,84,.08));
-  --gp:#3987e5; --robi:#d95926; --bl:#199e70; --tt:#c98500; --total:#3FB4AE; --up:#5fd3a0; --down:#ff8a80;
+  --gp:#3d8ef0; --robi:#cc2f28; --bl:#c98328; --tt:#1f7a3a; --total:#3FB4AE; --bl-ink:#1a1004; --up:#5fd3a0; --down:#ff8a80;
 }}
 :root[data-theme="dark"]{
   color-scheme:dark;
   --paper:#0F1A1A; --surface:#152323; --ink:#E6F0EF; --muted:#A3B8B6; --faint:#7F9694; --line:#28403F; --grid:#203535;
   --accent:#5CC9C3; --amber:#F2B254; --band:rgba(92,201,195,.09); --hero:linear-gradient(120deg,rgba(92,201,195,.10),rgba(242,178,84,.08));
-  --gp:#3987e5; --robi:#d95926; --bl:#199e70; --tt:#c98500; --total:#3FB4AE; --up:#5fd3a0; --down:#ff8a80;
+  --gp:#3d8ef0; --robi:#cc2f28; --bl:#c98328; --tt:#1f7a3a; --total:#3FB4AE; --bl-ink:#1a1004; --up:#5fd3a0; --down:#ff8a80;
 }
-html[lang="bn"]{--display:'Hind Siliguri',system-ui,sans-serif;--body:'Hind Siliguri',system-ui,sans-serif}
+html[lang="bn"]{--display:'Noto Sans Bengali',system-ui,sans-serif;--body:'Noto Sans Bengali',system-ui,sans-serif}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 1.0625rem/1.6 var(--body);-webkit-font-smoothing:antialiased}
 html[lang="bn"] body{line-height:1.7}
@@ -341,7 +341,8 @@ var on=function(o){return o.n[LANG]};
 var css=function(v){return getComputedStyle(root).getPropertyValue(v).trim()};
 var fx=function(v,d){return N(v.toFixed(d))};
 var sgn=function(v,d){return (v>0?'+':v<0?'−':'')+N(Math.abs(v).toFixed(d==null?2:d))};
-var badge=function(o){return '<span class="badge" style="background:var('+o.c+')" aria-hidden="true">'+o.s+'</span>'};
+var bInk=function(o){return o.k==='banglalink'?'var(--bl-ink)':'#fff'};
+var badge=function(o){return '<span class="badge" style="background:var('+o.c+');color:'+bInk(o)+'" aria-hidden="true">'+o.s+'</span>'};
 var el=function(t,a,txt){var e=document.createElementNS('http://www.w3.org/2000/svg',t);for(var k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;return e};
 var months=DATA.map(function(r){return r.month});
 var by={};DATA.forEach(function(r){by[r.month]=r});
@@ -397,7 +398,7 @@ function renderTiles(){var u=T('u'),dl=last.total_mobile-first.total_mobile;
    {ic:'phone',c:'--total',l:T('t1')(ml(last.month)),v:fx(last.total_mobile,1),d:'<b class="'+(dl>=0?'up':'down')+'">'+sgn(dl,1)+' '+u+'</b> '+T('vs')(ml(first.month)),sp:spark(DATA.map(function(r){return r.total_mobile}),'--total')},
    {ic:'down',c:'--down',l:T('t2')(ml(low.month)),v:fx(low.total_mobile,1),d:'<b class="down">'+sgn(low.total_mobile-first.total_mobile,1)+' '+u+'</b> '+T('from')(ml(first.month)),sp:''},
    {ic:'up',c:'--up',l:T('t3'),v:'+'+fx(last.total_mobile-low.total_mobile,1),d:T('inM')(N(mdiff(low.month,last.month))),sp:spark(DATA.filter(function(r){return r.month>=low.month}).map(function(r){return r.total_mobile}),'--up')},
-   {ic:'globe',c:'--gp',l:T('t4')(ml(lastNet.month)),v:fx(lastNet.total_internet,1),d:T('mixInt')(fx(lastNet.mobile_internet,1),fx(lastNet.fixed_internet,1)),sp:spark(DATA.map(function(r){return r.total_internet}),'--gp')}];
+   {ic:'globe',c:'--accent',l:T('t4')(ml(lastNet.month)),v:fx(lastNet.total_internet,1),d:T('mixInt')(fx(lastNet.mobile_internet,1),fx(lastNet.fixed_internet,1)),sp:spark(DATA.map(function(r){return r.total_internet}),'--accent')}];
   document.getElementById('tiles').innerHTML=TL.map(function(t){return '<div class="tile"><div class="h"><span class="ic" style="'+tint(t.c)+'">'+IC[t.ic]+'</span><span class="l">'+t.l+'</span></div><div class="v">'+t.v+'<small>'+u+'</small></div><div class="d">'+t.d+'</div><div class="spark">'+t.sp+'</div></div>'}).join('')}
 
 /* ---------- findings ---------- */
@@ -407,7 +408,7 @@ function renderFindings(){var X={first:ml(first.month),lost:fx(first.total_mobil
   c2gp:fx(d('2026-02','2026-08','grameenphone'),2),c2r:fx(d('2026-02','2026-08','robi'),2),rs0:fx(Math.min.apply(null,rsh),1),rs1:fx(Math.max.apply(null,rsh),1),
   fx0:fx(fixRows[0].fixed_internet,1),fx1:fx(last.fixed_internet,1),fxP:N(Math.round((last.fixed_internet/fixRows[0].fixed_internet-1)*100)),
   mi:N(Math.round(last.mobile_internet/last.total_mobile*100)),miLow:N(Math.round(Math.min.apply(null,miR)))};
-  var icons=[['up','--total'],['users','--bl'],['sim','--gp'],['signal','--robi'],['wifi','--tt'],['globe','--accent']];
+  var icons=[['up','--total'],['users','--bl'],['sim','--gp'],['signal','--accent'],['wifi','--accent'],['globe','--total']];
   var F=T('f'),host=document.getElementById('findings');host.innerHTML='';
   F.forEach(function(f,i){var e=document.createElement('div');e.className='find';e.innerHTML='<span class="fi" style="'+tint(icons[i][1])+'">'+IC[icons[i][0]]+'</span><b></b><p></p>';e.querySelector('b').textContent=f[0];e.querySelector('p').textContent=f[1](X);host.appendChild(e)})}
 
@@ -475,7 +476,7 @@ lineChart('cShare',{aria:function(){return T('shareS')},min:0,max:50,ticks:[0,10
       var p=v>=0?'M'+xa+' '+y0+'h'+(w-rr)+'a'+rr+' '+rr+' 0 0 1 '+rr+' '+rr+'v'+(bh-2*rr)+'a'+rr+' '+rr+' 0 0 1 -'+rr+' '+rr+'h-'+(w-rr)+'z'
                 :'M'+(xa+w)+' '+y0+'h-'+(w-rr)+'a'+rr+' '+rr+' 0 0 0 -'+rr+' '+rr+'v'+(bh-2*rr)+'a'+rr+' '+rr+' 0 0 0 '+rr+' '+rr+'h'+(w-rr)+'z';
       var bar=el('path',{d:p,fill:css(r.o.c),tabindex:0,'aria-label':on(r.o)+' '+sgn(v)+' '+T('mil')});s.appendChild(bar);
-      var bg=el('g');bg.appendChild(el('circle',{cx:13,cy:y0+bh/2,r:11,fill:css(r.o.c)}));bg.appendChild(el('text',{x:13,y:y0+bh/2+3.5,'text-anchor':'middle',style:'fill:#fff;font:700 9.5px Space Grotesk,system-ui,sans-serif'},r.o.s));s.appendChild(bg);
+      var bg=el('g');bg.appendChild(el('circle',{cx:13,cy:y0+bh/2,r:11,fill:css(r.o.c)}));bg.appendChild(el('text',{x:13,y:y0+bh/2+3.5,'text-anchor':'middle',style:'fill:'+(r.o.k==='banglalink'?css('--bl-ink'):'#fff')+';font:700 9.5px Space Grotesk,system-ui,sans-serif'},r.o.s));s.appendChild(bg);
       s.appendChild(el('text',{x:30,y:y0+bh/2+4,class:'lbl'},on(r.o)));
       s.appendChild(el('text',{x:v>=0?x1+6:x0+6,y:y0+bh/2+4,'text-anchor':'start',class:'lbl'},sgn(v,2)+' '+T('u')));
       var sh=function(){tip.innerHTML='<div class="m"></div><div class="r"><span><i></i><em></em></span><b></b></div><div class="r"><span></span><b></b></div><div class="r"><span></span><b></b></div>';
@@ -491,7 +492,7 @@ lineChart('cShare',{aria:function(){return T('shareS')},min:0,max:50,ticks:[0,10
 lineChart('cMob',{aria:function(){return T('mobS')},min:110,max:125,ticks:[110,115,120,125],tf:function(t){return N(t)+' '+T('u')},vf:function(v){return U(v,1)},h:240,rPad:78,
   series:[{name:function(){return T('mobInt')},short:function(){return T('mobile')},c:'--total',v:function(r){return r.mobile_internet}}]});
 lineChart('cFix',{aria:function(){return T('fixS')},min:13,max:16,ticks:[13,14,15,16],tf:function(t){return N(t)+' '+T('u')},vf:function(v){return U(v,2)},h:240,rPad:78,
-  series:[{name:function(){return T('fixH')},short:function(){return T('fixed')},c:'--gp',v:function(r){return r.fixed_internet}}]});
+  series:[{name:function(){return T('fixH')},short:function(){return T('fixed')},c:'--accent',v:function(r){return r.fixed_internet}}]});
 
 /* ---------- tables ---------- */
 function renderTables(){
