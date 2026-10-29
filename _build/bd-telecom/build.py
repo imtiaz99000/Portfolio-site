@@ -57,6 +57,7 @@ ICON = {
  'ban': '<circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/>',
  'drone': '<rect x="9" y="10" width="6" height="4" rx="1"/><path d="M9 11L5 7M15 11l4-4M9 13l-4 4M15 13l4 4"/><circle cx="5" cy="7" r="2.5"/><circle cx="19" cy="7" r="2.5"/><circle cx="5" cy="17" r="2.5"/><circle cx="19" cy="17" r="2.5"/>',
  'tower': '<path d="M12 6v16"/><path d="M8 22l4-12 4 12"/><path d="M9 18h6"/><path d="M7.5 4.5a6 6 0 0 0 0 7M16.5 4.5a6 6 0 0 1 0 7"/><circle cx="12" cy="8" r="1.5"/>',
+ 'signal': '<path d="M4 20v-3M9 20v-7M14 20v-11M19 20V4"/>',
  'layers': '<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/><path d="M3 17.5l9 5 9-5"/>',
  'code': '<path d="M8 6l-6 6 6 6"/><path d="M16 6l6 6-6 6"/>',
 }
