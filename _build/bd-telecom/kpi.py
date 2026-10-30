@@ -4,7 +4,7 @@ GROUPS = [('mkt','Subscribers and market','গ্রাহক ও বাজা�
           ('fin','Financial','আর্থিক','chart','--amber'),('inf','Infrastructure and technology','অবকাঠামো ও প্রযুক্তি','tower','--tt')]
 NEED = {'qos':('BTRC QoS results or drive-test reports, or each operator’s published QoS figures','BTRC এর QoS ফলাফল বা ড্রাইভ টেস্ট রিপোর্ট, অথবা অপারেটরদের প্রকাশিত QoS সংখ্যা'),
         'fin':('Quarterly financial reports of Grameenphone and Robi (listed companies) and any Banglalink or Teletalk figures','গ্রামীণফোন আর রবির ত্রৈমাসিক আর্থিক প্রতিবেদন (তালিকাভুক্ত কোম্পানি), আর বাংলালিংক বা টেলিটকের প্রকাশিত সংখ্যা'),
-        'inf':('BTRC or operator figures for 4G and 5G sites, tower counts, bandwidth use and MNP','4G ও 5G সাইট, টাওয়ারের সংখ্যা, ব্যান্ডউইথ ব্যবহার আর MNP নিয়ে BTRC বা অপারেটরের সংখ্যা')}
+        'inf':('BTRC or operator figures for 4G and 5G sites, bandwidth use and MNP. Tower counts are live from BTRC','4G ও 5G সাইট, ব্যান্ডউইথ ব্যবহার আর MNP নিয়ে BTRC বা অপারেটরের সংখ্যা। টাওয়ারের সংখ্যা BTRC থেকে চালু হয়েছে')}
 
 def market_kpis(B):
     D = [r for r in B.DATA if r['total_mobile'] is not None]
@@ -36,6 +36,8 @@ def build_kpi(B):
     import subhist
     subhist.build_subhist(B)
     subhist.build_inethist(B)
+    import towers
+    TW, TWP = towers.build_towers(B)
     def card(k):
         v, pv, d = k['value'], k['prev'], k['d']
         ch = ''
@@ -71,6 +73,10 @@ def build_kpi(B):
             note = T('Updated %s from BTRC figures. Change is against the previous month with data.' % mlab(last['month']), 'BTRC এর সংখ্যা থেকে %s পর্যন্ত হালনাগাদ। পরিবর্তন আগের ডেটাসহ মাসের তুলনায়।' % mlab(last['month'], 'bn'))
         else:
             ks = [k for k in man if k['group'] == g]; cards = ''.join(card_manual(k) for k in ks)
+            if g == 'inf':
+                tw = [dict(id='tw', en='Mobile towers', bn='মোবাইল টাওয়ার', value=TW['total'] / 1000, prev=TWP['total'] / 1000, d=2, unit_en='k', unit_bn=' হাজার', period=TW['month'], prev_period=TWP['month'], source='BTRC'),
+                      dict(id='twc', en='Towers owned by tower companies', bn='টাওয়ার কোম্পানির টাওয়ার', value=TW['tco_pct'], prev=TWP['tco_pct'], d=1, unit_en='%', unit_bn='%', period=TW['month'], prev_period=TWP['month'], source='BTRC')]
+                cards = ''.join(card(k) for k in tw) + '<a class="tile kpi more" href="/bd-telecom/kpi/towers/"><div class="l">%s</div><div class="v" style="font-size:1.05rem">%s →</div><div class="meta">%s</div></a>' % (T('Towers by owner', 'মালিকানা অনুযায়ী টাওয়ার'), T('Monthly since Dec 2022', 'ডিসে ২০২২ থেকে মাসিক'), T('Charts, table and CSV', 'চার্ট, সারণি আর CSV')) + cards
             note = T('Waiting for files: ' + NEED[g][0] + '.', 'ফাইলের অপেক্ষায়: ' + NEED[g][1] + '।')
         secs += '<section class="block" id="%s"><div class="sechead"><h2 style="display:flex;align-items:center;gap:10px"><span class="ic" style="%s;width:32px;height:32px;border-radius:9px;display:inline-grid;place-items:center">%s</span>%s</h2></div><p class="sub" style="margin:0 0 12px">%s</p><div class="tiles kpis">%s</div></section>' % (
             g, tint(col), ic(icon), T(en, bnn), note, cards)
@@ -85,4 +91,4 @@ def build_kpi(B):
     write('kpi/index.html', page('kpi/', 'kpi', 'Bangladesh telecom KPIs: subscribers, market share, QoS, finance | BD Telecom', 'বাংলাদেশ টেলিকম KPI | BD Telecom',
           'Monthly Bangladesh telecom KPIs: mobile and internet subscribers, operator market share, network quality, finances and infrastructure, each with its source.', body,
           crumbs=[('/bd-telecom/', 'BD Telecom', 'BD Telecom')]))
-    return ['bd-telecom/kpi/', 'bd-telecom/kpi/teledensity/', 'bd-telecom/kpi/mobile-subscribers/', 'bd-telecom/kpi/internet-subscribers/']
+    return ['bd-telecom/kpi/', 'bd-telecom/kpi/teledensity/', 'bd-telecom/kpi/mobile-subscribers/', 'bd-telecom/kpi/internet-subscribers/', 'bd-telecom/kpi/towers/']
