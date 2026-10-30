@@ -231,3 +231,9 @@ table.dir tr[hidden]{display:none!important}
 .jump a:hover{border-color:var(--accent)}
 .tile.kpi .l .badge{width:20px;height:20px;font-size:8.5px;vertical-align:-4px;margin-right:4px}
 @media (max-width:640px){.tiles.kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.tile.kpi{padding:12px}.tile.kpi .v{font-size:1.45rem}}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media (max-width:760px){.grid2{grid-template-columns:1fr}}
+table.wide td,table.wide th{font-size:.88rem}
+td.flag{background:color-mix(in srgb,var(--amber) 16%,transparent);color:var(--ink);font-weight:600}
+a.tile.kpi.more{text-decoration:none;color:var(--ink);border-color:var(--accent);background:var(--band)}
+.chart.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media (max-width:640px){.chart.scroll svg.schart{min-width:600px}}
