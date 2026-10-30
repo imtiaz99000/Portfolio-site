@@ -22,8 +22,12 @@ def chart(B, rows, series, ymin, ymax, step, unit, h=280, W=720, cls=''):
         o.append('<line x1="%d" x2="%d" y1="%.1f" y2="%.1f" stroke="var(--grid)"/>' % (L, W - R, y(t), y(t)))
         o.append('<text x="%d" y="%.1f" text-anchor="end">%s</text>' % (L - 8, y(t) + 4, T('%g%s' % (t, unit), '%s%s' % (bn('%g' % t), unit), 'tspan')))
         t += step
+    if n <= 15:
+        for i, r in enumerate(rows):
+            if i % 2 == 0 or i == n - 1:
+                o.append('<text x="%.1f" y="%d" text-anchor="middle">%s</text>' % (x(i), H - 6, T(mlab(r['month'], 'en', True), mlab(r['month'], 'bn', True), 'tspan')))
     for i, r in enumerate(rows):
-        if r['month'].endswith('-01') or i == n - 1 and False:
+        if n > 15 and r['month'].endswith('-01'):
             o.append('<text x="%.1f" y="%d" text-anchor="middle">%s</text>' % (x(i), H - 6, T(r['month'][:4], bn(r['month'][:4]), 'tspan')))
     labels = []
     for key, en, bnn, col in series:
