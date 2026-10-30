@@ -40,6 +40,8 @@ def build_kpi(B):
     TW, TWP = towers.build_towers(B)
     import handsets
     HS, HSP = handsets.build_handsets(B)
+    import qospage
+    QQ = qospage.build_qos(B)
     def card(k):
         v, pv, d = k['value'], k['prev'], k['d']
         ch = ''
@@ -75,13 +77,23 @@ def build_kpi(B):
             note = T('Updated %s from BTRC figures. Change is against the previous month with data.' % mlab(last['month']), 'BTRC এর সংখ্যা থেকে %s পর্যন্ত হালনাগাদ। পরিবর্তন আগের ডেটাসহ মাসের তুলনায়।' % mlab(last['month'], 'bn'))
         else:
             ks = [k for k in man if k['group'] == g]; cards = ''.join(card_manual(k) for k in ks)
+            if g == 'qos':
+                def qc(k, en, bnn):
+                    nu = len(QQ['noncompliant'][k]) if k in QQ['noncompliant'] else None
+                    if k == 'tt':
+                        v = T('Not assessed', 'যাচাই হয়নি'); d_ = T('incomplete files to BTRC', 'BTRC এর কাছে অসম্পূর্ণ ফাইল')
+                    else:
+                        met = sum(1 for x in QQ['national'][k] if x == 'ok'); v = T('%d / 12' % met, '%s / ১২' % bn(met)); d_ = T('national benchmarks met · %d upazilas short' % nu, 'জাতীয় মানদণ্ড পূরণ · %sটি উপজেলায় ঘাটতি' % bn(nu))
+                    return '<div class="tile kpi"><div class="l">%s %s</div><div class="v" style="font-size:1.45rem">%s</div><div class="d">%s</div><div class="meta">%s</div></div>' % (B.badge(B.OPS[['gp','robi','bl','tt'].index(k)]), T(en, bnn), v, d_, T(mlab(QQ['month']) + ' · BTRC QoS report', mlab(QQ['month'], 'bn') + ' · BTRC QoS প্রতিবেদন'))
+                cards = qc('gp', 'Grameenphone', 'গ্রামীণফোন') + qc('robi', 'Robi', 'রবি') + qc('bl', 'Banglalink', 'বাংলালিংক') + qc('tt', 'Teletalk', 'টেলিটক') + '<a class="tile kpi more" href="/bd-telecom/kpi/qos/"><div class="l">%s</div><div class="v" style="font-size:1.05rem">%s →</div><div class="meta">%s</div></a>' % (T('QoS report', 'QoS প্রতিবেদন'), T('National, district and upazila results', 'জাতীয়, জেলা আর উপজেলার ফল'), T('Tables, lists and PDFs', 'সারণি, তালিকা আর PDF'))
+                note = T('BTRC QoS report for %s, published 30 September 2026.' % mlab(QQ['month']), 'BTRC এর %s এর QoS প্রতিবেদন, প্রকাশ ৩০ সেপ্টেম্বর ২০২৬।' % mlab(QQ['month'], 'bn'))
             if g == 'inf':
                 tw = [dict(id='tw', en='Mobile towers', bn='মোবাইল টাওয়ার', value=TW['total'] / 1000, prev=TWP['total'] / 1000, d=2, unit_en='k', unit_bn=' হাজার', period=TW['month'], prev_period=TWP['month'], source='BTRC'),
                       dict(id='twc', en='Towers owned by tower companies', bn='টাওয়ার কোম্পানির টাওয়ার', value=TW['tco_pct'], prev=TWP['tco_pct'], d=1, unit_en='%', unit_bn='%', period=TW['month'], prev_period=TWP['month'], source='BTRC')]
                 tw += [dict(id='hs', en='Smartphone share of phones', bn='ফোনে স্মার্টফোনের ভাগ', value=HS['smart_pct'], prev=HSP['smart_pct'], d=2, unit_en='%', unit_bn='%', period=HS['month'], prev_period=HSP['month'], source='BTRC (GP, Robi, Banglalink)'),
                        dict(id='hs5', en='5G phones', bn='5G ফোন', value=HS['g5'] / 1e6, prev=HSP['g5'] / 1e6, d=2, unit_en='m', unit_bn='মি.', period=HS['month'], prev_period=HSP['month'], source='BTRC (GP, Robi, Banglalink)')]
                 cards = ''.join(card(k) for k in tw) + '<a class="tile kpi more" href="/bd-telecom/kpi/handsets/"><div class="l">%s</div><div class="v" style="font-size:1.05rem">%s →</div><div class="meta">%s</div></a>' % (T('Handset penetration', 'হ্যান্ডসেট পেনেট্রেশন'), T('Smartphones and 5G by network', 'নেটওয়ার্ক অনুযায়ী স্মার্টফোন ও 5G'), T('Charts, table and CSV', 'চার্ট, সারণি আর CSV')) + '<a class="tile kpi more" href="/bd-telecom/kpi/towers/"><div class="l">%s</div><div class="v" style="font-size:1.05rem">%s →</div><div class="meta">%s</div></a>' % (T('Towers by owner', 'মালিকানা অনুযায়ী টাওয়ার'), T('Monthly since Dec 2022', 'ডিসে ২০২২ থেকে মাসিক'), T('Charts, table and CSV', 'চার্ট, সারণি আর CSV')) + cards
-            note = T('Waiting for files: ' + NEED[g][0] + '.', 'ফাইলের অপেক্ষায়: ' + NEED[g][1] + '।')
+            if g != 'qos': note = T('Waiting for files: ' + NEED[g][0] + '.', 'ফাইলের অপেক্ষায়: ' + NEED[g][1] + '।')
         secs += '<section class="block" id="%s"><div class="sechead"><h2 style="display:flex;align-items:center;gap:10px"><span class="ic" style="%s;width:32px;height:32px;border-radius:9px;display:inline-grid;place-items:center">%s</span>%s</h2></div><p class="sub" style="margin:0 0 12px">%s</p><div class="tiles kpis">%s</div></section>' % (
             g, tint(col), ic(icon), T(en, bnn), note, cards)
     jump = ''.join('<a href="#%s">%s</a>' % (g, T(en, bnn)) for g, en, bnn, _, _ in GROUPS)
@@ -95,4 +107,4 @@ def build_kpi(B):
     write('kpi/index.html', page('kpi/', 'kpi', 'Bangladesh telecom KPIs: subscribers, market share, QoS, finance | BD Telecom', 'বাংলাদেশ টেলিকম KPI | BD Telecom',
           'Monthly Bangladesh telecom KPIs: mobile and internet subscribers, operator market share, network quality, finances and infrastructure, each with its source.', body,
           crumbs=[('/bd-telecom/', 'BD Telecom', 'BD Telecom')]))
-    return ['bd-telecom/kpi/', 'bd-telecom/kpi/teledensity/', 'bd-telecom/kpi/mobile-subscribers/', 'bd-telecom/kpi/internet-subscribers/', 'bd-telecom/kpi/towers/', 'bd-telecom/kpi/handsets/']
+    return ['bd-telecom/kpi/', 'bd-telecom/kpi/teledensity/', 'bd-telecom/kpi/mobile-subscribers/', 'bd-telecom/kpi/internet-subscribers/', 'bd-telecom/kpi/towers/', 'bd-telecom/kpi/handsets/', 'bd-telecom/kpi/qos/']

@@ -237,3 +237,11 @@ td.flag{background:color-mix(in srgb,var(--amber) 16%,transparent);color:var(--i
 a.tile.kpi.more{text-decoration:none;color:var(--ink);border-color:var(--accent);background:var(--band)}
 .chart.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media (max-width:640px){.chart.scroll svg.schart{min-width:600px}}
+.pill.okp{background:color-mix(in srgb,var(--tt) 16%,transparent);color:var(--tt)}
+.pill.nap{background:var(--band);color:var(--muted)}
+table.qos td,table.qos th{text-align:left;white-space:normal;vertical-align:top}
+table.qos td small{color:var(--muted)}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}@media (max-width:900px){.grid3{grid-template-columns:1fr}}
+.nclist{margin:8px 0 0;padding-left:18px;font-size:.92rem;line-height:1.55}.nclist small{color:var(--muted)}
+.grid2>*,.grid3>*{min-width:0}
+table.qos td.frac{white-space:nowrap}

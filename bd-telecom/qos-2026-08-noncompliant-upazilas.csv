@@ -1,0 +1,41 @@
+operator,district,upazila,kpis_not_met_btrc_monitored
+gp,Bandarban,Alikadam,VoLTE + GSM combined call setup success
+gp,Bandarban,Bandarban Sadar,VoLTE + GSM combined call setup success
+gp,Bandarban,Lama,VoLTE + GSM combined call setup success
+gp,Bandarban,Naikhongchhari,VoLTE + GSM combined call setup success
+gp,Bandarban,Rowangchhari,VoLTE + GSM combined call setup success
+gp,Bandarban,Ruma,VoLTE + GSM combined call setup success
+gp,Chattogram,Anowara,VoLTE + GSM combined call setup success
+gp,Chattogram,Banshkhali,VoLTE + GSM combined call setup success
+gp,Chattogram,Boalkhali,VoLTE + GSM combined call setup success
+gp,Chattogram,Chandanaish,VoLTE + GSM combined call setup success
+gp,Chattogram,Fatikchhari,2G call setup success; VoLTE + GSM combined call setup success
+gp,Chattogram,Hathazari,VoLTE + GSM combined call setup success
+gp,Chattogram,Lohagara,VoLTE + GSM combined call setup success
+gp,Chattogram,Patiya,VoLTE + GSM combined call setup success
+gp,Chattogram,Rangunia,VoLTE + GSM combined call setup success
+gp,Chattogram,Raozan,VoLTE + GSM combined call setup success
+gp,Chattogram,Satkania,VoLTE + GSM combined call setup success
+gp,Khagrachhari,Dighinala,2G call drop rate; VoLTE + GSM combined drop rate
+gp,Khagrachhari,Khagrachhari Sadar,VoLTE + GSM combined call setup success
+gp,Khagrachhari,Manikchhari,VoLTE + GSM combined call setup success
+gp,Khagrachhari,Matiranga,VoLTE + GSM combined call setup success
+gp,Khagrachhari,Panchhari,VoLTE + GSM combined call setup success
+gp,Khagrachhari,Ramgarh,VoLTE + GSM combined call setup success
+gp,Rangamati,Kaptai,VoLTE + GSM combined call setup success
+gp,Rangamati,Kawkhali (Betbunia),VoLTE + GSM combined call setup success
+gp,Rangamati,Rajasthali,VoLTE + GSM combined call setup success
+gp,Rangamati,Rangamati Sadar,VoLTE + GSM combined call setup success
+gp,Sirajganj,Chauhali,VoLTE + GSM combined call setup success
+robi,Brahmanbaria,Akhaura,2G call setup success
+robi,Cox's Bazar,Ukhia,2G call setup success
+robi,Khagrachhari,Manikchhari,2G call setup success
+robi,Khagrachhari,Ramgarh,2G call setup success
+robi,Kurigram,Ulipur,2G call setup success
+robi,Lakshmipur,Ramgati,2G call setup success
+robi,Noakhali,Hatiya,2G call setup success
+robi,Rangamati,Baghai Chhari,2G call setup success
+robi,Rangamati,Barkal,2G call setup success
+robi,Rangamati,Langadu,2G call setup success
+bl,Brahmanbaria,Akhaura,2G call setup success; VoLTE + GSM combined call setup success
+bl,Rangamati,Baghai Chhari,2G call setup success

@@ -1,0 +1,544 @@
+{
+ "month": "2026-08",
+ "published": "2026-09-30",
+ "kpis": [
+  [
+   "2G call drop rate",
+   "2G কল ড্রপ হার",
+   "≤ 1.00%"
+  ],
+  [
+   "2G call setup success",
+   "2G কল সেটআপ সাফল্য",
+   "≥ 99.00%"
+  ],
+  [
+   "4G average download speed",
+   "4G গড় ডাউনলোড গতি",
+   "≥ 3.50 Mbps"
+  ],
+  [
+   "4G data session drops (E-RAB non-retainability)",
+   "4G ডেটা সেশন ড্রপ (E-RAB)",
+   "≤ 0.50%"
+  ],
+  [
+   "4G connection success (RRC)",
+   "4G সংযোগ সাফল্য (RRC)",
+   "≥ 99.00%"
+  ],
+  [
+   "VoLTE call setup success",
+   "VoLTE কল সেটআপ সাফল্য",
+   "≥ 99.00%"
+  ],
+  [
+   "VoLTE drop rate",
+   "VoLTE ড্রপ হার",
+   "≤ 0.50%"
+  ],
+  [
+   "VoLTE + GSM combined drop rate",
+   "VoLTE + GSM সম্মিলিত ড্রপ হার",
+   "≤ 1.00%"
+  ],
+  [
+   "VoLTE + GSM combined call setup success",
+   "VoLTE + GSM সম্মিলিত কল সেটআপ সাফল্য",
+   "≥ 99.00%"
+  ],
+  [
+   "CSFB success",
+   "CSFB সাফল্য",
+   "≥ 98.00%"
+  ],
+  [
+   "SMS completion",
+   "SMS পৌঁছানোর হার",
+   "≥ 98.00%"
+  ],
+  [
+   "Tower downtime (BTS, eNodeB)",
+   "টাওয়ার বন্ধ থাকার সময়",
+   "≤ 1.00%"
+  ]
+ ],
+ "national": {
+  "gp": [
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok"
+  ],
+  "robi": [
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok"
+  ],
+  "bl": [
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok",
+   "ok"
+  ],
+  "tt": [
+   "na",
+   "na",
+   "na",
+   "na",
+   "na",
+   "na",
+   "na",
+   "na",
+   "na",
+   "na",
+   "na",
+   "na"
+  ]
+ },
+ "tt_declared": [
+  "ok",
+  "ok",
+  "ok",
+  "non",
+  "non",
+  "",
+  "",
+  "",
+  "",
+  "ok",
+  "",
+  ""
+ ],
+ "district_kpis": [
+  [
+   "2G call drop rate",
+   "2G কল ড্রপ হার"
+  ],
+  [
+   "2G call setup success",
+   "2G কল সেটআপ সাফল্য"
+  ],
+  [
+   "4G average download speed",
+   "4G গড় ডাউনলোড গতি"
+  ],
+  [
+   "4G connection success (RRC)",
+   "4G সংযোগ সাফল্য (RRC)"
+  ],
+  [
+   "VoLTE + GSM combined drop rate",
+   "VoLTE + GSM সম্মিলিত ড্রপ হার"
+  ],
+  [
+   "VoLTE + GSM combined call setup success",
+   "VoLTE + GSM সম্মিলিত কল সেটআপ সাফল্য"
+  ]
+ ],
+ "district": {
+  "gp": [
+   64,
+   64,
+   64,
+   64,
+   64,
+   61
+  ],
+  "robi": [
+   64,
+   64,
+   64,
+   64,
+   64,
+   64
+  ],
+  "bl": [
+   64,
+   64,
+   64,
+   64,
+   64,
+   64
+  ],
+  "tt": [
+   55,
+   64,
+   63,
+   12,
+   null,
+   null
+  ]
+ },
+ "upazila_kpis": [
+  0,
+  1,
+  3,
+  4,
+  5
+ ],
+ "upazila": {
+  "gp": {
+   "avail": 539,
+   "ok": [
+    538,
+    538,
+    538,
+    538,
+    512
+   ]
+  },
+  "robi": {
+   "avail": 544,
+   "ok": [
+    544,
+    534,
+    544,
+    544,
+    544
+   ]
+  },
+  "bl": {
+   "avail": 539,
+   "ok": [
+    538,
+    536,
+    538,
+    538,
+    537
+   ]
+  },
+  "tt": {
+   "avail": 544,
+   "ok": [
+    467,
+    525,
+    129,
+    null,
+    null
+   ]
+  }
+ },
+ "bts": {
+  "gp": 24192,
+  "robi": 19873,
+  "bl": 15123,
+  "tt": 5287
+ },
+ "noncompliant": {
+  "gp": [
+   {
+    "district": "Bandarban",
+    "upazila": "Alikadam",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Bandarban",
+    "upazila": "Bandarban Sadar",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Bandarban",
+    "upazila": "Lama",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Bandarban",
+    "upazila": "Naikhongchhari",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Bandarban",
+    "upazila": "Rowangchhari",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Bandarban",
+    "upazila": "Ruma",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Chattogram",
+    "upazila": "Anowara",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Chattogram",
+    "upazila": "Banshkhali",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Chattogram",
+    "upazila": "Boalkhali",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Chattogram",
+    "upazila": "Chandanaish",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Chattogram",
+    "upazila": "Fatikchhari",
+    "kpis": [
+     "cssr",
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Chattogram",
+    "upazila": "Hathazari",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Chattogram",
+    "upazila": "Lohagara",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Chattogram",
+    "upazila": "Patiya",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Chattogram",
+    "upazila": "Rangunia",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Chattogram",
+    "upazila": "Raozan",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Chattogram",
+    "upazila": "Satkania",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Khagrachhari",
+    "upazila": "Dighinala",
+    "kpis": [
+     "drop",
+     "mixed_drop"
+    ]
+   },
+   {
+    "district": "Khagrachhari",
+    "upazila": "Khagrachhari Sadar",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Khagrachhari",
+    "upazila": "Manikchhari",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Khagrachhari",
+    "upazila": "Matiranga",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Khagrachhari",
+    "upazila": "Panchhari",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Khagrachhari",
+    "upazila": "Ramgarh",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Rangamati",
+    "upazila": "Kaptai",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Rangamati",
+    "upazila": "Kawkhali (Betbunia)",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Rangamati",
+    "upazila": "Rajasthali",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Rangamati",
+    "upazila": "Rangamati Sadar",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Sirajganj",
+    "upazila": "Chauhali",
+    "kpis": [
+     "mixed_cssr"
+    ]
+   }
+  ],
+  "robi": [
+   {
+    "district": "Brahmanbaria",
+    "upazila": "Akhaura",
+    "kpis": [
+     "cssr"
+    ]
+   },
+   {
+    "district": "Cox's Bazar",
+    "upazila": "Ukhia",
+    "kpis": [
+     "cssr"
+    ]
+   },
+   {
+    "district": "Khagrachhari",
+    "upazila": "Manikchhari",
+    "kpis": [
+     "cssr"
+    ]
+   },
+   {
+    "district": "Khagrachhari",
+    "upazila": "Ramgarh",
+    "kpis": [
+     "cssr"
+    ]
+   },
+   {
+    "district": "Kurigram",
+    "upazila": "Ulipur",
+    "kpis": [
+     "cssr"
+    ]
+   },
+   {
+    "district": "Lakshmipur",
+    "upazila": "Ramgati",
+    "kpis": [
+     "cssr"
+    ]
+   },
+   {
+    "district": "Noakhali",
+    "upazila": "Hatiya",
+    "kpis": [
+     "cssr"
+    ]
+   },
+   {
+    "district": "Rangamati",
+    "upazila": "Baghai Chhari",
+    "kpis": [
+     "cssr"
+    ]
+   },
+   {
+    "district": "Rangamati",
+    "upazila": "Barkal",
+    "kpis": [
+     "cssr"
+    ]
+   },
+   {
+    "district": "Rangamati",
+    "upazila": "Langadu",
+    "kpis": [
+     "cssr"
+    ]
+   }
+  ],
+  "bl": [
+   {
+    "district": "Brahmanbaria",
+    "upazila": "Akhaura",
+    "kpis": [
+     "cssr",
+     "mixed_cssr"
+    ]
+   },
+   {
+    "district": "Rangamati",
+    "upazila": "Baghai Chhari",
+    "kpis": [
+     "cssr"
+    ]
+   }
+  ]
+ }
+}
