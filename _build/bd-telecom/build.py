@@ -238,7 +238,7 @@ def build():
         T('Active mobile subscriptions by operator and internet subscriptions, in millions. BTRC figures, as published in its reports and the national press. Free to download and reuse with credit.', 'অপারেটর অনুযায়ী সক্রিয় মোবাইল সাবস্ক্রিপশন আর ইন্টারনেট সাবস্ক্রিপশন, মিলিয়নে। BTRC এর রিপোর্ট ও জাতীয় সংবাদমাধ্যমে প্রকাশিত BTRC এর হিসাব। ক্রেডিট দিয়ে বিনামূল্যে ডাউনলোড ও ব্যবহার করা যাবে।'),
         ic('download'), T('Download CSV', 'CSV ডাউনলোড'), ic('code'), T('Download SQL', 'SQL ডাউনলোড'), ic('info'),
         T('Every month with an operator split is checked: the four operators must add up to the published total. Blank cells are months where no published figure was found.', 'অপারেটরভিত্তিক প্রতিটা মাস যাচাই করা: চার অপারেটরের যোগফল প্রকাশিত মোটের সমান হতে হবে। ফাঁকা ঘর মানে সেই মাসের প্রকাশিত সংখ্যা পাওয়া যায়নি।'),
-        th, trs, T('Coming next: the full archive from 2015, taken directly from BTRC reports.', 'শীঘ্রই আসছে: ২০১৫ থেকে পুরো আর্কাইভ, সরাসরি BTRC এর রিপোর্ট থেকে।'))
+        th, trs, T('Operator figures for August 2021 onwards are on the <a href="/bd-telecom/kpi/mobile-subscribers/">five-year mobile subscriber page</a>.', 'আগস্ট ২০২১ থেকে অপারেটরভিত্তিক সংখ্যা দেখুন <a href="/bd-telecom/kpi/mobile-subscribers/">পাঁচ বছরের মোবাইল গ্রাহক পেজে</a>।'))
     write('data/index.html', page('data/', 'data', 'Bangladesh mobile and internet subscriber data (BTRC) | BD Telecom', 'বাংলাদেশের মোবাইল ও ইন্টারনেট গ্রাহক ডেটা (BTRC) | BD Telecom',
           'Monthly BTRC subscriber data for Grameenphone, Robi, Banglalink and Teletalk, plus mobile and fixed internet. Download as CSV.', body,
           crumbs=[('/bd-telecom/', 'BD Telecom', 'BD Telecom')]))

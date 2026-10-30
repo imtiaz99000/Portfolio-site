@@ -140,12 +140,12 @@ var S={
    ['The recovery is broad but led by the top two',function(x){return 'From February to August 2026, Grameenphone added '+x.c2gp+' million and Robi '+x.c2r+' million. Robi\'s share has held between '+x.rs0+'% and '+x.rs1+'% for two years, the steadiest of the four.'}],
    ['Fixed broadband grows quietly',function(x){return 'ISP and PSTN subscriptions rose from '+x.fx0+' million in November 2024 to '+x.fx1+' million, up about '+x.fxP+'%, without a single quarter of decline.'}],
    ['Mobile internet tracks the subscriber base',function(x){return 'Mobile internet subscriptions equal about '+x.mi+'% of mobile subscriptions. The ratio dipped to '+x.miLow+'% in early 2026 and recovered with the market.'}]],
-  steps:[['Collect','BTRC publishes one month at a time, and older months are hard to find on its site. I took each month from the regulator\'s figures as reported by the Financial Express, The Business Standard, The Daily Star, Prothom Alo, Ittefaq and AMTOB, and noted the source for every row.'],
-   ['Validate','For every month with an operator split, the four operators must add up to the published total. All 19 such months match within rounding. Where two outlets disagreed, the sum check decided: one outlet had swapped Robi\'s August and September 2025 figures.'],
-   ['Leave gaps honest','No operator split was found for October and November 2024, January to March 2025 and April 2026. Those months are left blank rather than estimated, and lines break across them.'],
+  steps:[['Collect','Operator figures come from BTRC\'s own Mobile Subscribers table (updated 23 September 2026). Internet figures come from BTRC data as reported by the Financial Express, The Business Standard, The Daily Star and AMTOB, with the source noted for every row.'],
+   ['Validate','For every month, the four operators must add up to the published total. All 25 months match within rounding except one: for March 2026 BTRC\'s table shows Grameenphone at 84.84 million, but 84.48 is the value that adds up to BTRC\'s own total, so I use 84.48. The earlier press figures all agreed with BTRC\'s table.'],
+   ['Fill the gaps','With BTRC\'s table, the months that were missing before (October and November 2024, January to March 2025 and April 2026) now have a full operator split, so every line is continuous.'],
    ['Analyse with SQL','The CSV loads into SQLite. The queries compute market share, two-year change, month-on-month net adds with a window function that skips gaps, and period comparisons.'],
    ['Chart','The charts are drawn in plain JavaScript from the same numbers, with a validated colour-blind-safe palette, hover readouts and a full data table.'],
-   ['Disclose','Months reported in crore are exact to 0.1 million. A subscription is a verified SIM active in the last 90 days. I work at Robi Axiata; this project uses only public regulator data.']]
+   ['Disclose','A subscription is a verified SIM active in the last 90 days. I work at Robi Axiata; this project uses only public regulator data.']]
  },
  bn:{name:'মোহাম্মদ ইমতিয়াজ করিম',more:'আরও প্রজেক্ট',home:'imtiazkarim.com এ ফিরুন',
   kicker:'ডেটা প্রজেক্ট · BTRC গ্রাহক ডেটা, আগস্ট ২০২৪ থেকে আগস্ট ২০২৬',
@@ -175,12 +175,12 @@ var S={
    ['ঘুরে দাঁড়ানো সবার, তবে এগিয়ে বড় দুই অপারেটর',function(x){return 'ফেব্রুয়ারি থেকে আগস্ট ২০২৬ এ গ্রামীণফোন যোগ করেছে '+x.c2gp+' মিলিয়ন আর রবি '+x.c2r+' মিলিয়ন। দুই বছর ধরে রবির শেয়ার '+x.rs0+'% থেকে '+x.rs1+'% এর মধ্যে, চার অপারেটরের মধ্যে সবচেয়ে স্থির।'}],
    ['চুপচাপ বাড়ছে ফিক্সড ব্রডব্যান্ড',function(x){return 'ISP আর PSTN সাবস্ক্রিপশন নভেম্বর ২০২৪ এর '+x.fx0+' মিলিয়ন থেকে বেড়ে '+x.fx1+' মিলিয়ন, প্রায় '+x.fxP+'% বেশি, একটা কোয়ার্টারেও কমেনি।'}],
    ['মোবাইল ইন্টারনেট চলে গ্রাহকের সাথে তাল মিলিয়ে',function(x){return 'মোবাইল ইন্টারনেট সাবস্ক্রিপশন মোট মোবাইল সাবস্ক্রিপশনের প্রায় '+x.mi+'%। ২০২৬ এর শুরুতে এই অনুপাত '+x.miLow+'% এ নেমেছিল, বাজারের সাথে আবার বেড়েছে।'}]],
-  steps:[['সংগ্রহ','BTRC একবারে এক মাসের হিসাব দেয়, আর পুরোনো মাসগুলো ওদের সাইটে খুঁজে পাওয়া কঠিন। তাই প্রতিটা মাস নিয়েছি Financial Express, The Business Standard, The Daily Star, প্রথম আলো, ইত্তেফাক আর AMTOB এ প্রকাশিত BTRC এর সংখ্যা থেকে, আর প্রতি সারির উৎস লিখে রেখেছি।'],
-   ['যাচাই','যে মাসে অপারেটরভিত্তিক সংখ্যা আছে, সেখানে চার অপারেটরের যোগফল প্রকাশিত মোটের সমান হতেই হবে। এমন ১৯টা মাসের সবগুলোই মিলেছে। দুই পত্রিকার সংখ্যা না মিললে যোগফল দিয়েই ঠিকটা বের করেছি: একটা পত্রিকা রবির আগস্ট আর সেপ্টেম্বর ২০২৫ এর সংখ্যা উল্টে দিয়েছিল।'],
-   ['ফাঁকা থাকুক ফাঁকাই','অক্টোবর-নভেম্বর ২০২৪, জানুয়ারি-মার্চ ২০২৫ আর এপ্রিল ২০২৬ এর অপারেটরভিত্তিক সংখ্যা পাওয়া যায়নি। অনুমান না করে ফাঁকা রেখেছি, আর চার্টের রেখা সেখানে ভেঙে গেছে।'],
+  steps:[['সংগ্রহ','অপারেটরভিত্তিক সংখ্যা নিয়েছি সরাসরি BTRC এর মোবাইল গ্রাহক সারণি থেকে (হালনাগাদ ২৩ সেপ্টেম্বর ২০২৬)। ইন্টারনেটের সংখ্যা Financial Express, The Business Standard, The Daily Star আর AMTOB এ প্রকাশিত BTRC এর হিসাব থেকে, প্রতি সারির উৎস লেখা আছে।'],
+   ['যাচাই','প্রতি মাসে চার অপারেটরের যোগফল প্রকাশিত মোটের সমান হতে হবে। ২৫ মাসের সবগুলোই মিলেছে, একটা ছাড়া: মার্চ ২০২৬ এ BTRC এর সারণিতে গ্রামীণফোন ৮৪.৮৪ মিলিয়ন, কিন্তু BTRC এর নিজের মোটের সাথে মেলে ৮৪.৪৮, তাই সেটাই রেখেছি। আগে পত্রিকা থেকে নেওয়া সংখ্যাগুলো BTRC এর সারণির সাথে মিলে গেছে।'],
+   ['ফাঁক পূরণ','BTRC এর সারণি পাওয়ায় আগের ফাঁকা মাসগুলো (অক্টোবর-নভেম্বর ২০২৪, জানুয়ারি-মার্চ ২০২৫ আর এপ্রিল ২০২৬) এখন পূর্ণ, তাই চার্টের রেখা আর ভাঙে না।'],
    ['SQL দিয়ে বিশ্লেষণ','CSV টা SQLite এ লোড করে কোয়েরি দিয়ে বের করেছি মার্কেট শেয়ার, দুই বছরের পরিবর্তন, window function দিয়ে মাসে মাসে নিট বাড়া (ফাঁকা মাস বাদ দিয়ে), আর দুই সময়ের তুলনা।'],
    ['চার্ট','একই সংখ্যা থেকে সাধারণ JavaScript দিয়ে চার্ট আঁকা, রঙ বর্ণান্ধতা-নিরাপদ কি না যাচাই করা, হোভার করলে সংখ্যা দেখা যায়, আর পুরো ডেটা টেবিল আছে।'],
-   ['স্বচ্ছতা','কোটিতে প্রকাশিত মাসগুলো ০.১ মিলিয়ন পর্যন্ত নির্ভুল। সাবস্ক্রিপশন মানে গত ৯০ দিনে সক্রিয় যাচাই করা SIM। আমি রবি আজিয়াটায় কাজ করি; এই প্রজেক্টে শুধু নিয়ন্ত্রক সংস্থার পাবলিক ডেটা ব্যবহার হয়েছে।']]
+   ['স্বচ্ছতা','সাবস্ক্রিপশন মানে গত ৯০ দিনে সক্রিয় যাচাই করা SIM। আমি রবি আজিয়াটায় কাজ করি; এই প্রজেক্টে শুধু নিয়ন্ত্রক সংস্থার পাবলিক ডেটা ব্যবহার হয়েছে।']]
  }};
 var T=function(k){return S[LANG][k]};
 var BD='০১২৩৪৫৬৭৮৯';

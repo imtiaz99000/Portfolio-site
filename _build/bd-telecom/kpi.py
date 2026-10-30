@@ -33,6 +33,8 @@ def build_kpi(B):
     mk, last = market_kpis(B)
     import tele
     TL, TP = tele.build_tele(B)
+    import subhist
+    subhist.build_subhist(B)
     def card(k):
         v, pv, d = k['value'], k['prev'], k['d']
         ch = ''
@@ -64,7 +66,7 @@ def build_kpi(B):
             tk = [dict(id='tele', en='Teledensity', bn='টেলিডেনসিটি', value=TL['teledensity_pct'], prev=TP['teledensity_pct'], d=2, unit_en='%', unit_bn='%', period=TL['month'], prev_period=TP['month'], source='BTRC'),
                   dict(id='inet', en='Internet penetration', bn='ইন্টারনেট পেনেট্রেশন', value=TL['internet_penetration_pct'], prev=TP['internet_penetration_pct'], d=2, unit_en='%', unit_bn='%', period=TL['month'], prev_period=TP['month'], source='BTRC'),
                   dict(id='mbb', en='4G subscribers', bn='4G গ্রাহক', value=TL['subs_4g_m'], prev=TP['subs_4g_m'], d=2, unit_en='m', unit_bn='মি.', period=TL['month'], prev_period=TP['month'], source='BTRC')]
-            cards = ''.join(card(k) for k in mk) + ''.join(card(k) for k in tk) + '<a class="tile kpi more" href="/bd-telecom/kpi/teledensity/"><div class="l">%s</div><div class="v" style="font-size:1.05rem">%s →</div><div class="meta">%s</div></a>' % (T('Teledensity and penetration', 'টেলিডেনসিটি ও পেনেট্রেশন'), T('Monthly trend since 2021', '২০২১ থেকে মাসিক প্রবণতা'), T('Charts, table and CSV', 'চার্ট, সারণি আর CSV'))
+            cards = ''.join(card(k) for k in mk) + ''.join(card(k) for k in tk) + '<a class="tile kpi more" href="/bd-telecom/kpi/mobile-subscribers/"><div class="l">%s</div><div class="v" style="font-size:1.05rem">%s →</div><div class="meta">%s</div></a>' % (T('Mobile subscribers by operator', 'অপারেটরভিত্তিক মোবাইল গ্রাহক'), T('Five years of BTRC data', 'BTRC এর পাঁচ বছরের ডেটা'), T('Charts, table and CSV', 'চার্ট, সারণি আর CSV')) + '<a class="tile kpi more" href="/bd-telecom/kpi/teledensity/"><div class="l">%s</div><div class="v" style="font-size:1.05rem">%s →</div><div class="meta">%s</div></a>' % (T('Teledensity and penetration', 'টেলিডেনসিটি ও পেনেট্রেশন'), T('Monthly trend since 2021', '২০২১ থেকে মাসিক প্রবণতা'), T('Charts, table and CSV', 'চার্ট, সারণি আর CSV'))
             note = T('Updated %s from BTRC figures. Change is against the previous month with data.' % mlab(last['month']), 'BTRC এর সংখ্যা থেকে %s পর্যন্ত হালনাগাদ। পরিবর্তন আগের ডেটাসহ মাসের তুলনায়।' % mlab(last['month'], 'bn'))
         else:
             ks = [k for k in man if k['group'] == g]; cards = ''.join(card_manual(k) for k in ks)
@@ -82,4 +84,4 @@ def build_kpi(B):
     write('kpi/index.html', page('kpi/', 'kpi', 'Bangladesh telecom KPIs: subscribers, market share, QoS, finance | BD Telecom', 'বাংলাদেশ টেলিকম KPI | BD Telecom',
           'Monthly Bangladesh telecom KPIs: mobile and internet subscribers, operator market share, network quality, finances and infrastructure, each with its source.', body,
           crumbs=[('/bd-telecom/', 'BD Telecom', 'BD Telecom')]))
-    return ['bd-telecom/kpi/', 'bd-telecom/kpi/teledensity/']
+    return ['bd-telecom/kpi/', 'bd-telecom/kpi/teledensity/', 'bd-telecom/kpi/mobile-subscribers/']
