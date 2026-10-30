@@ -245,3 +245,12 @@ table.qos td small{color:var(--muted)}
 .nclist{margin:8px 0 0;padding-left:18px;font-size:.92rem;line-height:1.55}.nclist small{color:var(--muted)}
 .grid2>*,.grid3>*{min-width:0}
 table.qos td.frac{white-space:nowrap}
+.sbars{display:grid;gap:12px;margin-top:12px}
+.sb{display:grid;grid-template-columns:minmax(110px,150px) 1fr minmax(76px,auto);gap:10px;align-items:center}
+.sl{display:flex;align-items:center;gap:6px;font-size:.95rem}.sl .badge{width:22px;height:22px;font-size:9px}
+.st{display:flex;height:22px;border-radius:4px;overflow:hidden;background:var(--band)}
+.seg{display:block;height:100%;border-right:2px solid var(--surface)}
+.sv{font-size:.92rem;color:var(--muted)}.sv b{color:var(--ink)}
+table.spec td,table.spec th{text-align:right}table.spec td:first-child,table.spec th:first-child{text-align:left}
+table.spec td .badge{width:20px;height:20px;font-size:8.5px;vertical-align:-4px;margin-right:6px}
+@media (max-width:520px){.sb{grid-template-columns:96px 1fr auto;gap:8px}.sl{font-size:.85rem}}
