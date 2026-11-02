@@ -549,7 +549,7 @@ function render() {
 
 /* ---------------------------------------------------------------- charts */
 function chartW(f) { const vw = document.getElementById("view").clientWidth || 640; return Math.max(300, Math.round((vw > 700 ? vw * f : vw) - 34)); }
-let lastVW = 0; addEventListener("resize", () => { clearTimeout(lastVW.t); lastVW.t = setTimeout(() => { const vw = document.getElementById("view").clientWidth; if (Math.abs(vw - (lastVW.v || 0)) > 40) { lastVW.v = vw; const a = document.activeElement; if (!a || !/INPUT|SELECT|TEXTAREA/.test(a.tagName)) render(); } }, 250); });
+const lastVW = { v: 0, t: 0 }; addEventListener("resize", () => { clearTimeout(lastVW.t); lastVW.t = setTimeout(() => { const vw = document.getElementById("view").clientWidth; if (Math.abs(vw - (lastVW.v || 0)) > 40) { lastVW.v = vw; const a = document.activeElement; if (!a || !/INPUT|SELECT|TEXTAREA/.test(a.tagName)) render(); } }, 250); });
 function barsChart(rows, opts) {
   const W = chartW(1), H = 230, L = 48, R = 8, Tp = 10, B = 26;
   const max = Math.max(1, ...rows.map(r => Math.max(r.a, r.b)));
