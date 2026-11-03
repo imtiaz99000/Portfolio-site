@@ -12,11 +12,12 @@ function adminKey() {
   return k.length >= 10 ? k : null; // refuse to run with a missing or weak key
 }
 
-// The data is encrypted with a key derived from the Blob store's own secret token, so changing the
-// admin key later never locks you out of your data.
+// The data is encrypted with TAKA_DATA_KEY when set, else the old-style Blob token, else the admin key.
+// New Vercel Blob stores sign in with OIDC and have no read-write token, so the admin key is the usual source.
+// BEFORE CHANGING TAKA_ADMIN_KEY: add TAKA_DATA_KEY set to the current admin key, or saved data can't be opened.
 function dataKey() {
-  const src = process.env.TAKA_DATA_KEY || process.env.BLOB_READ_WRITE_TOKEN || "";
-  if (!src) throw Object.assign(new Error("Storage is not connected yet. Connect a Blob store to this Vercel project."), { status: 500 });
+  const src = process.env.TAKA_DATA_KEY || process.env.BLOB_READ_WRITE_TOKEN || adminKey() || "";
+  if (!src) throw Object.assign(new Error("The admin key is not set up yet."), { status: 500 });
   return crypto.createHash("sha256").update("taka-gelo-koi:data:" + src).digest();
 }
 
