@@ -68,16 +68,17 @@
       ]
     }
   ],
-  "rewrites": [
+  "redirects": [
     {
-      "source": "/:path((?!api/|taka/).*)",
+      "source": "/:path((?!taka/|api/).*)",
       "has": [
         {
           "type": "host",
           "value": "taka.imtiazkarim.com"
         }
       ],
-      "destination": "/taka/:path"
+      "destination": "/taka/",
+      "permanent": false
     }
   ]
 }
