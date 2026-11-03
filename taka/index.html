@@ -92,6 +92,10 @@
 })();
 </script>
 </head><body>
+<script>
+/* Theme: follows the phone's setting until the viewer picks Light or Dark; the choice is remembered on this device. */
+(function(){ try { var t = localStorage.getItem("tgk:theme"); if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t); } catch (e) {} })();
+</script>
 <title>Taka Gelo Koi? · Private</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -224,6 +228,7 @@ td.r, th.r { text-align: right; }
 .slider label { font-size: 14px; font-weight: 600; grid-column: 1 / -1; display: flex; justify-content: space-between; gap: 8px; }
 .toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 8px 14px; border-radius: 8px; font-weight: 600; font-size: 14px; z-index: 30; }
 .confirm { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; padding: 10px; border-radius: 8px; background: var(--out-soft); border: 1px solid var(--out); font-size: 14px; }
+.theme-btn { padding: 6px 12px; font-size: 13px; border-radius: 999px; }
 footer { color: var(--muted); font-size: 13px; padding-top: 8px; border-top: 1px solid var(--line); }
 @media (max-width: 560px) { .bud { grid-template-columns: minmax(0, 1fr) auto; } .bud .progress { grid-column: 1 / -1; order: 3; } .slider { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: no-preference) { .progress > i { transition: width .5s ease; } }
@@ -249,6 +254,7 @@ footer { color: var(--muted); font-size: 13px; padding-top: 8px; border-top: 1px
     <div class="bar">
       <span class="chip" id="modeChip"><span class="dot"></span><span id="modeText">Loading…</span></span>
       <div class="row">
+        <button class="btn theme-btn" id="themeBtn" type="button" aria-label="Switch theme"></button>
         <div class="seg" role="group" aria-label="Language">
           <button type="button" id="lang-en" aria-pressed="true">English</button>
           <button type="button" id="lang-bn" aria-pressed="false">বাংলা</button>
@@ -623,6 +629,23 @@ function applyLang() {
 document.getElementById("lang-en").addEventListener("click", () => { LANG = "en"; lsPref("lang", "en"); applyLang(); render(); });
 document.getElementById("signOut").addEventListener("click", () => { if (window.TAKA_SIGNOUT) TAKA_SIGNOUT(); });
 document.getElementById("lang-bn").addEventListener("click", () => { LANG = "bn"; lsPref("lang", "bn"); applyLang(); render(); });
+
+/* ---------------------------------------------------------------- theme toggle */
+(function () {
+  const root = document.documentElement, btn = document.getElementById("themeBtn");
+  const sys = () => matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  const cur = () => root.getAttribute("data-theme") || sys();
+  const paint = () => {
+    const bn = root.lang === "bn", dark = cur() === "dark";
+    btn.textContent = dark ? (bn ? "☀ লাইট মোড" : "☀ Light mode") : (bn ? "☾ ডার্ক মোড" : "☾ Dark mode");
+    btn.setAttribute("aria-label", btn.textContent.slice(2));
+    const m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = dark ? "#0d1411" : "#0d6b4c";
+  };
+  btn.addEventListener("click", () => { const next = cur() === "dark" ? "light" : "dark"; root.setAttribute("data-theme", next); try { localStorage.setItem("tgk:theme", next); } catch (e) {} paint(); });
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", paint);
+  new MutationObserver(paint).observe(root, { attributes: true, attributeFilter: ["lang"] });
+  paint();
+})();
 
 /* ---------------------------------------------------------------- render shell */
 function render() {
