@@ -244,6 +244,13 @@ const T = {
     replaceNote: "↺ = this month is already saved and will be replaced.", monthsFound: "months found", exportH: "Backup & export", exportJson: "Download full backup (.json)", exportCsv: "Download entries (.csv)", copyBackup: "Copy backup text",
     restoreH: "Restore a backup", restoreP: "Choose a .json backup made by this app. It replaces everything currently saved.",
     dangerH: "Start over", clearAll: "Delete all my data", sure: "This deletes every month, goal, Zakat and loan record. Sure?", yesDelete: "Yes, delete everything", deleting: "Deleting…",
+    planH: "Execution plan", planP: "What goes into the pot each period, and where the balance stands after it.", planStart: "This month", planNext: "Coming up",
+    pSave: "Save from salary (DPS, savings)", pPF: "Provident Fund (cut from salary)", pPMS: "Put the PMS bonus in", pWPPF: "Put the WPPF profit share in",
+    colPeriod: "Period", colSave: "From salary", colPF: "PF", colPMS: "PMS", colWPPF: "WPPF", colRet: "Profit", colZak: "Zakat", colEnd: "Balance", colPct: "of target",
+    byYear: "Year by year", byMonth: "Month by month", reachedRow: "Target reached", planNone: "Nothing to plan: your savings already cover this target.",
+    warnLow: "You already have {st}, which is more than this target of {tg}. Did you mean {x10}?", useX10: "Set target to {x10}",
+    warnHigh: "Monthly saving of {m} is more than your average money in of {avg} over the last 6 months. Please check this number.",
+    warnNever: "At this pace the target isn't reached within 50 years. Raise the monthly saving or the bonuses.",
     copied: "Copied", savedT: "Saved", deletedT: "Deleted", noDownload: "Downloads are not available here. Use Copy backup instead.",
     autoCat: "Category picked from the item name. Change it if wrong.", uncategorised: "Other",
     fileError: "Couldn't read that file. Save it as .xlsx or .csv and try again.", nothingFound: "No months or entries found in that file.",
@@ -283,6 +290,13 @@ const T = {
     replaceNote: "↺ = এই মাস আগে থেকেই সেভ আছে, বদলে যাবে।", monthsFound: "টি মাস পাওয়া গেছে", exportH: "ব্যাকআপ ও এক্সপোর্ট", exportJson: "পুরো ব্যাকআপ নামান (.json)", exportCsv: "এন্ট্রি নামান (.csv)", copyBackup: "ব্যাকআপ কপি করুন",
     restoreH: "ব্যাকআপ ফেরত আনুন", restoreP: "এই অ্যাপের বানানো .json ব্যাকআপ বাছুন। এটা এখনকার সব ডেটা বদলে দেবে।",
     dangerH: "নতুন করে শুরু", clearAll: "আমার সব ডেটা মুছুন", sure: "সব মাস, লক্ষ্য, যাকাত আর ধার-দেনা মুছে যাবে। নিশ্চিত?", yesDelete: "হ্যাঁ, সব মুছুন", deleting: "মোছা হচ্ছে…",
+    planH: "কাজের পরিকল্পনা", planP: "প্রতি সময়ে সঞ্চয়ে কত যাচ্ছে, আর তারপর ব্যালেন্স কত দাঁড়াচ্ছে।", planStart: "এই মাসে", planNext: "সামনে যা আছে",
+    pSave: "বেতন থেকে সঞ্চয় (ডিপিএস ইত্যাদি)", pPF: "প্রভিডেন্ট ফান্ড (বেতন থেকে কাটা)", pPMS: "PMS বোনাস জমা করুন", pWPPF: "WPPF লভ্যাংশ জমা করুন",
+    colPeriod: "সময়", colSave: "বেতন থেকে", colPF: "পিএফ", colPMS: "PMS", colWPPF: "WPPF", colRet: "মুনাফা", colZak: "যাকাত", colEnd: "ব্যালেন্স", colPct: "লক্ষ্যের",
+    byYear: "বছর অনুযায়ী", byMonth: "মাস অনুযায়ী", reachedRow: "লক্ষ্য পূরণ", planNone: "পরিকল্পনার দরকার নেই: আপনার সঞ্চয় এই লক্ষ্যের চেয়ে বেশি।",
+    warnLow: "আপনার এখনই {st} আছে, যা এই {tg} লক্ষ্যের চেয়ে বেশি। আপনি কি {x10} বোঝাতে চেয়েছেন?", useX10: "লক্ষ্য {x10} করুন",
+    warnHigh: "মাসিক সঞ্চয় {m}, যা গত ৬ মাসের গড় আয় {avg}-এর চেয়ে বেশি। সংখ্যাটা একবার দেখে নিন।",
+    warnNever: "এই হারে ৫০ বছরেও লক্ষ্যে পৌঁছানো যাবে না। মাসিক সঞ্চয় বা বোনাস বাড়ান।",
     copied: "কপি হয়েছে", savedT: "সেভ হয়েছে", deletedT: "মুছে ফেলা হয়েছে", noDownload: "এখানে ডাউনলোড চলে না। ব্যাকআপ কপি করুন।",
     autoCat: "নাম দেখে ক্যাটাগরি বাছা হয়েছে। ভুল হলে বদলে দিন।", uncategorised: "অন্যান্য",
     fileError: "ফাইলটা পড়া গেলো না। .xlsx বা .csv হিসেবে সেভ করে আবার চেষ্টা করুন।", nothingFound: "ফাইলে কোনো মাস বা এন্ট্রি পাওয়া যায়নি।",
@@ -390,6 +404,7 @@ const dur = n => { const y = Math.floor(n / 12), m = n % 12; return (y ? toBn(y)
 function h(tag, attrs, ...kids) {
   const el = document.createElement(tag);
   if (attrs) for (const [k, v] of Object.entries(attrs)) {
+    if (k.startsWith("aria-") && typeof v === "boolean") { el.setAttribute(k, String(v)); continue; } // aria-pressed etc. need "true"/"false"
     if (v == null || v === false) continue;
     if (k === "class") el.className = v; else if (k === "text") el.textContent = v;
     else if (k.startsWith("on")) el.addEventListener(k.slice(2), v); else if (k === "style") el.style.cssText = v;
@@ -499,9 +514,10 @@ function simulate(g, opts = {}) {
   const r = (+g.returnRate || 0) / 12;
   while (b < g.target && n < 600) {
     n++; const mon = +ym.split("-")[1];
-    b += b * r + (+monthly || 0) + (+g.pf || 0) + (mon === +g.pmsMonth ? (+g.pms || 0) : 0) + (mon === +g.wppfMonth ? (+g.wppf || 0) : 0);
-    if (zak && n % 12 === 0) { const z = b * 0.025; b -= z; zakTotal += z; }
-    path.push({ ym, b }); ym = addM(ym, 1);
+    const part = { ret: b * r, dep: +monthly || 0, pf: +g.pf || 0, pms: mon === +g.pmsMonth ? (+g.pms || 0) : 0, wppf: mon === +g.wppfMonth ? (+g.wppf || 0) : 0, zak: 0 };
+    b += part.ret + part.dep + part.pf + part.pms + part.wppf;
+    if (zak && n % 12 === 0) { part.zak = b * 0.025; b -= part.zak; zakTotal += part.zak; }
+    path.push(Object.assign({ ym, b }, part)); ym = addM(ym, 1);
   }
   return { months: n, end: path[path.length - 1].ym, path, zakTotal, reached: b >= g.target };
 }
@@ -767,6 +783,7 @@ function vGoal() {
   const g = S.goal; const wrap = h("section", { style: "display:flex;flex-direction:column;gap:14px" });
   const sim = simulate(g); const simZ = simulate(g, { zakat: true }); const st = goalStart();
   const yearsLeft = sim.months / 12; const todayVal = g.target / Math.pow(1 + (+g.inflation || 0), yearsLeft);
+  wrap.append(...goalWarnings(g, st, sim));
   wrap.append(h("div", { class: "hero" },
     h("div", null, h("div", { class: "small muted" }, t("reachBy")), h("div", { class: "big gold" }, sim.reached ? mLabel(sim.end, true) : "–"), h("div", { class: "muted" }, sim.reached ? dur(sim.months) : "")),
     h("div", { style: "display:flex;flex-direction:column;gap:8px" }, h("div", { class: "row", style: "justify-content:space-between" }, h("strong", null, t("startBal") + " " + tk(st)), h("span", { class: "muted" }, t("target") + " " + tk(g.target))), progress(st / g.target, "gold"),
@@ -810,7 +827,59 @@ function vGoal() {
   const dl = h("div", { class: "card" }, h("h3", null, t("deadline")), h("table", null, h("thead", null, h("tr", null, h("th", null, t("deadline")), h("th", { class: "r" }, t("needMonthly")))),
     h("tbody", null, [3, 4, 5, 7, 10].map(y => h("tr", null, h("td", null, toBn(y) + " " + t("years") + " · " + mLabel(addM(g.start, y * 12 - 1), true)), h("td", { class: "r money" }, tk(neededMonthly(g, y * 12))))))));
   wrap.append(h("div", { class: "grid" }, ms, dl));
+  wrap.append(planCard(g, st, sim));
   return wrap;
+}
+const fill = (k, o) => t(k).replace(/\{(\w+)\}/g, (_, x) => o[x]);
+function goalWarnings(g, st, sim) {
+  const out = [];
+  if (st >= g.target) {
+    const x10 = g.target * 10;
+    out.push(h("div", { class: "banner" }, h("span", null, fill("warnLow", { st: tkShort(st), tg: tkShort(g.target), x10: tkShort(x10) })),
+      x10 > st ? h("button", { class: "btn", type: "button", onclick: () => { g.target = x10; markDirty("goal"); } }, fill("useX10", { x10: tkShort(x10) })) : null));
+  }
+  const ks = monthKeys().slice(-6);
+  const avg = ks.length ? ks.reduce((a, m) => a + sums(m).in, 0) / ks.length : 0;
+  if (avg && +g.monthly > avg) out.push(h("div", { class: "banner" }, h("span", null, fill("warnHigh", { m: tk(g.monthly), avg: tk(avg) }))));
+  if (st < g.target && !sim.reached) out.push(h("div", { class: "banner" }, h("span", null, t("warnNever"))));
+  return out;
+}
+function planCard(g, st, sim) {
+  const card = h("div", { class: "card" }, h("div", { class: "head" }, h("h2", null, t("planH"))), h("p", { class: "muted small", style: "margin:0" }, t("planP")));
+  const rows = sim.path.slice(1);
+  if (!rows.length) { card.append(h("p", { style: "margin:0" }, t("planNone"))); return card; }
+  // this month + the next lump sums
+  const first = rows[0], todo = h("div", { class: "ledger" });
+  const line = (txt, amt, when) => h("div", { class: "lrow" }, h("div", { class: "item" }, txt, when ? h("div", { class: "c" }, when) : null), h("span"), h("span", { class: "amt gold" }, tk(amt)));
+  if (first.dep) todo.append(line(t("pSave"), first.dep, mLabel(first.ym, true)));
+  if (first.pf) todo.append(line(t("pPF"), first.pf, mLabel(first.ym, true)));
+  const nextOf = k => rows.find(r => r[k] > 0);
+  [["pms", "pPMS"], ["wppf", "pWPPF"]].map(([k, lbl]) => [nextOf(k), lbl, k]).filter(x => x[0]).sort((a, b) => a[0].ym.localeCompare(b[0].ym))
+    .forEach(([r, lbl, k]) => todo.append(line(t(lbl), r[k], mLabel(r.ym, true))));
+  card.append(h("h3", null, t("planStart") + " · " + t("planNext")), todo);
+  // table: by year (default) or by month
+  const cols = [["dep", "colSave"], ["pf", "colPF"], ["pms", "colPMS"], ["wppf", "colWPPF"], ["ret", "colRet"], ["zak", "colZak"]].filter(([k]) => rows.some(r => r[k] > 0));
+  const groups = [];
+  if (UI.planMonthly) rows.forEach(r => groups.push({ label: mLabel(r.ym, true), list: [r] }));
+  else rows.forEach(r => { const y = r.ym.slice(0, 4); const gp = groups[groups.length - 1]; if (gp && gp.y === y) gp.list.push(r); else groups.push({ y, label: toBn(y), list: [r] }); });
+  const tbody = h("tbody");
+  groups.forEach((gp, gi) => {
+    const last = gp.list[gp.list.length - 1], hit = gi === groups.length - 1 && sim.reached;
+    const sum = k => gp.list.reduce((a, r) => a + r[k], 0);
+    const lbl = UI.planMonthly || gp.list.length === 12 ? gp.label : gp.label + " (" + MN[LANG][+gp.list[0].ym.slice(5) - 1] + (gp.list.length > 1 ? "–" + MN[LANG][+last.ym.slice(5) - 1] : "") + ")";
+    tbody.append(h("tr", hit ? { style: "font-weight:700;background:var(--gold-soft)" } : null,
+      h("td", null, lbl, hit ? h("div", { class: "small gold" }, "✓ " + t("reachedRow")) : null),
+      cols.map(([k]) => h("td", { class: "r money" + (k === "zak" ? " neg" : "") }, sum(k) ? (k === "zak" ? "−" : "") + tk(sum(k)) : "–")),
+      h("td", { class: "r money" }, h("strong", null, tk(last.b))),
+      h("td", { class: "r" }, pct(Math.min(1, last.b / g.target)))));
+  });
+  card.append(h("div", { class: "row" },
+    h("div", { class: "seg", role: "group" },
+      h("button", { type: "button", "aria-pressed": !UI.planMonthly, onclick: () => { UI.planMonthly = false; render(); } }, t("byYear")),
+      h("button", { type: "button", "aria-pressed": !!UI.planMonthly, onclick: () => { UI.planMonthly = true; render(); } }, t("byMonth")))),
+    h("div", { class: "tablebox", style: UI.planMonthly ? "max-height:480px;overflow:auto" : null }, h("table", null,
+      h("thead", null, h("tr", null, h("th", null, t("colPeriod")), cols.map(([, l]) => h("th", { class: "r" }, t(l))), h("th", { class: "r" }, t("colEnd")), h("th", { class: "r" }, t("colPct")))), tbody)));
+  return card;
 }
 
 /* -------- zakat */
