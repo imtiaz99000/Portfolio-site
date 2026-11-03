@@ -230,6 +230,10 @@ td.r, th.r { text-align: right; }
 .slider label { font-size: 14px; font-weight: 600; grid-column: 1 / -1; display: flex; justify-content: space-between; gap: 8px; }
 .toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 8px 14px; border-radius: 8px; font-weight: 600; font-size: 14px; z-index: 30; }
 .confirm { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; padding: 10px; border-radius: 8px; background: var(--out-soft); border: 1px solid var(--out); font-size: 14px; }
+.slider input[type=number] { grid-column: 1 / -1; font-size: 17px; font-weight: 600; }
+.lockbar { display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; justify-content: space-between; padding: 10px 12px; border-radius: 10px; background: var(--raised); border: 1px solid var(--line); font-size: 14px; font-weight: 600; }
+.lockbar.on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+input:disabled, select:disabled { opacity: 1; color: var(--ink); background: transparent; border-style: dashed; cursor: not-allowed; -webkit-text-fill-color: var(--ink); }
 .theme-btn { padding: 6px 12px; font-size: 13px; border-radius: 999px; }
 footer { color: var(--muted); font-size: 13px; padding-top: 8px; border-top: 1px solid var(--line); }
 @media (max-width: 560px) { .bud { grid-template-columns: minmax(0, 1fr) auto; } .bud .progress { grid-column: 1 / -1; order: 3; } .slider { grid-template-columns: 1fr; } }
@@ -329,7 +333,8 @@ const T = {
     replaceNote: "↺ = this month is already saved and will be replaced.", monthsFound: "months found", exportH: "Backup & export", exportJson: "Download full backup (.json)", exportCsv: "Download entries (.csv)", copyBackup: "Copy backup text",
     restoreH: "Restore a backup", restoreP: "Choose a .json backup made by this app. It replaces everything currently saved.",
     dangerH: "Start over", clearAll: "Delete all my data", sure: "This deletes every month, goal, Zakat and loan record. Sure?", yesDelete: "Yes, delete everything", deleting: "Deleting…",
-    planH: "Execution plan", planP: "What goes into the pot each period, and where the balance stands after it.", planStart: "This month", planNext: "Coming up",
+    planH: "Execution plan", planLocked: "Plan locked", editPlan: "Edit plan", editAsk: "Unlock the plan to change its numbers?", editYes: "Yes, edit",
+    editing: "Editing the plan", notLocked: "Set your numbers, then lock the plan", saveLock: "Save & lock", planSaved: "Plan saved and locked", planP: "What goes into the pot each period, and where the balance stands after it.", planStart: "This month", planNext: "Coming up",
     pSave: "Save from salary (DPS, savings)", pPF: "Provident Fund (cut from salary)", pPMS: "Put the PMS bonus in", pWPPF: "Put the WPPF profit share in",
     colPeriod: "Period", colSave: "From salary", colPF: "PF", colPMS: "PMS", colWPPF: "WPPF", colRet: "Profit", colZak: "Zakat", colEnd: "Balance", colPct: "of target",
     byYear: "Year by year", byMonth: "Month by month", reachedRow: "Target reached", planNone: "Nothing to plan: your savings already cover this target.",
@@ -380,7 +385,8 @@ const T = {
     replaceNote: "↺ = এই মাস আগে থেকেই সেভ আছে, বদলে যাবে।", monthsFound: "টি মাস পাওয়া গেছে", exportH: "ব্যাকআপ ও এক্সপোর্ট", exportJson: "পুরো ব্যাকআপ নামান (.json)", exportCsv: "এন্ট্রি নামান (.csv)", copyBackup: "ব্যাকআপ কপি করুন",
     restoreH: "ব্যাকআপ ফেরত আনুন", restoreP: "এই অ্যাপের বানানো .json ব্যাকআপ বাছুন। এটা এখনকার সব ডেটা বদলে দেবে।",
     dangerH: "নতুন করে শুরু", clearAll: "আমার সব ডেটা মুছুন", sure: "সব মাস, লক্ষ্য, যাকাত আর ধার-দেনা মুছে যাবে। নিশ্চিত?", yesDelete: "হ্যাঁ, সব মুছুন", deleting: "মোছা হচ্ছে…",
-    planH: "কাজের পরিকল্পনা", planP: "প্রতি সময়ে সঞ্চয়ে কত যাচ্ছে, আর তারপর ব্যালেন্স কত দাঁড়াচ্ছে।", planStart: "এই মাসে", planNext: "সামনে যা আছে",
+    planH: "কাজের পরিকল্পনা", planLocked: "পরিকল্পনা লক করা", editPlan: "এডিট করুন", editAsk: "সংখ্যা বদলাতে পরিকল্পনাটা আনলক করবেন?", editYes: "হ্যাঁ, এডিট করবো",
+    editing: "পরিকল্পনা এডিট হচ্ছে", notLocked: "সংখ্যাগুলো ঠিক করে পরিকল্পনা লক করুন", saveLock: "সেভ ও লক", planSaved: "পরিকল্পনা সেভ ও লক হয়েছে", planP: "প্রতি সময়ে সঞ্চয়ে কত যাচ্ছে, আর তারপর ব্যালেন্স কত দাঁড়াচ্ছে।", planStart: "এই মাসে", planNext: "সামনে যা আছে",
     pSave: "বেতন থেকে সঞ্চয় (ডিপিএস ইত্যাদি)", pPF: "প্রভিডেন্ট ফান্ড (বেতন থেকে কাটা)", pPMS: "PMS বোনাস জমা করুন", pWPPF: "WPPF লভ্যাংশ জমা করুন",
     colPeriod: "সময়", colSave: "বেতন থেকে", colPF: "পিএফ", colPMS: "PMS", colWPPF: "WPPF", colRet: "মুনাফা", colZak: "যাকাত", colEnd: "ব্যালেন্স", colPct: "লক্ষ্যের",
     byYear: "বছর অনুযায়ী", byMonth: "মাস অনুযায়ী", reachedRow: "লক্ষ্য পূরণ", planNone: "পরিকল্পনার দরকার নেই: আপনার সঞ্চয় এই লক্ষ্যের চেয়ে বেশি।",
@@ -637,7 +643,7 @@ function route() {
   document.querySelectorAll("#tabs a").forEach(a => a.setAttribute("aria-current", a.dataset.v === v ? "page" : "false"));
   return v;
 }
-addEventListener("hashchange", () => { render(); scrollTo({ top: 0 }); });
+addEventListener("hashchange", () => { if (UI.goalEdit && UI.goalSnap && location.hash !== "#goal") { Object.assign(S.goal, UI.goalSnap); UI.goalEdit = false; UI.goalSnap = null; markDirty("goal"); } UI.goalAsk = false; render(); scrollTo({ top: 0 }); });
 
 function applyLang() {
   document.documentElement.lang = LANG;
@@ -881,28 +887,40 @@ function vGoal() {
     h("div", null, h("div", { class: "small muted" }, t("reachBy")), h("div", { class: "big gold" }, sim.reached ? mLabel(sim.end, true) : "–"), h("div", { class: "muted" }, sim.reached ? dur(sim.months) : "")),
     h("div", { style: "display:flex;flex-direction:column;gap:8px" }, h("div", { class: "row", style: "justify-content:space-between" }, h("strong", null, t("startBal") + " " + tk(st)), h("span", { class: "muted" }, t("target") + " " + tk(g.target))), progress(st / g.target, "gold"),
       h("div", { class: "small muted" }, t("ytdNote")))));
-  const inputs = h("div", { class: "card" }, h("h3", null, t("goalH")));
+  // Locked plan: inputs are read-only until "Edit plan" is confirmed; "Save & lock" or "Cancel" ends editing.
+  const locked = !!g.locked && !UI.goalEdit;
+  const lockBar = h("div", { class: "lockbar" + (locked ? " on" : "") });
+  if (locked) {
+    lockBar.append(h("span", null, "🔒 " + t("planLocked") + (g.lockedAt ? " · " + new Date(g.lockedAt).toLocaleDateString(LANG === "bn" ? "bn-BD" : "en-GB", { day: "numeric", month: "short", year: "numeric" }) : "")));
+    if (UI.goalAsk) lockBar.append(h("div", { class: "confirm", style: "flex-basis:100%" }, h("span", null, t("editAsk")),
+      h("button", { class: "btn primary", type: "button", onclick: () => { UI.goalAsk = false; UI.goalEdit = true; UI.goalSnap = clone(g); render(); } }, t("editYes")),
+      h("button", { class: "btn", type: "button", onclick: () => { UI.goalAsk = false; render(); } }, t("cancel"))));
+    else lockBar.append(h("button", { class: "btn", type: "button", onclick: () => { UI.goalAsk = true; render(); } }, "✎ " + t("editPlan")));
+  } else {
+    lockBar.append(h("span", null, UI.goalEdit ? "✎ " + t("editing") : t("notLocked")), h("div", { class: "row" },
+      h("button", { class: "btn primary", type: "button", onclick: () => { g.locked = true; g.lockedAt = new Date().toISOString(); UI.goalEdit = false; UI.goalSnap = null; markDirty("goal"); toast(t("planSaved")); } }, "🔒 " + t("saveLock")),
+      UI.goalEdit && UI.goalSnap ? h("button", { class: "btn", type: "button", onclick: () => { Object.assign(g, UI.goalSnap); UI.goalEdit = false; UI.goalSnap = null; markDirty("goal"); } }, t("cancel")) : null));
+  }
+  const inputs = h("div", { class: "card" }, h("h3", null, t("goalH")), lockBar);
+  // number boxes only: the old sliders moved by accident while scrolling on a phone
   const slider = (key, label, min, max, step, fmt, isPct) => {
     const val = isPct ? +g[key] * 100 : +g[key];
-    const num = h("input", { type: "number", min, max: isPct ? max : null, step, value: isPct ? +(val.toFixed(1)) : val, "aria-label": label, id: "g-" + key });
-    const rng = h("input", { type: "range", min, max, step, value: Math.min(max, val), "aria-label": label });
     const out = h("span", { class: "money gold" }, fmt(+g[key]));
-    const set = v => { g[key] = isPct ? v / 100 : v; markDirty("goal"); };
-    rng.addEventListener("input", () => { num.value = rng.value; out.textContent = fmt(isPct ? +rng.value / 100 : +rng.value); });
-    rng.addEventListener("change", () => set(+rng.value));
-    num.addEventListener("change", () => set(+num.value || 0));
-    return h("div", { class: "slider" }, h("label", { for: "g-" + key }, h("span", null, label), out), rng, num);
+    const num = h("input", { type: "number", inputmode: "decimal", min, max: isPct ? max : null, step, value: isPct ? +(val.toFixed(1)) : val, "aria-label": label, id: "g-" + key, disabled: locked,
+      onwheel: ev => ev.target.blur(), oninput: ev => { const v = +ev.target.value || 0; out.textContent = fmt(isPct ? v / 100 : v); } });
+    num.addEventListener("change", () => { const v = +num.value || 0; g[key] = isPct ? v / 100 : v; markDirty("goal"); });
+    return h("div", { class: "slider" }, h("label", { for: "g-" + key }, h("span", null, label), out), num);
   };
   inputs.append(
     slider("target", t("target"), 100000, 50000000, 100000, tkShort), slider("monthly", t("monthly"), 0, 300000, 1000, tk),
     slider("pf", t("pf"), 0, 50000, 100, tk), slider("pms", t("pms"), 0, 2000000, 10000, tk), slider("wppf", t("wppf"), 0, 2000000, 10000, tk),
     slider("returnRate", t("ret"), 0, 15, 0.5, v => pct(v, 1), true), slider("inflation", t("infl"), 0, 15, 0.5, v => pct(v, 1), true));
-  const monthSel = (key, label) => h("label", { class: "f" }, label, h("select", { onchange: ev => { g[key] = +ev.target.value; markDirty("goal"); } }, MNF[LANG].map((n, i) => h("option", { value: i + 1, selected: +g[key] === i + 1 }, n))));
+  const monthSel = (key, label) => h("label", { class: "f" }, label, h("select", { disabled: locked, onchange: ev => { g[key] = +ev.target.value; markDirty("goal"); } }, MNF[LANG].map((n, i) => h("option", { value: i + 1, selected: +g[key] === i + 1 }, n))));
   inputs.append(h("div", { class: "form" },
-    h("label", { class: "f" }, t("startMonth"), h("input", { type: "month", value: g.start, onchange: ev => { if (ev.target.value) { g.start = ev.target.value; markDirty("goal"); } } })),
+    h("label", { class: "f" }, t("startMonth"), h("input", { type: "month", value: g.start, disabled: locked, onchange: ev => { if (ev.target.value) { g.start = ev.target.value; markDirty("goal"); } } })),
     monthSel("pmsMonth", t("pmsMonth")), monthSel("wppfMonth", t("wppfMonth"))),
-    h("label", { class: "row small" }, h("input", { type: "checkbox", checked: g.zakatFromPot, onchange: ev => { g.zakatFromPot = ev.target.checked; markDirty("goal"); } }), t("zakatPot")),
-    h("label", { class: "row small" }, h("input", { type: "checkbox", checked: g.countLent, onchange: ev => { g.countLent = ev.target.checked; markDirty("goal"); } }), t("countLent")));
+    h("label", { class: "row small" }, h("input", { type: "checkbox", checked: g.zakatFromPot, disabled: locked, onchange: ev => { g.zakatFromPot = ev.target.checked; markDirty("goal"); } }), t("zakatPot")),
+    h("label", { class: "row small" }, h("input", { type: "checkbox", checked: g.countLent, disabled: locked, onchange: ev => { g.countLent = ev.target.checked; markDirty("goal"); } }), t("countLent")));
   const res = h("div", { class: "card" }, h("h3", null, t("growth")),
     h("div", { class: "legend" }, h("span", null, h("i", { style: "background:var(--accent)" }), t("balance")), !g.zakatFromPot ? h("span", null, h("i", { style: "background:var(--muted)" }), t("zakatPotNote")) : null),
     lineChart(sim.path, g.target, g.zakatFromPot ? null : simZ.path),
@@ -929,7 +947,7 @@ function goalWarnings(g, st, sim) {
   if (st >= g.target) {
     const x10 = g.target * 10;
     out.push(h("div", { class: "banner" }, h("span", null, fill("warnLow", { st: tkShort(st), tg: tkShort(g.target), x10: tkShort(x10) })),
-      x10 > st ? h("button", { class: "btn", type: "button", onclick: () => { g.target = x10; markDirty("goal"); } }, fill("useX10", { x10: tkShort(x10) })) : null));
+      x10 > st && !(g.locked && !UI.goalEdit) ? h("button", { class: "btn", type: "button", onclick: () => { g.target = x10; markDirty("goal"); } }, fill("useX10", { x10: tkShort(x10) })) : null));
   }
   const ks = monthKeys().slice(-6);
   const avg = ks.length ? ks.reduce((a, m) => a + sums(m).in, 0) / ks.length : 0;
