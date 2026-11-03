@@ -241,7 +241,7 @@ const T = {
     chooseFile: "Choose file", importing: "Reading file…", preview: "Ready to import", replaceMonths: "Import these months", importDone: "Imported",
     replaceNote: "↺ = this month is already saved and will be replaced.", monthsFound: "months found", exportH: "Backup & export", exportJson: "Download full backup (.json)", exportCsv: "Download entries (.csv)", copyBackup: "Copy backup text",
     restoreH: "Restore a backup", restoreP: "Choose a .json backup made by this app. It replaces everything currently saved.",
-    dangerH: "Start over", clearAll: "Delete all my data", sure: "This deletes every month, goal, Zakat and loan record. Sure?", yesDelete: "Yes, delete everything",
+    dangerH: "Start over", clearAll: "Delete all my data", sure: "This deletes every month, goal, Zakat and loan record. Sure?", yesDelete: "Yes, delete everything", deleting: "Deleting…",
     copied: "Copied", savedT: "Saved", deletedT: "Deleted", noDownload: "Downloads are not available here. Use Copy backup instead.",
     autoCat: "Category picked from the item name. Change it if wrong.", uncategorised: "Other",
     fileError: "Couldn't read that file. Save it as .xlsx or .csv and try again.", nothingFound: "No months or entries found in that file.",
@@ -280,7 +280,7 @@ const T = {
     chooseFile: "ফাইল বাছুন", importing: "ফাইল পড়া হচ্ছে…", preview: "ইমপোর্টের জন্য তৈরি", replaceMonths: "এই মাসগুলো ইমপোর্ট করুন", importDone: "ইমপোর্ট হয়েছে",
     replaceNote: "↺ = এই মাস আগে থেকেই সেভ আছে, বদলে যাবে।", monthsFound: "টি মাস পাওয়া গেছে", exportH: "ব্যাকআপ ও এক্সপোর্ট", exportJson: "পুরো ব্যাকআপ নামান (.json)", exportCsv: "এন্ট্রি নামান (.csv)", copyBackup: "ব্যাকআপ কপি করুন",
     restoreH: "ব্যাকআপ ফেরত আনুন", restoreP: "এই অ্যাপের বানানো .json ব্যাকআপ বাছুন। এটা এখনকার সব ডেটা বদলে দেবে।",
-    dangerH: "নতুন করে শুরু", clearAll: "আমার সব ডেটা মুছুন", sure: "সব মাস, লক্ষ্য, যাকাত আর ধার-দেনা মুছে যাবে। নিশ্চিত?", yesDelete: "হ্যাঁ, সব মুছুন",
+    dangerH: "নতুন করে শুরু", clearAll: "আমার সব ডেটা মুছুন", sure: "সব মাস, লক্ষ্য, যাকাত আর ধার-দেনা মুছে যাবে। নিশ্চিত?", yesDelete: "হ্যাঁ, সব মুছুন", deleting: "মোছা হচ্ছে…",
     copied: "কপি হয়েছে", savedT: "সেভ হয়েছে", deletedT: "মুছে ফেলা হয়েছে", noDownload: "এখানে ডাউনলোড চলে না। ব্যাকআপ কপি করুন।",
     autoCat: "নাম দেখে ক্যাটাগরি বাছা হয়েছে। ভুল হলে বদলে দিন।", uncategorised: "অন্যান্য",
     fileError: "ফাইলটা পড়া গেলো না। .xlsx বা .csv হিসেবে সেভ করে আবার চেষ্টা করুন।", nothingFound: "ফাইলে কোনো মাস বা এন্ট্রি পাওয়া যায়নি।",
@@ -437,18 +437,19 @@ async function flush() {
   if (MODE === "local") { lsSet(docsFromState()); return; }
   if (!DB || !UID) return;
   const col = DB.collection("data/users/" + UID);
-  for (const k of keys) {
+  let fellBack = false;
+  await Promise.all(keys.map(async k => { // sent together, so the private site saves them in one request
     try {
-      if (k.startsWith("-")) { await col.doc(k.slice(1)).delete(); continue; }
+      if (k.startsWith("-")) { await col.doc(k.slice(1)).delete(); return; }
       const body = k.startsWith("m_") ? S.months[k.slice(2)] : S[k];
-      if (body == null) continue;
+      if (body == null) return;
       await col.doc(k).set(clone(body));
     } catch (e) {
-      if (e && e.code === "invalid_argument") { MODE = "local"; lsSet(docsFromState()); render(); return; }
-      if (e && e.code === "unavailable") { dirty.add(k); setTimeout(flush, 1500 + Math.random() * 1000); }
+      if (e && e.code === "invalid_argument") { if (!fellBack) { fellBack = true; MODE = "local"; lsSet(docsFromState()); render(); } return; }
+      if (e && e.code === "unavailable") { dirty.add(k); clearTimeout(flush.retry); flush.retry = setTimeout(flush, 1500 + Math.random() * 1000); }
       else if (e && e.code === "quota_exceeded") toast("Storage is full");
     }
-  }
+  }));
 }
 function setMonth(m) { if (!S.months[m]) S.months[m] = { month: m, entries: [] }; return S.months[m]; }
 
@@ -911,14 +912,14 @@ function vData() {
   ec.append(h("h3", null, t("restoreH")), h("p", { class: "small muted", style: "margin:0" }, t("restoreP")), rf);
   wrap.append(ec);
   const dc = h("div", { class: "card" }, h("h3", null, t("dangerH")));
-  if (UI.confirmClear) dc.append(h("div", { class: "confirm" }, h("span", null, t("sure")), h("button", { class: "btn danger", type: "button", onclick: async () => { UI.confirmClear = false; exitDemo(); await wipe(); S = emptyState(); if (MODE === "local") lsSet(docsFromState()); render(); toast(t("deletedT")); } }, t("yesDelete")), h("button", { class: "btn", type: "button", onclick: () => { UI.confirmClear = false; render(); } }, t("cancel"))));
+  if (UI.confirmClear) dc.append(h("div", { class: "confirm" }, h("span", null, t("sure")), h("button", { class: "btn danger", type: "button", onclick: async ev => { const b = ev.currentTarget; b.disabled = true; b.textContent = t("deleting"); exitDemo(); await wipe(); UI.confirmClear = false; S = emptyState(); if (MODE === "local") lsSet(docsFromState()); render(); toast(t("deletedT")); } }, t("yesDelete")), h("button", { class: "btn", type: "button", onclick: () => { UI.confirmClear = false; render(); } }, t("cancel"))));
   else dc.append(h("div", { class: "row" }, h("button", { class: "btn danger", type: "button", onclick: () => { UI.confirmClear = true; render(); } }, t("clearAll")), h("button", { class: "btn", type: "button", onclick: loadDemo }, t("trySample"))));
   wrap.append(dc);
   return wrap;
 }
 async function wipe() {
   if (MODE === "demo") return;
-  if (DB && UID) { const col = DB.collection("data/users/" + UID); const snap = await col.limit(500).get(); for (const d of snap.docs) { try { await col.doc(d.id).delete(); } catch (e) {} } }
+  if (DB && UID) { const col = DB.collection("data/users/" + UID); const snap = await col.limit(500).get(); await Promise.all(snap.docs.map(d => col.doc(d.id).delete().catch(() => {}))); } // all at once: one request on the private site
   else lsSet(null);
 }
 
