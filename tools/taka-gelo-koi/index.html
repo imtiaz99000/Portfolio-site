@@ -574,20 +574,34 @@ function render() {
 function chartW(f) { const vw = document.getElementById("view").clientWidth || 640; return Math.max(300, Math.round((vw > 700 ? vw * f : vw) - 34)); }
 const lastVW = { v: 0, t: 0 }; addEventListener("resize", () => { clearTimeout(lastVW.t); lastVW.t = setTimeout(() => { const vw = document.getElementById("view").clientWidth; if (Math.abs(vw - (lastVW.v || 0)) > 40) { lastVW.v = vw; const a = document.activeElement; if (!a || !/INPUT|SELECT|TEXTAREA/.test(a.tagName)) render(); } }, 250); });
 function barsChart(rows, opts) {
-  const W = chartW(1), H = 230, L = 48, R = 8, Tp = 10, B = 26;
-  const max = Math.max(1, ...rows.map(r => Math.max(r.a, r.b)));
-  const min = Math.min(0, ...rows.map(r => r.net));
+  const W = chartW(1), L = 52, R = 8, B = 26;
+  const bw = (W - L - R) / Math.max(1, rows.length), w = Math.max(2, bw * 0.34);
+  const flat = w >= 26; // wide bars: labels sit flat on top; narrow bars: labels stand upright
+  const Tp = flat ? 18 : 40, H = 230 + Tp - 10;
+  // round axis steps (1, 2, 2.5, 5 × 10ⁿ) so gridlines read 2 lakh, 4 lakh… instead of 2.29 lakh
+  const rawMax = Math.max(1, ...rows.map(r => Math.max(r.a, r.b))), rawMin = Math.min(0, ...rows.map(r => r.net));
+  const span = (rawMax - rawMin) / 4, mag = Math.pow(10, Math.floor(Math.log10(span)));
+  const step = [1, 2, 2.5, 5, 10].map(m => m * mag).find(v => v >= span);
+  const min = Math.floor(rawMin / step) * step, max = Math.ceil(rawMax / step) * step;
   const y = v => Tp + (H - Tp - B) * (1 - (v - min) / (max - min));
-  const bw = (W - L - R) / Math.max(1, rows.length);
   const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": t("inVsOut") });
-  const ticks = 4; for (let i = 0; i <= ticks; i++) { const v = min + (max - min) * i / ticks; svg.append(s("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), stroke: "var(--line)" }), s("text", { x: L - 6, y: y(v) + 4, "text-anchor": "end" }, tkShort(v))); }
-  const step = Math.ceil(rows.length / 12);
+  for (let v = min; v <= max + step / 2; v += step) svg.append(s("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), stroke: v === 0 ? "var(--muted)" : "var(--line)", "stroke-opacity": v === 0 ? 0.5 : 1 }), s("text", { x: L - 6, y: y(v) + 4, "text-anchor": "end" }, tkShort(v)));
+  // compact value for bar labels: 2.3L / 85k (Bangla: ২.৩ লা / ৮৫ হা)
+  const lab = v => { const a = Math.abs(v); const bn = LANG === "bn"; const t2 = a >= 1e5 ? (a / 1e5).toFixed(a >= 1e6 ? 0 : 1).replace(/\.0$/, "") + (bn ? " লা" : "L") : a >= 1e3 ? Math.round(a / 1e3) + (bn ? " হা" : "k") : String(Math.round(a)); return toBn(t2); };
+  const barLabel = (cx, top, v, color) => {
+    if (!v) return;
+    const st = `fill:${color};font-size:${flat ? 11 : 9.5}px;font-weight:700`;
+    svg.append(flat ? s("text", { x: cx, y: top - 5, "text-anchor": "middle", style: st }, lab(v))
+                    : s("text", { x: cx + 3.5, y: top - 4, "text-anchor": "start", transform: `rotate(-90 ${cx + 3.5} ${top - 4})`, style: st }, lab(v)));
+  };
+  const narrow = bw < 44, every = Math.max(Math.ceil(rows.length / 12), bw < 30 ? 2 : 1); // phones: "Nov" only, every other month
   rows.forEach((r, i) => {
-    const x = L + i * bw, w = Math.max(2, bw * 0.34);
-    svg.append(s("rect", { x: x + bw * 0.14, y: y(r.a), width: w, height: Math.max(0, y(0) - y(r.a)), rx: 2, fill: "var(--in)" }));
-    svg.append(s("rect", { x: x + bw * 0.14 + w + 2, y: y(r.b), width: w, height: Math.max(0, y(0) - y(r.b)), rx: 2, fill: "var(--out)" }));
+    const x = L + i * bw, xa = x + bw * 0.14, xb = xa + w + 2;
+    svg.append(s("rect", { x: xa, y: y(r.a), width: w, height: Math.max(0, y(0) - y(r.a)), rx: 2, fill: "var(--in)" }));
+    svg.append(s("rect", { x: xb, y: y(r.b), width: w, height: Math.max(0, y(0) - y(r.b)), rx: 2, fill: "var(--out)" }));
+    barLabel(xa + w / 2, y(r.a), r.a, "var(--in)"); barLabel(xb + w / 2, y(r.b), r.b, "var(--out)");
     svg.append(s("circle", { cx: x + bw / 2, cy: y(r.net), r: 3.5, fill: r.net >= 0 ? "var(--in)" : "var(--out)", stroke: "var(--surface)", "stroke-width": 1.5 }));
-    if (i % step === 0) svg.append(s("text", { x: x + bw / 2, y: H - 8, "text-anchor": "middle" }, r.label));
+    if ((rows.length - 1 - i) % every === 0) svg.append(s("text", { x: x + bw / 2, y: H - 8, "text-anchor": "middle" }, narrow ? r.label.split(" ")[0] : r.label));
     const hit = s("rect", { x, y: 0, width: bw, height: H - B, fill: "transparent" });
     hit.addEventListener("mousemove", ev => tip(ev, [r.full, `${t("moneyIn")}: ${tk(r.a)}`, `${t("moneyOut")}: ${tk(r.b)}`, `${t("net")}: ${tk(r.net)}`]));
     hit.addEventListener("mouseleave", untip); svg.append(hit);
