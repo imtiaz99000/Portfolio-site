@@ -69,10 +69,30 @@ function store() {
     };
   }
   const blob = require("@vercel/blob");
+  // Works with a Private store (recommended) or a Public one. Private is tried first and remembered.
+  let access = process.env.TAKA_BLOB_ACCESS || null;
+  const isAccessErr = e => /access|private|public/i.test(String(e && e.message));
   return {
     async list() { const r = await blob.list({ prefix: PREFIX, limit: 100 }); return r.blobs; },
-    async get(b) { const r = await fetch(b.url + "?v=" + Date.now(), { cache: "no-store" }); if (!r.ok) throw new Error("Could not read saved data (" + r.status + ")"); return Buffer.from(await r.arrayBuffer()); },
-    async put(name, buf) { await blob.put(name, buf, { access: "public", addRandomSuffix: true, contentType: "application/octet-stream", cacheControlMaxAge: 60 }); },
+    async get(b) {
+      if (access !== "public") {
+        try {
+          const r = await blob.get(b.url, { access: "private", useCache: false });
+          if (r && r.statusCode === 200) { access = "private"; return Buffer.from(await new Response(r.stream).arrayBuffer()); }
+        } catch (e) { if (access === "private" || !isAccessErr(e)) throw e; }
+      }
+      const r = await fetch(b.url + "?v=" + Date.now(), { cache: "no-store" });
+      if (!r.ok) throw new Error("Could not read saved data (" + r.status + ")");
+      access = "public"; return Buffer.from(await r.arrayBuffer());
+    },
+    async put(name, buf) {
+      const opts = a => ({ access: a, addRandomSuffix: true, contentType: "application/octet-stream", cacheControlMaxAge: 60 });
+      if (access !== "public") {
+        try { await blob.put(name, buf, opts("private")); access = "private"; return; }
+        catch (e) { if (access === "private" || !isAccessErr(e)) throw e; }
+      }
+      await blob.put(name, buf, opts("public")); access = "public";
+    },
     async del(bs) { if (bs.length) await blob.del(bs.map(b => b.url)); },
   };
 }
