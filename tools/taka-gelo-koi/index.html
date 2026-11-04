@@ -42,7 +42,7 @@
 :root {
   --bg: #f2f6f3; --surface: #ffffff; --raised: #f8fbf9; --ink: #13211b; --muted: #5a6b62; --line: #d7e1db;
   --accent: #0d6b4c; --accent-soft: #dcefe6; --on-accent: #ffffff;
-  --gold: #b9790b; --gold-soft: #fbefd6; --in: #12775a; --out: #b2412b; --out-soft: #fbe5df; --margin: #e9b8ad;
+  --gold: #b9790b; --gold-soft: #fbefd6; --inc: #6cbf9a; --in: #12775a; --out: #b2412b; --out-soft: #fbe5df; --margin: #e9b8ad;
   --display: "Anek Bangla", "Bricolage Grotesque", "Hind Siliguri", system-ui, sans-serif;
   --body: "Anek Bangla", "Hind Siliguri", system-ui, -apple-system, "Segoe UI", sans-serif;
   --fg: var(--ink);
@@ -51,12 +51,12 @@
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #0d1411; --surface: #141e19; --raised: #18241e; --ink: #e5eee9; --muted: #95a79d; --line: #26352d;
   --accent: #52c79c; --accent-soft: #15372a; --on-accent: #06140e;
-  --gold: #e5ac3f; --gold-soft: #3a2b0e; --in: #52c79c; --out: #ef826b; --out-soft: #3b1d16; --margin: #5a2a20;
+  --gold: #e5ac3f; --gold-soft: #3a2b0e; --inc: #2e8d68; --in: #52c79c; --out: #ef826b; --out-soft: #3b1d16; --margin: #5a2a20;
   color-scheme: dark; } }
 :root[data-theme="dark"] {
   --bg: #0d1411; --surface: #141e19; --raised: #18241e; --ink: #e5eee9; --muted: #95a79d; --line: #26352d;
   --accent: #52c79c; --accent-soft: #15372a; --on-accent: #06140e;
-  --gold: #e5ac3f; --gold-soft: #3a2b0e; --in: #52c79c; --out: #ef826b; --out-soft: #3b1d16; --margin: #5a2a20;
+  --gold: #e5ac3f; --gold-soft: #3a2b0e; --inc: #2e8d68; --in: #52c79c; --out: #ef826b; --out-soft: #3b1d16; --margin: #5a2a20;
   color-scheme: dark; }
 * { box-sizing: border-box; }
 body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.5;
@@ -195,6 +195,7 @@ footer { color: var(--muted); font-size: 13px; padding-top: 8px; border-top: 1px
   <nav class="tabs" id="tabs" aria-label="Sections">
     <a href="#home" data-v="home" data-t="tHome">Overview</a>
     <a href="#spend" data-v="spend" data-t="tSpend">Income &amp; spending</a>
+    <a href="#pay" data-v="pay" data-t="tPay">Payslips</a>
     <a href="#goal" data-v="goal" data-t="tGoal">Savings goal</a>
     <a href="#zakat" data-v="zakat" data-t="tZakat">Zakat</a>
     <a href="#loans" data-v="loans" data-t="tLoans">Loans</a>
@@ -215,6 +216,15 @@ footer { color: var(--muted); font-size: 13px; padding-top: 8px; border-top: 1px
 const T = {
   en: {
     appName: "Taka Gelo Koi?", tagline: "every taka, accounted for",
+    tPay: "Payslips", psFixed: "Fixed salary", psOtherAllow: "Other allowance", psIncentive: "Incentive", psPms: "PMS bonus", psFestival: "Festival bonus", psArrear: "Arrear",
+    psChart: "What each payslip paid", psNet: "Net paid", psReading: "Reading payslips…", psNone: "No payslips found in those files.", psFail: "Couldn't read those files. Try the PDF itself or a .zip of PDFs.",
+    psUploadH: "Add payslips", psUploadP: "Choose one or more payslip PDFs, a .zip of them, or a payslips .json backup. The app reads the figures on this device and never keeps bank account or TIN numbers. Robi Axiata payslips are read automatically; for other employers use the form below.",
+    psSlips: "payslips", psDupes: "re-issued copies skipped (kept the revised one)", psSkipped: "files skipped", psBonus: "Bonus", psOffcycle: "bonus slip", psSkippedList: "Not payslips:",
+    psSave: "Save these payslips", psEmptyH: "No payslips yet", psEmptyP: "Upload your payslip PDFs to see how your pay has grown month by month.",
+    psRegular: "Regular pay", psAvgInc: "Average incentive", psLast6: "last 6 payslips", psFYTotal: "Earned this income year",
+    psNext: "Next payslip due:", psNextP: "Upload it here when it arrives (usually around the 25th).", psMissing: "Missing:", psUploadBtn: "Upload payslip",
+    psFY: "Income year totals (July to June)", psYear: "Year", psErPf: "Employer PF", psTax: "Tax", psTotal: "Total earned", psFYNote: "Total earned = salary + incentive + bonuses + employer PF, the same basis as Robi's tax certificate. Growth shows only between full 12-month years. Tax on off-cycle Eid bonuses is deducted outside the payslip, so the tax column can be a little lower than the tax certificate.",
+    psEvery: "Every payslip", psMonth: "Month", psTakehome: "Take-home", psRebuilt: "Rebuilt from tax card", psTableNote: "Regular pay = fixed salary + incentive. Take-home leaves out travel and handset refunds.", psManualH: "Add a payslip by hand",
     tHome: "Overview", tSpend: "Income & spending", tGoal: "Savings goal", tZakat: "Zakat", tLoans: "Loans", tData: "Import & backup",
     loading: "Opening your hisab…", loadingSub: "Your months, goal, Zakat and loans will appear here.",
     foot: "Your entries are private to you. Amounts are in Bangladeshi Taka (৳).", siteNote: "Everything is saved only in this browser on this device; nothing is sent to any server. Install it from your browser menu to use it like an app, even offline.",
@@ -262,6 +272,15 @@ const T = {
   },
   bn: {
     appName: "টাকা গেলো কই?", tagline: "প্রতিটি টাকার হিসাব",
+    tPay: "পে-স্লিপ", psFixed: "নির্দিষ্ট বেতন", psOtherAllow: "অন্যান্য ভাতা", psIncentive: "ইনসেনটিভ", psPms: "PMS বোনাস", psFestival: "উৎসব বোনাস", psArrear: "বকেয়া",
+    psChart: "প্রতি মাসের পে-স্লিপে কী পেলেন", psNet: "নিট পেয়েছেন", psReading: "পে-স্লিপ পড়া হচ্ছে…", psNone: "এই ফাইলগুলোতে কোনো পে-স্লিপ পাওয়া যায়নি।", psFail: "ফাইলগুলো পড়া গেলো না। PDF বা PDF-এর .zip দিয়ে চেষ্টা করুন।",
+    psUploadH: "পে-স্লিপ যোগ করুন", psUploadP: "এক বা একাধিক পে-স্লিপ PDF, সেগুলোর .zip, অথবা পে-স্লিপের .json ব্যাকআপ বাছুন। অ্যাপ এই ডিভাইসেই সংখ্যাগুলো পড়ে নেয়, ব্যাংক অ্যাকাউন্ট বা TIN নম্বর রাখে না। Robi Axiata-র পে-স্লিপ নিজে থেকেই পড়া যায়; অন্য প্রতিষ্ঠানের জন্য নিচের ফর্ম ব্যবহার করুন।",
+    psSlips: "টি পে-স্লিপ", psDupes: "টি পুনরায় দেওয়া কপি বাদ (সংশোধিতটা রাখা হয়েছে)", psSkipped: "টি ফাইল বাদ", psBonus: "বোনাস", psOffcycle: "বোনাস স্লিপ", psSkippedList: "পে-স্লিপ নয়:",
+    psSave: "এই পে-স্লিপগুলো সেভ করুন", psEmptyH: "এখনো কোনো পে-স্লিপ নেই", psEmptyP: "পে-স্লিপের PDF আপলোড করুন, মাসে মাসে বেতন কতটা বাড়লো দেখতে পাবেন।",
+    psRegular: "নিয়মিত আয়", psAvgInc: "গড় ইনসেনটিভ", psLast6: "শেষ ৬টি পে-স্লিপ", psFYTotal: "এই আয় বছরে আয়",
+    psNext: "পরের পে-স্লিপ:", psNextP: "হাতে পেলে এখানে আপলোড করুন (সাধারণত ২৫ তারিখের দিকে)।", psMissing: "বাদ পড়েছে:", psUploadBtn: "পে-স্লিপ আপলোড",
+    psFY: "আয় বছরের মোট (জুলাই থেকে জুন)", psYear: "বছর", psErPf: "প্রতিষ্ঠানের পিএফ", psTax: "ট্যাক্স", psTotal: "মোট আয়", psFYNote: "মোট আয় = বেতন + ইনসেনটিভ + বোনাস + প্রতিষ্ঠানের পিএফ, Robi-র ট্যাক্স সার্টিফিকেটের হিসাবেই। বৃদ্ধি শুধু পূর্ণ ১২ মাসের বছরের মধ্যে দেখানো হয়। ঈদ বোনাসের ট্যাক্স পে-স্লিপের বাইরে কাটা হয়, তাই ট্যাক্সের হিসাব সার্টিফিকেটের চেয়ে একটু কম দেখাতে পারে।",
+    psEvery: "সব পে-স্লিপ", psMonth: "মাস", psTakehome: "হাতে পেয়েছেন", psRebuilt: "ট্যাক্স কার্ড থেকে তৈরি", psTableNote: "নিয়মিত আয় = নির্দিষ্ট বেতন + ইনসেনটিভ। হাতে পাওয়া টাকায় যাতায়াত ও হ্যান্ডসেট রিফান্ড ধরা হয়নি।", psManualH: "হাতে লিখে পে-স্লিপ যোগ করুন",
     tHome: "সারসংক্ষেপ", tSpend: "আয় ও খরচ", tGoal: "সঞ্চয়ের লক্ষ্য", tZakat: "যাকাত", tLoans: "ধার-দেনা", tData: "ইমপোর্ট ও ব্যাকআপ",
     loading: "আপনার হিসাব খোলা হচ্ছে…", loadingSub: "মাসের হিসাব, লক্ষ্য, যাকাত আর ধার-দেনা এখানে দেখাবে।",
     foot: "আপনার এন্ট্রি শুধু আপনিই দেখতে পারবেন। সব হিসাব টাকায় (৳)।", siteNote: "সব ডেটা শুধু এই ডিভাইসের ব্রাউজারে সেভ থাকে, কোনো সার্ভারে যায় না। ব্রাউজারের মেনু থেকে Install করলে অ্যাপের মতো, ইন্টারনেট ছাড়াও চালাতে পারবেন।",
@@ -545,7 +564,7 @@ function loanTotals() {
 }
 
 /* ---------------------------------------------------------------- router */
-const VIEWS = ["home", "spend", "goal", "zakat", "loans", "data"];
+const VIEWS = ["home", "spend", "pay", "goal", "zakat", "loans", "data"];
 function route() {
   const v = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "home";
   document.querySelectorAll("#tabs a").forEach(a => a.setAttribute("aria-current", a.dataset.v === v ? "page" : "false"));
@@ -591,7 +610,7 @@ function render() {
   else if (MODE === "local" && monthKeys().length) banner.append(h("div", { class: "banner" }, h("span", null, t("localBanner"))));
   const view = document.getElementById("view");
   if (MODE === "loading") return;
-  const fn = { home: vHome, spend: vSpend, goal: vGoal, zakat: vZakat, loans: vLoans, data: vData }[v];
+  const fn = { home: vHome, spend: vSpend, pay: vPay, goal: vGoal, zakat: vZakat, loans: vLoans, data: vData }[v];
   view.replaceChildren(fn());
 }
 
@@ -706,12 +725,13 @@ function vHome() {
   g2.append(h("div", { class: "card" }, h("div", { class: "head" }, h("h3", null, t("loansCard")), h("a", { href: "#loans", class: "small" }, "→")),
     h("div", { class: "kpis" }, kpi(t("othersOwe"), tk(lt.owed), null, "pos"), kpi(t("youOwe"), tk(lt.owe), null, lt.owe ? "neg" : ""))));
   out.append(g2);
-  if (S.payslips && S.payslips.rows && S.payslips.rows.length > 2) {
-    const r = S.payslips.rows; const reg = r.map(x => x.fixed + x.inc); const first = r[0], lastP = r[r.length - 1];
-    out.append(h("div", { class: "card" }, h("div", { class: "head" }, h("h3", null, t("salaryGrowth")), h("span", { class: "small muted" }, S.payslips.source || "")),
-      h("div", { class: "kpis" }, kpi(t("regular") + " · " + mLabel(lastP.m, true), tk(lastP.fixed + lastP.inc), pct((lastP.fixed + lastP.inc) / (first.fixed + first.inc) - 1, 1) + " " + t("since") + " " + mLabel(first.m, true), "pos"),
+  const pl = psMonths();
+  if (pl.length > 2) {
+    const first = pl[0], lastP = pl[pl.length - 1];
+    out.append(h("div", { class: "card" }, h("div", { class: "head" }, h("h3", null, t("salaryGrowth")), h("a", { href: "#pay", class: "small" }, "→")),
+      h("div", { class: "kpis" }, kpi(t("regular") + " · " + mLabel(lastP.m, true), tk(lastP.regular), pct(lastP.regular / first.regular - 1, 1) + " " + t("since") + " " + mLabel(first.m, true), "pos"),
         kpi(t("fixedGross") + " · " + mLabel(lastP.m, true), tk(lastP.fixed), pct(lastP.fixed / first.fixed - 1, 1) + " " + t("since") + " " + mLabel(first.m, true))),
-      sparkLine(reg, "var(--accent)")));
+      sparkLine(pl.map(x => x.regular), "var(--accent)")));
   }
   return out;
 }
@@ -1010,6 +1030,262 @@ async function wipe() {
   if (MODE === "demo") return;
   if (DB && UID) { const col = DB.collection("data/users/" + UID); const snap = await col.limit(500).get(); await Promise.all(snap.docs.map(d => col.doc(d.id).delete().catch(() => {}))); } // all at once: one request on the private site
   else lsSet(null);
+}
+
+/* Robi Axiata payslip reader. Turns the text lines of one payslip PDF into figures.
+   Handles three layouts: the 2024 coded payslip, the "PAY SLIP" layout (Aug 2024 onward)
+   and the "Additional Benefit" (off-cycle bonus) payslip. Keeps figures only: no bank
+   account, e-TIN or employee code is stored. */
+const PAYSLIP_MONTHS = ["january","february","march","april","may","june","july","august","september","october","november","december"];
+function psNum(s) { return Math.abs(parseFloat(String(s).replace(/[(),]/g, "").replace(/-$/, ""))) || 0; }
+function psLinesFromItems(items) {
+  // group pdf.js text items into lines by their y position, left to right
+  const rows = [];
+  for (const it of items) {
+    if (!it.str || !it.str.trim()) continue;
+    const y = it.transform[5], x = it.transform[4];
+    let row = rows.find(r => Math.abs(r.y - y) < 2.5);
+    if (!row) { row = { y, parts: [] }; rows.push(row); }
+    row.parts.push({ x, s: it.str.trim() });
+  }
+  rows.sort((a, b) => b.y - a.y);
+  return rows.map(r => r.parts.sort((a, b) => a.x - b.x).map(p => p.s).join("  "));
+}
+function parsePayslipLines(lines, fileName) {
+  const text = lines.join("\n");
+  if (/income tax deduction certificate|tax card/i.test(text)) return { skip: "tax document" };
+  let mm = text.match(/Month\s+([A-Za-z]+)-(\d{4})/) || text.match(/PAYSLIP for\s+([A-Za-z]+),\s*(\d{4})/i) || text.match(/Month Of Disbursement\s+([A-Za-z]+),\s*(\d{4})/i);
+  if (!mm) return { skip: "not a Robi payslip" };
+  const mi = PAYSLIP_MONTHS.indexOf(mm[1].toLowerCase());
+  if (mi < 0) return { skip: "month not found" };
+  const m = `${mm[2]}-${String(mi + 1).padStart(2, "0")}`;
+  const r = { m, kind: "regular", basic: 0, allow: 0, otherAllow: 0, incentive: 0, pms: 0, festival: 0, arrear: 0, erPf: 0, eePf: 0,
+    travel: 0, handset: 0, monthlyTax: 0, oneoffTax: 0, otherDed: 0, net: 0, designation: "", file: fileName || "" };
+  const pi = lines.findIndex(l => /^\s*(Job )?Position\b/.test(l));
+  if (pi >= 0) {
+    const own = lines[pi].replace(/^\s*(Job )?Position\s*/, "").replace(/\s*Department.*$/, "").trim();
+    const prev = lines[pi - 1] || "", next = lines[pi + 1] || "";
+    const ok = l => l && !/Employee|Month|Date of Joining|Cost Center|Organization|ROBI|Income Year|Name|Gross|Bank/i.test(l);
+    r.designation = [ok(prev) && !own ? prev.trim() : "", own, ok(next) ? next.trim() : ""].filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
+  }
+  if (/Additional Benefit/i.test(text)) {
+    const fb = text.match(/Festival Bonus\s+([\d,]+(?:\.\d+)?)/i); r.kind = "offcycle"; r.festival = fb ? psNum(fb[1]) : 0;
+    const n = text.match(/Net Payment\s*:\s*([\d,]+(?:\.\d+)?)/i); r.net = n ? psNum(n[1]) : r.festival; return r;
+  }
+  const coded = /PAYSLIP for/i.test(text);
+  let section = null;
+  for (const raw of lines) {
+    const l = raw.trim();
+    if (coded) {
+      if (/^Payments$/i.test(l)) { section = "pay"; continue; }
+      if (/^Deductions$/i.test(l)) { section = "ded"; continue; }
+      const c = l.match(/^\d{4}\s+(.*?)\s{2,}([\d,]+\.\d+)-?$/); if (!c) continue;
+      const label = c[1].trim().toLowerCase(), v = psNum(c[2]);
+      if (section === "ded") {
+        if (/cpf|pf/.test(label)) { r.eePf += v; r.erPf += v; } else if (/tax/.test(label)) r.monthlyTax += v; else if (/club/.test(label)) {} else r.otherDed += v;
+      } else {
+        if (/^basic/.test(label)) r.basic += v; else if (/house|medical|conveyance|lfa/.test(label)) r.allow += v;
+        else if (/other allowance/.test(label)) r.otherAllow += v; else if (/incentive/.test(label)) r.incentive += v;
+      }
+      continue;
+    }
+    if (/^Gross Salary/i.test(l)) { section = "gross"; continue; }
+    if (/^Other Benefits/i.test(l)) { section = "other"; continue; }
+    if (/^Deductions/i.test(l)) { section = "ded"; continue; }
+    const k = l.match(/^(.*?)\s{2,}(\(?[\d,]+(?:\.\d+)?\)?)$/); if (!k || !section) continue;
+    const label = k[1].trim().replace(/\.$/, "").toLowerCase(), v = psNum(k[2]);
+    if (/^total|^net salary/.test(label)) continue;
+    if (section === "gross") { if (/^basic/.test(label)) r.basic += v; else r.allow += v; }
+    else if (section === "other") {
+      if (/employer'?s contribution to pf/.test(label)) r.erPf += v;
+      else if (/arrear basic|arrear house/.test(label)) r.arrear += v;
+      else if (/arrear pf/.test(label)) r.erPf += v;
+      else if (/other allowance/.test(label)) r.otherAllow += v;
+      else if (/sales incentive/.test(label)) r.incentive += v;
+      else if (/incentive bonus/.test(label)) { if (v >= 150000 || m.endsWith("-02")) r.pms += v; else r.incentive += v; }
+      else if (/festival bonus/.test(label)) r.festival += v;
+      else if (/travel/.test(label)) r.travel += v;
+      else if (/handset/.test(label)) r.handset += v;
+    } else {
+      if (/employee'?s contribution to pf|arrear pf employee/.test(label)) r.eePf += v;
+      else if (/monthly tax/.test(label)) r.monthlyTax += v;
+      else if (/one-?off tax/.test(label)) r.oneoffTax += v;
+      else if (/festival bonus/.test(label)) r.offcycleDed = (r.offcycleDed || 0) + v;
+      else if (/club|employer'?s contribution|arrear pf employer/.test(label)) {}
+      else r.otherDed += v;
+    }
+  }
+  const n = text.match(/Net Salary\s+([\d,]+(?:\.\d+)?)/i) || text.match(/Net Payment\s*:\s*([\d,]+(?:\.\d+)?)/i); r.net = n ? psNum(n[1]) : 0;
+  return r;
+}
+function payslipFixed(r) { return r.basic + r.allow; }
+function payslipRegular(r) { return r.basic + r.allow + r.otherAllow + r.incentive; }
+
+
+/* ---------------------------------------------------------------- payslips */
+function psNorm(r) {
+  if (r.basic != null) return Object.assign({ allow: 0, otherAllow: 0, incentive: 0, pms: 0, festival: 0, arrear: 0, erPf: 0, eePf: 0, travel: 0, handset: 0, monthlyTax: 0, oneoffTax: 0, otherDed: 0, net: 0, kind: "regular", designation: "" }, r);
+  return { m: r.m, kind: "regular", basic: r.fixed || 0, allow: 0, otherAllow: 0, incentive: r.inc || 0, pms: r.pms || 0, festival: r.fb || 0, arrear: 0, erPf: 0, eePf: 0, travel: 0, handset: 0, monthlyTax: r.tax || 0, oneoffTax: 0, otherDed: 0, net: r.net || 0, designation: "", file: "" };
+}
+function psRows() { return ((S.payslips && S.payslips.rows) || []).map(psNorm).sort((a, b) => a.m.localeCompare(b.m) || (a.kind === "regular" ? -1 : 1)); }
+// one record per month: the regular slip plus any off-cycle slip folded in
+function psMonths() {
+  const by = {};
+  for (const r of psRows()) {
+    const x = by[r.m] || (by[r.m] = { m: r.m, fixed: 0, otherAllow: 0, incentive: 0, pms: 0, festival: 0, arrear: 0, tax: 0, net: 0, erPf: 0, eePf: 0, travel: 0, designation: "", reconstructed: false, slips: 0 });
+    x.fixed += r.basic + r.allow; x.otherAllow += r.otherAllow; x.incentive += r.incentive; x.pms += r.pms; x.festival += r.festival; x.arrear += r.arrear;
+    x.tax += r.monthlyTax + r.oneoffTax; x.net += r.net; x.erPf += r.erPf; x.eePf += r.eePf; x.travel += r.travel + r.handset; x.slips++;
+    if (r.designation && r.kind === "regular") x.designation = r.designation; if (r.reconstructed) x.reconstructed = true;
+  }
+  const list = Object.values(by).sort((a, b) => a.m.localeCompare(b.m));
+  list.forEach((x, i) => { x.regular = x.fixed + x.otherAllow + x.incentive; x.total = x.regular + x.pms + x.festival + x.arrear; x.takehome = x.net - x.travel; x.mom = i && list[i - 1].regular ? x.regular / list[i - 1].regular - 1 : null; });
+  return list;
+}
+const fyOf = m => { const [y, mo] = m.split("-").map(Number); return mo >= 7 ? `FY${y}-${String(y + 1).slice(2)}` : `FY${y - 1}-${String(y).slice(2)}`; };
+
+let pdfLoading = null;
+function loadScript(src) { return new Promise((res, rej) => { const sc = document.createElement("script"); sc.src = src; sc.onload = res; sc.onerror = rej; document.head.append(sc); }); }
+function loadPdfJs() {
+  if (window.pdfjsLib && window.pdfjsWorker) return Promise.resolve();
+  if (!pdfLoading) pdfLoading = (async () => {
+    // the worker script is loaded on the page so pdf.js runs in the main thread (no separate worker file needed)
+    await loadScript("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js");
+    await loadScript("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js");
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+  })();
+  return pdfLoading;
+}
+async function readPdf(buf, name) {
+  await loadPdfJs();
+  const doc = await window.pdfjsLib.getDocument({ data: new Uint8Array(buf), disableFontFace: true, isEvalSupported: false }).promise;
+  let lines = [];
+  for (let i = 1; i <= doc.numPages; i++) { const pg = await doc.getPage(i); const tc = await pg.getTextContent(); lines = lines.concat(psLinesFromItems(tc.items)); }
+  return parsePayslipLines(lines, name);
+}
+async function parsePayslipFiles(files) {
+  const out = [], skipped = [];
+  for (const f of files) {
+    if (/\.zip$/i.test(f.name)) {
+      if (!window.JSZip) await loadScript("https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js");
+      const zip = await window.JSZip.loadAsync(await f.arrayBuffer());
+      for (const e of Object.values(zip.files)) {
+        if (e.dir || !/\.pdf$/i.test(e.name) || /__MACOSX/.test(e.name)) continue;
+        const nm = e.name.split("/").pop();
+        try { const r = await readPdf(await e.async("arraybuffer"), nm); r.skip ? skipped.push(nm) : out.push(r); } catch (err) { skipped.push(nm); }
+      }
+    } else if (/\.json$/i.test(f.name)) {
+      try { const j = JSON.parse(await f.text()); const rows = (j.docs && j.docs.payslips && j.docs.payslips.rows) || j.rows || []; rows.forEach(r => out.push(psNorm(r))); if (!rows.length) skipped.push(f.name); } catch (err) { skipped.push(f.name); }
+    } else if (/\.pdf$/i.test(f.name)) {
+      try { const r = await readPdf(await f.arrayBuffer(), f.name); r.skip ? skipped.push(f.name) : out.push(r); } catch (err) { skipped.push(f.name); }
+    } else skipped.push(f.name);
+  }
+  // two slips for the same month and kind (a re-issued payslip): keep the revised one, which pays more
+  const by = {};
+  for (const r of out) { const k = r.m + "|" + r.kind; if (!by[k] || r.net > by[k].net) { if (by[k]) by[k].dropped = true; by[k] = r; } }
+  const rows = Object.values(by).sort((a, b) => a.m.localeCompare(b.m));
+  return { rows, skipped, dupes: out.length - rows.length };
+}
+function psMissing(list) {
+  if (list.length < 2) return [];
+  const have = new Set(list.map(x => x.m)); const miss = [];
+  for (let m = list[0].m; m < list[list.length - 1].m; m = addM(m, 1)) if (!have.has(m)) miss.push(m);
+  return miss;
+}
+
+function stackChart(list) {
+  const KEYS = [["fixed", "var(--accent)", t("psFixed")], ["otherAllow", "var(--muted)", t("psOtherAllow")], ["incentive", "var(--inc)", t("psIncentive")], ["pms", "var(--gold)", t("psPms")], ["festival", "var(--out)", t("psFestival")], ["arrear", "var(--margin)", t("psArrear")]];
+  const W = chartW(1), H = 250, L = 52, R = 8, Tp = 10, B = 26;
+  const max = Math.max(1, ...list.map(x => x.total));
+  const y = v => Tp + (H - Tp - B) * (1 - v / max); const bw = (W - L - R) / Math.max(1, list.length);
+  const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": t("psChart") });
+  for (let i = 0; i <= 4; i++) { const v = max * i / 4; svg.append(s("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), stroke: "var(--line)" }), s("text", { x: L - 6, y: y(v) + 4, "text-anchor": "end" }, tkShort(v))); }
+  const step = Math.ceil(list.length / Math.max(2, Math.floor((W - L) / 56)));
+  list.forEach((x, i) => {
+    let acc = 0; const bx = L + i * bw + bw * 0.15, w = Math.max(3, bw * 0.7);
+    for (const [k, c] of KEYS) { const v = x[k]; if (!v) continue; svg.append(s("rect", { x: bx, y: y(acc + v), width: w, height: Math.max(0, y(acc) - y(acc + v)), fill: c, opacity: x.reconstructed ? .55 : 1 })); acc += v; }
+    if (i % step === 0) svg.append(s("text", { x: bx + w / 2, y: H - 8, "text-anchor": "middle" }, mLabel(x.m)));
+    const hit = s("rect", { x: L + i * bw, y: 0, width: bw, height: H - B, fill: "transparent" });
+    hit.addEventListener("mousemove", ev => tip(ev, [mLabel(x.m, true)].concat(KEYS.filter(([k]) => x[k]).map(([k, , n]) => `${n}: ${tk(x[k])}`), [`${t("psNet")}: ${tk(x.net)}`])));
+    hit.addEventListener("mouseleave", untip); svg.append(hit);
+  });
+  return { el: h("div", { class: "chart" }, svg), legend: h("div", { class: "legend" }, KEYS.map(([, c, n]) => h("span", null, h("i", { style: `background:${c}` }), n))) };
+}
+
+function vPay() {
+  const wrap = h("section", { style: "display:flex;flex-direction:column;gap:14px" });
+  const list = psMonths();
+  // upload card
+  const file = h("input", { type: "file", accept: ".pdf,.zip,.json,application/pdf,application/zip,application/json", multiple: true, id: "ps-file" });
+  const status = h("div", { class: "small muted", "aria-live": "polite" });
+  file.addEventListener("change", async () => {
+    if (!file.files.length) return; status.textContent = t("psReading");
+    try { UI.psPreview = await parsePayslipFiles([...file.files]); if (!UI.psPreview.rows.length) { status.textContent = t("psNone"); UI.psPreview = null; return; } render(); }
+    catch (e) { status.textContent = t("psFail"); }
+  });
+  const up = h("div", { class: "card" }, h("h2", null, t("psUploadH")), h("p", { class: "muted", style: "margin:0" }, t("psUploadP")), h("label", { class: "f" }, t("chooseFile"), file), status);
+  const pv = UI.psPreview;
+  if (pv) {
+    const existing = new Set(psRows().map(r => r.m + "|" + r.kind));
+    up.append(h("h3", null, `${t("preview")}: ${toBn(pv.rows.length)} ${t("psSlips")}` + (pv.dupes ? ` · ${toBn(pv.dupes)} ${t("psDupes")}` : "") + (pv.skipped.length ? ` · ${toBn(pv.skipped.length)} ${t("psSkipped")}` : "")),
+      h("div", { class: "tablebox", style: "max-height:340px;overflow:auto" }, h("table", null,
+        h("thead", null, h("tr", null, h("th", null, ""), h("th", { class: "r" }, t("psFixed")), h("th", { class: "r" }, t("psIncentive")), h("th", { class: "r" }, t("psBonus")), h("th", { class: "r" }, t("psNet")))),
+        h("tbody", null, pv.rows.map(r => h("tr", null, h("td", null, mLabel(r.m, true) + (r.kind === "offcycle" ? " · " + t("psOffcycle") : "") + (existing.has(r.m + "|" + r.kind) ? " ↺" : "")),
+          h("td", { class: "r" }, tk(r.basic + r.allow)), h("td", { class: "r" }, tk(r.incentive + r.otherAllow)), h("td", { class: "r" }, tk(r.pms + r.festival)), h("td", { class: "r" }, tk(r.net))))))),
+      h("p", { class: "small muted", style: "margin:0", hidden: !pv.skipped.length }, t("psSkippedList") + " " + pv.skipped.join(", ")),
+      h("div", { class: "row" }, h("button", { class: "btn primary", type: "button", onclick: () => {
+        exitDemo();
+        const keep = psRows().filter(r => !pv.rows.some(n => n.m === r.m && n.kind === r.kind));
+        S.payslips = Object.assign({}, S.payslips || {}, { rows: keep.concat(pv.rows.map(r => { const c = Object.assign({}, r); delete c.dropped; return c; })), source: "Payslip PDFs", updated: new Date().toISOString().slice(0, 10) });
+        UI.psPreview = null; markDirty("payslips"); toast(t("importDone"));
+      } }, t("psSave")), h("button", { class: "btn", type: "button", onclick: () => { UI.psPreview = null; render(); } }, t("cancel"))));
+  }
+  if (!list.length) { wrap.append(h("div", { class: "empty-state" }, h("h2", null, t("psEmptyH")), h("p", { class: "muted" }, t("psEmptyP"))), up, psManual()); return wrap; }
+
+  const first = list[0], last = list[list.length - 1];
+  const regs = list.filter(x => !x.reconstructed);
+  const inc6 = list.slice(-6).reduce((a, x) => a + x.incentive, 0) / Math.min(6, list.length);
+  const curFY = fyOf(last.m); const fyRows = list.filter(x => fyOf(x.m) === curFY);
+  wrap.append(h("div", { class: "kpis" },
+    kpi(t("psRegular") + " · " + mLabel(last.m, true), tk(last.regular), pct(last.regular / first.regular - 1, 1) + " " + t("since") + " " + mLabel(first.m, true), "pos"),
+    kpi(t("psFixed") + " · " + mLabel(last.m, true), tk(last.fixed), pct(last.fixed / first.fixed - 1, 1) + " " + t("since") + " " + mLabel(first.m, true)),
+    kpi(t("psAvgInc"), tk(inc6), t("psLast6")),
+    kpi(t("psFYTotal") + " · " + curFY, tk(fyRows.reduce((a, x) => a + x.total + x.erPf, 0)), toBn(fyRows.length) + " " + t("months"))));
+  const miss = psMissing(list); const nextDue = addM(last.m, 1);
+  wrap.append(h("div", { class: "banner" }, h("span", null, `${t("psNext")} ${mLabel(nextDue, true)}. ${t("psNextP")}` + (miss.length ? ` ${t("psMissing")} ${miss.map(m => mLabel(m, true)).join(", ")}.` : "")),
+    h("button", { class: "btn", type: "button", onclick: () => document.getElementById("ps-file")?.click() }, t("psUploadBtn"))));
+  const ch = stackChart(list);
+  wrap.append(h("div", { class: "card" }, h("div", { class: "head" }, h("h3", null, t("psChart")), h("span", { class: "small muted" }, toBn(list.length) + " " + t("months"))), ch.legend, ch.el));
+  // FY table
+  const fys = [...new Set(list.map(x => fyOf(x.m)))];
+  const fyT = fys.map(fy => { const xs = list.filter(x => fyOf(x.m) === fy); const sum = k => xs.reduce((a, x) => a + x[k], 0); return { fy, n: xs.length, fixed: sum("fixed") + sum("otherAllow"), inc: sum("incentive"), bonus: sum("pms") + sum("festival") + sum("arrear"), pf: sum("erPf"), tax: sum("tax"), total: sum("total") + sum("erPf") }; });
+  wrap.append(h("div", { class: "card" }, h("h3", null, t("psFY")), h("div", { class: "tablebox" }, h("table", null,
+    h("thead", null, h("tr", null, [t("psYear"), t("months"), t("psFixed"), t("psIncentive"), t("psBonus"), t("psErPf"), t("psTax"), t("psTotal"), "±"].map((x, i) => h("th", { class: i > 1 ? "r" : "" }, x)))),
+    h("tbody", null, fyT.map((r, i) => h("tr", null, h("td", null, r.fy), h("td", null, toBn(r.n)), h("td", { class: "r" }, tk(r.fixed)), h("td", { class: "r" }, tk(r.inc)), h("td", { class: "r" }, tk(r.bonus)), h("td", { class: "r" }, tk(r.pf)), h("td", { class: "r" }, tk(r.tax)), h("td", { class: "r" }, h("strong", null, tk(r.total))),
+      h("td", { class: "r " + (i && fyT[i - 1].n === 12 && r.n === 12 ? (r.total >= fyT[i - 1].total ? "pos" : "neg") : "muted") }, i && fyT[i - 1].n === 12 && r.n === 12 ? pct(r.total / fyT[i - 1].total - 1, 1) : "–")))))),
+    h("p", { class: "small muted", style: "margin:0" }, t("psFYNote"))));
+  // month table
+  wrap.append(h("div", { class: "card" }, h("h3", null, t("psEvery")), h("div", { class: "tablebox", style: "max-height:520px;overflow:auto" }, h("table", null,
+    h("thead", null, h("tr", null, [t("psMonth"), t("psFixed"), t("psIncentive"), t("psBonus"), t("psRegular"), "MoM", t("psTax"), t("psTakehome"), ""].map((x, i) => h("th", { class: i ? "r" : "" }, x)))),
+    h("tbody", null, list.slice().reverse().map(x => h("tr", null,
+      h("td", null, mLabel(x.m, true), x.reconstructed ? h("div", { class: "small muted" }, t("psRebuilt")) : x.designation ? h("div", { class: "small muted" }, x.designation) : null),
+      h("td", { class: "r" }, tk(x.fixed + x.otherAllow)), h("td", { class: "r" }, tk(x.incentive)), h("td", { class: "r" }, tk(x.pms + x.festival + x.arrear)), h("td", { class: "r" }, h("strong", null, tk(x.regular))),
+      h("td", { class: "r " + (x.mom == null ? "muted" : x.mom >= 0 ? "pos" : "neg") }, x.mom == null ? "–" : (x.mom > 0 ? "+" : "") + pct(x.mom, 1)),
+      h("td", { class: "r" }, tk(x.tax)), h("td", { class: "r" }, tk(x.takehome)),
+      h("td", { class: "r" }, h("button", { class: "btn ghost small", type: "button", "aria-label": t("del") + " " + mLabel(x.m, true), onclick: () => { S.payslips.rows = S.payslips.rows.filter(r => r.m !== x.m); markDirty("payslips"); } }, "×"))))))),
+    h("p", { class: "small muted", style: "margin:0" }, t("psTableNote"))));
+  wrap.append(up, psManual());
+  return wrap;
+}
+function psManual() {
+  const f = k => h("input", { type: "number", min: "0", id: "pm-" + k, "aria-label": k });
+  const fl = { fixed: f("fixed"), incentive: f("incentive"), bonus: f("bonus"), tax: f("tax"), net: f("net") };
+  const mon = h("input", { type: "month", id: "pm-m", value: addM(thisYM(), -1), required: true });
+  return h("details", { class: "card" }, h("summary", { style: "cursor:pointer;font-weight:700" }, t("psManualH")),
+    h("form", { onsubmit: ev => { ev.preventDefault(); const v = k => Math.round(+fl[k].value || 0); if (!mon.value || !v("fixed")) return; exitDemo();
+      const row = { m: mon.value, kind: "regular", basic: v("fixed"), allow: 0, otherAllow: 0, incentive: v("incentive"), pms: v("bonus"), festival: 0, arrear: 0, erPf: 0, eePf: 0, travel: 0, handset: 0, monthlyTax: v("tax"), oneoffTax: 0, otherDed: 0, net: v("net"), designation: "", file: "manual" };
+      S.payslips = S.payslips || { rows: [] }; S.payslips.rows = (S.payslips.rows || []).filter(r => !(r.m === row.m && (r.kind || "regular") === "regular")).concat(row); markDirty("payslips"); toast(t("savedT")); } },
+      h("label", { class: "f" }, t("psMonth"), mon), h("label", { class: "f" }, t("psFixed"), fl.fixed), h("label", { class: "f" }, t("psIncentive"), fl.incentive), h("label", { class: "f" }, t("psBonus"), fl.bonus), h("label", { class: "f" }, t("psTax"), fl.tax), h("label", { class: "f" }, t("psNet"), fl.net),
+      h("button", { class: "btn primary", type: "submit" }, t("save"))));
 }
 
 /* ---------------------------------------------------------------- importer */
