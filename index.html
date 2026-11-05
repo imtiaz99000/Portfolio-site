@@ -120,7 +120,7 @@ section.block{padding:84px 0;scroll-margin-top:64px}
 /* projects: a list, each row sized by its content */
 .projects{display:grid;gap:0;border-top:1px solid var(--line)}
 .proj{display:grid;grid-template-columns:220px 1fr 220px;gap:28px;padding:26px 0;border-bottom:1px solid var(--line)}
-.pico{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:12px;margin-bottom:12px}.pico svg{width:24px;height:24px}.pico-teal{background:var(--mist);color:var(--teal-deep)}.pico-amber{background:#FDF1DC;color:var(--amber-deep)}
+.pico{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:12px;margin-bottom:12px}.pico svg{width:24px;height:24px}.plogo{display:block;height:44px;width:auto;padding:0;background:#fff;border:1px solid var(--line);object-fit:contain}.plogo.appicon{border:0;background:none}.pico-teal{background:var(--mist);color:var(--teal-deep)}.pico-amber{background:#FDF1DC;color:var(--amber-deep)}
 .proj h3{font-size:1.15rem}
 .proj .where{color:var(--muted);font-size:.92rem;margin-top:4px}
 .proj p{margin:0}
@@ -276,7 +276,7 @@ section.block{padding:84px 0;scroll-margin-top:64px}
         <p style="margin:14px 0 0"><a class="btn primary" href="/bd-telecom/">Open the dashboard</a></p>
       </article>
       <article class="proj">
-        <div><span class="pico pico-teal" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a15 15 0 0 1 20 0"/><path d="M5.5 12.5a10 10 0 0 1 13 0"/><path d="M9 16a5 5 0 0 1 6 0"/><circle cx="12" cy="19.5" r="1.2"/></svg></span><h3>Robi WiFi FWA sales journey</h3><div class="where">Chandpur and Lakshmipur, Aug 2025 to Jun 2026</div></div>
+        <div><img class="pico plogo" src="/assets/logos/robi-wifi.png" width="146" height="44" alt="Robi WiFi logo" loading="lazy"><h3>Robi WiFi FWA sales journey</h3><div class="where">Chandpur and Lakshmipur, Aug 2025 to Jun 2026</div></div>
         <p>How a new fixed wireless product reached 1,500+ customers across 20+ thanas. I mapped sales onto Bangladesh upazila boundaries to show where demand actually came from, and published it as a nine-slide LinkedIn story.</p>
         <div class="tags"><span>Python</span><span>matplotlib</span><span>Choropleth map</span><span class="amb">Data story</span></div>
       </article>
@@ -302,7 +302,7 @@ section.block{padding:84px 0;scroll-margin-top:64px}
         <div class="tags"><span>SQL</span><span>Window functions</span><span>Segmentation</span><span class="amb">Field playbook</span></div>
       </article>
       <article class="proj">
-        <div><span class="pico pico-teal" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v.01M14 21h3M21 17v4h-1"/></svg></span><h3>RedCube Super QR, user acceptance testing</h3><div class="where">Robi's retailer app, 500,000+ users</div></div>
+        <div><img class="pico plogo appicon" src="/assets/logos/redcube.png" width="44" height="44" alt="RedCube app icon" loading="lazy"><h3>RedCube Super QR, user acceptance testing</h3><div class="where">Robi's retailer app, 500,000+ users</div></div>
         <p>Tested special access for RSSP Agents and the Super QR flow, where a customer scans a shop's QR and the retailer approves a recharge in seconds. I then ran a one-week beta with five RSSP Agents before the national launch.</p>
         <div class="tags"><span>UAT</span><span>Product testing</span><span>National launch</span></div>
       </article>
