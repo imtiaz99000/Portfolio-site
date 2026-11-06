@@ -42,7 +42,7 @@ html[lang="bn"] h1,html[lang="bn"] h2,html[lang="bn"] h3{letter-spacing:0;line-h
 .ctl.icon{padding:0;width:38px}
 .lang b{font-weight:700}.lang .off{color:var(--faint);font-weight:500}
 .back{font-family:var(--display);font-weight:500;color:var(--muted);font-size:.92rem;text-decoration:none}
-@media (max-width:560px){.back{display:none}.mark span{max-width:44vw}}
+@media (max-width:560px){.back{display:none}.mark span{max-width:none;font-size:.95rem}}
 
 /* hero */
 header.intro{padding:40px 0 26px;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:28px;align-items:center}
@@ -68,7 +68,15 @@ html[lang="bn"] header.intro h1{font-size:clamp(1.7rem,4vw,2.6rem);letter-spacin
 .tile .d{font-size:.88rem;color:var(--muted)}
 .tile .d b.up{color:var(--up)}.tile .d b.down{color:var(--down)}
 .tile .spark{margin-top:auto;padding-top:8px}
-.tile .spark svg{display:block;width:100%;height:30px}
+.tile .spark svg{display:block;width:100%;height:auto}
+.sp-l{display:flex;justify-content:space-between;gap:6px;margin-top:4px;font-size:.74rem;line-height:1.25;color:var(--muted)}
+.sp-l span{display:flex;flex-direction:column}.sp-l .s1{text-align:right}.sp-l .sl{text-align:center;color:var(--down)}
+.sp-l em{font-style:normal;white-space:nowrap}
+.sp-low{margin-top:3px;font-size:.72rem;color:var(--down);display:flex;align-items:center;gap:4px}.sp-low i{width:6px;height:6px;border-radius:50%;background:var(--down);flex:none}.sp-l b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}.sp-l .sl b{color:var(--down)}
+.ccap{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
+.ccap span{display:flex;flex-direction:column;font-size:.8rem;line-height:1.3}.ccap em{font-style:normal;color:var(--muted)}
+.ccap b{font-family:var(--display);font-weight:600;font-variant-numeric:tabular-nums}.ccap b.down{color:var(--down)}.ccap i{font-style:normal;font-size:.85em}.ccap i.up{color:var(--up)}.ccap i.down{color:var(--down)}
+
 
 section.block{padding:30px 0 6px}
 .sechead{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 16px;margin-bottom:12px}
@@ -254,3 +262,5 @@ table.qos td.frac{white-space:nowrap}
 table.spec td,table.spec th{text-align:right}table.spec td:first-child,table.spec th:first-child{text-align:left}
 table.spec td .badge{width:20px;height:20px;font-size:8.5px;vertical-align:-4px;margin-right:6px}
 @media (max-width:520px){.sb{grid-template-columns:96px 1fr auto;gap:8px}.sl{font-size:.85rem}}
+
+.adm{display:none!important}html.is-admin .adm{display:inline-flex!important}

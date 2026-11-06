@@ -98,6 +98,7 @@ def page(path, active, title_en, title_bn, desc_en, body, default_lang='en', cru
 <link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <script>(function(){var r=document.documentElement,d=r.getAttribute('data-default-lang')||'en';try{var t=localStorage.getItem('bdt-theme');if(t)r.setAttribute('data-theme',t);r.lang=localStorage.getItem('bdt-lang')||d}catch(e){r.lang=d}})()</script>
 %(fonts)s
+<script>try{var q=new URLSearchParams(location.search).get('admin');if(q==='ik-csv-2026')localStorage.setItem('bdt-admin','1');if(q==='off')localStorage.removeItem('bdt-admin');if(localStorage.getItem('bdt-admin')==='1')document.documentElement.classList.add('is-admin')}catch(e){}</script>
 <link rel="stylesheet" href="/bd-telecom/assets/bdt.css?v=%(cssv)s">
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -231,7 +232,7 @@ def build():
         tds = ''.join('<td>%s</td>' % (T(num(r[c], 1 if r['precision'] == 0.1 else 2), num(r[c], 1 if r['precision'] == 0.1 else 2, 'bn')) if r[c] is not None else '<span class="gap">–</span>') for c, _, _ in cols)
         trs += '<tr><td>%s</td>%s<td style="text-align:left;white-space:normal;min-width:220px;color:var(--muted)">%s</td></tr>' % (T(mlab(r['month']), mlab(r['month'], 'bn')), tds, esc(r['source'] or '') or T('No published figure found', 'প্রকাশিত সংখ্যা পাওয়া যায়নি'))
     body = ('<header class="pagehead"><h1>%s</h1><p class="dek">%s</p></header>'
-            '<div class="btns" style="margin:0 0 16px"><a class="btn primary" href="/bd-telecom/subscribers.csv" download>%s%s</a><a class="btn" href="/bd-telecom/analysis.sql" download>%s%s</a></div>'
+            '<div class="btns" style="margin:0 0 16px"><a class="btn primary adm" href="/bd-telecom/subscribers.csv" download>%s%s</a><a class="btn" href="/bd-telecom/analysis.sql" download>%s%s</a></div>'
             '<div class="callout"><span>%s</span><p>%s</p></div>'
             '<div class="card"><div class="tablewrap"><table><thead><tr>%s</tr></thead><tbody>%s</tbody></table></div></div>'
             '<p class="soon">%s</p>') % (

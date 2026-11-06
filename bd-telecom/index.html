@@ -18,7 +18,8 @@ try{var t=localStorage.getItem('bdt-theme');if(t)document.documentElement.setAtt
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&family=Anek+Bangla:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/bd-telecom/assets/bdt.css?v=0a486421">
+<script>try{var q=new URLSearchParams(location.search).get('admin');if(q==='ik-csv-2026')localStorage.setItem('bdt-admin','1');if(q==='off')localStorage.removeItem('bdt-admin');if(localStorage.getItem('bdt-admin')==='1')document.documentElement.classList.add('is-admin')}catch(e){}</script>
+<link rel="stylesheet" href="/bd-telecom/assets/bdt.css?v=a002a7ba">
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
@@ -85,8 +86,8 @@ try{var t=localStorage.getItem('bdt-theme');if(t)document.documentElement.setAtt
 <section class="block">
   <div class="sechead"><h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20a15 15 0 0 1 0-20z"/></svg><span data-t="s4h"></span></h2><p data-t="s4p"></p></div>
   <div class="grid2">
-    <div class="card"><h3 data-t="mobH"></h3><p class="sub" data-t="mobS"></p><div class="chart" id="cMob"></div></div>
-    <div class="card"><h3 data-t="fixH"></h3><p class="sub" data-t="fixS"></p><div class="chart" id="cFix"></div></div>
+    <div class="card"><h3 data-t="mobH"></h3><p class="sub" data-t="mobS"></p><div class="chart" id="cMob"></div><div class="ccap" id="capMob"></div></div>
+    <div class="card"><h3 data-t="fixH"></h3><p class="sub" data-t="fixS"></p><div class="chart" id="cFix"></div><div class="ccap" id="capFix"></div></div>
   </div>
 </section>
 
@@ -95,7 +96,7 @@ try{var t=localStorage.getItem('bdt-theme');if(t)document.documentElement.setAtt
   <div class="card">
     <div class="tablewrap"><table id="tData"></table></div>
     <div class="btns">
-      <a class="btn primary" href="subscribers.csv" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><span data-t="dlCsv"></span></a>
+      <a class="btn primary adm" href="subscribers.csv" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><span data-t="dlCsv"></span></a>
       <a class="btn" href="analysis.sql" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 6l-6 6 6 6"/><path d="M16 6l6 6-6 6"/></svg><span data-t="dlSql"></span></a>
     </div>
     <details class="more"><summary data-t="seeSql"></summary><pre id="sqlBox">…</pre></details>
@@ -132,7 +133,7 @@ var S={
   s5h:'The data',s5p:'Every month, with its source. Blank cells are months where no published figure was found.',
   dlCsv:'Download the CSV',dlSql:'Download the SQL',seeSql:'See the SQL queries',s6h:'How I built this',
   foot:'Analysis and dashboard by Mohd Imtiaz Karim. Data: Bangladesh Telecommunication Regulatory Commission (BTRC), via the outlets listed in the table.',
-  u:'m',mil:'million',total:'Total',all:'All operators',low:'Low',band:'SIM limit clean-up',noData:'No data',month:'Month',source:'Source',period:'Period',change:'Change',share:'Share',
+  u:'m',mil:'million',total:'Total',all:'All operators',low:'Low',high:'High',now:'Now',start:'Start',cap:function(a){return a},band:'SIM limit clean-up',noData:'No data',month:'Month',source:'Source',period:'Period',change:'Change',share:'Share',
   noSrc:'No published figure found',p1:'Jul to Dec 2025',p2:'Feb to Aug 2026',mobile:'Mobile',fixed:'Fixed',totMob:'Total mobile',mobInt:'Mobile internet',totInt:'Total internet',
   langOther:'বাংলা',themeDark:'Switch to dark mode',themeLight:'Switch to light mode',
   t1:function(m){return 'Mobile subscriptions, '+m},t2:function(m){return 'Low point, '+m},t3:'Recovered since the low',t4:function(m){return 'Internet subscriptions, '+m},
@@ -167,7 +168,7 @@ var S={
   s5h:'ডেটা',s5p:'প্রতিটা মাস, উৎস সহ। ফাঁকা ঘর মানে সেই মাসের প্রকাশিত সংখ্যা পাওয়া যায়নি।',
   dlCsv:'CSV ডাউনলোড',dlSql:'SQL ডাউনলোড',seeSql:'SQL কোয়েরিগুলো দেখুন',s6h:'যেভাবে বানিয়েছি',
   foot:'বিশ্লেষণ ও ড্যাশবোর্ড: মোহাম্মদ ইমতিয়াজ করিম। ডেটা: বাংলাদেশ টেলিযোগাযোগ নিয়ন্ত্রণ কমিশন (BTRC), টেবিলে দেওয়া সংবাদমাধ্যমের মাধ্যমে।',
-  u:'মি.',mil:'মিলিয়ন',total:'মোট',all:'সব অপারেটর',low:'সর্বনিম্ন',band:'SIM সীমার পরিষ্কার',noData:'ডেটা নেই',month:'মাস',source:'উৎস',period:'সময়',change:'পরিবর্তন',share:'শেয়ার',
+  u:'মি.',mil:'মিলিয়ন',total:'মোট',all:'সব অপারেটর',low:'সর্বনিম্ন',high:'সর্বোচ্চ',now:'এখন',start:'শুরু',cap:function(a){return a},band:'SIM সীমার পরিষ্কার',noData:'ডেটা নেই',month:'মাস',source:'উৎস',period:'সময়',change:'পরিবর্তন',share:'শেয়ার',
   noSrc:'প্রকাশিত সংখ্যা পাওয়া যায়নি',p1:'জুলাই থেকে ডিসেম্বর ২০২৫',p2:'ফেব্রুয়ারি থেকে আগস্ট ২০২৬',mobile:'মোবাইল',fixed:'ফিক্সড',totMob:'মোট মোবাইল',mobInt:'মোবাইল ইন্টারনেট',totInt:'মোট ইন্টারনেট',
   langOther:'EN',themeDark:'ডার্ক মোডে যান',themeLight:'লাইট মোডে যান',
   t1:function(m){return 'মোবাইল সাবস্ক্রিপশন, '+m},t2:function(m){return 'সর্বনিম্ন, '+m},t3:'সর্বনিম্ন থেকে বেড়েছে',t4:function(m){return 'ইন্টারনেট সাবস্ক্রিপশন, '+m},
@@ -229,9 +230,17 @@ var IC={phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
  moon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>'};
 var tint=function(c){return 'background:color-mix(in srgb,var('+c+') 16%,transparent);color:var('+c+')'};
 
-function spark(vals,col){var v=vals.filter(function(x){return x!=null}),mn=Math.min.apply(null,v),mx=Math.max.apply(null,v),n=vals.length,p='',pen=false;
-  vals.forEach(function(x,i){if(x==null){pen=false;return}var X=(i/(n-1)*196+2).toFixed(1),Y=(28-(x-mn)/(mx-mn||1)*24).toFixed(1);p+=(pen?'L':'M')+X+' '+Y;pen=true});
-  return '<svg viewBox="0 0 200 30" preserveAspectRatio="none" aria-hidden="true"><path d="'+p+'" fill="none" stroke="var('+col+')" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/></svg>'}
+function spark(rows,key,col,opt){opt=opt||{};var pts=rows.filter(function(r){return r[key]!=null});if(pts.length<2)return '';
+  var W=200,H=46,pl=5,pr=5,pt=7,pb=7,v=pts.map(function(r){return r[key]}),mn=Math.min.apply(null,v),mx=Math.max.apply(null,v),n=rows.length;
+  var X=function(i){return pl+i/(n-1)*(W-pl-pr)},Y=function(x){return pt+(1-(x-mn)/(mx-mn||1))*(H-pt-pb)};
+  var p='',pen=false,lo=null,first=null,lastI=null;rows.forEach(function(r,i){var x=r[key];if(x==null){pen=false;return}if(first==null)first=i;lastI=i;if(lo==null||x<rows[lo][key])lo=i;p+=(pen?'L':'M')+X(i).toFixed(1)+' '+Y(x).toFixed(1);pen=true});
+  var area=p+'L'+X(lastI).toFixed(1)+' '+(H-pb)+'L'+X(first).toFixed(1)+' '+(H-pb)+'Z';
+  var dot=function(i,c,r){return '<circle cx="'+X(i).toFixed(1)+'" cy="'+Y(rows[i][key]).toFixed(1)+'" r="'+(r||3)+'" fill="'+c+'" stroke="var(--surface)" stroke-width="1.5"/>'};
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" aria-hidden="true"><path d="'+area+'" fill="var('+col+')" opacity=".10"/><path d="'+p+'" fill="none" stroke="var('+col+')" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
+    (opt.low&&lo!==first&&lo!==lastI?dot(lo,'var(--down)',3.4):'')+dot(first,'var('+col+')',2.6)+dot(lastI,'var('+col+')',3.4)+'</svg>';
+  var lab=function(i,cls){return '<span class="'+cls+'"><em>'+ml(rows[i].month,false)+' '+N(rows[i].month.slice(2,4))+'</em><b>'+fx(rows[i][key],1)+'</b></span>'};
+  var mid=opt.low&&lo!==first&&lo!==lastI?'<i></i>'+T('low')+' '+fx(rows[lo][key],1)+' · '+ml(rows[lo].month,false)+' '+N(rows[lo].month.slice(2,4)):'';
+  return svg+'<div class="sp-l">'+lab(first,'s0')+lab(lastI,'s1')+'</div>'+(mid?'<div class="sp-low">'+mid+'</div>':'')}
 
 function isDark(){var t=root.getAttribute('data-theme');if(t)return t==='dark';return !!(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)}
 
@@ -252,10 +261,10 @@ function renderText(){
 /* ---------- tiles ---------- */
 function renderTiles(){var u=T('u'),dl=last.total_mobile-first.total_mobile;
   var TL=[
-   {ic:'phone',c:'--total',l:T('t1')(ml(last.month)),v:fx(last.total_mobile,1),d:'<b class="'+(dl>=0?'up':'down')+'">'+sgn(dl,1)+' '+u+'</b> '+T('vs')(ml(first.month)),sp:spark(DATA.map(function(r){return r.total_mobile}),'--total')},
-   {ic:'down',c:'--down',l:T('t2')(ml(low.month)),v:fx(low.total_mobile,1),d:'<b class="down">'+sgn(low.total_mobile-first.total_mobile,1)+' '+u+'</b> '+T('from')(ml(first.month)),sp:''},
-   {ic:'up',c:'--up',l:T('t3'),v:'+'+fx(last.total_mobile-low.total_mobile,1),d:T('inM')(N(mdiff(low.month,last.month))),sp:spark(DATA.filter(function(r){return r.month>=low.month}).map(function(r){return r.total_mobile}),'--up')},
-   {ic:'globe',c:'--accent',l:T('t4')(ml(lastNet.month)),v:fx(lastNet.total_internet,1),d:T('mixInt')(fx(lastNet.mobile_internet,1),fx(lastNet.fixed_internet,1)),sp:spark(DATA.map(function(r){return r.total_internet}),'--accent')}];
+   {ic:'phone',c:'--total',l:T('t1')(ml(last.month)),v:fx(last.total_mobile,1),d:'<b class="'+(dl>=0?'up':'down')+'">'+sgn(dl,1)+' '+u+'</b> '+T('vs')(ml(first.month)),sp:spark(DATA,'total_mobile','--total',{low:true})},
+   {ic:'down',c:'--down',l:T('t2')(ml(low.month)),v:fx(low.total_mobile,1),d:'<b class="down">'+sgn(low.total_mobile-first.total_mobile,1)+' '+u+'</b> '+T('from')(ml(first.month)),sp:spark(DATA.filter(function(r){return r.month<=low.month}),'total_mobile','--down')},
+   {ic:'up',c:'--up',l:T('t3'),v:'+'+fx(last.total_mobile-low.total_mobile,1),d:T('inM')(N(mdiff(low.month,last.month))),sp:spark(DATA.filter(function(r){return r.month>=low.month}),'total_mobile','--up')},
+   {ic:'globe',c:'--accent',l:T('t4')(ml(lastNet.month)),v:fx(lastNet.total_internet,1),d:T('mixInt')(fx(lastNet.mobile_internet,1),fx(lastNet.fixed_internet,1)),sp:spark(DATA,'total_internet','--accent',{low:true})}];
   document.getElementById('tiles').innerHTML=TL.map(function(t){return '<div class="tile"><div class="h"><span class="ic" style="'+tint(t.c)+'">'+IC[t.ic]+'</span><span class="l">'+t.l+'</span></div><div class="v">'+t.v+'<small>'+u+'</small></div><div class="d">'+t.d+'</div><div class="spark">'+t.sp+'</div></div>'}).join('')}
 
 /* ---------- findings ---------- */
@@ -278,7 +287,16 @@ function renderOps(){document.getElementById('ops').innerHTML=OPS.map(function(o
 var CH=[];
 function lineChart(id,o){
   var host=document.getElementById(id),tip=document.createElement('div');tip.className='tip';
+  if(o.auto){var vv=[];months.forEach(function(mm){o.series.forEach(function(se){var q=se.v(by[mm]);if(q!=null)vv.push(q)})});
+    var lo0=Math.min.apply(null,vv),hi0=Math.max.apply(null,vv),st=o.step,pad=(hi0-lo0)*.12;o.min=Math.floor((lo0-pad)/st)*st;o.max=Math.ceil((hi0+pad)/st)*st;o.ticks=[];for(var t=o.min;t<=o.max+1e-9;t+=st)o.ticks.push(+t.toFixed(4))}
+  if(o.peaks){var se0=o.series[0],hiM=null,loM=null;months.forEach(function(mm){var q=se0.v(by[mm]);if(q==null)return;if(hiM==null||q>se0.v(by[hiM]))hiM=mm;if(loM==null||q<se0.v(by[loM]))loM=mm});
+    var fmA=months.filter(function(mm){return se0.v(by[mm])!=null}),edge=function(mm){return mm===fmA[0]||mm===fmA[fmA.length-1]};o.marks=o.marks||[];
+    if(!edge(hiM))o.marks.push({m:hiM,v:se0.v(by[hiM]),c:se0.c,t:function(){return T('high')+' '+o.vf(se0.v(by[hiM]))}});
+    if(!edge(loM))o.marks.push({m:loM,v:se0.v(by[loM]),c:'--down',t:function(){return T('low')+' '+o.vf(se0.v(by[loM]))},below:true});
+    if(o.cap){var cap=document.getElementById(o.cap),fm=months.filter(function(mm){return se0.v(by[mm])!=null}),f0=fm[0],fl=fm[fm.length-1];
+      o.capFn=function(){var a=se0.v(by[f0]),z=se0.v(by[fl]),d=z-a;cap.innerHTML='<span><em>'+T('start')+' · '+ml(f0)+'</em><b>'+o.vf(a)+'</b></span>'+(hiM!==f0&&hiM!==fl?'<span><em>'+T('high')+' · '+ml(hiM)+'</em><b>'+o.vf(se0.v(by[hiM]))+'</b></span>':'')+(loM!==f0&&loM!==fl?'<span><em>'+T('low')+' · '+ml(loM)+'</em><b class="down">'+o.vf(se0.v(by[loM]))+'</b></span>':'')+'<span><em>'+T('now')+' · '+ml(fl)+'</em><b>'+o.vf(z)+' <i class="'+(d>=0?'up':'down')+'">'+sgn(d,o.capD==null?1:o.capD)+'</i></b></span>'}}}
   function draw(){
+    if(o.capFn)o.capFn();
     host.innerHTML='';host.appendChild(tip);
     var W=Math.max(300,host.clientWidth),H=o.h||(W<560?240:300),m={t:16,r:o.rPad||(W<560?82:100),b:28,l:44};
     var iw=W-m.l-m.r,ih=H-m.t-m.b,n=months.length;
@@ -288,7 +306,7 @@ function lineChart(id,o){
       s.appendChild(el('rect',{x:x(i0),y:m.t,width:x(i1)-x(i0),height:ih,fill:css('--band')}));
       s.appendChild(el('text',{x:x(i0)+6,y:m.t+14,class:'note'},b.label()))});
     var g=el('g');o.ticks.forEach(function(t){g.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:y(t),y2:y(t),stroke:css('--grid'),'stroke-width':1}));s.appendChild(el('text',{x:m.l-8,y:y(t)+4,'text-anchor':'end'},o.tf(t)))});s.insertBefore(g,s.firstChild);
-    var step=W<560?6:3;months.forEach(function(mm,i){if((i%step===0&&x(n-1)-x(i)>78)||i===n-1)s.appendChild(el('text',{x:x(i),y:H-8,'text-anchor':i===n-1?'end':'middle'},ml(mm,false)+(mm.slice(5)==='01'||i===0||i===n-1?' '+N(mm.slice(2,4)):'')))});
+    var step=W<560?6:3;months.forEach(function(mm,i){if((i%step===0&&x(n-1)-x(i)>78)||i===n-1)s.appendChild(el('text',{x:x(i),y:H-8,'text-anchor':i===n-1?'end':'middle'},ml(mm,false)+' '+N(mm.slice(2,4))))});
     o.series.forEach(function(se){var col=css(se.c),path='',pen=false;
       months.forEach(function(mm,i){var v=se.v(by[mm]);if(v==null){pen=false;return}path+=(pen?'L':'M')+x(i).toFixed(1)+' '+y(v).toFixed(1);pen=true});
       s.appendChild(el('path',{d:path,fill:'none',stroke:col,'stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'}));
@@ -346,9 +364,9 @@ lineChart('cShare',{aria:function(){return T('shareS')},min:0,max:50,ticks:[0,10
   CH.push(draw);draw();
 })();
 
-lineChart('cMob',{aria:function(){return T('mobS')},min:110,max:125,ticks:[110,115,120,125],tf:function(t){return N(t)+' '+T('u')},vf:function(v){return U(v,1)},h:240,rPad:78,
+lineChart('cMob',{aria:function(){return T('mobS')},auto:true,step:5,peaks:true,cap:'capMob',tf:function(t){return N(t)+' '+T('u')},vf:function(v){return U(v,1)},h:240,rPad:78,
   series:[{name:function(){return T('mobInt')},short:function(){return T('mobile')},c:'--total',v:function(r){return r.mobile_internet}}]});
-lineChart('cFix',{aria:function(){return T('fixS')},min:13,max:16,ticks:[13,14,15,16],tf:function(t){return N(t)+' '+T('u')},vf:function(v){return U(v,2)},h:240,rPad:78,
+lineChart('cFix',{aria:function(){return T('fixS')},auto:true,step:.5,peaks:true,cap:'capFix',capD:2,tf:function(t){return N(t)+' '+T('u')},vf:function(v){return U(v,2)},h:240,rPad:78,
   series:[{name:function(){return T('fixH')},short:function(){return T('fixed')},c:'--accent',v:function(r){return r.fixed_internet}}]});
 
 /* ---------- tables ---------- */
