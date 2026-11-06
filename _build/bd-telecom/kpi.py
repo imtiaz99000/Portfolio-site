@@ -127,7 +127,7 @@ def build_kpi(B):
             cards = ''.join(card(k) for k in mk) + ''.join(card(k) for k in tk)
             note = T('Updated %s from BTRC figures. Change is against the previous month with data.' % mlab(last['month']), 'BTRC এর সংখ্যা থেকে %s পর্যন্ত হালনাগাদ। পরিবর্তন আগের ডেটাসহ মাসের তুলনায়।' % mlab(last['month'], 'bn'))
         else:
-            ks = [k for k in man if k['group'] == g]; cards = ''.join(card_manual(k) for k in ks)
+            ks = [k for k in man if k['group'] == g and (g != 'inf' or k['series'])]; cards = ''.join(card_manual(k) for k in ks)
             if g == 'qos':
                 def qc(k, en, bnn):
                     nu = len(QQ['noncompliant'][k]) if k in QQ['noncompliant'] else None
@@ -146,6 +146,7 @@ def build_kpi(B):
                 tw += [dict(id='sp', en='Access spectrum assigned', bn='বরাদ্দকৃত অ্যাক্সেস তরঙ্গ', value=SP['totals']['all'], prev=None, d=1, unit_en='MHz', unit_bn='মে.হা.', period='2026-08', prev_period=None, source='BTRC')]
                 cards = ''.join(card(k) for k in tw) + '<a class="tile kpi more" href="/bd-telecom/kpi/spectrum/"><div class="l">%s</div><div class="v" style="font-size:1.05rem">%s →</div><div class="meta">%s</div></a>' % (T('Spectrum by operator', 'অপারেটরভিত্তিক তরঙ্গ'), T('MHz by band, per subscriber', 'ব্যান্ড ও গ্রাহকপ্রতি মেগাহার্জ'), T('Chart and table', 'চার্ট আর সারণি')) + '<a class="tile kpi more" href="/bd-telecom/kpi/handsets/"><div class="l">%s</div><div class="v" style="font-size:1.05rem">%s →</div><div class="meta">%s</div></a>' % (T('Handset penetration', 'হ্যান্ডসেট পেনেট্রেশন'), T('Smartphones and 5G by network', 'নেটওয়ার্ক অনুযায়ী স্মার্টফোন ও 5G'), T('Charts and table', 'চার্ট আর সারণি')) + '<a class="tile kpi more" href="/bd-telecom/kpi/towers/"><div class="l">%s</div><div class="v" style="font-size:1.05rem">%s →</div><div class="meta">%s</div></a>' % (T('Towers by owner', 'মালিকানা অনুযায়ী টাওয়ার'), T('Monthly since Dec 2022', 'ডিসে ২০২২ থেকে মাসিক'), T('Charts and table', 'চার্ট আর সারণি')) + cards
             if g != 'qos': note = T('Waiting for files: ' + NEED[g][0] + '.', 'ফাইলের অপেক্ষায়: ' + NEED[g][1] + '।')
+            if g == 'inf': note = T('Towers, handsets and spectrum from BTRC data.', 'BTRC এর ডেটা থেকে টাওয়ার, হ্যান্ডসেট আর তরঙ্গ।')
         secs += '<section class="block" id="%s"><div class="sechead"><h2 style="display:flex;align-items:center;gap:10px"><span class="ic" style="%s;width:32px;height:32px;border-radius:9px;display:inline-grid;place-items:center">%s</span>%s</h2></div><p class="sub" style="margin:0 0 12px">%s</p><div class="tiles kpis">%s</div></section>' % (
             g, tint(col), ic(icon), T(en, bnn), note, cards)
     jump = ''.join('<a href="#%s">%s</a>' % (g, T(en, bnn)) for g, en, bnn, _, _ in GROUPS)
