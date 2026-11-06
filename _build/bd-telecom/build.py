@@ -269,7 +269,7 @@ def build():
     # sitemap + robots for the whole site
     pages = ['', 'tools/pdf-squeeze/', 'tools/pixelshrink/', 'rssp-demo/', 'bd-telecom/', 'bd-telecom/operators/', 'bd-telecom/data/', 'bd-telecom/guides/'] + \
             ['bd-telecom/operators/%s/' % o['slug'] for o in OPS] + ['bd-telecom/guides/%s/' % g['slug'] for g in guides] + licpages
-    for extra in ['tools/taka-gelo-koi/', 'churn/']:
+    for extra in ['churn/']:
         if os.path.isdir(os.path.join(SITE, extra)): pages.append(extra)
     workdir = os.path.join(SITE, 'work')
     if os.path.isdir(workdir):

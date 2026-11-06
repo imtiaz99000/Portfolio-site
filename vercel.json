@@ -28,5 +28,17 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/tools/taka-gelo-koi",
+      "destination": "https://taka.imtiazkarim.com/",
+      "permanent": true
+    },
+    {
+      "source": "/tools/taka-gelo-koi/:path*",
+      "destination": "https://taka.imtiazkarim.com/",
+      "permanent": true
+    }
   ]
 }
