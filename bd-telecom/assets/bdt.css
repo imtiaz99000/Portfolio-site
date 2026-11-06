@@ -1,5 +1,5 @@
 
-:root{
+:root{color-scheme:light;
   color-scheme:light;
   --paper:#F6FAF9; --surface:#FFFFFF; --ink:#102A2B; --muted:#56706F; --faint:#7C918F; --line:#D6E6E4; --grid:#E6EFEE;
   --accent:#0A6664; --amber:#C98214; --band:rgba(14,138,134,.08); --hero:linear-gradient(120deg,rgba(14,138,134,.10),rgba(242,169,59,.12));
@@ -7,12 +7,7 @@
   --up:#127a52; --down:#b3261e;
   --display:'Space Grotesk','Anek Bangla','Noto Sans Bengali',system-ui,sans-serif; --body:'Source Sans 3','Anek Bangla','Noto Sans Bengali',system-ui,sans-serif;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  color-scheme:dark;
-  --paper:#0F1A1A; --surface:#152323; --ink:#E6F0EF; --muted:#A3B8B6; --faint:#7F9694; --line:#28403F; --grid:#203535;
-  --accent:#5CC9C3; --amber:#F2B254; --band:rgba(92,201,195,.09); --hero:linear-gradient(120deg,rgba(92,201,195,.10),rgba(242,178,84,.08));
-  --gp:#3d8ef0; --robi:#cc2f28; --bl:#c98328; --tt:#1f7a3a; --total:#3FB4AE; --bl-ink:#1a1004; --up:#5fd3a0; --down:#ff8a80;
-}}
+
 :root[data-theme="dark"]{
   color-scheme:dark;
   --paper:#0F1A1A; --surface:#152323; --ink:#E6F0EF; --muted:#A3B8B6; --faint:#7F9694; --line:#28403F; --grid:#203535;

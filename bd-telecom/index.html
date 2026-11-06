@@ -13,13 +13,13 @@
 <link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <script>
 /* apply saved theme and language before first paint */
-try{var t=localStorage.getItem('bdt-theme');if(t)document.documentElement.setAttribute('data-theme',t);var l=localStorage.getItem('bdt-lang');if(l==='bn')document.documentElement.lang='bn'}catch(e){}
+try{var t=localStorage.getItem('bdt-theme-v2');if(t)document.documentElement.setAttribute('data-theme',t);var l=localStorage.getItem('bdt-lang');if(l==='bn')document.documentElement.lang='bn'}catch(e){}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&family=Anek+Bangla:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script>try{var q=new URLSearchParams(location.search).get('admin');if(q==='ik-csv-2026')localStorage.setItem('bdt-admin','1');if(q==='off')localStorage.removeItem('bdt-admin');if(localStorage.getItem('bdt-admin')==='1')document.documentElement.classList.add('is-admin')}catch(e){}</script>
-<link rel="stylesheet" href="/bd-telecom/assets/bdt.css?v=4064f8c4">
+<link rel="stylesheet" href="/bd-telecom/assets/bdt.css?v=fd1da32d">
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
@@ -242,7 +242,7 @@ function spark(rows,key,col,opt){opt=opt||{};var pts=rows.filter(function(r){ret
   var mid=opt.low&&lo!==first&&lo!==lastI?'<i></i>'+T('low')+' '+fx(rows[lo][key],1)+' · '+ml(rows[lo].month,false)+' '+N(rows[lo].month.slice(2,4)):'';
   return svg+'<div class="sp-l">'+lab(first,'s0')+lab(lastI,'s1')+'</div>'+(mid?'<div class="sp-low">'+mid+'</div>':'')}
 
-function isDark(){var t=root.getAttribute('data-theme');if(t)return t==='dark';return !!(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)}
+function isDark(){var t=root.getAttribute('data-theme');return t==='dark'}
 
 /* ---------- static text and header ---------- */
 function renderText(){
@@ -393,7 +393,7 @@ renderAll();
 
 /* ---------- controls ---------- */
 document.getElementById('langBtn').addEventListener('click',function(){LANG=LANG==='en'?'bn':'en';try{localStorage.setItem('bdt-lang',LANG)}catch(e){}renderAll()});
-document.getElementById('themeBtn').addEventListener('click',function(){var nx=isDark()?'light':'dark';root.setAttribute('data-theme',nx);try{localStorage.setItem('bdt-theme',nx)}catch(e){}renderAll()});
+document.getElementById('themeBtn').addEventListener('click',function(){var nx=isDark()?'light':'dark';root.setAttribute('data-theme',nx);try{localStorage.setItem('bdt-theme-v2',nx)}catch(e){}renderAll()});
 var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){CH.forEach(function(f){f()})},120)});
 if(window.matchMedia)matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(){if(!root.getAttribute('data-theme'))renderAll()});
 
