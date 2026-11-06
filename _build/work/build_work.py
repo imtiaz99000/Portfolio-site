@@ -71,7 +71,7 @@ PAGES = [
   dict(
     slug='rssp-network',
     title='45 Robi service points in one year',
-    seo='Building the RSSP network: 45 Robi Sales and Service Points in one year',
+    seo='Building 45 Robi Sales and Service Points in one year',
     desc='How Mohd Imtiaz Karim built 45 Robi Sales and Service Points across 14 upazilas of Chandpur and Lakshmipur in one year: site selection, landlord deals, renovation, hiring and go-live.',
     kicker='Field case study · Channel build-out',
     photo=('/assets/logos/rssp-opening.jpg', 800, 600, 'Opening day of a Robi Sheba and Airtel Care service point with the team and partners'),
@@ -96,7 +96,7 @@ PAGES = [
   dict(
     slug='robi-wifi-fwa',
     title='Robi WiFi: zero to 1,500 homes in 11 months',
-    seo='Robi WiFi FWA sales journey: zero to 1,500 customers in 11 months',
+    seo='Robi WiFi: zero to 1,500 customers in 11 months',
     desc='How a brand-new fixed wireless product went from zero to 1,500+ customers across 20+ thanas of Chandpur and Lakshmipur, with the month by month numbers and a thana-level customer map. By Mohd Imtiaz Karim.',
     kicker='Field case study · New product launch',
     photo=('/assets/logos/fwa-handover.jpg', 800, 600, 'Handing a Robi WiFi router to a new customer at a retail shop'),
@@ -119,7 +119,7 @@ PAGES = [
   dict(
     slug='superbike-fleet',
     title='Running Bangladesh’s first electric telecom Superbike fleet',
-    seo='Superbike fleet productivity: Robi’s electric field sales fleet in Chandpur',
+    seo='Running Robi’s electric Superbike fleet in Chandpur',
     desc='How Mohd Imtiaz Karim leads Robi’s electric Superbike fleet in Chandpur: rider recruitment and training, route planning, maintenance and a daily productivity KPI for every bike.',
     kicker='Field case study · Fleet operations',
     photo=('/assets/logos/superbike-fleet.jpg', 800, 590, 'New Robi Superbikes handed over to field riders at a distributor point'),
@@ -172,7 +172,7 @@ def build(p):
     slug = p['slug']
     deck_html, n = deck(slug, p['title'])
     url = 'https://www.imtiazkarim.com/work/%s/' % slug
-    og = 'https://www.imtiazkarim.com/work/%s/slides/01.webp' % slug
+    og = 'https://www.imtiazkarim.com/work/%s/share.jpg' % slug
     proof = ''.join('<div><dt>%s</dt><dd>%s</dd></div>' % (esc(a), esc(b)) for a, b in p['proof'])
     story = ''.join('<p>%s</p>' % esc(s) for s in p['story'])
     steps = ''
