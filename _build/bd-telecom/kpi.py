@@ -104,6 +104,9 @@ def build_kpi(B):
         unit = '<small>%s</small>' % k['unit_en'] if k['unit_en'] != '%' else '<small>%</small>'
         unitb = '<small>%s</small>' % k['unit_bn'] if k['unit_en'] != '%' else '<small>%</small>'
         mc = mini(B, SER[k['id']], k['d'], k['unit_en'], k['unit_bn'], COL.get(k['id'], '--accent')) if k['id'] in SER else ''
+        LINK = {'mkt_total': 'mobile-subscribers', 'mkt_mi': 'internet-subscribers', 'mkt_fi': 'internet-subscribers', 'mkt_ti': 'internet-subscribers', 'tele': 'teledensity', 'inet': 'teledensity', 'mbb': 'teledensity'}
+        for o_ in B.OPS: LINK['mkt_' + o_['k']] = 'mobile-subscribers'
+        if k['id'] in LINK: mc += '<a class="kmore" href="/bd-telecom/kpi/%s/">%s</a>' % (LINK[k['id']], T('Full history and table →', 'পুরো ইতিহাস ও সারণি →'))
         return (('<div class="tile kpi"><div class="l">%s</div><div class="v">%s</div><div class="d">%s</div>' + mc.replace('%', '%%') + '<div class="meta">%s</div></div>') % (
             (B.badge(k['badge']) + ' ' if k.get('badge') else '') + T(k['en'], k['bn']), T(num(v, d) + unit, num(v, d, 'bn') + unitb), ch, T('%s · %s' % (mlab(k['period']), k['source']), '%s · %s' % (mlab(k['period'], 'bn'), k['source']))))
     def card_manual(k):
@@ -121,7 +124,7 @@ def build_kpi(B):
             tk = [dict(id='tele', en='Teledensity', bn='টেলিডেনসিটি', value=TL['teledensity_pct'], prev=TP['teledensity_pct'], d=2, unit_en='%', unit_bn='%', period=TL['month'], prev_period=TP['month'], source='BTRC'),
                   dict(id='inet', en='Internet penetration', bn='ইন্টারনেট পেনেট্রেশন', value=TL['internet_penetration_pct'], prev=TP['internet_penetration_pct'], d=2, unit_en='%', unit_bn='%', period=TL['month'], prev_period=TP['month'], source='BTRC'),
                   dict(id='mbb', en='4G subscribers', bn='4G গ্রাহক', value=TL['subs_4g_m'], prev=TP['subs_4g_m'], d=2, unit_en='m', unit_bn='মি.', period=TL['month'], prev_period=TP['month'], source='BTRC')]
-            cards = ''.join(card(k) for k in mk) + ''.join(card(k) for k in tk) + '<a class="tile kpi more" href="/bd-telecom/kpi/mobile-subscribers/"><div class="l">%s</div><div class="v" style="font-size:1.05rem">%s →</div><div class="meta">%s</div></a>' % (T('Mobile subscribers by operator', 'অপারেটরভিত্তিক মোবাইল গ্রাহক'), T('Five years of BTRC data', 'BTRC এর পাঁচ বছরের ডেটা'), T('Charts and table', 'চার্ট আর সারণি')) + '<a class="tile kpi more" href="/bd-telecom/kpi/internet-subscribers/"><div class="l">%s</div><div class="v" style="font-size:1.05rem">%s →</div><div class="meta">%s</div></a>' % (T('Internet subscribers', 'ইন্টারনেট গ্রাহক'), T('Mobile and ISP since 2021', '২০২১ থেকে মোবাইল ও ISP'), T('Charts and table', 'চার্ট আর সারণি')) + '<a class="tile kpi more" href="/bd-telecom/kpi/teledensity/"><div class="l">%s</div><div class="v" style="font-size:1.05rem">%s →</div><div class="meta">%s</div></a>' % (T('Teledensity and penetration', 'টেলিডেনসিটি ও পেনেট্রেশন'), T('Monthly trend since 2021', '২০২১ থেকে মাসিক প্রবণতা'), T('Charts and table', 'চার্ট আর সারণি'))
+            cards = ''.join(card(k) for k in mk) + ''.join(card(k) for k in tk)
             note = T('Updated %s from BTRC figures. Change is against the previous month with data.' % mlab(last['month']), 'BTRC এর সংখ্যা থেকে %s পর্যন্ত হালনাগাদ। পরিবর্তন আগের ডেটাসহ মাসের তুলনায়।' % mlab(last['month'], 'bn'))
         else:
             ks = [k for k in man if k['group'] == g]; cards = ''.join(card_manual(k) for k in ks)
