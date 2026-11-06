@@ -50,7 +50,7 @@ def build_qos(B):
 <section class="block"><div class="grid2"><div class="card"><h3>%s</h3><p class="sub">%s</p><div class="tablewrap"><table class="qos"><thead><tr>%s</tr></thead><tbody>%s</tbody></table></div></div>
 <div class="card"><h3>%s</h3><p class="sub">%s</p><div class="tablewrap"><table class="qos"><thead><tr>%s</tr></thead><tbody>%s%s%s</tbody></table></div></div></div></section>
 <section class="block"><div class="sechead"><h2>%s</h2></div><p class="sub" style="margin:0 0 10px">%s</p><div class="grid3">%s</div>
-<div class="btns" style="margin:12px 0 0"><a class="btn primary" href="/bd-telecom/qos-2026-08-noncompliant-upazilas.csv" download>%s%s</a></div></section>
+<div class="btns" style="margin:12px 0 0"><a class="btn primary adm" href="/bd-telecom/qos-2026-08-noncompliant-upazilas.csv" download>%s%s</a></div></section>
 <section class="block"><div class="sechead"><h2>%s</h2></div><div class="btns">%s</div></section>
 <div class="callout warn"><span>%s</span><p>%s</p></div>''' % (
         T('Mobile network quality (QoS) in Bangladesh, %s' % mlab(M), 'বাংলাদেশে মোবাইল নেটওয়ার্কের মান (QoS), %s' % mlab(M, 'bn')),

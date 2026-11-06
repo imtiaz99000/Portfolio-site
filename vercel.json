@@ -29,7 +29,7 @@
       ]
     },
     {
-      "source": "/bd-telecom/subscribers.csv",
+      "source": "/bd-telecom/(.*)\\.csv",
       "headers": [
         {
           "key": "X-Robots-Tag",

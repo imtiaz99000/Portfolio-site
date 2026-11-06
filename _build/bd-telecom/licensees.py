@@ -34,7 +34,7 @@ def build_vts(B):
     POL = '/bd-telecom/guides/telecom-network-licensing-policy-2025/'
     body = '''<header class="pagehead"><h1>%s</h1><p class="dek">%s</p></header>
 <div class="kv tiles">%s</div>
-<div class="btns" style="margin:4px 0 14px"><a class="btn primary" href="/bd-telecom/vts-licensees.csv" download>%s%s</a><a class="btn" href="/bd-telecom/docs/vts-licensees-2025.pdf" download>%s%s</a></div>
+<div class="btns" style="margin:4px 0 14px"><a class="btn primary adm" href="/bd-telecom/vts-licensees.csv" download>%s%s</a><a class="btn" href="/bd-telecom/docs/vts-licensees-2025.pdf" download>%s%s</a></div>
 <div class="callout"><span>%s</span><p>%s</p></div>
 <section class="block"><div class="sechead"><h2>%s</h2></div><div class="card"><div class="tablewrap"><table class="dir">%s<tbody>%s</tbody></table></div></div></section>
 <section class="block"><div class="sechead"><h2>%s</h2></div><p class="sub" style="margin:0 0 10px">%s</p><div class="card"><div class="tablewrap"><table class="dir">%s<tbody>%s</tbody></table></div></div></section>
@@ -88,7 +88,7 @@ def build_licensees(B):
             ' <span class="pill warn">%s</span>' % T('past', 'পেরিয়েছে') if st == 'past' else ''))
     body = '''<header class="pagehead"><h1>%s</h1><p class="dek">%s</p></header>
 <div class="kv tiles">%s</div>
-<div class="btns" style="margin:4px 0 14px"><a class="btn primary" href="/bd-telecom/isp-divisional-2024-12-23.csv" download>%s%s</a><a class="btn" href="/bd-telecom/docs/isp-divisional-licensees-2024-12.pdf" download>%s%s</a></div>
+<div class="btns" style="margin:4px 0 14px"><a class="btn primary adm" href="/bd-telecom/isp-divisional-2024-12-23.csv" download>%s%s</a><a class="btn" href="/bd-telecom/docs/isp-divisional-licensees-2024-12.pdf" download>%s%s</a></div>
 <section class="block"><div class="card"><h3>%s</h3><p class="sub">%s</p>%s%s</div></section>
 <div class="callout warn"><span>%s</span><p>%s</p></div>
 <section class="block"><div class="sechead"><h2>%s</h2></div>
@@ -111,7 +111,7 @@ var bnl=document.documentElement.lang==='bn';cnt.textContent=bnl?(String(k).repl
         T('Licensee', 'লাইসেন্সধারী'), T('Division', 'বিভাগ'), T('Licence number', 'লাইসেন্স নম্বর'), T('Licence validity', 'বৈধতা'), trs,
         T('Coming next: nationwide, district and upazila ISP licensees, and other licence categories.', 'শীঘ্রই আসছে: দেশব্যাপী, জেলা ও উপজেলা ISP লাইসেন্সধারী, আর অন্য লাইসেন্সের তালিকা।'))
     write('licensees/isp-divisional/index.html', page('licensees/isp-divisional/', 'lic', 'ISP (Divisional) licensees in Bangladesh: full BTRC list | BD Telecom', 'বাংলাদেশের ISP (বিভাগীয়) লাইসেন্সধারী: BTRC এর পূর্ণ তালিকা | BD Telecom',
-          'Searchable list of all %d divisional ISP licensees in Bangladesh from BTRC (23 Dec 2024), by division, with licence numbers and validity dates. Download as CSV.' % n, body,
+          'Searchable list of all %d divisional ISP licensees in Bangladesh from BTRC (23 Dec 2024), by division, with licence numbers and validity dates.' % n, body,
           crumbs=[('/bd-telecom/', 'BD Telecom', 'BD Telecom'), ('/bd-telecom/licensees/', 'Licensees', 'লাইসেন্সধারী')]))
     nv = build_vts(B)
     # hub

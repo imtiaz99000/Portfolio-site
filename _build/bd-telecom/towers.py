@@ -42,7 +42,7 @@ def build_towers(B):
     badm_en = ', '.join(mlab(r['month'], 'en', True) for r in bad); badm_bn = ', '.join(mlab(r['month'], 'bn', True) for r in bad)
     body = '''<header class="pagehead"><h1>%s</h1><p class="dek">%s</p><span class="updated">%s</span></header>
 <div class="tiles kpis">%s</div>
-<div class="btns" style="margin:4px 0 14px"><a class="btn primary" href="/bd-telecom/towers-btrc-2022-2026.csv" download>%s%s</a><a class="btn" href="/bd-telecom/docs/btrc-tower-numbers-2026-09.pdf" download>%s%s</a></div>
+<div class="btns" style="margin:4px 0 14px"><a class="btn primary adm" href="/bd-telecom/towers-btrc-2022-2026.csv" download>%s%s</a><a class="btn" href="/bd-telecom/docs/btrc-tower-numbers-2026-09.pdf" download>%s%s</a></div>
 <section class="block"><div class="card"><h3>%s</h3><p class="sub">%s</p>%s</div></section>
 <section class="block"><div class="card"><h3>%s</h3><p class="sub">%s</p>%s</div></section>
 <div class="callout"><span>%s</span><p>%s</p></div>

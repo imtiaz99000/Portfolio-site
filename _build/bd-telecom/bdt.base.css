@@ -266,3 +266,11 @@ table.spec td .badge{width:20px;height:20px;font-size:8.5px;vertical-align:-4px;
 @media (max-width:520px){.sb{grid-template-columns:96px 1fr auto;gap:8px}.sl{font-size:.85rem}}
 
 .adm{display:none!important}html.is-admin .adm{display:inline-flex!important}
+
+.mini-w{margin-top:10px;padding-top:8px;border-top:1px dashed var(--line)}
+.mini-w svg.mini{display:block;width:100%;height:auto}
+.mini-l{display:flex;justify-content:space-between;gap:6px;font-size:.74rem;line-height:1.25;color:var(--muted);margin-top:3px}
+.mini-l span{display:flex;flex-direction:column}.mini-l .s1{text-align:right}.mini-l em{font-style:normal;white-space:nowrap}.mini-l b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.mini-t{font-size:.78rem;color:var(--muted);margin-top:5px}.mini-t b.up{color:var(--up)}.mini-t b.down{color:var(--down)}
+.mini-x{display:flex;flex-wrap:wrap;gap:2px 10px;font-size:.72rem;color:var(--muted);margin-top:3px}
+.mini-x i{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:4px;vertical-align:1px}.mini-x i.hi{background:var(--up)}.mini-x i.lo{background:var(--down)}

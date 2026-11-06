@@ -29,7 +29,7 @@ def build_subhist(B):
     th = '<th>%s</th>' % T('Month', 'মাস') + ''.join('<th>%s%s</th>' % (B.badge(o), T(o['en'], o['bn'])) for o in B.OPS) + '<th>%s</th>' % T('Total', 'মোট')
     body = '''<header class="pagehead"><h1>%s</h1><p class="dek">%s</p><span class="updated">%s</span></header>
 <div class="tiles kpis">%s</div>
-<div class="btns" style="margin:4px 0 14px"><a class="btn primary" href="/bd-telecom/mobile-subscribers-btrc-2021-2026.csv" download>%s%s</a><a class="btn" href="/bd-telecom/docs/btrc-mobile-subscribers-2026-09.pdf" download>%s%s</a></div>
+<div class="btns" style="margin:4px 0 14px"><a class="btn primary adm" href="/bd-telecom/mobile-subscribers-btrc-2021-2026.csv" download>%s%s</a><a class="btn" href="/bd-telecom/docs/btrc-mobile-subscribers-2026-09.pdf" download>%s%s</a></div>
 <div class="callout"><span>%s</span><p>%s</p></div>
 <section class="block"><div class="card"><h3>%s</h3><p class="sub">%s</p>%s</div></section>
 <section class="block"><div class="card"><h3>%s</h3><p class="sub">%s</p>%s</div></section>
@@ -80,7 +80,7 @@ def build_inethist(B):
     th = ''.join('<th>%s</th>' % T(a, b) for a, b in [('Month', 'মাস'), ('Mobile (m)', 'মোবাইল (মি.)'), ('ISP and PSTN (m)', 'ISP ও PSTN (মি.)'), ('Total (m)', 'মোট (মি.)')])
     body = '''<header class="pagehead"><h1>%s</h1><p class="dek">%s</p><span class="updated">%s</span></header>
 <div class="tiles kpis">%s</div>
-<div class="btns" style="margin:4px 0 14px"><a class="btn primary" href="/bd-telecom/internet-subscribers-btrc-2021-2026.csv" download>%s%s</a><a class="btn" href="/bd-telecom/docs/btrc-internet-subscribers-2026-09.pdf" download>%s%s</a></div>
+<div class="btns" style="margin:4px 0 14px"><a class="btn primary adm" href="/bd-telecom/internet-subscribers-btrc-2021-2026.csv" download>%s%s</a><a class="btn" href="/bd-telecom/docs/btrc-internet-subscribers-2026-09.pdf" download>%s%s</a></div>
 <div class="callout"><span>%s</span><p>%s</p></div>
 <section class="block"><div class="card"><h3>%s</h3><p class="sub">%s</p>%s</div></section>
 <section class="block"><div class="card"><h3>%s</h3><p class="sub">%s</p>%s</div></section>

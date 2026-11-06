@@ -36,7 +36,7 @@ def build_spectrum(B):
              tile(T('700 MHz holders', '700 MHz ধারক'), T('2', '২'), T('Grameenphone and Teletalk, 10 MHz each', 'গ্রামীণফোন আর টেলিটক, প্রতিটি ১০ মে.হা.')))
     body = '''<header class="pagehead"><h1>%s</h1><p class="dek">%s</p><span class="updated">%s</span></header>
 <div class="tiles kpis">%s</div>
-<div class="btns" style="margin:4px 0 14px"><a class="btn primary" href="/bd-telecom/spectrum-btrc-2026-08.csv" download>%s%s</a><a class="btn" href="/bd-telecom/docs/btrc-spectrum-2026-08.png" download>%s%s</a></div>
+<div class="btns" style="margin:4px 0 14px"><a class="btn primary adm" href="/bd-telecom/spectrum-btrc-2026-08.csv" download>%s%s</a><a class="btn" href="/bd-telecom/docs/btrc-spectrum-2026-08.png" download>%s%s</a></div>
 <section class="block"><div class="card"><h3>%s</h3><p class="sub">%s</p><div class="sbars">%s</div>%s</div></section>
 <section class="block"><div class="sechead"><h2>%s</h2></div><div class="card"><div class="tablewrap"><table class="spec"><thead><tr>%s</tr></thead><tbody>%s</tbody></table></div></div></section>
 <section class="block"><div class="card"><h3>%s</h3><p class="sub">%s</p>%s</div></section>

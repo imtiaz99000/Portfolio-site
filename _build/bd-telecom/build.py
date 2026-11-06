@@ -242,7 +242,7 @@ def build():
         T('Every month with an operator split is checked: the four operators must add up to the published total. Blank cells are months where no published figure was found.', 'অপারেটরভিত্তিক প্রতিটা মাস যাচাই করা: চার অপারেটরের যোগফল প্রকাশিত মোটের সমান হতে হবে। ফাঁকা ঘর মানে সেই মাসের প্রকাশিত সংখ্যা পাওয়া যায়নি।'),
         th, trs, T('Operator figures for August 2021 onwards are on the <a href="/bd-telecom/kpi/mobile-subscribers/">five-year mobile subscriber page</a>.', 'আগস্ট ২০২১ থেকে অপারেটরভিত্তিক সংখ্যা দেখুন <a href="/bd-telecom/kpi/mobile-subscribers/">পাঁচ বছরের মোবাইল গ্রাহক পেজে</a>।'))
     write('data/index.html', page('data/', 'data', 'Bangladesh mobile and internet subscriber data (BTRC) | BD Telecom', 'বাংলাদেশের মোবাইল ও ইন্টারনেট গ্রাহক ডেটা (BTRC) | BD Telecom',
-          'Monthly BTRC subscriber data for Grameenphone, Robi, Banglalink and Teletalk, plus mobile and fixed internet. Download as CSV.', body,
+          'Monthly BTRC subscriber data for Grameenphone, Robi, Banglalink and Teletalk, plus mobile and fixed internet.', body,
           crumbs=[('/bd-telecom/', 'BD Telecom', 'BD Telecom')]))
 
     # guides
