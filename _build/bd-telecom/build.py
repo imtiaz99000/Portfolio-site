@@ -81,7 +81,7 @@ FAVICON = open(os.path.join(HERE, 'dashboard.tpl.html')).read().split('<link rel
 FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&family=Anek+Bangla:wght@400;500;600;700&display=swap" rel="stylesheet">'
 
 def page(path, active, title_en, title_bn, desc_en, body, default_lang='en', crumbs=None):
-    url = 'https://imtiazkarim.com/bd-telecom/' + path
+    url = 'https://www.imtiazkarim.com/bd-telecom/' + path
     cr = ''
     if crumbs:
         cr = '<p class="crumbs">' + ' / '.join('<a href="%s">%s</a>' % (u, T(e, b)) for u, e, b in crumbs) + '</p>'
@@ -94,7 +94,7 @@ def page(path, active, title_en, title_bn, desc_en, body, default_lang='en', cru
 <meta name="bdt-title-en" content="%(te)s"><meta name="bdt-title-bn" content="%(tb)s">
 <meta name="description" content="%(de)s">
 <link rel="canonical" href="%(url)s">
-<meta property="og:title" content="%(te)s"><meta property="og:description" content="%(de)s"><meta property="og:image" content="https://imtiazkarim.com/bd-telecom/og.png">
+<meta property="og:title" content="%(te)s"><meta property="og:description" content="%(de)s"><meta property="og:image" content="https://www.imtiazkarim.com/bd-telecom/og.png">
 <link rel="icon" href="%(fav)s">
 <script>(function(){var r=document.documentElement,d=r.getAttribute('data-default-lang')||'en';try{var t=localStorage.getItem('bdt-theme');if(t)r.setAttribute('data-theme',t);r.lang=localStorage.getItem('bdt-lang')||d}catch(e){r.lang=d}})()</script>
 %(fonts)s
@@ -275,9 +275,9 @@ def build():
         pages += ['work/%s/' % d for d in sorted(os.listdir(workdir)) if os.path.isfile(os.path.join(workdir, d, 'index.html'))]
     import datetime
     today = datetime.date.today().isoformat()
-    sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join('  <url><loc>https://imtiazkarim.com/%s</loc><lastmod>%s</lastmod></url>\n' % (p, today) for p in pages) + '</urlset>\n'
+    sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join('  <url><loc>https://www.imtiazkarim.com/%s</loc><lastmod>%s</lastmod></url>\n' % (p, today) for p in pages) + '</urlset>\n'
     open(os.path.join(SITE, 'sitemap.xml'), 'w').write(sm)
-    open(os.path.join(SITE, 'robots.txt'), 'w').write('User-agent: *\nAllow: /\n\nSitemap: https://imtiazkarim.com/sitemap.xml\n')
+    open(os.path.join(SITE, 'robots.txt'), 'w').write('User-agent: *\nAllow: /\n\nSitemap: https://www.imtiazkarim.com/sitemap.xml\n')
     print('built', len(pages), 'pages in sitemap')
 
 if __name__ == '__main__':

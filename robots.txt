@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://imtiazkarim.com/sitemap.xml
+Sitemap: https://www.imtiazkarim.com/sitemap.xml

@@ -171,8 +171,8 @@ def deck(slug, alt_title):
 def build(p):
     slug = p['slug']
     deck_html, n = deck(slug, p['title'])
-    url = 'https://imtiazkarim.com/work/%s/' % slug
-    og = 'https://imtiazkarim.com/work/%s/slides/01.webp' % slug
+    url = 'https://www.imtiazkarim.com/work/%s/' % slug
+    og = 'https://www.imtiazkarim.com/work/%s/slides/01.webp' % slug
     proof = ''.join('<div><dt>%s</dt><dd>%s</dd></div>' % (esc(a), esc(b)) for a, b in p['proof'])
     story = ''.join('<p>%s</p>' % esc(s) for s in p['story'])
     steps = ''
