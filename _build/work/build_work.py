@@ -14,7 +14,7 @@ churn = open(os.path.join(ROOT, 'churn', 'index.html'), encoding='utf-8').read()
 BASE_CSS = re.search(r'<style>(.*?)</style>', churn, re.S).group(1)
 MARK = re.search(r'(<a class="mark".*?</a>)', churn, re.S).group(1)
 SCRIPT = re.search(r'(<script>\s*var CONTACT.*?</script>)', churn, re.S).group(1)
-ICON = re.search(r'(<link rel="icon"[^>]*>)', churn).group(1)
+ICON = '<link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png">'
 
 EXTRA_CSS = """
 .hero-photo{margin-top:30px;border-radius:16px;overflow:hidden;border:1px solid var(--line);max-width:var(--read)}
