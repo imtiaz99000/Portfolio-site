@@ -268,8 +268,14 @@ def build():
     # sitemap + robots for the whole site
     pages = ['', 'tools/pdf-squeeze/', 'tools/pixelshrink/', 'rssp-demo/', 'bd-telecom/', 'bd-telecom/operators/', 'bd-telecom/data/', 'bd-telecom/guides/'] + \
             ['bd-telecom/operators/%s/' % o['slug'] for o in OPS] + ['bd-telecom/guides/%s/' % g['slug'] for g in guides] + licpages
-    if os.path.isdir(os.path.join(SITE, 'churn')): pages.append('churn/')
-    sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join('  <url><loc>https://imtiazkarim.com/%s</loc></url>\n' % p for p in pages) + '</urlset>\n'
+    for extra in ['tools/taka-gelo-koi/', 'churn/']:
+        if os.path.isdir(os.path.join(SITE, extra)): pages.append(extra)
+    workdir = os.path.join(SITE, 'work')
+    if os.path.isdir(workdir):
+        pages += ['work/%s/' % d for d in sorted(os.listdir(workdir)) if os.path.isfile(os.path.join(workdir, d, 'index.html'))]
+    import datetime
+    today = datetime.date.today().isoformat()
+    sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join('  <url><loc>https://imtiazkarim.com/%s</loc><lastmod>%s</lastmod></url>\n' % (p, today) for p in pages) + '</urlset>\n'
     open(os.path.join(SITE, 'sitemap.xml'), 'w').write(sm)
     open(os.path.join(SITE, 'robots.txt'), 'w').write('User-agent: *\nAllow: /\n\nSitemap: https://imtiazkarim.com/sitemap.xml\n')
     print('built', len(pages), 'pages in sitemap')
