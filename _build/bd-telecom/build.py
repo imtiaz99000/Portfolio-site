@@ -121,36 +121,64 @@ def write(rel, content):
     open(p, 'w', encoding='utf8').write(content)
 
 # ---------- static SVG line chart (hover via native titles; the table carries every value) ----------
-def svg_line(series, ymin, ymax, ticks, unit_en, unit_bn, h=260, fmt=2):
-    W, H, L, R, TP, B = 720, h, 46, 96, 14, 26
+def _svg_line(series, ymin, ymax, ticks, unit_en, unit_bn, h, fmt, W, narrow):
+    H, L, R, TP, B = h, (40 if narrow else 46), (78 if narrow else 96), 22, 26
     iw, ih, n = W - L - R, H - TP - B, len(MONTHS)
     x = lambda i: L + i * iw / (n - 1)
     y = lambda v: TP + ih - (v - ymin) / (ymax - ymin) * ih
+    F = lambda v: ('%.' + str(fmt) + 'f') % v
     o = ['<svg viewBox="0 0 %d %d" role="img" class="schart">' % (W, H)]
+    if '2025-07' in MONTHS and '2025-12' in MONTHS:
+        i0, i1 = MONTHS.index('2025-07'), MONTHS.index('2025-12')
+        o.append('<rect x="%.1f" y="%d" width="%.1f" height="%d" fill="var(--band)"/>' % (x(i0), TP, x(i1) - x(i0), ih))
+        o.append('<text x="%.1f" y="%d" class="note">%s</text>' % (x(i0) + 4, TP - 6, T('SIM-limit clean-up', 'SIM সীমার সময়', 'tspan')))
     for t in ticks:
         o.append('<line x1="%d" x2="%d" y1="%.1f" y2="%.1f" stroke="var(--grid)"/>' % (L, W - R, y(t), y(t)))
-        o.append('<text x="%d" y="%.1f" text-anchor="end">%s%s</text>' % (L - 8, y(t) + 4, T(str(t), bn(t), 'tspan'), T(unit_en, unit_bn, 'tspan')))
+        o.append('<text x="%d" y="%.1f" text-anchor="end">%s%s</text>' % (L - 6, y(t) + 4, T(str(t), bn(t), 'tspan'), T(unit_en, unit_bn, 'tspan')))
+    every = 12 if narrow else 6
     for i, m in enumerate(MONTHS):
-        if i % 6 == 0 or i == n - 1:
-            o.append('<text x="%.1f" y="%d" text-anchor="%s">%s</text>' % (x(i), H - 6, 'end' if i == n - 1 else 'middle', T(mlab(m, 'en', True), mlab(m, 'bn', True), 'tspan')))
+        if i % every == 0 or i == n - 1:
+            o.append('<text x="%.1f" y="%d" text-anchor="%s">%s</text>' % (x(i), H - 6, 'end' if i == n - 1 else 'start' if i == 0 else 'middle', T(mlab(m, 'en', True), mlab(m, 'bn', True), 'tspan')))
     for name_en, name_bn, col, get in series:
-        d, pen, last = '', False, None
+        d, pen, pts = '', False, []
         for i, m in enumerate(MONTHS):
             v = get(BY[m])
             if v is None: pen = False; continue
-            d += ('L' if pen else 'M') + '%.1f %.1f' % (x(i), y(v)); pen = True; last = (i, v)
-        o.append('<path d="%s" fill="none" stroke="var(%s)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>' % (d, col))
-        for i, m in enumerate(MONTHS):
-            v = get(BY[m])
-            if v is None: continue
-            o.append('<circle cx="%.1f" cy="%.1f" r="7" fill="transparent"><title>%s: %s</title></circle>' % (x(i), y(v), mlab(m), ('%.' + str(fmt) + 'f') % v))
-        if last:
-            i, v = last
-            o.append('<circle cx="%.1f" cy="%.1f" r="4.5" fill="var(%s)" stroke="var(--surface)" stroke-width="2"/>' % (x(i), y(v), col))
-            o.append('<text x="%.1f" y="%.1f" class="lbl">%s</text>' % (x(i) + 9, y(v) + 4, T(name_en, name_bn, 'tspan')))
-            o.append('<text x="%.1f" y="%.1f" class="note">%s</text>' % (x(i) + 9, y(v) + 19, T(('%.' + str(fmt) + 'f') % v + unit_en, bn(('%.' + str(fmt) + 'f') % v) + unit_bn, 'tspan')))
+            d += ('L' if pen else 'M') + '%.1f %.1f' % (x(i), y(v)); pen = True; pts.append((i, v))
+        o.append('<path d="%s" fill="none" stroke="var(%s)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>' % (d, col))
+        for i, v in pts:
+            o.append('<circle cx="%.1f" cy="%.1f" r="7" fill="transparent"><title>%s: %s</title></circle>' % (x(i), y(v), mlab(MONTHS[i]), F(v)))
+        if not pts: continue
+        (fi, fv), (li, lv) = pts[0], pts[-1]
+        hi = max(pts, key=lambda p: p[1]); lo = min(pts, key=lambda p: p[1])
+        def mark(i, v, c, en, bnn, below):
+            o.append('<circle cx="%.1f" cy="%.1f" r="4" fill="var(%s)" stroke="var(--surface)" stroke-width="2"/>' % (x(i), y(v), c))
+            anc = 'start' if x(i) < L + iw * .25 else 'end' if x(i) > L + iw * .75 else 'middle'
+            o.append('<text x="%.1f" y="%.1f" text-anchor="%s" class="lbl">%s</text>' % (x(i), y(v) + (18 if below else -10), anc, T('%s %s%s' % (en, F(v), '%' if unit_en == '%' else ''), '%s %s%s' % (bnn, bn(F(v)), '%' if unit_en == '%' else ''), 'tspan')))
+        o.append('<circle cx="%.1f" cy="%.1f" r="3.5" fill="var(%s)" stroke="var(--surface)" stroke-width="2"/>' % (x(fi), y(fv), col))
+        o.append('<text x="%.1f" y="%.1f" text-anchor="start" class="note">%s</text>' % (x(fi) + 6, y(fv) + (18 if len(pts) > 1 and pts[1][1] >= fv else -10), T(F(fv), bn(F(fv)), 'tspan')))
+        if hi[0] not in (fi, li): mark(hi[0], hi[1], '--up', 'High', 'সর্বোচ্চ', False)
+        if lo[0] not in (fi, li): mark(lo[0], lo[1], '--down', 'Low', 'সর্বনিম্ন', True)
+        o.append('<circle cx="%.1f" cy="%.1f" r="5" fill="var(%s)" stroke="var(--surface)" stroke-width="2"/>' % (x(li), y(lv), col))
+        o.append('<text x="%.1f" y="%.1f" class="lbl">%s</text>' % (x(li) + 9, y(lv) + 4, T(name_en, name_bn, 'tspan')))
+        o.append('<text x="%.1f" y="%.1f" class="note">%s</text>' % (x(li) + 9, y(lv) + 19, T(F(lv) + unit_en, bn(F(lv)) + unit_bn, 'tspan')))
     o.append('</svg>')
-    return '<div class="chart">' + ''.join(o) + '</div>'
+    return ''.join(o)
+
+def svg_line(series, ymin, ymax, ticks, unit_en, unit_bn, h=260, fmt=2):
+    wide = _svg_line(series, ymin, ymax, ticks, unit_en, unit_bn, h, fmt, 720, False)
+    nar = _svg_line(series, ymin, ymax, ticks, unit_en, unit_bn, int(h * 1.05), fmt, 420, True)
+    # summary under the chart (first series)
+    name_en, name_bn, col, get = series[0]
+    pts = [(m, get(BY[m])) for m in MONTHS if get(BY[m]) is not None]
+    F = lambda v: ('%.' + str(fmt) + 'f') % v
+    u_en = ' pts' if unit_en == '%' else ' ' + unit_en.strip(); u_bn = ' পয়েন্ট' if unit_en == '%' else ' ' + unit_bn.strip()
+    (m0, v0), (m1, v1) = pts[0], pts[-1]
+    hi = max(pts, key=lambda p: p[1]); lo = min(pts, key=lambda p: p[1]); dv = v1 - v0; cls = 'up' if dv > 0 else 'down' if dv < 0 else ''
+    cell = lambda en, bnn, m, v, c='': '<span><em>%s</em><b class="%s">%s</b></span>' % (T('%s · %s' % (en, mlab(m)), '%s · %s' % (bnn, mlab(m, 'bn'))), c, T(F(v) + ('%' if unit_en == '%' else ' ' + unit_en), bn(F(v)) + ('%' if unit_en == '%' else ' ' + unit_bn.strip())))
+    cap = cell('Start', 'শুরু', m0, v0) + (cell('High', 'সর্বোচ্চ', hi[0], hi[1], 'up') if hi[0] not in (m0, m1) else '') + (cell('Low', 'সর্বনিম্ন', lo[0], lo[1], 'down') if lo[0] not in (m0, m1) else '') + \
+          '<span><em>%s</em><b>%s <i class="%s">%s</i></b></span>' % (T('Now · %s' % mlab(m1), 'এখন · %s' % mlab(m1, 'bn')), T(F(v1) + ('%' if unit_en == '%' else ' ' + unit_en), bn(F(v1)) + ('%' if unit_en == '%' else ' ' + unit_bn.strip())), cls, T(sgn(dv, fmt) + u_en, sgn(dv, fmt, 'bn') + u_bn))
+    return '<div class="chart dual"><div class="cw">%s</div><div class="cn">%s</div></div><div class="ccap">%s</div>' % (wide, nar, cap)
 
 def build():
     global CSSV, JSV
@@ -203,7 +231,7 @@ def build():
         ch1 = svg_line([(o['en'], o['bn'], o['c'], lambda r, k=k: r[k])], ticks[0], ticks[-1], ticks, 'm', ' মি.')
         sv = [r[k] / r['total_mobile'] * 100 for r in FULL]; sp = max(0.6, (max(sv) - min(sv)) * 0.5)
         sy0, sy1 = int(min(sv) - sp), int(max(sv) + sp) + 1
-        ch2 = svg_line([(T('Share', 'শেয়ার', 'tspan'), '', o['c'], lambda r, k=k: (r[k] / r['total_mobile'] * 100) if r[k] is not None and r['total_mobile'] else None)],
+        ch2 = svg_line([('Share', 'শেয়ার', o['c'], lambda r, k=k: (r[k] / r['total_mobile'] * 100) if r[k] is not None and r['total_mobile'] else None)],
                        sy0, sy1, list(range(sy0, sy1 + 1, max(1, round((sy1 - sy0) / 4)))), '%', '%', h=220, fmt=1)
         trs = ''.join('<tr><td>%s</td><td>%s</td><td>%s</td></tr>' % (T(mlab(r['month']), mlab(r['month'], 'bn')), T(num(r[k]), num(r[k], 2, 'bn')) if r[k] is not None else '<span class="gap">–</span>',
                       T(num(r[k] / r['total_mobile'] * 100, 1) + '%', num(r[k] / r['total_mobile'] * 100, 1, 'bn') + '%') if r[k] is not None and r['total_mobile'] else '–') for r in reversed(DATA))

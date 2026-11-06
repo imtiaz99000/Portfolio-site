@@ -276,4 +276,8 @@ table.spec td .badge{width:20px;height:20px;font-size:8.5px;vertical-align:-4px;
 .mini-x i{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:4px;vertical-align:1px}.mini-x i.hi{background:var(--up)}.mini-x i.lo{background:var(--down)}
 .kmore{display:inline-block;margin-top:8px;font-size:.82rem;font-weight:600;color:var(--accent);text-decoration:none}.kmore:hover{text-decoration:underline}
 
+.chart.dual .cn{display:none}
+@media (max-width:640px){.chart.dual .cw{display:none}.chart.dual .cn{display:block}}
+.ccap b.up{color:var(--up)}
+
 .chart svg.schart{display:block;width:100%;height:auto}
