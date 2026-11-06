@@ -99,6 +99,7 @@ def page(path, active, title_en, title_bn, desc_en, body, default_lang='en', cru
 <script>(function(){var r=document.documentElement,d=r.getAttribute('data-default-lang')||'en';try{var t=localStorage.getItem('bdt-theme');if(t)r.setAttribute('data-theme',t);r.lang=localStorage.getItem('bdt-lang')||d}catch(e){r.lang=d}})()</script>
 %(fonts)s
 <link rel="stylesheet" href="/bd-telecom/assets/bdt.css?v=%(cssv)s">
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 %(head)s

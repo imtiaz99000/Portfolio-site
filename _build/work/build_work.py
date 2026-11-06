@@ -203,6 +203,7 @@ def build(p):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <style>{BASE_CSS}{EXTRA_CSS}</style>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <header class="top" id="top">
