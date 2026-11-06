@@ -303,11 +303,11 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 
 <div class="savebar"><div class="in">
   <button class="btn primary" id="convert">Convert</button>
+  <button class="btn" id="retry" hidden>Retry failed</button>
   <button class="btn" id="saveOne" hidden>Download this one</button>
   <button class="btn primary" id="saveAll" hidden>Download</button>
 </div><p class="msg" id="msg"></p></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script>
 const $=id=>document.getElementById(id);
 const PRESETS=[
@@ -367,7 +367,7 @@ const COUNTRIES=[
   {"r": "Rest of the world", "n": "Canada", "d": "50×70 mm", "w": 591, "h": 827},
   {"r": "Rest of the world", "n": "Australia", "d": "35×45 mm", "w": 413, "h": 531}
 ];
-const MAX_PHOTOS=60;
+const MAX_PHOTOS=300;
 const st={items:[],sel:0,mode:"kb",red:50,kbMode:"pct",converted:false,preset:0,w:0,h:0,lock:true,country:0,kb:100,fmt:"image/jpeg",q:1,tool:"resize",bg:"keep",bgColor:"transparent",gen:0,sample:true};
 
 const fmtBytes=b=>b<1024?b+" B":b<1048576?(b/1024).toFixed(1)+" KB":(b/1048576).toFixed(2)+" MB";
@@ -421,11 +421,76 @@ const isHeic=f=>/\.(heic|heif)$/i.test(f.name||"")||/image\/hei[cf]/i.test(f.typ
 let heicLib=null;   // heic-to (libheif) ships with the page as heic-to.js and loads only when a HEIC photo is picked
 function loadHeic(){if(!heicLib)heicLib=import("./heic-to.js").catch(e=>{heicLib=null;throw e});return heicLib}
 async function fromHeic(f){
-  try{const bm=await decode(f);release(bm);return f}catch(e){}   // phone can open it natively
+  try{const bm=await createImageBitmap(f,{resizeWidth:64});bm.close();return f}catch(e){}   // phone can open it natively
   const lib=await loadHeic();const out=await lib.heicTo({blob:f,type:"image/jpeg",quality:.95});
-  return new File([out],(f.name||"photo").replace(/\.[^.]+$/,"")+".jpg",{type:"image/jpeg"})}
+  return await store.put(new File([out],(f.name||"photo").replace(/\.[^.]+$/,"")+".jpg",{type:"image/jpeg"}))}
 const dims=b=>({w:b.width||b.naturalWidth,h:b.height||b.naturalHeight});
-const release=b=>{if(b&&b.close)b.close()};
+// give memory back at once instead of waiting for the browser to clean up (big photos are ~100 MB each in memory)
+const release=b=>{if(!b)return;if(b.close)b.close();else if(b.getContext){b.width=0;b.height=0}};
+const freeC=release;
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const newCanvas=(w,h)=>{const c=document.createElement("canvas");c.width=w;c.height=h;return c};
+function scaled(src,k){const c=newCanvas(Math.max(1,Math.round(src.width*k)),Math.max(1,Math.round(src.height*k))),x=c.getContext("2d");
+  x.imageSmoothingQuality="high";x.drawImage(src,0,0,c.width,c.height);return c}
+const canvasBlob=(c,type,q)=>new Promise(r=>c.toBlob(r,type,q));
+
+// decode straight to the size we need, so a 24-megapixel photo never sits in memory at full size unless it has to
+async function decodeAt(file,tw,th){
+  tw=Math.max(1,Math.round(tw));th=Math.max(1,Math.round(th));
+  try{
+    let bm=await createImageBitmap(file,{imageOrientation:"from-image",resizeWidth:tw,resizeHeight:th,resizeQuality:"high"});
+    if(bm.width===tw&&bm.height===th)return bm;
+    if(bm.width===th&&bm.height===tw){bm.close();return await createImageBitmap(file,{imageOrientation:"from-image",resizeWidth:th,resizeHeight:tw,resizeQuality:"high"})}
+    return bm}
+  catch(e){const full=await decode(file),c=newCanvas(tw,th),x=c.getContext("2d");x.imageSmoothingQuality="high";x.drawImage(full,0,0,tw,th);release(full);return c}}
+
+// read width and height from the file header (fast, no decoding)
+async function readDims(file){
+  const b=new Uint8Array(await file.slice(0,1<<19).arrayBuffer()),u16=i=>b[i]<<8|b[i+1],l16=i=>b[i]|b[i+1]<<8;
+  if(b[0]===0x89&&b[1]===0x50)return{w:(b[16]<<24|b[17]<<16|b[18]<<8|b[19])>>>0,h:(b[20]<<24|b[21]<<16|b[22]<<8|b[23])>>>0};
+  if(b[0]===0x47&&b[1]===0x49)return{w:l16(6),h:l16(8)};
+  if(b[0]===0x52&&b[8]===0x57&&b[9]===0x45){const t=String.fromCharCode(b[12],b[13],b[14],b[15]);
+    if(t==="VP8 ")return{w:l16(26)&0x3fff,h:l16(28)&0x3fff};
+    if(t==="VP8L")return{w:1+(((b[22]&0x3f)<<8)|b[21]),h:1+(((b[24]&0xf)<<10)|(b[23]<<2)|((b[22]&0xc0)>>6))};
+    if(t==="VP8X")return{w:1+(b[24]|b[25]<<8|b[26]<<16),h:1+(b[27]|b[28]<<8|b[29]<<16)}}
+  if(b[0]===0xff&&b[1]===0xd8){let i=2;
+    while(i+9<b.length){if(b[i]!==0xff){i++;continue}const m=b[i+1];if(m===0xff){i++;continue}
+      if(m>=0xc0&&m<=0xcf&&m!==0xc4&&m!==0xc8&&m!==0xcc)return{w:u16(i+7),h:u16(i+5)};
+      if(m===0xd8||(m>=0xd0&&m<=0xd7)||m===0x01){i+=2;continue}
+      i+=2+u16(i+2)}}
+  return null}
+
+// finished photos are kept on the phone's storage, not in memory, so hundreds of results fit
+const store=(()=>{let dirP=null,n=0;
+  function dir(){if(!dirP)dirP=(async()=>{const root=await navigator.storage.getDirectory(),now=Date.now();
+      for await(const [name] of root.entries()){const t=+(name.match(/^ps-(\d+)$/)||[])[1];if(t&&now-t>6*3600e3)try{await root.removeEntry(name,{recursive:true})}catch(e){}}
+      return root.getDirectoryHandle("ps-"+now,{create:true})})().catch(()=>null);return dirP}
+  async function put(blob){const d=await dir();if(!d)return blob;
+    try{const name="f"+(++n),fh=await d.getFileHandle(name,{create:true}),w=await fh.createWritable();await w.write(blob);await w.close();
+      const d0=await fh.getFile();if(d0.size!==blob.size)return blob;const f=new File([d0],blob.name||name,{type:blob.type});f._h=name;return f}catch(e){return blob}}
+  function del(b){if(!b||!b._h)return;dir().then(d=>d&&d.removeEntry(b._h).catch(()=>{}))}
+  return{put,del}})();
+
+const CRCT=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xedb88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+async function crc32(blob){let c=0xffffffff;const CH=4<<20;
+  for(let o=0;o<blob.size;o+=CH){const b=new Uint8Array(await blob.slice(o,o+CH).arrayBuffer());for(let i=0;i<b.length;i++)c=CRCT[(c^b[i])&255]^(c>>>8)}
+  return(c^0xffffffff)>>>0}
+// ZIP built from the stored files without copying them into memory
+function makeZip(entries){
+  const enc=new TextEncoder(),parts=[],central=[],d=new Date();let off=0;
+  const time=(d.getHours()<<11)|(d.getMinutes()<<5)|(d.getSeconds()>>1),date=((d.getFullYear()-1980)<<9)|((d.getMonth()+1)<<5)|d.getDate();
+  for(const e of entries){const name=enc.encode(e.name),size=e.blob.size,lh=new DataView(new ArrayBuffer(30)),ch=new DataView(new ArrayBuffer(46));
+    [[0,0x04034b50,4],[4,20,2],[6,0x0800,2],[8,0,2],[10,time,2],[12,date,2],[14,e.crc,4],[18,size,4],[22,size,4],[26,name.length,2],[28,0,2]].forEach(([o,v,s])=>s===4?lh.setUint32(o,v,true):lh.setUint16(o,v,true));
+    [[0,0x02014b50,4],[4,20,2],[6,20,2],[8,0x0800,2],[10,0,2],[12,time,2],[14,date,2],[16,e.crc,4],[20,size,4],[24,size,4],[28,name.length,2],[30,0,2],[32,0,2],[34,0,2],[36,0,2],[38,0,4],[42,off,4]].forEach(([o,v,s])=>s===4?ch.setUint32(o,v,true):ch.setUint16(o,v,true));
+    parts.push(lh.buffer,name,e.blob);central.push(ch.buffer,name);off+=30+name.length+size}
+  const cdSize=central.reduce((a,x)=>a+(x.byteLength||x.length),0),end=new DataView(new ArrayBuffer(22));
+  [[0,0x06054b50,4],[4,0,2],[6,0,2],[8,entries.length,2],[10,entries.length,2],[12,cdSize,4],[16,off,4],[20,0,2]].forEach(([o,v,s])=>s===4?end.setUint32(o,v,true):end.setUint16(o,v,true));
+  return new Blob([...parts,...central,end.buffer],{type:"application/zip"})}
+
+// keep the screen on during long batches; a sleeping phone pauses or closes the page
+let wakeLock=null;
+async function keepAwake(on){try{if(on){if(!wakeLock&&navigator.wakeLock){wakeLock=await navigator.wakeLock.request("screen");wakeLock.addEventListener("release",()=>{wakeLock=null})}}else if(wakeLock){const w=wakeLock;wakeLock=null;await w.release()}}catch(e){wakeLock=null}}
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&st.busy)keepAwake(true)});
 
 async function addFiles(files,replace){
   if(!files.length)return;
@@ -436,16 +501,22 @@ async function addFiles(files,replace){
     if(added.length>=cap){skipped++;continue}
     let f=f0;
     if(isHeic(f0)){msg(`Opening iPhone photos (${++hdone} of ${heics})…`);try{f=await fromHeic(f0)}catch(e){heicFail++;continue}}
-    try{const bm=await decode(f);const d=dims(bm);
-      const tc=document.createElement("canvas"),k=144/Math.max(d.w,d.h);tc.width=Math.max(1,Math.round(d.w*k));tc.height=Math.max(1,Math.round(d.h*k));
-      tc.getContext("2d").drawImage(bm,0,0,tc.width,tc.height);release(bm);
-      const tb=await new Promise(r=>tc.toBlob(r,"image/jpeg",.7));
+    else if(files.length>3)msg(`Adding photos ${added.length+1} of ${Math.min(files.length,cap)}…`);
+    try{let d=null,tbm=null;
+      try{d=await readDims(f);tbm=await createImageBitmap(f,{imageOrientation:"from-image",resizeWidth:160,resizeQuality:"medium"})}catch(e){tbm=null}
+      if(d&&tbm&&d.w!==d.h&&(tbm.width>tbm.height)!==(d.w>d.h))d={w:d.h,h:d.w};   // phone photo stored sideways (EXIF)
+      if(!d||!tbm){if(tbm)tbm.close();const bm=await decode(f);d=dims(bm);
+        const c=newCanvas(160,Math.max(1,Math.round(160*d.h/d.w)));c.getContext("2d").drawImage(bm,0,0,c.width,c.height);release(bm);tbm=c}
+      const k=144/Math.max(tbm.width,tbm.height),tc=newCanvas(Math.max(1,Math.round(tbm.width*k)),Math.max(1,Math.round(tbm.height*k)));
+      tc.getContext("2d").drawImage(tbm,0,0,tc.width,tc.height);release(tbm);
+      const tb=await canvasBlob(tc,"image/jpeg",.7);freeC(tc);
       added.push({file:f,name:(f0.name||"photo").replace(/\.[^.]+$/,""),ow:d.w,oh:d.h,obytes:f0.size,thumb:URL.createObjectURL(tb),blob:null,url:null,rw:0,rh:0});
+      if(added.length%10===0)await sleep(0);
     }catch(e){bad++}}
-  const parts=[];if(bad)parts.push(bad+" file"+(bad>1?"s":"")+" could not be opened as pictures");if(heicFail)parts.push(heicFail+" iPhone photo"+(heicFail>1?"s":"")+" (HEIC) could not be opened");if(skipped)parts.push("only the first "+MAX_PHOTOS+" photos were added");
+  const parts=[];if(bad)parts.push(bad+" file"+(bad>1?"s":"")+" could not be opened as pictures");if(heicFail)parts.push(heicFail+" iPhone photo"+(heicFail>1?"s":"")+" (HEIC) could not be opened");if(skipped)parts.push("only "+MAX_PHOTOS+" photos can be added at once, so "+skipped+" were left out");
   msg(parts.length?parts.join(", ")+".":"",parts.length>0);
   if(added.length){
-    if(fresh){st.items.forEach(it=>{if(it.url)URL.revokeObjectURL(it.url);if(it.thumb)URL.revokeObjectURL(it.thumb)});st.items=[];st.sel=0;st.sample=false}
+    if(fresh){st.items.forEach(it=>{dropResult(it);if(it.thumb)URL.revokeObjectURL(it.thumb);store.del(it.mask);store.del(it.file);release(it.pbase)});st.items=[];st.sel=0;st.sample=false}
     st.items.push(...added)}
   afterListChange();dirty()}
 
@@ -465,9 +536,9 @@ function renderStrip(){
     b.setAttribute("aria-label",it.name);b.setAttribute("aria-current",i===st.sel);
     b.innerHTML=`<img alt=""><span class="sz"></span><button class="x" aria-label="Remove">✕</button>`;
     b.querySelector("img").src=it.thumb;b.querySelector(".sz").textContent=it.blob?fmtBytes(it.blob.size):"–";
-    b.onclick=e=>{if(e.target.classList.contains("x"))return;st.sel=i;document.querySelectorAll(".thumb").forEach((t,j)=>t.setAttribute("aria-current",j===i));$("saveOne").textContent="Download this one";$("saveOne").classList.remove("done");showSel();if(st.tool==="edit")buildFilterThumbs()};
+    b.onclick=e=>{if(e.target.classList.contains("x"))return;st.sel=i;st.items.forEach(o=>{if(o!==it&&o.pbase){release(o.pbase);o.pbase=null}});document.querySelectorAll(".thumb").forEach((t,j)=>t.setAttribute("aria-current",j===i));$("saveOne").textContent="Download this one";$("saveOne").classList.remove("done");showSel();if(st.tool==="edit")buildFilterThumbs()};
     b.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();b.click()}};
-    b.querySelector(".x").onclick=()=>{if(it.url)URL.revokeObjectURL(it.url);URL.revokeObjectURL(it.thumb);st.items.splice(i,1);if(st.sel>i)st.sel--;afterListChange();updateTotals()};
+    b.querySelector(".x").onclick=()=>{dropResult(it);URL.revokeObjectURL(it.thumb);store.del(it.mask);release(it.pbase);st.items.splice(i,1);if(st.sel>i)st.sel--;afterListChange();updateTotals()};
     s.appendChild(b)})}
 
 function showSel(){
@@ -476,52 +547,57 @@ function showSel(){
   $("oDim").textContent=it.ow+"×"+it.oh;$("oSize").textContent=fmtBytes(it.obytes);
   const live=st.tool==="edit"&&!it.blob;$("preview").hidden=live;$("editCanvas").hidden=!live;$("compare").hidden=st.tool!=="edit";
   if(live)queuePreview();else{$("cropOv").hidden=true;$("cropDone").hidden=true}
-  if(it.blob){$("preview").src=it.url;$("nDim").textContent=it.rw+"×"+it.rh;$("nSize").textContent=fmtBytes(it.blob.size);
+  if(it.blob){if(!it.url)it.url=URL.createObjectURL(it.blob);$("preview").src=it.url;$("nDim").textContent=it.rw+"×"+it.rh;$("nSize").textContent=fmtBytes(it.blob.size);
     const d=Math.round((1-it.blob.size/it.obytes)*100);
     $("saving").textContent=st.tool==="bg"?"Background removed. Full size kept.":st.tool==="edit"?"Edits applied. Full size kept.":it.over?"Could not get this one under the limit. Try a smaller size.":d>0?d+"% smaller than the original":d<0?Math.abs(d)+"% larger than the original":"Same size as the original";
     $("saving").style.color=st.tool!=="resize"?"var(--good)":it.over?"var(--accent)":d>0?"var(--good)":"var(--muted)"}
   else{$("preview").src=it.thumb;$("nDim").textContent="–";$("nSize").textContent="–";
-    $("saving").textContent=st.busy?"Working…":st.tool==="edit"?"Live preview. Tap Apply edits when it looks right.":"Choose your settings, then tap Convert.";$("saving").style.color="var(--muted)"}}
+    $("saving").textContent=it.failed?"This photo could not be converted. Tap Retry.":st.busy?"Working…":st.tool==="edit"?"Live preview. Tap Apply edits when it looks right.":"Choose your settings, then tap Convert.";$("saving").style.color="var(--muted)"}}
 
 function updateTotals(){
   const n=st.items.length,done=st.items.filter(i=>i.blob);
   $("total").hidden=n<2;if(n<2)return;
   $("totCount").textContent=`${n} photos`;
   $("totO").textContent=fmtBytes(st.items.reduce((a,i)=>a+i.obytes,0));
-  $("totN").textContent=done.length===n?fmtBytes(done.reduce((a,i)=>a+i.blob.size,0)):"–"}
+  const sum=fmtBytes(done.reduce((a,i)=>a+i.blob.size,0));
+  $("totN").textContent=done.length===n?sum:done.length&&!st.busy?`${sum} (${done.length} of ${n})`:"–"}
 
-// rendering
-function draw(src,ow,oh,w,h,fit){
-  let sw=ow,sh=oh,sx=0,sy=0;
-  if(fit==="cover"){const r=w/h,or=sw/sh;if(or>r){const nw=sh*r;sx=(sw-nw)/2;sw=nw}else{const nh=sw/r;sy=(sh-nh)/2;sh=nh}}
-  let c=document.createElement("canvas");c.width=Math.round(sw);c.height=Math.round(sh);c.getContext("2d").drawImage(src,sx,sy,sw,sh,0,0,c.width,c.height);
-  while(c.width/2>w&&c.height/2>h){const n=document.createElement("canvas");n.width=Math.round(c.width/2);n.height=Math.round(c.height/2);
-    const nx=n.getContext("2d");nx.imageSmoothingQuality="high";nx.drawImage(c,0,0,n.width,n.height);c=n}
-  const out=document.createElement("canvas");out.width=w;out.height=h;const ox=out.getContext("2d");
-  const fill=st.bg==="remove"&&st.bgColor!=="transparent"?st.bgColor:fmtOut()==="image/jpeg"?"#fff":null;
-  if(fill){ox.fillStyle=fill;ox.fillRect(0,0,w,h)}
-  ox.imageSmoothingQuality="high";ox.drawImage(c,0,0,w,h);return out}
-const toBlob=(c,q)=>new Promise(r=>c.toBlob(r,fmtOut(),q));
-// cut the subject out at full resolution using the 1024×1024 mask
-function compose(src,ow,oh,mask){const c=document.createElement("canvas");c.width=ow;c.height=oh;const x=c.getContext("2d");
-  x.drawImage(src,0,0,ow,oh);x.globalCompositeOperation="destination-in";x.imageSmoothingEnabled=true;x.imageSmoothingQuality="high";
-  x.drawImage(mask,0,0,ow,oh);x.globalCompositeOperation="source-over";return c}
+const toBlob=(c,q)=>canvasBlob(c,fmtOut(),q);
+const bgFill=()=>st.bg==="remove"&&st.bgColor!=="transparent"?st.bgColor:fmtOut()==="image/jpeg"?"#fff":null;
 let bgMod=null;
 function loadBg(){if(!bgMod)bgMod=import("./bg.js").catch(e=>{bgMod=null;throw e});return bgMod}
 
-async function encodeUnder(src,ow,oh,w,h,fit,limit){
-  let cw=w,ch=h;
-  for(let t=0;t<8;t++){
-    const c=draw(src,ow,oh,cw,ch,fit);
-    if(fmtOut()==="image/png"){const b=await toBlob(c);if(b.size<=limit||cw<20)return{b,w:cw,h:ch};
-      const k=Math.sqrt(limit/b.size)*.95;cw=Math.max(1,Math.round(cw*k));ch=Math.max(1,Math.round(ch*k));continue}
-    let lo=.1,hi=st.q,best=null;
-    const top=await toBlob(c,hi);if(top.size<=limit)return{b:top,w:cw,h:ch};
-    for(let i=0;i<7;i++){const m=(lo+hi)/2,b=await toBlob(c,m);if(b.size<=limit){best=b;lo=m}else hi=m}
-    if(best)return{b:best,w:cw,h:ch};
-    const low=await toBlob(c,.1);if(cw<20)return{b:low,w:cw,h:ch};
-    const k=Math.sqrt(limit/low.size)*.92;cw=Math.max(1,Math.round(cw*k));ch=Math.max(1,Math.round(ch*k))}
-  return{b:await toBlob(draw(src,ow,oh,cw,ch,fit),.1),w:cw,h:ch}}
+// best quality that fits under the KB limit: the quality is searched on a small sample, then confirmed at full size (1–2 full encodes instead of 8)
+async function encodeLimit(c,limit){
+  const own=[],finish=(b,cv)=>{const r={b,w:cv.width,h:cv.height};own.forEach(freeC);return r};
+  let cur=c;
+  if(fmtOut()==="image/png"){let b=await toBlob(cur);
+    for(let t=0;t<8&&b&&b.size>limit&&cur.width>20;t++){cur=scaled(cur,Math.sqrt(limit/b.size)*.95);own.push(cur);b=await toBlob(cur)}
+    return finish(b,cur)}
+  const QMIN=.08;
+  for(let round=0;round<5;round++){
+    const sk=Math.min(1,Math.sqrt(1.2e6/(cur.width*cur.height))),smp=sk<1?scaled(cur,sk):cur;if(smp!==cur)own.push(smp);
+    const cache=new Map(),sizeAt=async q=>{const k=q.toFixed(4);if(!cache.has(k)){const b=await toBlob(smp,q);cache.set(k,b?b.size:Infinity)}return cache.get(k)};
+    // first guess from the sample, then home in using real full-size results (log-size vs quality)
+    let R=sk<1?.8/(sk*sk):1,best=null;const pts=[],target=limit*.95;
+    let qf=null;{const goal=target/R;if(await sizeAt(st.q)<=goal)qf=st.q;else{let lo=QMIN,hi=st.q;for(let i=0;i<7;i++){const m=(lo+hi)/2;if(await sizeAt(m)<=goal){qf=m;lo=m}else hi=m}if(qf===null&&await sizeAt(QMIN)<=goal)qf=QMIN}}
+    for(let t=0;t<6&&qf!==null;t++){
+      const b=await toBlob(cur,qf);if(!b)return finish(null,cur);pts.push({q:qf,s:b.size});
+      if(b.size<=limit){if(!best||b.size>best.size)best=b;if(b.size>=limit*.9||qf>=st.q)break}
+      const fit=pts.filter(x=>x.s<=limit).sort((a,b)=>b.q-a.q)[0],over=pts.filter(x=>x.s>limit).sort((a,b)=>a.q-b.q)[0];
+      let nq;
+      if(fit&&over){nq=fit.q+(Math.log(target)-Math.log(fit.s))*(over.q-fit.q)/(Math.log(over.s)-Math.log(fit.s));
+        const e=(over.q-fit.q)*.1;nq=Math.min(over.q-e,Math.max(fit.q+e,nq));if(over.q-fit.q<.004)break}
+      else{R=b.size/await sizeAt(qf);const goal=target/R;nq=null;
+        let lo=fit?fit.q:QMIN,hi=over?over.q:st.q;for(let i=0;i<7;i++){const m=(lo+hi)/2;if(await sizeAt(m)<=goal){nq=m;lo=m}else hi=m}
+        if(nq===null){if(over&&over.q<=QMIN+1e-3)break;nq=Math.max(QMIN,((fit?fit.q:QMIN)+(over?over.q:st.q))/2)}
+        if(fit&&nq<=fit.q)nq=Math.min(st.q,(fit.q+(over?over.q:st.q))/2)}
+      if(Math.abs(nq-qf)<1e-4)break;qf=nq}
+    if(best)return finish(best,cur);
+    const low=await toBlob(cur,QMIN);if(!low)return finish(null,cur);
+    if(low.size<=limit||cur.width<24)return finish(low,cur);
+    cur=scaled(cur,Math.sqrt(limit/low.size)*.92);own.push(cur)}
+  return finish(await toBlob(cur,QMIN),cur)}
 
 function plan(it){
   const n=st.items.length;let w,h,fit="contain",limit=null;
@@ -536,83 +612,110 @@ function plan(it){
   else{w=it.ow;h=it.oh;limit=st.kbMode==="kb"?st.kb*1024:Math.max(2048,Math.floor(it.obytes*(1-st.red/100)))}
   return{w,h,fit,limit}}
 
+function dropResult(it){if(it.url)URL.revokeObjectURL(it.url);store.del(it.blob);it.url=null;it.blob=null;it.crc=null;it.over=false;it.failed=false}
 function setBar(){
-  const n=st.items.length,ready=st.converted&&!st.busy;
-  $("convert").hidden=ready;$("saveAll").hidden=!ready;$("saveOne").hidden=!ready||n<2;
+  const n=st.items.length,ready=st.converted&&!st.busy,fails=st.items.filter(i=>i.failed).length,okN=st.items.filter(i=>i.blob).length;
+  $("convert").hidden=ready;$("saveAll").hidden=!ready||!okN;$("saveOne").hidden=!ready||n<2||!(ref()&&ref().blob);
+  $("retry").hidden=!ready||!fails;$("retry").textContent=`Retry ${fails} failed`;
   if(!st.busy){$("convert").disabled=n===0;$("convert").textContent=st.tool==="bg"?(n>1?`Remove backgrounds (${n})`:"Remove background"):st.tool==="edit"?(n>1?`Apply edits to ${n} photos`:"Apply edits"):(n>1?`Convert ${n} photos`:"Convert")}}
 function dirty(){
-  st.gen++;st.busy=false;st.converted=false;$("bar").hidden=true;
-  st.items.forEach(it=>{if(it.url)URL.revokeObjectURL(it.url);it.url=null;it.blob=null;it.over=false;it.stale=true});
+  st.gen++;st.busy=false;st.converted=false;$("bar").hidden=true;keepAwake(false);
+  st.items.forEach(it=>{dropResult(it);it.stale=true});
   document.querySelectorAll(".thumb .sz").forEach(s=>s.textContent="–");
   if($("msg").classList.contains("err")&&/limit|format|large/.test($("msg").textContent))msg("");
   setBar();showSel();updateTotals()}
-$("convert").onclick=()=>processAll();
-async function processAll(){
+$("convert").onclick=()=>processAll(false);
+$("retry").onclick=()=>processAll(true);
+let bgReady=false;
+const BGFAIL="The background tool could not load. Check your internet connection and tap the button again.";
+const fmtLeft=s=>s<60?`about ${Math.max(5,Math.round(s/5)*5)} sec left`:`about ${Math.round(s/60)} min left`;
+
+// one photo, start to finish; everything big is released before the next photo starts
+async function processOne(it,gen,status){
+  const p=plan(it);
+  if(p.w*p.h>60e6)throw{fatal:"That size is too large for a phone to handle. Try under 7000×7000."};
+  let bm=null,cv=null,out;
+  try{
+    if(st.tool==="bg"){
+      if(!it.mask){
+        const mod=await loadBg().catch(()=>{throw{fatal:BGFAIL}});
+        if(!bgReady){$("convert").textContent="Getting background tool ready…";
+          await mod.load(f=>{$("convert").textContent=`Downloading background tool ${Math.round(f*100)}%`}).catch(()=>{throw{fatal:BGFAIL}});bgReady=true}
+        if(gen!==st.gen)return"cancel";
+        status("Removing background");await sleep(20);
+        bm=await decodeAt(it.file,1024,1024);const mc=await mod.mask(bm,bm.width,bm.height);release(bm);bm=null;
+        it.mask=await store.put(await canvasBlob(mc,"image/png"));freeC(mc)}
+      bm=await decodeAt(it.file,it.ow,it.oh);cv=newCanvas(it.ow,it.oh);const x=cv.getContext("2d");x.drawImage(bm,0,0);release(bm);bm=null;
+      const mb=await createImageBitmap(it.mask);x.imageSmoothingQuality="high";x.globalCompositeOperation="destination-in";x.drawImage(mb,0,0,it.ow,it.oh);mb.close();
+      const fill=bgFill();if(fill){x.globalCompositeOperation="destination-over";x.fillStyle=fill;x.fillRect(0,0,it.ow,it.oh)}x.globalCompositeOperation="source-over";
+      out={b:await toBlob(cv,st.q),w:cv.width,h:cv.height}}
+    else if(st.tool==="edit"){
+      bm=await decodeAt(it.file,it.ow,it.oh);
+      const lv=E.auto?(it.lv||(it.lv=autoLevels(bm,it.ow,it.oh))):null;
+      const g=geomCanvas(bm,it.ow,it.oh);release(bm);bm=null;
+      cv=cropCanvas(g);if(cv!==g)freeC(g);colourize(cv,lv);
+      out={b:await toBlob(cv,st.q),w:cv.width,h:cv.height}}
+    else{
+      const k=p.fit==="cover"?Math.max(p.w/it.ow,p.h/it.oh):0;
+      bm=await decodeAt(it.file,k?Math.max(p.w,it.ow*k):p.w,k?Math.max(p.h,it.oh*k):p.h);
+      cv=newCanvas(p.w,p.h);const x=cv.getContext("2d"),fill=bgFill();if(fill){x.fillStyle=fill;x.fillRect(0,0,p.w,p.h)}
+      x.imageSmoothingQuality="high";
+      if(k)x.drawImage(bm,(bm.width-p.w)/2,(bm.height-p.h)/2,p.w,p.h,0,0,p.w,p.h);else x.drawImage(bm,0,0,p.w,p.h);
+      release(bm);bm=null;
+      out=p.limit?await encodeLimit(cv,p.limit):{b:await toBlob(cv,st.q),w:p.w,h:p.h}}
+  }finally{release(bm);freeC(cv)}
+  if(gen!==st.gen)return"cancel";
+  if(!out.b)throw new Error("encode");
+  const crc=await crc32(out.b),saved=await store.put(out.b);
+  if(gen!==st.gen){store.del(saved);return"cancel"}
+  Object.assign(it,{blob:saved,crc,url:null,rw:out.w,rh:out.h,over:!!(p.limit&&out.b.size>p.limit),failed:false,stale:false});
+  return"ok"}
+
+async function processAll(onlyFailed){
   const gen=++st.gen,n=st.items.length;if(!n)return;
-  st.busy=true;st.converted=false;setBar();$("convert").disabled=true;$("convert").textContent=n>1?`Converting 0 of ${n}…`:"Converting…";
-  st.items.forEach(it=>{it.stale=true});$("barFill").style.width="0%";showSel();
-  // selected photo first so the preview updates quickly
-  const order=[st.sel,...st.items.map((_,i)=>i).filter(i=>i!==st.sel)];
-  $("bar").hidden=n<2;let done=0;
-  for(const i of order){
-    const it=st.items[i];if(!it)continue;
-    const p=plan(it);
-    if(p.w*p.h>40e6){st.busy=false;setBar();msg("That size is too large for a phone to handle. Try under 6000×6000.",true);return}
-    let src;try{src=await decode(it.file)}catch(e){continue}
-    if(st.bg==="remove"){
-      try{
-        if(!it.mask){
-          const mod=await loadBg();
-          $("convert").textContent="Getting background tool ready…";
-          await mod.load(f=>{$("convert").textContent=`Downloading background tool ${Math.round(f*100)}%`});
-          if(gen!==st.gen){release(src);return}
-          $("convert").textContent=n>1?`Removing background ${done+1} of ${n}…`:"Removing background…";
-          await new Promise(r=>setTimeout(r,30));
-          it.mask=await mod.mask(src,it.ow,it.oh)}
-        if(gen!==st.gen){release(src);return}
-        const cut=compose(src,it.ow,it.oh,it.mask);release(src);src=cut;
-      }catch(e){release(src);st.busy=false;setBar();msg("The background tool could not load. Check your internet connection and tap Convert again.",true);return}
-    }
-    if(gen!==st.gen){release(src);return}
-    if(st.tool==="edit"){
-      const lv=E.auto?(it.lv||(it.lv=autoLevels(src,it.ow,it.oh))):null;
-      const ec=applyEdits(src,it.ow,it.oh,lv);release(src);
-      const b=await toBlob(ec,st.q);if(gen!==st.gen)return;
-      if(!b){st.busy=false;setBar();msg("This phone could not create that format. Try JPG.",true);return}
-      if(it.url)URL.revokeObjectURL(it.url);
-      Object.assign(it,{blob:b,url:URL.createObjectURL(b),rw:ec.width,rh:ec.height,over:false,stale:false});
-      done++;$("barFill").style.width=(done/n*100)+"%";
-      const th=document.querySelectorAll(".thumb .sz")[i];if(th)th.textContent=fmtBytes(b.size);
-      if(i===st.sel)showSel();
-      if(n>1)$("convert").textContent=`Applying ${done} of ${n}…`;
-      updateTotals();await new Promise(r=>setTimeout(r,0));continue}
-    const r=p.limit?await encodeUnder(src,it.ow,it.oh,p.w,p.h,p.fit,p.limit):{b:await toBlob(draw(src,it.ow,it.oh,p.w,p.h,p.fit),st.q),w:p.w,h:p.h};
-    release(src);
+  if(!onlyFailed)st.items.forEach(it=>{dropResult(it);it.stale=true});
+  const todo=[ref(),...st.items.filter(it=>it!==ref())].filter(it=>it&&!it.blob);
+  st.items.forEach(it=>{if(todo.includes(it))it.failed=false});
+  st.busy=true;st.converted=false;setBar();keepAwake(true);
+  const verb=st.tool==="bg"?"Removing background":st.tool==="edit"?"Applying":"Converting";
+  let done=n-todo.length,fails=0,t0=performance.now(),doneHere=0;
+  const status=(v=verb)=>{const left=doneHere?fmtLeft((performance.now()-t0)/doneHere*(todo.length-doneHere-fails)/1000):"";
+    $("convert").disabled=true;$("convert").textContent=n>1?`${v} ${Math.min(n,done+1)} of ${n}${left?" · "+left:""}…`:`${v}…`};
+  $("barFill").style.width=(done/n*100)+"%";$("bar").hidden=n<2;showSel();status();
+  for(const it of todo){
     if(gen!==st.gen)return;
-    if(!r.b){st.busy=false;setBar();msg("This phone could not create that format. Try JPG.",true);return}
-    if(it.url)URL.revokeObjectURL(it.url);
-    Object.assign(it,{blob:r.b,url:URL.createObjectURL(r.b),rw:r.w,rh:r.h,over:!!(p.limit&&r.b.size>p.limit),stale:false});
-    done++;$("barFill").style.width=(done/n*100)+"%";
-    const th=document.querySelectorAll(".thumb .sz")[i];if(th)th.textContent=fmtBytes(r.b.size);
-    if(i===st.sel)showSel();
-    if(n>1)$("convert").textContent=`Converting ${done} of ${n}…`;
-    updateTotals()}
+    if(!st.items.includes(it))continue;
+    status();
+    let ok=false,last=null;
+    for(let attempt=0;attempt<3&&!ok;attempt++){
+      try{const r=await processOne(it,gen,status);if(r==="cancel")return;ok=true}
+      catch(e){if(e&&e.fatal){st.busy=false;keepAwake(false);setBar();msg(e.fatal,true);return}
+        last=e;if(gen!==st.gen)return;await sleep(attempt?2000:500)}}   // give the phone time to free memory, then try again
+    if(ok){done++;doneHere++}else{it.failed=true;fails++}
+    const idx=st.items.indexOf(it),th=document.querySelectorAll(".thumb .sz")[idx];if(th)th.textContent=ok?fmtBytes(it.blob.size):"Failed";
+    $("barFill").style.width=((done+fails)/n*100)+"%";
+    if(it===ref())showSel();
+    updateTotals();await sleep(15)}
   if(gen!==st.gen)return;
-  $("bar").hidden=true;st.busy=false;st.converted=true;setBar();
-  dlLabels();
-  const over=st.items.filter(i=>i.over).length;
-  if(over)msg(over+" photo"+(over>1?"s":"")+" could not get under the size limit.",true);
-  else if($("msg").classList.contains("err")&&/limit|format|large/.test($("msg").textContent))msg("")}
+  $("bar").hidden=true;st.busy=false;st.converted=true;keepAwake(false);setBar();dlLabels();updateTotals();showSel();
+  const over=st.items.filter(i=>i.over).length,failed=st.items.filter(i=>i.failed).length;
+  if(failed)msg(`${failed} photo${failed>1?"s":""} could not be converted. Tap Retry to try ${failed>1?"them":"it"} again.`,true);
+  else if(over)msg(over+" photo"+(over>1?"s":"")+" could not get under the size limit.",true);
+  else if($("msg").classList.contains("err"))msg("")}
 
 // saving
 let dl=null;
 (async()=>{try{dl=await window.claude?.use?.("downloads")}catch(e){dl=null}})();
 const noSave="Downloading isn't available here. Press and hold the picture above, then choose Download image.";
-function dlLabels(){const n=st.items.length;$("saveAll").textContent=n>1?`Download all ${n} (ZIP)`:"Download";$("saveOne").textContent="Download this one";
+function dlLabels(){const n=st.items.filter(i=>i.blob).length;$("saveAll").textContent=st.items.length>1?`Download all ${n} (ZIP)`:"Download";$("saveOne").textContent="Download this one";
   $("saveAll").classList.remove("done");$("saveOne").classList.remove("done")}
 function markDone(btn){btn.textContent="Downloaded ✓";btn.classList.add("done")}
 const fname=it=>st.tool==="bg"?`${it.name}-no-bg.${ext()}`:st.tool==="edit"?`${it.name}-edited.${ext()}`:`${it.name}-${it.rw}x${it.rh}.${ext()}`;
 async function offer(filename,data,btn){
+  if(!dl&&!window.claude){   // opened as a normal website: use the browser's own download
+    try{const u=URL.createObjectURL(data),a=document.createElement("a");a.href=u;a.download=filename;a.rel="noopener";document.body.appendChild(a);a.click();a.remove();
+      setTimeout(()=>URL.revokeObjectURL(u),120000);msg("Downloaded "+filename);if(btn)markDone(btn)}catch(e){msg(noSave,true)}
+    return}
   if(!dl){msg(noSave,true);return}
   try{await dl.save({filename,data});msg("Downloaded "+filename);if(btn)markDone(btn)}
   catch(e){const c=e&&e.code;
@@ -624,11 +727,11 @@ $("saveOne").onclick=()=>{const it=ref();if(it&&it.blob)offer(fname(it),it.blob,
 $("saveAll").onclick=async()=>{
   const ready=st.items.filter(i=>i.blob&&!i.stale);if(!ready.length)return;
   if(ready.length===1){offer(fname(ready[0]),ready[0].blob,$("saveAll"));return}
-  if(!window.JSZip){msg("The ZIP tool didn't load. Check your connection and reopen the page, or download photos one at a time.",true);return}
   $("saveAll").disabled=true;msg("Packing the ZIP…");
-  try{const zip=new JSZip(),used={};
-    ready.forEach(it=>{let n=fname(it);if(used[n]){let k=2;const b=n.replace(/(\.\w+)$/,"");while(used[`${b}-${k}.${ext()}`])k++;n=`${b}-${k}.${ext()}`}used[n]=1;zip.file(n,it.blob)});
-    const blob=await zip.generateAsync({type:"blob",compression:"STORE"});
+  try{const used={},entries=[];
+    for(const it of ready){let n=fname(it);if(used[n]){let k=2;const b=n.replace(/(\.\w+)$/,"");while(used[`${b}-${k}.${ext()}`])k++;n=`${b}-${k}.${ext()}`}used[n]=1;
+      entries.push({name:n,blob:it.blob,crc:it.crc!=null?it.crc:await crc32(it.blob)})}
+    const blob=makeZip(entries);
     const d=new Date(),stamp=`${d.getFullYear()}${String(d.getMonth()+1).padStart(2,"0")}${String(d.getDate()).padStart(2,"0")}`;
     await offer(`${st.tool==="bg"?"no-bg":st.tool==="edit"?"edited":"resized"}-photos-${stamp}.zip`,blob,$("saveAll"))}
   finally{$("saveAll").disabled=false}};
@@ -700,11 +803,15 @@ function cropCanvas(c){
   const sx=Math.round(k.x*c.width),sy=Math.round(k.y*c.height),sw=Math.max(1,Math.round(k.w*c.width)),sh=Math.max(1,Math.round(k.h*c.height));
   const o=document.createElement("canvas");o.width=sw;o.height=sh;o.getContext("2d",{willReadFrequently:true}).drawImage(c,sx,sy,sw,sh,0,0,sw,sh);return o}
 function applyEdits(src,w,h,lv,noCrop){
-  const g=geomCanvas(src,w,h),c=noCrop?g:cropCanvas(g),P=effective();
+  const g=geomCanvas(src,w,h);let c=g;if(!noCrop){c=cropCanvas(g);if(c!==g)freeC(g)}
+  return colourize(c,lv)}
+function colourize(c,lv){
+  const P=effective();
   const plain=!lv&&!P.bright&&!P.contrast&&!P.sat&&!P.vib&&!P.warmth&&!P.hl&&!P.mono;
   if(plain)return c;
-  const x=c.getContext("2d",{willReadFrequently:true}),img=x.getImageData(0,0,c.width,c.height),d=img.data,[Lr,Lg,Lb]=luts(P,lv);
-  const s=1+P.sat/100,vib=P.vib/100,t=P.tone;
+  const x=c.getContext("2d",{willReadFrequently:true}),[Lr,Lg,Lb]=luts(P,lv);
+  const s=1+P.sat/100,vib=P.vib/100,t=P.tone,band=Math.max(1,Math.floor(3e6/c.width));
+  for(let y0=0;y0<c.height;y0+=band){const bh=Math.min(band,c.height-y0),img=x.getImageData(0,y0,c.width,bh),d=img.data;
   for(let i=0;i<d.length;i+=4){
     let r=Lr[d[i]],g=Lg[d[i+1]],b=Lb[d[i+2]];
     const l=.299*r+.587*g+.114*b;
@@ -712,14 +819,15 @@ function applyEdits(src,w,h,lv,noCrop){
     else if(s!==1||vib){let f=s;if(vib){const mx=r>g?(r>b?r:b):(g>b?g:b),mn=r<g?(r<b?r:b):(g<b?g:b);f*=1+vib*(1-(mx-mn)/255)}
       r=l+(r-l)*f;g=l+(g-l)*f;b=l+(b-l)*f}
     d[i]=r;d[i+1]=g;d[i+2]=b}
-  x.putImageData(img,0,0);return c}
+  x.putImageData(img,0,y0)}
+  return c}
 
 // live preview on a smaller copy of the selected photo
 let pvJob=0,pvRaf=0;
 async function previewBase(it){
   if(it.pbase)return it.pbase;
-  const bm=await decode(it.file),k=Math.min(1,1000/Math.max(it.ow,it.oh)),c=document.createElement("canvas");
-  c.width=Math.max(1,Math.round(it.ow*k));c.height=Math.max(1,Math.round(it.oh*k));c.getContext("2d").drawImage(bm,0,0,c.width,c.height);release(bm);
+  const k=Math.min(1,1000/Math.max(it.ow,it.oh)),bm=await decodeAt(it.file,it.ow*k,it.oh*k),c=newCanvas(bm.width,bm.height);
+  c.getContext("2d").drawImage(bm,0,0);release(bm);
   it.pbase=c;it.lv=it.lv||autoLevels(c,c.width,c.height);return c}
 function queuePreview(){cancelAnimationFrame(pvRaf);pvRaf=requestAnimationFrame(renderPreview)}
 async function renderPreview(){
@@ -727,7 +835,7 @@ async function renderPreview(){
   const base=await previewBase(it);if(job!==pvJob||st.tool!=="edit")return;
   const out=comparing?base:applyEdits(base,base.width,base.height,E.auto?it.lv:null,cropMode),cv=$("editCanvas");
   if(cv.width!==out.width||cv.height!==out.height){cv.width=out.width;cv.height=out.height}
-  cv.getContext("2d").drawImage(out,0,0);
+  cv.getContext("2d").drawImage(out,0,0);if(out!==base)freeC(out);
   const q=((E.rot%360)+360)%360,side=q===90||q===270,FW=side?it.oh:it.ow,FH=side?it.ow:it.oh;
   $("nDim").textContent=Math.round(FW*E.crop.w)+"×"+Math.round(FH*E.crop.h);
   $("cropOv").hidden=!cropMode;$("cropDone").hidden=!cropMode;$("compare").hidden=cropMode;
@@ -814,5 +922,6 @@ window.addEventListener("resize",()=>{if(cropMode)placeCrop()});
   x.fillStyle="#1a7a6a";for(let i=0;i<60;i++){const px=i*41,hh=120+((i*73)%140);x.fillRect(px,1600-hh,26,hh)}
   c.toBlob(async b=>{const f=new File([b],"sample.jpg",{type:"image/jpeg"});await addFiles([f],true);st.sample=true;afterListChange();processAll()},"image/jpeg",.92)})();
 </script>
+
 
 </body></html>
