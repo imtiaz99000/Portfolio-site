@@ -39,7 +39,7 @@ def chart(B, rows, series, ymin, ymax, step, unit, h=280, W=720, cls=''):
         o.append('<path d="%s" fill="none" stroke="var(%s)" stroke-width="2" stroke-linejoin="round"/>' % (d, col))
         for i, r in enumerate(rows):
             if r[key] is not None:
-                o.append('<circle cx="%.1f" cy="%.1f" r="6" fill="transparent"><title>%s, %s: %.2f%s</title></circle>' % (x(i), y(r[key]), en, mlab(r['month']), r[key], unit))
+                o.append('<circle class="pt" cx="%.1f" cy="%.1f" r="6" fill="transparent" data-men="%s" data-mbn="%s" data-sen="%s" data-sbn="%s" data-ven="%s" data-vbn="%s" data-c="%s"></circle>' % (x(i), y(r[key]), mlab(r['month']), mlab(r['month'], 'bn'), en, bnn, '%.2f%s' % (r[key], unit), bn('%.2f' % r[key]) + unit, col))
         i, v = last
         o.append('<circle cx="%.1f" cy="%.1f" r="4" fill="var(%s)" stroke="var(--surface)" stroke-width="2"/>' % (x(i), y(v), col))
         labels.append([y(v), en, bnn, v, col, x(i)])

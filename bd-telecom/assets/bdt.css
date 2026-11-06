@@ -279,5 +279,7 @@ table.spec td .badge{width:20px;height:20px;font-size:8.5px;vertical-align:-4px;
 .chart.dual .cn{display:none}
 @media (max-width:640px){.chart.dual .cw{display:none}.chart.dual .cn{display:block}}
 .ccap b.up{color:var(--up)}
+.chart svg:focus,.chart svg rect:focus{outline:none}
+.chart svg:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 .chart svg.schart{display:block;width:100%;height:auto}

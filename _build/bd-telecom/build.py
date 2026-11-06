@@ -147,7 +147,7 @@ def _svg_line(series, ymin, ymax, ticks, unit_en, unit_bn, h, fmt, W, narrow):
             d += ('L' if pen else 'M') + '%.1f %.1f' % (x(i), y(v)); pen = True; pts.append((i, v))
         o.append('<path d="%s" fill="none" stroke="var(%s)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>' % (d, col))
         for i, v in pts:
-            o.append('<circle cx="%.1f" cy="%.1f" r="7" fill="transparent"><title>%s: %s</title></circle>' % (x(i), y(v), mlab(MONTHS[i]), F(v)))
+            o.append('<circle class="pt" cx="%.1f" cy="%.1f" r="7" fill="transparent" data-men="%s" data-mbn="%s" data-sen="%s" data-sbn="%s" data-ven="%s" data-vbn="%s" data-c="%s"></circle>' % (x(i), y(v), mlab(MONTHS[i]), mlab(MONTHS[i], 'bn'), name_en, name_bn, F(v) + unit_en, bn(F(v)) + unit_bn, col))
         if not pts: continue
         (fi, fv), (li, lv) = pts[0], pts[-1]
         hi = max(pts, key=lambda p: p[1]); lo = min(pts, key=lambda p: p[1])
