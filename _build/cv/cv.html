@@ -8,127 +8,221 @@
 :root{--ink:#102A2B;--muted:#56706F;--line:#D6E6E4;--teal:#0E8A86;--teal-deep:#0A6664;--amber:#F2A93B;--amber-deep:#B9740F;--mist:#E7F2F1}
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
-body{width:210mm;height:297mm;font:400 8.1pt/1.38 'Inter','Helvetica Neue',Arial,sans-serif;color:var(--ink);background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.page{display:grid;grid-template-columns:64mm 1fr;height:297mm}
-aside{background:var(--ink);color:#DCEBEA;padding:11mm 8mm 8mm 10mm}
-main{padding:10mm 11mm 8mm 9mm}
-h1{font-size:21pt;line-height:1.05;margin:0 0 2mm;color:#fff;letter-spacing:-.02em;font-weight:700}
-.role{color:var(--amber);font-weight:600;font-size:9pt;margin:0 0 4mm;line-height:1.3}
-aside h3{font-size:7.2pt;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin:4.4mm 0 1.6mm;font-weight:700}
+body{font:400 8.1pt/1.38 'Inter','Helvetica Neue',Arial,sans-serif;color:var(--ink);background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{display:grid;grid-template-columns:64mm 1fr;width:210mm;height:297mm;overflow:hidden;page-break-after:always;break-after:page}
+.page:last-child{page-break-after:auto;break-after:auto}
+aside{background:var(--ink);color:#DCEBEA;padding:10mm 8mm 8mm 10mm}
+main{padding:10mm 11mm 8mm 9mm;display:flex;flex-direction:column}
+.photo{width:34mm;height:34mm;border-radius:4mm;overflow:hidden;border:1.2mm solid rgba(255,255,255,.12);margin:0 0 4mm;background:#c6c6c6}
+.photo img{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block}
+h1{font-size:20pt;line-height:1.05;margin:0 0 1.6mm;color:#fff;letter-spacing:-.02em;font-weight:700}
+.role{color:var(--amber);font-weight:600;font-size:8.8pt;margin:0 0 1mm;line-height:1.3}
+aside h3{font-size:7.1pt;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin:4.2mm 0 1.6mm;font-weight:700}
 aside p,aside li{margin:0;color:#DCEBEA}
 aside ul{list-style:none;margin:0;padding:0}
-aside li{padding:.6mm 0}
+aside li{padding:.5mm 0}
 aside a{color:#fff;text-decoration:none}
-.k{color:#8FB0AE;font-size:7.4pt;display:block}
-.chips{display:flex;flex-wrap:wrap;gap:1.3mm}
-.chips span{background:rgba(255,255,255,.09);border-radius:9pt;padding:.4mm 2mm;font-size:7.3pt;color:#EAF4F3}
-.prog{display:grid;grid-template-columns:repeat(8,1fr);gap:.8mm;margin:1.6mm 0 1mm}
+aside b{color:#fff;font-weight:600}
+.k{color:#8FB0AE;font-size:7pt;display:block;line-height:1.2}
+.chips{display:flex;flex-wrap:wrap;gap:1.2mm}
+.chips span{background:rgba(255,255,255,.09);border-radius:9pt;padding:.4mm 2mm;font-size:7.2pt;color:#EAF4F3}
+.prog{display:grid;grid-template-columns:repeat(8,1fr);gap:.8mm;margin:1.6mm 0 1.4mm}
 .prog i{height:1.6mm;border-radius:1mm;background:rgba(255,255,255,.18)}
 .prog i.d{background:var(--teal)}
 .prog i.n{background:linear-gradient(90deg,var(--amber) 50%,rgba(255,255,255,.18) 50%)}
-.summary{font-size:8.7pt;line-height:1.45;margin:0 0 4mm;color:var(--ink)}
+.courses{counter-reset:c}
+.courses li{display:grid;grid-template-columns:4mm 1fr;gap:1.4mm;font-size:7.2pt;padding:.35mm 0;color:#9FBDBB}
+.courses li::before{content:counter(c);counter-increment:c;font-weight:700;color:#8FB0AE}
+.courses li.d{color:#EAF4F3}.courses li.d::before{content:'✓';color:var(--teal)}
+.courses li.n{color:#fff;font-weight:600}.courses li.n::before{content:'●';color:var(--amber)}
+.aw li{padding:1mm 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.aw li span{display:block;color:#8FB0AE;font-size:7.1pt}
+.summary{font-size:8.7pt;line-height:1.45;margin:0 0 3mm;color:var(--ink)}
+.route{display:flex;align-items:center;gap:1.6mm;margin:0 0 3.4mm;font-size:7.4pt;color:var(--muted);flex-wrap:wrap}
+.route b{color:var(--ink);font-weight:600}
+.route i{display:inline-block;width:6mm;height:.5mm;background:linear-gradient(90deg,var(--teal),var(--amber));border-radius:1mm}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:2mm;margin:0 0 4mm}
 .stats div{border:1px solid var(--line);border-radius:2.2mm;padding:2mm 2.4mm;background:#F6FAF9}
-.stats b{display:block;font-size:12.5pt;line-height:1.1;color:var(--teal-deep)}
-.stats span{font-size:7.2pt;color:var(--muted);line-height:1.25;display:block;margin-top:.6mm}
-main h2{font-size:7.6pt;letter-spacing:.12em;text-transform:uppercase;color:var(--amber-deep);margin:0 0 2.2mm;padding-bottom:1.2mm;border-bottom:1px solid var(--line);font-weight:700}
-.job{margin:0 0 2.6mm}
+.stats b{display:block;font-size:12pt;line-height:1.1;color:var(--teal-deep)}
+.stats span{font-size:7pt;color:var(--muted);line-height:1.25;display:block;margin-top:.6mm}
+main h2{font-size:7.4pt;letter-spacing:.12em;text-transform:uppercase;color:var(--amber-deep);margin:0 0 2mm;padding-bottom:1.1mm;border-bottom:1px solid var(--line);font-weight:700}
+.job{margin:0 0 2.8mm}
 .job .t{display:flex;justify-content:space-between;gap:4mm;align-items:baseline}
-.job b{font-size:9.4pt}
-.job .d{color:var(--teal-deep);font-size:7.8pt;font-weight:600;white-space:nowrap}
-.job .o{color:var(--muted);font-size:8pt;margin:.2mm 0 .8mm}
+.job b{font-size:9.2pt}
+.job .d{color:var(--teal-deep);font-size:7.6pt;font-weight:600;white-space:nowrap}
+.job .o{color:var(--muted);font-size:7.8pt;margin:.2mm 0 .7mm}
 .job ul{margin:0;padding-left:4mm}
-.job li{margin:.4mm 0}
-.proj{display:grid;grid-template-columns:1fr 1fr;gap:2.2mm 4mm;margin:0 0 4mm}
-.proj div b{display:block;font-size:8.6pt}
-.proj div span{color:var(--muted);font-size:7.8pt;line-height:1.35;display:block}
-.foot{font-size:7.2pt;color:var(--muted);margin-top:2mm}
+.job li{margin:.35mm 0}
+.feat{border:1px solid var(--line);border-radius:2.6mm;padding:3mm 3.4mm;background:#F6FAF9;margin:0 0 4mm}
+.feat .lead{margin:0 0 2mm;color:var(--muted)}
+.feat h4{font-size:7.6pt;color:var(--teal-deep);margin:1.6mm 0 .6mm;font-weight:700}
+.feat ul{margin:0;padding-left:4mm}.feat li{margin:.3mm 0}
+.feat p{margin:0}
+.proj{display:grid;grid-template-columns:1fr 1fr;gap:2.4mm 4.5mm;margin:0 0 4mm}
+.proj div b{display:block;font-size:8.4pt}
+.proj div .w{display:block;color:var(--teal-deep);font-size:7pt;font-weight:600;margin:.1mm 0 .4mm}
+.proj div span{color:var(--muted);font-size:7.6pt;line-height:1.35;display:block}
+.proj div em{font-style:normal;color:var(--amber-deep);font-size:7pt;font-weight:600;display:block;margin-top:.4mm}
+.foot{margin-top:auto;font-size:7.1pt;color:var(--muted);display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:1.6mm}
 </style>
 </head>
 <body>
+
+<!-- PAGE 1 -->
 <div class="page">
 <aside>
+  <div class="photo"><img src="../../photo-portrait.jpg" alt="Mohd Imtiaz Karim"></div>
   <h1>Mohd Imtiaz<br>Karim</h1>
   <p class="role">Telecom channel manager moving into business analytics</p>
 
   <h3>Contact</h3>
   <ul>
+    <li><span class="k">Email</span><a href="mailto:imtiazkarimrobin@gmail.com">imtiazkarimrobin@gmail.com</a></li>
+    <li><span class="k">Phone / WhatsApp</span><a href="https://wa.me/8801833183477">+880 1833 183477</a></li>
     <li><span class="k">Website</span><a href="https://www.imtiazkarim.com/">imtiazkarim.com</a></li>
     <li><span class="k">LinkedIn</span><a href="https://www.linkedin.com/in/mohdimtiazkarim/">linkedin.com/in/mohdimtiazkarim</a></li>
-    <li><span class="k">Phone / WhatsApp</span><a href="https://wa.me/8801833183477">+880 1833 183477</a></li>
     <li><span class="k">GitHub</span><a href="https://github.com/imtiaz99000">github.com/imtiaz99000</a></li>
     <li><span class="k">Based in</span>Chandpur, Bangladesh</li>
   </ul>
 
-  <h3>Now earning</h3>
-  <p><b style="color:#fff">Google Data Analytics Professional Certificate</b></p>
+  <h3>Currently earning</h3>
+  <p><b>Google Data Analytics Professional Certificate</b></p>
+  <p style="font-size:7.1pt;color:#8FB0AE">Coursera · 8 courses · started July 2026 · target April 2027</p>
   <div class="prog"><i class="d"></i><i class="d"></i><i class="d"></i><i class="n"></i><i></i><i></i><i></i><i></i></div>
-  <p style="font-size:7.6pt">3 of 8 courses done · on Course 4, cleaning data with SQL · target April 2027</p>
+  <ol class="courses" style="list-style:none;margin:0;padding:0">
+    <li class="d">Foundations: Data, Data, Everywhere</li>
+    <li class="d">Ask Questions to Make Data-Driven Decisions</li>
+    <li class="d">Prepare Data for Exploration</li>
+    <li class="n">Process Data from Dirty to Clean (in progress)</li>
+    <li>Analyze Data to Answer Questions</li>
+    <li>Share Data Through the Art of Visualization</li>
+    <li>Data Analysis with R Programming</li>
+    <li>Google Data Analytics Capstone: Complete a Case Study</li>
+  </ol>
 
   <h3>Analytics</h3>
   <div class="chips"><span>SQL</span><span>Python</span><span>pandas</span><span>Excel</span><span>Power BI</span><span>Tableau</span><span>SPSS</span><span>KPI design</span><span>Data cleaning</span></div>
-
-  <h3>Business</h3>
-  <div class="chips"><span>Channel distribution</span><span>Sales operations</span><span>Field team leadership</span><span>Target setting</span><span>Retail network rollout</span><span>Trade marketing</span></div>
-
-  <h3>Certificates</h3>
-  <ul>
-    <li>Claude 101, Anthropic</li>
-    <li>Excel Analytics: Linear Regression Analysis</li>
-    <li>Microsoft Excel: Beginner to Intermediate Data Analysis</li>
-    <li>Google Analytics, Google Ads, Digital Sales, Digital Marketing</li>
-  </ul>
-
-  <h3>Education</h3>
-  <p><b style="color:#fff">BBA, East West University</b><br>2016 to 2020 · Marketing major, HRM minor · CGPA 3.51 · Medha Lalon Scholarship twice</p>
-  <p style="margin-top:1.6mm"><b style="color:#fff">HSC, Comilla Cantonment College</b><br>2015 · Business Studies · GPA 4.25</p>
 </aside>
 
 <main>
-  <p class="summary">I lead Robi's direct channel in the Chandpur Region and build the data tools my field team runs on. Years of sales, distribution and field operations taught me which numbers actually move a business. I am now moving into business analytics: clean data, honest KPIs and reports people open every morning.</p>
+  <p class="summary"><b>I lead Robi's direct channel in Chandpur, and I build the data tools my field team runs on.</b> Years of sales, distribution and field operations taught me which numbers actually move a business. Now I'm turning that into a career in business analytics: clean data, honest KPIs and reports people open every morning.</p>
+
+  <div class="route"><b>PepsiCo</b> marketing internship <i></i> <b>Banglalink</b> sales and distribution <i></i> <b>Robi Axiata</b> since 2022, DCM from Jan 2025 <i></i> <b>Business analytics</b> next</div>
 
   <div class="stats">
-    <div><b>45</b><span>Robi Sales and Service Points built from scratch</span></div>
-    <div><b>104</b><span>people in the field team I lead</span></div>
-    <div><b>1,500+</b><span>Robi WiFi homes connected in 11 months</span></div>
-    <div><b>Q2 2025</b><span>National Best Regional Operation Manager</span></div>
+    <div><b>45 RSSPs</b><span>Robi Sales and Service Points built from scratch</span></div>
+    <div><b>104 people</b><span>in the field team I lead across the Chandpur Region</span></div>
+    <div><b>50,000+</b><span>customers served a year through my channel</span></div>
+    <div><b>Q2 2025</b><span>National Best Regional Operation Manager award</span></div>
   </div>
 
   <h2>Experience</h2>
-  <div class="job"><div class="t"><b>Direct Channel Manager, Robi Axiata PLC</b><span class="d">Jan 2025 to present</span></div><div class="o">Chandpur Region</div>
+  <div class="job"><div class="t"><b>Direct Channel Manager, Robi Axiata PLC</b><span class="d">January 2025 to present</span></div><div class="o">Chandpur Region</div>
     <ul>
-      <li>Built 45 Robi Sales and Service Points across 14 upazilas, from site selection and landlord deals to renovation, hiring and training. 30 are live today.</li>
-      <li>Founding contributor to Robi WiFi (FWA) in the region, from zero to 1,500+ customers across 20+ thanas.</li>
-      <li>Lead a 104-person field team and a 73-bike electric Superbike fleet, serving 50,000+ customers a year.</li>
-      <li>Built the RSSP Business Tracker, a daily KPI website that replaced hours of manual Excel reporting for 100+ staff.</li>
+      <li>Built 45 Robi Sales and Service Points from scratch, from site selection and landlord agreements to renovation, hiring and agent training. 30 are live today.</li>
+      <li>Founding contributor to Robi WiFi (FWA) in the region, now at 1,500+ customers.</li>
+      <li>Lead a 104-person field team and a 73-bike fleet, serving 50,000+ customers a year.</li>
     </ul></div>
-  <div class="job"><div class="t"><b>Sales Manager, Robi Axiata PLC</b><span class="d">Jul 2023 to Dec 2024</span></div><div class="o">Faridganj, Chandpur</div>
+  <div class="job"><div class="t"><b>Sales Manager, Robi Axiata PLC</b><span class="d">July 2023 to December 2024</span></div><div class="o">Faridganj, Chandpur</div>
     <ul>
-      <li>Ran the Robi and Airtel business for 150,000 customers across 1,250 retail outlets.</li>
-      <li>Grew thana revenue 16% year on year, from 25 to 29 million BDT a month, and raised ARPU from 166 to 193 taka.</li>
-      <li>Delivered 60,000+ new customers a year and managed 670 million BDT of Robi investment.</li>
+      <li>Ran the Robi and Airtel business for a 150,000 customer base across 1,250 retail outlets.</li>
+      <li>Grew thana revenue 16% year on year, from 25 million to 29 million BDT a month.</li>
+      <li>Raised ARPU from 166 to 193 taka and grew CMS share by 3%.</li>
+      <li>Delivered 60,000+ new customers a year and looked after 670 million BDT of Robi investment.</li>
     </ul></div>
-  <div class="job"><div class="t"><b>Territory Manager, Robi Axiata PLC</b><span class="d">Jan 2022 to Jun 2023</span></div>
+  <div class="job"><div class="t"><b>Territory Manager, Robi Axiata PLC</b><span class="d">January 2022 to June 2023</span></div>
     <ul>
-      <li>Owned a 360 million BDT a year business with a 42-person team across two distribution points.</li>
-      <li>Gained 3.66% 4G market share, grew data revenue 7.1% and brought 56% of retailers onto RedCube.</li>
+      <li>Owned a Robi and Airtel business worth 360 million BDT a year, with a 42-person sales team across two distribution points.</li>
+      <li>Gained 3.66% 4G market share and grew data revenue 7.1% year on year.</li>
+      <li>Brought 56% of retailers onto RedCube and reached 85% SIM POS parity for Airtel.</li>
+      <li>Launched Project Bondhu Retailer, Robi Service Desk and Pothe Pothe Robi Sheba.</li>
     </ul></div>
-  <div class="job"><div class="t"><b>Market Development Officer, Banglalink</b><span class="d">Jun 2021 to Dec 2021</span></div>
-    <ul><li>Led an 18-person team across three thanas and 31 BTS sites, and grew internet revenue 12% year on year.</li></ul></div>
-  <div class="job"><div class="t"><b>Marketing Intern, PepsiCo</b><span class="d">Apr 2021 to May 2021</span></div>
-    <ul><li>Worked on "Iftar with 7 UP", the national Ramadan campaign across social media and offline.</li></ul></div>
+  <div class="job"><div class="t"><b>Market Development Officer, Banglalink</b><span class="d">June 2021 to December 2021</span></div>
+    <ul>
+      <li>Led an 18-person sales team across three thanas and 31 BTS sites.</li>
+      <li>Grew internet revenue 12% year on year and built the business under two newly launched BTS.</li>
+      <li>Pushed distribution deeper into rural areas with 3 new DSRs and 6 new routes.</li>
+    </ul></div>
+  <div class="job"><div class="t"><b>Marketing Intern, PepsiCo</b><span class="d">April 2021 to May 2021</span></div>
+    <ul><li>Worked on "Iftar with 7 UP", the national Ramadan campaign for 7 UP across social media and offline.</li></ul></div>
 
-  <h2>Selected analytics work</h2>
-  <div class="proj">
-    <div><b>Telco customer churn, SQL</b><span>7,043 customers: five simple rules find the 21% of customers who hold 51% of churn.</span></div>
-    <div><b>Bangladesh mobile market dashboard</b><span>Two years of BTRC data cleaned, checked and analysed in SQLite, live on my site.</span></div>
-    <div><b>Superbike fleet KPI</b><span>Daily 3 KM rule and a 20-good-days monthly KPI, tracked per bike, distributor and supplier.</span></div>
-    <div><b>RedCube Super QR, UAT</b><span>Tested a retailer app feature for 500,000+ users and ran a one-week beta before national launch.</span></div>
+  <h2 style="margin-top:1.4mm">Free tools I built</h2>
+  <div class="proj" style="grid-template-columns:1fr 1fr 1fr">
+    <div><b>Taka Gelo Koi?</b><span class="w">taka.imtiazkarim.com</span><span>Bilingual money app with Google sign-in: income and spending, payslip PDFs, income tax, salary projection, savings goal, Zakat, and loan and fund registers. Every entry is encrypted on the device.</span><em>JavaScript · Firebase · Web Crypto · pdf.js · SheetJS</em></div>
+    <div><b>PDF Squeeze</b><span class="w">Scan, compress and merge PDFs</span><span>Turns phone photos into clean scanned PDFs with auto crop and shadow removal, puts an NID front and back on one page at real size, then shrinks or merges PDFs.</span><em>JavaScript · pdf.js · pdf-lib · Runs offline</em></div>
+    <div><b>PixelShrink</b><span class="w">Resize, edit, remove backgrounds</span><span>Shrinks photos by percentage or exact KB, sizes them for passport and visa forms in 40+ countries, and removes backgrounds with an AI model that runs on the phone.</span><em>JavaScript · Canvas · ONNX AI model · Runs offline</em></div>
   </div>
 
-  <h2>Awards</h2>
-  <p style="margin:0">National Best Regional Operation Manager, Q2 2025 · First line manager in the country to get a full team through Robi's 2026 compliance courses · Cluster Top RnR Champion, Q3 2024 · Nationally nominated as Digital Distribution Maestro, 2022 · Red Thunderbolt Warriors, awarded twice</p>
-  <p class="foot">Case studies, slides and live dashboards: imtiazkarim.com</p>
+  <div class="foot"><span>Mohd Imtiaz Karim · CV</span><span>Page 1 of 2</span></div>
+</main>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+<aside>
+  <h3 style="margin-top:0">Awards</h3>
+  <ul class="aw">
+    <li><b>National Best Regional Operation Manager, Q2 2025</b><span>Robi Axiata, League of Red Stars</span></li>
+    <li><b>First line manager in the country to get a full team through Robi's 2026 compliance courses</b><span>Every member passed, October 2026</span></li>
+    <li><b>Cluster Top RnR Champion, Q3 2024</b><span>Robi Axiata</span></li>
+    <li><b>Nationally nominated as Digital Distribution Maestro, 2022</b><span>Robi Axiata</span></li>
+    <li><b>Red Thunderbolt Warriors, awarded twice</b><span>Robi Management Council, for team effort and dedication</span></li>
+  </ul>
+
+  <h3>Certificates</h3>
+  <ul>
+    <li>Google Data Analytics Professional Certificate (in progress, 3 of 8 courses)</li>
+    <li>Claude 101, Anthropic</li>
+    <li>Excel Analytics: Linear Regression Analysis</li>
+    <li>Microsoft Excel: Beginner to Intermediate Data Analysis</li>
+    <li>Google Analytics, Google Ads Search and Display, Digital Sales, Fundamentals of Digital Marketing</li>
+  </ul>
+
+  <h3>Education</h3>
+  <p><b>BBA, East West University</b><br>2016 to 2020<br>Major in Marketing, minor in Human Resource Management, CGPA 3.51. Medha Lalon Scholarship twice. Logistics lead at the EWU Creative Marketing Club.</p>
+  <p style="margin-top:2.4mm"><b>HSC, Comilla Cantonment College</b><br>2015<br>Business Studies, GPA 4.25.</p>
+
+  <h3>Business</h3>
+  <div class="chips"><span>Channel distribution</span><span>Sales operations</span><span>Field team leadership</span><span>Target setting</span><span>Retail network rollout</span><span>Trade marketing</span><span>Field force training</span></div>
+  <h3>Also</h3>
+  <div class="chips"><span>Photoshop</span><span>Premiere Pro</span><span>Audition</span><span>PowerPoint</span></div>
+
+</aside>
+
+<main>
+  <h2>Featured work: the RSSP Business Tracker</h2>
+  <div class="feat">
+    <p class="lead">A daily performance website my team of 100+ checks every morning, built and run by me.</p>
+    <h4>The problem</h4>
+    <p>Every morning I downloaded a raw activation export of tens of thousands of rows, rebuilt my Excel dashboard by hand and pasted screenshots into WhatsApp. Supervisors saw yesterday's numbers late, field staff never saw their own, and nobody could check stock or bike activity in one place.</p>
+    <h4>What I built</h4>
+    <ul>
+      <li>A website that turns the raw Activation, SIM stock, bike distance, staff and attendance exports into live KPIs, with every file read on the phone and only summaries stored.</li>
+      <li>Leaderboards, RSSP detail pages, supervisor scorecards, stock cover and FIFO lists, a bike compliance tracker and a DCM KPI scorecard.</li>
+      <li>A Morning Brief with an action list, stars of the week and a weekly digest that goes out on WhatsApp in one tap.</li>
+      <li>Bangla and English, a team PIN with a short preview for visitors, and private admin views for targets and sensitive data.</li>
+    </ul>
+    <h4>What changed</h4>
+    <ul>
+      <li>One morning upload replaces hours of manual reporting.</li>
+      <li>Business rules that were in my head are now written into the data: what counts as GA, which material codes are excluded, what a productive bike day is.</li>
+      <li>Supervisors and RFOs see their own numbers and their gaps the same morning.</li>
+    </ul>
+    <p style="margin-top:1.4mm;color:var(--muted);font-size:7.3pt">Live demo on made-up data: imtiazkarim.com/rssp-demo</p>
+  </div>
+
+  <h2>More projects</h2>
+  <div class="proj">
+    <div><b>Bangladesh mobile market, 2024 to 2026</b><span class="w">Public BTRC data, SQL analysis</span><span>Two years of the regulator's monthly subscriber figures, collected from scattered reports, checked against published totals and analysed in SQLite. The market lost 6.6 million subscriptions in 17 months, bottomed in January 2026 and has won 5.3 million back.</span><em>SQL · SQLite · Data cleaning · JavaScript charts · Live dashboard</em></div>
+    <div><b>Robi WiFi FWA sales journey</b><span class="w">Chandpur and Lakshmipur, Aug 2025 to Jun 2026</span><span>How a new fixed wireless product reached 1,500+ customers across 20+ thanas. I mapped sales onto Bangladesh upazila boundaries to show where demand actually came from, and published it as a nine-slide LinkedIn story.</span><em>Python · matplotlib · Choropleth map · Data story</em></div>
+    <div><b>Superbike fleet productivity</b><span class="w">73 bikes, Chandpur Region</span><span>A daily compliance rule (every bike runs 3 KM or more) and a monthly productivity KPI (20 good days), tracked per bike, per distributor and per supplier, with fault reports and repeat zero-KM flags.</span><em>KPI design · GPS data · Dashboard</em></div>
+    <div><b>Building the RSSP network</b><span class="w">45 points from scratch</span><span>Setting up Robi Sales and Service Points across 14 upazilas of Chandpur and Lakshmipur: site selection, staffing, shop agreements and the operating rhythm that keeps 30 of them live and selling today.</span><em>Channel strategy · Operations · Data story</em></div>
+    <div><b>Telco customer churn</b><span class="w">Case study, 7,043 customers</span><span>Which customers leave a telecom and how early you can tell, answered in SQL. One in five customers, found with five simple rules, holds half of all churn. Ends with what I would change in the field as a channel manager.</span><em>SQL · Window functions · Segmentation · Field playbook</em></div>
+    <div><b>RedCube Super QR, user acceptance testing</b><span class="w">Robi's retailer app, 500,000+ users</span><span>Tested special access for RSSP Agents and the Super QR flow, where a customer scans a shop's QR and the retailer approves a recharge in seconds. Then ran a one-week beta with five RSSP Agents before the national launch.</span><em>UAT · Product testing · National launch</em></div>
+  </div>
+
+  <div class="feat" style="background:linear-gradient(110deg,rgba(14,138,134,.10),rgba(242,169,59,.16));margin-top:1mm"><b style="font-size:9.4pt">Looking for someone who knows both the field and the data?</b><p style="margin-top:1mm">I'm open to business analyst and analytics roles where operations experience counts. The quickest way to reach me is LinkedIn or WhatsApp: +880 1833 183477 · imtiazkarimrobin@gmail.com</p></div>
+  <div class="foot"><span>Case studies, slides and live dashboards: imtiazkarim.com</span><span>Page 2 of 2</span></div>
 </main>
 </div>
 </body>
