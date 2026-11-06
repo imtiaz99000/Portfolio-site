@@ -126,8 +126,9 @@ PAGES = [
     lede='No company in Bangladesh had deployed an electric Superbike fleet for telecom field sales and service before Robi did. I lead the fleet in the Chandpur Region from day one: the riders, the routes, the bikes and the numbers that show whether it is working.',
     tags=['KPI design', 'Fleet operations', 'GPS data', 'Team leadership', 'Dashboard'],
     linkedin='https://lnkd.in/p/g_9SNA5W',
-    proof=[('68', 'electric Superbikes in the fleet'), ('Day 1', 'leading it since launch'), ('3 KM', 'daily run rule for every bike'), ('20', 'good days a month, the productivity KPI')],
+    proof=[('73', 'electric Superbikes in the fleet this year'), ('Day 1', 'leading it since launch'), ('3 KM', 'daily run rule for every bike'), ('20', 'good days a month, the productivity KPI')],
     story=[
+      'The fleet launched with 68 bikes and we added 5 more, so it now stands at 73, the locked number for this year. The slides below were made at the 68-bike stage.',
       'A Superbike is digital service on wheels. Zero-emission bikes carry SIMs, service and connectivity to the last mile, from bazaar to bazaar and union to union, so customers get served at their doorstep instead of travelling to us.',
       'My role covers the whole thing from A to Z: recruiting, onboarding and training the riders, daily fleet movement and route planning, maintenance, charging and vendor operations, and daily performance tracking.',
       'To keep the fleet honest I set a daily compliance rule, every bike runs 3 KM or more, and a monthly productivity KPI of 20 good days. Both are tracked per bike, per distributor and per supplier, with fault reports and flags for bikes that repeatedly show zero KM.',
