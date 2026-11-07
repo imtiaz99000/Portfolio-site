@@ -41,7 +41,7 @@ def badge(o, cls='badge'):
     ink = 'var(--bl-ink)' if o['k'] == 'banglalink' else '#fff'
     return '<span class="%s" style="background:var(%s);color:%s" aria-hidden="true">%s</span>' % (cls, o['c'], ink, o['s'])
 def T(en, bnv, tag='span'):
-    return '<%s data-en>%s</%s><%s data-bn>%s</%s>' % (tag, en, tag, tag, bnv, tag)
+    return '<%s data-en data-nosnippet>%s</%s><%s data-bn>%s</%s>' % (tag, en, tag, tag, bnv, tag)
 
 ICON = {
  'chart': '<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>',
@@ -85,17 +85,26 @@ def page(path, active, title_en, title_bn, desc_en, body, default_lang='bn', cru
     cr = ''
     if crumbs:
         cr = '<p class="crumbs">' + ' / '.join('<a href="%s">%s</a>' % (u, T(e, b)) for u, e, b in crumbs) + '</p>'
+    import re as _re
+    dm = _re.search(r'class="dek">(.*?)</p>', body, _re.S); bd_ = None
+    if dm:
+        bm = _re.search(r'<span data-bn>(.*?)</span>', dm.group(1), _re.S)
+        bd_ = _re.sub(r'<[^>]+>', '', bm.group(1) if bm else dm.group(1)).strip()
+    desc_bn = bd_ or desc_en
+    if len(desc_bn) > 165: desc_bn = desc_bn[:162].rsplit(' ', 1)[0] + '…'
+    if default_lang == 'bn': title_main, desc_main = title_bn, desc_bn
+    else: title_main, desc_main = title_en, desc_en
     return '''<!doctype html>
 <html lang="%(dl)s" data-default-lang="%(dl)s">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>%(te)s</title>
+<title>%(tm)s</title>
 <meta name="bdt-title-en" content="%(te)s"><meta name="bdt-title-bn" content="%(tb)s">
-<meta name="description" content="%(de)s">
+<meta name="description" content="%(dm)s">
 <link rel="canonical" href="%(url)s">
-<meta property="og:title" content="%(te)s"><meta property="og:description" content="%(de)s"><meta property="og:image" content="https://www.imtiazkarim.com/bd-telecom/og.png">
-<link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:title" content="%(tm)s"><meta property="og:description" content="%(dm)s"><meta property="og:locale" content="bn_BD"><meta property="og:image" content="https://www.imtiazkarim.com/bd-telecom/og.png">
+<link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/icon-192.png" sizes="192x192" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <script>(function(){var r=document.documentElement,d=r.getAttribute('data-default-lang')||'bn';try{var t=localStorage.getItem('bdt-theme-v2');if(t)r.setAttribute('data-theme',t);r.lang=localStorage.getItem('bdt-lang')||d}catch(e){r.lang=d}})()</script>
 %(fonts)s
 <script>try{var q=new URLSearchParams(location.search).get('admin');if(q==='ik-csv-2026')localStorage.setItem('bdt-admin','1');if(q==='off')localStorage.removeItem('bdt-admin');if(localStorage.getItem('bdt-admin')==='1')document.documentElement.classList.add('is-admin')}catch(e){}</script>
@@ -112,7 +121,7 @@ def page(path, active, title_en, title_bn, desc_en, body, default_lang='bn', cru
 <script src="/bd-telecom/assets/bdt.js?v=%(jsv)s"></script>
 </body>
 </html>
-''' % dict(dl=default_lang, te=esc(title_en), tb=esc(title_bn), de=esc(desc_en), url=url, fav=FAVICON, fonts=FONTS, cssv=CSSV, jsv=JSV, head=header(active), cr=cr, body=body,
+''' % dict(tm=esc(title_main), dm=esc(desc_main), dl=default_lang, te=esc(title_en), tb=esc(title_bn), de=esc(desc_en), url=url, fav=FAVICON, fonts=FONTS, cssv=CSSV, jsv=JSV, head=header(active), cr=cr, body=body,
            foot=T('Data: Bangladesh Telecommunication Regulatory Commission (BTRC). Analysis by Mohd Imtiaz Karim.', 'ডেটা: বাংলাদেশ টেলিযোগাযোগ নিয়ন্ত্রণ কমিশন (BTRC)। বিশ্লেষণ: মোহাম্মদ ইমতিয়াজ করিম।'),
            home=T('Back to imtiazkarim.com', 'imtiazkarim.com এ ফিরুন'))
 
