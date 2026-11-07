@@ -1,1 +1,11 @@
 _build
+
+# Large files kept in Git but NOT uploaded to Vercel with every deploy (they filled the
+# Hobby plan's 10 GB Deployment Storage: ~95 MB per deploy x 87 deploys).
+# PixelShrink loads these from GitHub / jsDelivr instead (see tools/pixelshrink/bg.js).
+tools/pixelshrink/isnet.part*.wasm
+tools/pixelshrink/ort-wasm-simd-threaded.wasm
+tools/pixelshrink/ort-wasm-simd-threaded.mjs
+# PDFs are served from the static-assets branch via jsDelivr (redirects in vercel.json).
+bd-telecom/docs/
+work/*/*.pdf

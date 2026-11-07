@@ -1,9 +1,14 @@
 // Background removal for PixelShrink: ISNet (general-use) running on-device with ONNX Runtime Web.
-// The model ships with the page in four parts (served with a .wasm name so the host accepts the bytes) and is kept in the browser's cache after the first download.
+// The model (four parts) and the ONNX Runtime engine are NOT uploaded to Vercel with each deploy: they were ~60 MB of every
+// deployment and filled the Hobby plan's Deployment Storage. The model is fetched from this repo on GitHub (pinned to a commit,
+// so it never changes under us) and the engine from the official onnxruntime-web npm package on jsDelivr (same version as
+// ort.wasm.min.mjs below, byte-identical to the files that used to sit in this folder). The model is kept in the browser's
+// cache after the first download, under the same cache key as before, so returning visitors don't download it again.
 import * as ort from "./ort.wasm.min.mjs";
 
-const BASE = new URL("./", import.meta.url).href;
-ort.env.wasm.wasmPaths = BASE;
+const BASE = new URL("./", import.meta.url).href; // cache key prefix only
+const MODEL_BASE = "https://raw.githubusercontent.com/imtiaz99000/Portfolio-site/0554bc14a33667d313ef57b8e342b4cd29a19e32/tools/pixelshrink/";
+ort.env.wasm.wasmPaths = "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0/dist/";
 ort.env.wasm.numThreads = 1;
 ort.env.wasm.proxy = false;
 
@@ -16,7 +21,7 @@ let sessionPromise = null;
 async function getPart(name, onBytes) {
   let cache = null;
   try { cache = await caches.open(CACHE); const hit = await cache.match(BASE + name); if (hit) { const b = await hit.arrayBuffer(); onBytes(b.byteLength); return b; } } catch (e) { cache = null; }
-  const res = await fetch(BASE + name);
+  const res = await fetch(MODEL_BASE + name);
   if (!res.ok) throw new Error("download failed");
   const reader = res.body.getReader(); const chunks = []; let got = 0;
   for (;;) { const { done, value } = await reader.read(); if (done) break; chunks.push(value); got += value.byteLength; onBytes(value.byteLength); }

@@ -40,6 +40,16 @@
   ],
   "redirects": [
     {
+      "source": "/bd-telecom/docs/:path*",
+      "destination": "https://cdn.jsdelivr.net/gh/imtiaz99000/Portfolio-site@979acba772ebc926b8c1685c5f17e54280fdcbf3/bd-telecom/docs/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/work/:slug/:file(.*\\.pdf)",
+      "destination": "https://cdn.jsdelivr.net/gh/imtiaz99000/Portfolio-site@979acba772ebc926b8c1685c5f17e54280fdcbf3/work/:slug/:file",
+      "permanent": false
+    },
+    {
       "source": "/tools/taka-gelo-koi",
       "destination": "https://taka.imtiazkarim.com/",
       "permanent": true
