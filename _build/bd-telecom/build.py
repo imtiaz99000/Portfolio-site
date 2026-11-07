@@ -80,7 +80,7 @@ def header(active):
 FAVICON = open(os.path.join(HERE, 'dashboard.tpl.html')).read().split('<link rel="icon" href="')[1].split('"')[0]
 FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&family=Anek+Bangla:wght@400;500;600;700&display=swap" rel="stylesheet">'
 
-def page(path, active, title_en, title_bn, desc_en, body, default_lang='en', crumbs=None):
+def page(path, active, title_en, title_bn, desc_en, body, default_lang='bn', crumbs=None):
     url = 'https://www.imtiazkarim.com/bd-telecom/' + path
     cr = ''
     if crumbs:
@@ -96,7 +96,7 @@ def page(path, active, title_en, title_bn, desc_en, body, default_lang='en', cru
 <link rel="canonical" href="%(url)s">
 <meta property="og:title" content="%(te)s"><meta property="og:description" content="%(de)s"><meta property="og:image" content="https://www.imtiazkarim.com/bd-telecom/og.png">
 <link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<script>(function(){var r=document.documentElement,d=r.getAttribute('data-default-lang')||'en';try{var t=localStorage.getItem('bdt-theme-v2');if(t)r.setAttribute('data-theme',t);r.lang=localStorage.getItem('bdt-lang')||d}catch(e){r.lang=d}})()</script>
+<script>(function(){var r=document.documentElement,d=r.getAttribute('data-default-lang')||'bn';try{var t=localStorage.getItem('bdt-theme-v2');if(t)r.setAttribute('data-theme',t);r.lang=localStorage.getItem('bdt-lang')||d}catch(e){r.lang=d}})()</script>
 %(fonts)s
 <script>try{var q=new URLSearchParams(location.search).get('admin');if(q==='ik-csv-2026')localStorage.setItem('bdt-admin','1');if(q==='off')localStorage.removeItem('bdt-admin');if(localStorage.getItem('bdt-admin')==='1')document.documentElement.classList.add('is-admin')}catch(e){}</script>
 <link rel="stylesheet" href="/bd-telecom/assets/bdt.css?v=%(cssv)s">
