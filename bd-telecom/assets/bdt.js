@@ -69,3 +69,7 @@
   function init() { [].forEach.call(document.querySelectorAll('svg.schart'), setup); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
+
+/* Wide charts that scroll on phones open at the latest data. */
+(function () { function go() { [].forEach.call(document.querySelectorAll('.chart.qend'), function (c) { if (c.scrollWidth > c.clientWidth) c.scrollLeft = c.scrollWidth; }); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go(); })();

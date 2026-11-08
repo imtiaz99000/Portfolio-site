@@ -75,6 +75,8 @@ def build_kpi(B):
     QQ = qospage.build_qos(B)
     import spectrum
     SP, SPM = spectrum.build_spectrum(B)
+    import finance
+    FC, FN, FP = finance.build_finance(B)
     SER = {}; COL = {}
     D = [r for r in B.DATA]
     for key, id_ in [('total_mobile','mkt_total'),('mobile_internet','mkt_mi'),('fixed_internet','mkt_fi'),('total_internet','mkt_ti')]:
@@ -147,6 +149,7 @@ def build_kpi(B):
                 cards = ''.join(card(k) for k in tw) + '<a class="tile kpi more" href="/bd-telecom/kpi/spectrum/"><div class="l">%s</div><div class="v" style="font-size:1.05rem">%s →</div><div class="meta">%s</div></a>' % (T('Spectrum by operator', 'অপারেটরভিত্তিক তরঙ্গ'), T('MHz by band, per subscriber', 'ব্যান্ড ও গ্রাহকপ্রতি মেগাহার্জ'), T('Chart and table', 'চার্ট আর সারণি')) + '<a class="tile kpi more" href="/bd-telecom/kpi/handsets/"><div class="l">%s</div><div class="v" style="font-size:1.05rem">%s →</div><div class="meta">%s</div></a>' % (T('Handset penetration', 'হ্যান্ডসেট পেনেট্রেশন'), T('Smartphones and 5G by network', 'নেটওয়ার্ক অনুযায়ী স্মার্টফোন ও 5G'), T('Charts and table', 'চার্ট আর সারণি')) + '<a class="tile kpi more" href="/bd-telecom/kpi/towers/"><div class="l">%s</div><div class="v" style="font-size:1.05rem">%s →</div><div class="meta">%s</div></a>' % (T('Towers by owner', 'মালিকানা অনুযায়ী টাওয়ার'), T('Monthly since Dec 2022', 'ডিসে ২০২২ থেকে মাসিক'), T('Charts and table', 'চার্ট আর সারণি')) + cards
             if g != 'qos': note = T('Waiting for files: ' + NEED[g][0] + '.', 'ফাইলের অপেক্ষায়: ' + NEED[g][1] + '।')
             if g == 'inf': note = T('Towers, handsets and spectrum from BTRC data.', 'BTRC এর ডেটা থেকে টাওয়ার, হ্যান্ডসেট আর তরঙ্গ।')
+            if g == 'fin': cards, note = FC, FN
         secs += '<section class="block" id="%s"><div class="sechead"><h2 style="display:flex;align-items:center;gap:10px"><span class="ic" style="%s;width:32px;height:32px;border-radius:9px;display:inline-grid;place-items:center">%s</span>%s</h2></div><p class="sub" style="margin:0 0 12px">%s</p><div class="tiles kpis">%s</div></section>' % (
             g, tint(col), ic(icon), T(en, bnn), note, cards)
     jump = ''.join('<a href="#%s">%s</a>' % (g, T(en, bnn)) for g, en, bnn, _, _ in GROUPS)
@@ -160,4 +163,4 @@ def build_kpi(B):
     write('kpi/index.html', page('kpi/', 'kpi', 'Bangladesh telecom KPIs: subscribers, market share, QoS, finance | BD Telecom', 'বাংলাদেশ টেলিকম KPI | BD Telecom',
           'Monthly Bangladesh telecom KPIs: mobile and internet subscribers, operator market share, network quality, finances and infrastructure, each with its source.', body,
           crumbs=[('/bd-telecom/', 'BD Telecom', 'BD Telecom')]))
-    return ['bd-telecom/kpi/', 'bd-telecom/kpi/teledensity/', 'bd-telecom/kpi/mobile-subscribers/', 'bd-telecom/kpi/internet-subscribers/', 'bd-telecom/kpi/towers/', 'bd-telecom/kpi/handsets/', 'bd-telecom/kpi/qos/', 'bd-telecom/kpi/spectrum/']
+    return ['bd-telecom/kpi/', 'bd-telecom/kpi/teledensity/', 'bd-telecom/kpi/mobile-subscribers/', 'bd-telecom/kpi/internet-subscribers/', 'bd-telecom/kpi/towers/', 'bd-telecom/kpi/handsets/', 'bd-telecom/kpi/qos/', 'bd-telecom/kpi/spectrum/'] + FP
