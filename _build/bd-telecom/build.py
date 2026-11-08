@@ -345,6 +345,8 @@ def build():
     hub.build_hub(sys.modules[__name__], guides)
     import glossary
     licpages += glossary.build_glossary(sys.modules[__name__])
+    import methodology
+    licpages += methodology.build_methodology(sys.modules[__name__])
     import rechargetax
     licpages += rechargetax.build_rechargetax(sys.modules[__name__])
     licpages.append('bd-telecom/market-2024-2026/')

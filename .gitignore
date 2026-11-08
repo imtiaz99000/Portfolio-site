@@ -4,3 +4,4 @@ _build/bd-telecom/__pycache__/hub*.pyc
 _build/bd-telecom/__pycache__/glossary*.pyc
 _build/bd-telecom/__pycache__/qosarea*.pyc
 _build/bd-telecom/__pycache__/rechargetax*.pyc
+_build/bd-telecom/__pycache__/methodology*.pyc

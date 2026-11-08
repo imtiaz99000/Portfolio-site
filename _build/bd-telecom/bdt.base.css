@@ -334,3 +334,5 @@ ul.updates a:hover{text-decoration:underline}
 .rt-r:nth-child(2)>span::before,.rt-r:nth-child(3)>span::before,.rt-r:nth-child(4)>span::before,.rt-r:nth-child(5)>span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px;vertical-align:middle}
 .rt-r:nth-child(2)>span::before{background:var(--tt)}.rt-r:nth-child(3)>span::before{background:var(--robi)}.rt-r:nth-child(4)>span::before{background:var(--amber)}.rt-r:nth-child(5)>span::before{background:var(--gp)}
 .srcl{margin:0;padding-left:20px}.srcl li{margin:4px 0}
+table.stack td{white-space:normal;vertical-align:top;min-width:140px}
+@media (max-width:640px){table.stack thead{display:none}table.stack,table.stack tbody,table.stack tr,table.stack td{display:block;width:100%;min-width:0}table.stack tr{padding:10px 0;border-bottom:1px solid var(--line)}table.stack td{border:0;padding:2px 0;text-align:left!important}table.stack td+td{color:var(--muted)}}
