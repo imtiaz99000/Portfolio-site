@@ -945,7 +945,7 @@ function viewDev(){
    '<div class="devfacts"><div><b>45</b><span>RSSPs built</span></div><div><b>104</b><span>Field team</span></div><div><b>50K+</b><span>Customers a year</span></div><div><b>Q2\'25</b><span>National Best Regional Operation Manager</span></div></div>'+
    '</div></div></section>'+
    '<section class="section"><figure class="teamfig"><button type="button" class="teamimg" id="teamImg" aria-label="View the team photo full screen"><img src="team.jpg" alt="Elite force of Chandpur RSSP: the RSSP Supervisor team with Mohd Imtiaz Karim" loading="lazy" width="1800" height="1450"></button>'+
-   '<figcaption><b>Elite force of Chandpur RSSP</b><span>The core RSSP Supervisor team, working directly under the supervision of Mohd Imtiaz Karim</span></figcaption></figure></section>'+viewChangelog();
+   '<figcaption><b>Elite force of Chandpur RSSP</b><span>The core RSSP Supervisor team, working directly under the supervision of Mohd Imtiaz Karim</span></figcaption></figure></section>';
 }
 
 /* ---------- Live GA (Sales, last tab): today's GA by RSSP from a same-day Activation Details file ---------- */
