@@ -321,4 +321,18 @@ ul.updates a:hover{text-decoration:underline}
 .chsave:hover{color:var(--ink);border-color:var(--accent)}
 .chsave svg{width:14px;height:14px}
 
+.rt label{font-weight:600;display:block;margin-bottom:8px}
+.rt-in{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:6px 12px;max-width:260px;background:var(--paper)}
+.rt-in span{font-size:1.4rem;color:var(--muted)}
+.rt-in input{border:0;background:transparent;color:inherit;font:inherit;font-size:1.6rem;font-weight:700;width:100%;outline:none;font-variant-numeric:tabular-nums}
+.rt-in:focus-within{border-color:var(--accent)}
+.rt-bar{display:flex;height:14px;border-radius:7px;overflow:hidden;margin:16px 0 10px}
+.rt-r{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.rt-r b{white-space:nowrap}
+.rt-r.big b{font-size:1.15rem}
+.rt-r.tot{border-bottom:0;font-weight:600}.rt-r.tot b{color:var(--robi);font-size:1.15rem}
+.rt-r:nth-child(2)>span::before,.rt-r:nth-child(3)>span::before,.rt-r:nth-child(4)>span::before,.rt-r:nth-child(5)>span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px;vertical-align:middle}
+.rt-r:nth-child(2)>span::before{background:var(--tt)}.rt-r:nth-child(3)>span::before{background:var(--robi)}.rt-r:nth-child(4)>span::before{background:var(--amber)}.rt-r:nth-child(5)>span::before{background:var(--gp)}
+.srcl{margin:0;padding-left:20px}.srcl li{margin:4px 0}
+
 .chart svg.schart{display:block;width:100%;height:auto}

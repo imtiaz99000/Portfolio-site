@@ -50,6 +50,7 @@ ICON = {
  'book': '<path d="M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4z"/><path d="M20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z"/>',
  'sim': '<path d="M6 2h8l4 4v16H6z"/><rect x="9" y="11" width="6" height="7" rx="1"/>',
  'phone': '<rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/>',
+ 'coin': '<circle cx="12" cy="12" r="9"/><path d="M14.5 9a2.5 2 0 0 0-2.5-1.5c-1.4 0-2.5.8-2.5 2s1.1 1.7 2.5 2 2.5.8 2.5 2-1.1 2-2.5 2a2.5 2 0 0 1-2.5-1.5M12 6v1.5M12 16.5V18"/>',
  'info': '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
  'alert': '<path d="M12 3l10 18H2z"/><path d="M12 10v4M12 17h.01"/>',
  'download': '<path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/>',
@@ -344,6 +345,8 @@ def build():
     hub.build_hub(sys.modules[__name__], guides)
     import glossary
     licpages += glossary.build_glossary(sys.modules[__name__])
+    import rechargetax
+    licpages += rechargetax.build_rechargetax(sys.modules[__name__])
     licpages.append('bd-telecom/market-2024-2026/')
     # sitemap + robots for the whole site
     pages = ['', 'tools/pdf-squeeze/', 'tools/pixelshrink/', 'rssp-demo/', 'bd-telecom/', 'bd-telecom/operators/', 'bd-telecom/data/', 'bd-telecom/guides/'] + \

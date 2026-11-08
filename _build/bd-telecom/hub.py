@@ -2,6 +2,7 @@
 import json, os
 
 UPDATES = [
+    ('2026-11-09', 'recharge-tax/', 'Recharge tax calculator: how much of Tk 100 goes to the government', 'রিচার্জ কর ক্যালকুলেটর: ১০০ টাকার কত টাকা সরকারের কাছে যায়'),
     ('2026-11-08', 'kpi/qos/area/', 'Network quality where you live: check your upazila for Grameenphone, Robi and Banglalink', 'আপনার এলাকায় নেটওয়ার্কের মান: আপনার উপজেলায় গ্রামীণফোন, রবি আর বাংলালিংকের ফল'),
     ('2026-11-08', 'kpi/finance/', 'Operator finances: Grameenphone, Robi and Banglalink, every quarter since 2020, with a side-by-side comparison', 'অপারেটরদের আর্থিক অবস্থা: গ্রামীণফোন, রবি আর বাংলালিংক, ২০২০ থেকে প্রতি প্রান্তিক, পাশাপাশি তুলনা সহ'),
     ('2026-10-31', 'kpi/qos/', 'BTRC quality of service report for August 2026: national, district and upazila results', 'আগস্ট ২০২৬ এর BTRC সেবার মান (QoS) প্রতিবেদন: জাতীয়, জেলা আর উপজেলার ফল'),
@@ -60,6 +61,7 @@ def build_hub(B, guides):
         ('kpi/qos/area/', 'signal', '--tt', 'Network quality where you live', 'আপনার এলাকায় নেটওয়ার্কের মান', 'Pick your upazila to see whether each operator met BTRC’s quality benchmarks there.', 'আপনার উপজেলা বেছে নিন, দেখুন প্রতিটি অপারেটর সেখানে BTRC এর মান পূরণ করেছে কিনা।'),
         ('operators/', 'users', '--gp', 'Operators', 'অপারেটর', 'Subscribers and market share for each of the four mobile operators.', 'চার মোবাইল অপারেটরের গ্রাহক আর মার্কেট শেয়ার।'),
         ('market-2024-2026/', 'signal', '--robi', 'The 2024 to 2026 subscriber slump', '২০২৪ থেকে ২০২৬ এর গ্রাহক পতন', 'How the market lost 6.6 million subscriptions in 17 months and then recovered: a data story.', 'কীভাবে বাজার ১৭ মাসে ৬৬ লাখ সাবস্ক্রিপশন হারিয়ে আবার ঘুরে দাঁড়াল: ডেটার গল্প।'),
+        ('recharge-tax/', 'coin', '--robi', 'Tax on your recharge', 'রিচার্জে কত কর', 'Type any amount to see how much is service and how much goes to the government as VAT, duty and surcharge.', 'যেকোনো পরিমাণ লিখুন, দেখুন কত টাকা সেবা আর কত টাকা VAT, শুল্ক আর সারচার্জ হিসেবে সরকারের কাছে যায়।'),
         ('glossary/', 'book', '--amber', 'Telecom glossary', 'টেলিকম শব্দকোষ', 'ARPU, EBITDA, churn, QoS and more, in plain Bangla and English.', 'ARPU, EBITDA, চার্ন, QoS আর আরও অনেক শব্দ, সহজ বাংলা আর ইংরেজিতে।'),
         ('data/', 'db', '--tt', 'Data archive', 'ডেটা আর্কাইভ', 'Monthly subscriber data with SQL and CSV downloads.', 'মাসিক গ্রাহক ডেটা, SQL আর CSV ডাউনলোড সহ।'),
         ('licensees/', 'shield', '--bl', 'Licensees', 'লাইসেন্সধারী', 'Searchable lists of ISP, VTS and ITC licence holders from BTRC.', 'BTRC এর ISP, VTS আর ITC লাইসেন্সধারীদের খোঁজা যায় এমন তালিকা।'),
