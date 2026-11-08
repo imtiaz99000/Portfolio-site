@@ -35,9 +35,12 @@ def fmt(v, d=0, lang='en'):
 
 
 def qchart(B, rows, series, ymin, ymax, step, unit_en, unit_bn, d=0, kind='bar', h=260, W=720):
-    """Quarterly chart. kind='bar' draws the first series as bars; any other series are lines. Hover uses the shared .pt tooltip."""
+    """Quarterly chart. kind='bar' draws the first series as bars with a value on every bar; other series are lines.
+    Every series gets its highest and lowest quarter marked. Hover uses the shared .pt tooltip."""
     T, bn = B.T, B.bn
-    H, L, R, TP, BT = h, 52, 18 if kind == 'bar' else 110, 14, 26
+    bars = kind == 'bar'
+    h = h + (44 if bars else 30)
+    H, L, R, TP, BT = h, 52, 18 if bars else 110, (48 if bars else 34), 26
     n = len(rows); iw, ih = W - L - R, H - TP - BT
     slot = iw / n
     x = lambda i: L + slot * (i + .5)
@@ -52,30 +55,67 @@ def qchart(B, rows, series, ymin, ymax, step, unit_en, unit_bn, d=0, kind='bar',
         if r['q'] == '1' or i == 0:
             o.append('<text x="%.1f" y="%d" text-anchor="%s">%s</text>' % (x(i) - slot / 2, H - 6, 'start', T(str(r['y']), bn(str(r['y'])), 'tspan')))
             if i: o.append('<line x1="%.1f" x2="%.1f" y1="%d" y2="%d" stroke="var(--grid)"/>' % (x(i) - slot / 2, x(i) - slot / 2, TP, H - BT + 4))
-    labels = []
+    sv = lambda v: (fmt(v, d), fmt(v, d, 'bn'))
+    labels, marks, boxes = [], [], []
+    def place(cx, cy, w_, up):
+        """Nudge a label vertically until it does not overlap one already placed."""
+        for k in range(8):
+            yy = cy + (-1 if up else 1) * 13 * k
+            if all(abs(cx - bx) > (w_ + bw) / 2 + 2 or abs(yy - by) > 12 for bx, by, bw in boxes):
+                boxes.append((cx, yy, w_)); return yy
+        boxes.append((cx, cy, w_)); return cy
     for si, (key, en, bnn, col) in enumerate(series):
-        if kind == 'bar' and si == 0:
+        pts = [(i, r[key]) for i, r in enumerate(rows) if r[key] is not None]
+        if not pts: continue
+        hi = max(pts, key=lambda p: p[1]); lo = min(pts, key=lambda p: p[1])
+        if bars and si == 0:
             bw = slot * .68
-            for i, r in enumerate(rows):
-                v = r[key]
-                if v is None: continue
+            for i, v in pts:
                 y0, y1 = y(max(v, 0)), y(min(v, 0)) if ymin < 0 else y(ymin)
-                o.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" rx="2" fill="var(%s)" opacity="%s"/>' % (x(i) - bw / 2, y0, bw, max(y1 - y0, 1), '--down' if v < 0 else col, '1' if i == n - 1 else '.82'))
+                o.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" rx="2" fill="var(%s)" opacity="%s"/>' % (x(i) - bw / 2, y0, bw, max(y1 - y0, 1), '--down' if v < 0 else col, '1' if i == pts[-1][0] else '.82'))
+                ex = (i == hi[0] or i == lo[0])
+                ty = (y(v) + 5) if v < 0 else (y0 - 4)
+                o.append('<text class="bv%s" transform="rotate(-90 %.1f %.1f)" x="%.1f" y="%.1f" text-anchor="%s" dominant-baseline="central">%s</text>' % (
+                    ' ex' if ex else '', x(i), ty, x(i), ty, 'end' if v < 0 else 'start', T(sv(v)[0], sv(v)[1], 'tspan')))
+                if ex:
+                    ln = 6.4 * len(sv(v)[0]) + 6
+                    my = (ty + ln + 9) if v < 0 else (ty - ln - 2)
+                    o.append('<text class="pk" x="%.1f" y="%.1f" text-anchor="middle" style="fill:var(%s)">%s</text>' % (x(i), my, '--up' if i == hi[0] else '--down', '▲' if i == hi[0] else '▼'))
         else:
-            dpath, pen, last = '', False, None
+            dpath, pen = '', False
             for i, r in enumerate(rows):
                 v = r[key]
                 if v is None: pen = False; continue
-                dpath += ('L' if pen else 'M') + '%.1f %.1f' % (x(i), y(v)); pen = True; last = (i, v)
+                dpath += ('L' if pen else 'M') + '%.1f %.1f' % (x(i), y(v)); pen = True
             o.append('<path d="%s" fill="none" stroke="var(%s)" stroke-width="2.2" stroke-linejoin="round"/>' % (dpath, col))
-            if last:
-                o.append('<circle cx="%.1f" cy="%.1f" r="4" fill="var(%s)" stroke="var(--surface)" stroke-width="2"/>' % (x(last[0]), y(last[1]), col))
-                labels.append([y(last[1]), en, bnn, last[1], col, x(last[0])])
+            li, lv = pts[-1]
+            o.append('<circle cx="%.1f" cy="%.1f" r="4" fill="var(%s)" stroke="var(--surface)" stroke-width="2"/>' % (x(li), y(lv), col))
+            labels.append([y(lv), en, bnn, lv, col, x(li)])
+            fi, fv = pts[0]
+            if fi not in (hi[0], lo[0]) and len(series) == 1:
+                marks.append((fi, fv, col, '', False if fv >= (hi[1] + lo[1]) / 2 else True, 'first'))
+            for (pi, pv), up, tag in ((hi, True, '▲ '), (lo, False, '▼ ')):
+                if pi == li: continue
+                marks.append((pi, pv, col, tag, up, 'ex'))
+    for i, v, col, tag, up, cls in sorted(marks, key=lambda m: m[1], reverse=True):
+        cx, cy = x(i), y(v)
+        if cls == 'ex':
+            o.append('<circle cx="%.1f" cy="%.1f" r="4.5" fill="var(--surface)" stroke="var(%s)" stroke-width="2.4"/>' % (cx, cy, col))
+        else:
+            o.append('<circle cx="%.1f" cy="%.1f" r="3" fill="var(%s)"/>' % (cx, cy, col))
+        txt = tag + sv(v)[0] + ('' if unit_en.strip() in ('cr', 'm', 'k', 'GB', 'Tk') else unit_en.strip())
+        wpx = 6.2 * len(txt) + 4
+        if not up and cy + 18 > H - BT: up = True
+        if up and cy - 10 < TP - 26: up = False
+        ly = place(cx, cy - 10 if up else cy + 17, wpx, up)
+        anchor = 'start' if cx - wpx / 2 < L else ('end' if cx + wpx / 2 > W - R + 40 else 'middle')
+        o.append('<text class="pk" x="%.1f" y="%.1f" text-anchor="%s" style="fill:var(%s)">%s</text>' % (cx, ly, anchor, col, T(txt, tag + sv(v)[1] + ('' if unit_en.strip() in ('cr', 'm', 'k', 'GB', 'Tk') else unit_en.strip()), 'tspan')))
+    for si, (key, en, bnn, col) in enumerate(series):
         for i, r in enumerate(rows):
             v = r[key]
             if v is None: continue
             o.append('<circle class="pt" cx="%.1f" cy="%.1f" r="6" fill="transparent" data-men="%s" data-mbn="%s" data-sen="%s" data-sbn="%s" data-ven="%s" data-vbn="%s" data-c="%s"></circle>' % (
-                x(i), y(v), ql(r), ql(r, 'bn'), en, bnn, fmt(v, d) + unit_en, fmt(v, d, 'bn') + unit_bn, '--down' if (kind == 'bar' and si == 0 and v < 0) else col))
+                x(i), y(v), ql(r), ql(r, 'bn'), en, bnn, fmt(v, d) + unit_en, fmt(v, d, 'bn') + unit_bn, '--down' if (bars and si == 0 and v < 0) else col))
     labels.sort(key=lambda a: a[0])
     for j in range(1, len(labels)):
         if labels[j][0] - labels[j - 1][0] < 30: labels[j][0] = labels[j - 1][0] + 30
@@ -83,7 +123,8 @@ def qchart(B, rows, series, ymin, ymax, step, unit_en, unit_bn, d=0, kind='bar',
         o.append('<text x="%.1f" y="%.1f" class="lbl">%s</text>' % (lx + 9, ly + 1, T(en, bnn, 'tspan')))
         o.append('<text x="%.1f" y="%.1f" class="note">%s</text>' % (lx + 9, ly + 15, T(fmt(v, d) + unit_en, fmt(v, d, 'bn') + unit_bn, 'tspan')))
     o.append('</svg>')
-    return '<div class="chart scroll qend">' + ''.join(o) + '</div>'
+    leg = ('<div class="pkleg">%s</div>' % T('▲ highest and ▼ lowest quarter are marked. Tap any quarter for its values.', '▲ সর্বোচ্চ আর ▼ সর্বনিম্ন প্রান্তিক চিহ্নিত। যেকোনো প্রান্তিকে ট্যাপ করলে সংখ্যা দেখাবে।'))
+    return '<div class="chart scroll qend">' + ''.join(o) + '</div>' + leg
 
 
 def nice(vals, n=4, floor0=True):
