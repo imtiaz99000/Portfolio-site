@@ -308,4 +308,17 @@ ul.updates a:hover{text-decoration:underline}
 .qa-tt{margin-bottom:18px}
 .qa-def{margin:0;padding-left:18px}.qa-def li{margin:0 0 10px}.qa-def small{color:var(--muted)}
 
+.gl-q{width:100%;font:inherit;font-size:1rem;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-height:44px;box-sizing:border-box}
+.gls{margin:0}
+.gls .gl{padding:12px 0;border-bottom:1px solid var(--line);scroll-margin-top:80px}
+.gls .gl:last-child{border-bottom:0}
+.gls dt{font-weight:700;margin:0 0 4px}
+.gls dd{margin:0;color:var(--ink)}
+.gls dd p{margin:0}
+.gls .gl:target{background:var(--band);border-radius:10px;padding-left:10px;padding-right:10px}
+.gl-more{display:inline-block;margin-top:6px;font-size:.88rem}
+.chsave{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font:inherit;font-size:.82rem;color:var(--muted);background:none;border:1px solid var(--line);border-radius:99px;padding:5px 12px;cursor:pointer}
+.chsave:hover{color:var(--ink);border-color:var(--accent)}
+.chsave svg{width:14px;height:14px}
+
 .chart svg.schart{display:block;width:100%;height:auto}

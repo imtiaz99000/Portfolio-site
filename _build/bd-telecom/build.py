@@ -342,6 +342,8 @@ def build():
     licpages += kpi.build_kpi(sys.modules[__name__])
     import hub
     hub.build_hub(sys.modules[__name__], guides)
+    import glossary
+    licpages += glossary.build_glossary(sys.modules[__name__])
     licpages.append('bd-telecom/market-2024-2026/')
     # sitemap + robots for the whole site
     pages = ['', 'tools/pdf-squeeze/', 'tools/pixelshrink/', 'rssp-demo/', 'bd-telecom/', 'bd-telecom/operators/', 'bd-telecom/data/', 'bd-telecom/guides/'] + \

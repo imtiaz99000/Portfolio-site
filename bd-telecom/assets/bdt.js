@@ -73,3 +73,72 @@
 /* Wide charts that scroll on phones open at the latest data. */
 (function () { function go() { [].forEach.call(document.querySelectorAll('.chart.qend'), function (c) { if (c.scrollWidth > c.clientWidth) c.scrollLeft = c.scrollWidth; }); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go(); })();
+
+/* Save any chart as a PNG with its title and the site credit, ready to share. */
+(function () {
+  function bnMode() { return document.documentElement.lang === 'bn'; }
+  function visibleText(el) {
+    if (!el) return '';
+    var c = el.cloneNode(true);
+    [].forEach.call(c.querySelectorAll(bnMode() ? '[data-en]' : '[data-bn]'), function (x) { x.remove(); });
+    return c.textContent.replace(/\s+/g, ' ').trim();
+  }
+  function inline(src, dst) {
+    var cs = getComputedStyle(src);
+    if (cs.display === 'none' || cs.visibility === 'hidden') { dst.remove(); return; }
+    var keep = ['fill', 'stroke', 'stroke-width', 'stroke-dasharray', 'opacity', 'fill-opacity', 'font-size', 'font-weight', 'font-family', 'paint-order', 'stroke-linejoin', 'stroke-linecap'];
+    dst.setAttribute('style', keep.map(function (k) { return k + ':' + cs.getPropertyValue(k); }).join(';'));
+    var sk = src.children, dk = dst.children;
+    for (var i = sk.length - 1; i >= 0; i--) inline(sk[i], dk[i]);
+  }
+  function save(chart, btn) {
+    var svg = chart.querySelector('svg.schart'); if (!svg) return;
+    var card = chart.closest('.card') || chart.parentNode;
+    var title = visibleText(card.querySelector('h3')) || document.title.split('|')[0].trim();
+    var sub = visibleText(card.querySelector('.sub'));
+    var cl = svg.cloneNode(true);
+    inline(svg, cl);
+    [].forEach.call(cl.querySelectorAll('circle.pt'), function (x) { x.remove(); });
+    var vb = svg.viewBox.baseVal, W = vb.width, H = vb.height;
+    cl.setAttribute('width', W); cl.setAttribute('height', H); cl.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    var bg = getComputedStyle(document.body).backgroundColor, ink = getComputedStyle(document.body).color;
+    var muted = getComputedStyle(card.querySelector('.sub') || document.body).color;
+    var url = URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(cl)], { type: 'image/svg+xml;charset=utf-8' }));
+    var img = new Image();
+    img.onload = function () {
+      var S = 2, pad = 28, head = sub ? 78 : 54, foot = 40, cw = W + pad * 2, ch = H + head + foot + pad;
+      var cv = document.createElement('canvas'); cv.width = cw * S; cv.height = ch * S;
+      var g = cv.getContext('2d'); g.scale(S, S);
+      g.fillStyle = bg; g.fillRect(0, 0, cw, ch);
+      var ff = getComputedStyle(document.body).fontFamily;
+      g.fillStyle = ink; g.font = '700 22px ' + ff; g.fillText(title, pad, pad + 20);
+      if (sub) { g.fillStyle = muted; g.font = '15px ' + ff; g.fillText(sub.length > 110 ? sub.slice(0, 107) + '…' : sub, pad, pad + 48); }
+      g.drawImage(img, pad, head);
+      g.fillStyle = muted; g.font = '13px ' + ff;
+      g.fillText(bnMode() ? 'সূত্র: BD Telecom · মোহাম্মদ ইমতিয়াজ করিম · imtiazkarim.com/bd-telecom' : 'Source: BD Telecom by Mohd Imtiaz Karim · imtiazkarim.com/bd-telecom', pad, ch - 16);
+      URL.revokeObjectURL(url);
+      cv.toBlob(function (b) {
+        var name = (title || 'chart').replace(/[^\wঀ-৿]+/g, '-').replace(/^-|-$/g, '').slice(0, 60) + '.png';
+        var file = window.File ? new File([b], name, { type: 'image/png' }) : null;
+        if (file && navigator.canShare && navigator.canShare({ files: [file] }) && /Android|iPhone|iPad/i.test(navigator.userAgent)) {
+          navigator.share({ files: [file], title: title }).catch(function () {});
+        } else {
+          var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = name; document.body.appendChild(a); a.click();
+          setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+        }
+      }, 'image/png');
+    };
+    img.src = url;
+  }
+  function init() {
+    [].forEach.call(document.querySelectorAll('.chart'), function (c) {
+      if (!c.querySelector('svg.schart') || c.nextElementSibling && c.nextElementSibling.classList.contains('chsave')) return;
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'chsave';
+      b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><span data-en>Save as image</span><span data-bn>ছবি হিসেবে সেভ করুন</span>';
+      b.addEventListener('click', function () { save(c, b); });
+      var after = c.nextElementSibling && c.nextElementSibling.classList.contains('pkleg') ? c.nextElementSibling : c;
+      after.parentNode.insertBefore(b, after.nextSibling);
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
