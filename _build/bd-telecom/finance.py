@@ -1,12 +1,11 @@
-"""Operator finance pages from listed operators' quarterly results. Robi first; Grameenphone and Banglalink slot in later."""
+"""Operator finance pages from listed operators' quarterly results: one page per operator plus a comparison page."""
 import csv, os
 
-SRC = 'robi-financials.csv'
 QBN = {'1': '১', '2': '২', '3': '৩', '4': '৪'}
 
 
-def load(B):
-    rows = list(csv.DictReader(open(os.path.join(B.HERE, 'data_src', SRC))))
+def load(B, src):
+    rows = list(csv.DictReader(open(os.path.join(B.HERE, 'data_src', src))))
     for r in rows:
         for k in list(r):
             if k != 'quarter': r[k] = float(r[k]) if r[k] != '' else None
@@ -15,7 +14,8 @@ def load(B):
         r['rev_cr'] = r['total_rev'] / 10; r['ebitda_cr'] = r['ebitda'] / 10; r['pat_cr'] = r['pat'] / 10; r['capex_cr'] = r['capex'] / 10
         r['data_cr'] = r['data_rev_bn'] * 100 if r['data_rev_bn'] is not None else None
         r['data_share'] = r['data_cr'] / r['rev_cr'] * 100 if r['data_cr'] is not None else None
-        r['sites_k'] = r['sites'] / 1000; r['sites4_k'] = r['sites_4g'] / 1000
+        r['sites_k'] = r['sites'] / 1000 if r.get('sites') else None; r['sites4_k'] = r['sites_4g'] / 1000 if r.get('sites_4g') else None
+        r['du_share'] = r['data_subs_m'] / r['subs_m'] * 100
     rows.sort(key=lambda r: r['key'])
     return rows
 
@@ -83,108 +83,32 @@ def qchart(B, rows, series, ymin, ymax, step, unit_en, unit_bn, d=0, kind='bar',
     return '<div class="chart scroll qend">' + ''.join(o) + '</div>'
 
 
-def build_finance(B):
-    T, bn, ic, page, write, sgn = B.T, B.bn, B.ic, B.page, B.write, B.sgn
-    R = load(B)
-    L = R[-1]; P = R[-2]; Y = [r for r in R if r['key'] == L['key'] - 10][0]
-    ytd = [r for r in R if r['y'] == L['y']]; ytd0 = [r for r in R if r['y'] == L['y'] - 1 and int(r['q']) <= int(L['q'])]
-    s = lambda rs, k: sum(r[k] for r in rs)
-    pc = lambda a, b: (a - b) / abs(b) * 100
+def nice(vals, n=4, floor0=True):
+    """Round axis bounds and step for a quarterly chart."""
+    vs = [v for v in vals if v is not None]
+    lo, hi = min(vs), max(vs)
+    if floor0 and lo >= 0: lo = 0
+    span = (hi - lo) or abs(hi) or 1
+    raw = span / n; mag = 10 ** len(str(int(raw))) / 10 if raw >= 1 else 0.1
+    for m in (1, 2, 2.5, 5, 10):
+        step = m * mag
+        if step >= raw: break
+    import math
+    a = math.floor(lo / step) * step; b = math.ceil(hi * 1.04 / step) * step
+    return a, b, step
 
-    # CSV for download
-    out_cols = ['quarter', 'total_rev', 'mobile_rev', 'interconnect_rev', 'other_rev', 'ebitda', 'ebitda_margin_pct', 'dep_amort', 'ebit', 'pat', 'capex', 'total_assets', 'total_liabilities', 'total_equity',
-                'subs_m', 'data_subs_m', 'users_4g_m', 'arpu_bdt', 'mou_min', 'mb_per_sub', 'gb_per_sub_month', 'data_rev_bn', 'sites', 'sites_4g']
-    raw = list(csv.DictReader(open(os.path.join(B.HERE, 'data_src', SRC))))
-    with open(os.path.join(B.OUT, 'robi-financials-2020-2026.csv'), 'w', newline='') as f:
-        w = csv.writer(f); w.writerow(['quarter'] + [c + ('_bdt_m' if c in ('total_rev', 'mobile_rev', 'interconnect_rev', 'other_rev', 'ebitda', 'dep_amort', 'ebit', 'pat', 'capex', 'total_assets', 'total_liabilities', 'total_equity') else '') for c in out_cols[1:]])
-        for r in raw: w.writerow([r[c] for c in out_cols])
 
-    def tile(en, bnn, v_en, v_bn, d_en, d_bn, cls=''):
-        return '<div class="tile kpi"><div class="l">%s</div><div class="v">%s</div><div class="d">%s</div><div class="meta">%s</div></div>' % (
-            T(en, bnn), T(v_en, v_bn), T(d_en, d_bn), T(ql(L) + ' · Robi', ql(L, 'bn') + ' · রবি'))
+def bnfix(h):
+    return h.replace('গ্রামীণফোন এর', 'গ্রামীণফোনের').replace('রবি এর', 'রবির')
 
-    def yoy(k, d=1, unit='%'):
-        v = pc(L[k], Y[k]); c = 'up' if v > 0 else 'down'
-        return ('<b class="%s">%s%%</b> vs %s' % (c, sgn(v, d), ql(Y, 'en', True)), '%s এর তুলনায় <b class="%s">%s%%</b>' % (ql(Y, 'bn', True), c, sgn(v, d, 'bn')))
 
-    def pp(k):
-        v = L[k] - Y[k]; c = 'up' if v > 0 else 'down'
-        return ('<b class="%s">%s pts</b> vs %s' % (c, sgn(v, 1), ql(Y, 'en', True)), '%s এর তুলনায় <b class="%s">%s পয়েন্ট</b>' % (ql(Y, 'bn', True), c, sgn(v, 1, 'bn')))
+MILLION_COLS = ('total_rev', 'mobile_rev', 'interconnect_rev', 'other_rev', 'ebitda', 'dep_amort', 'ebit', 'pat', 'capex', 'capex_incl_rou', 'total_assets', 'total_liabilities', 'total_equity')
 
-    tiles = (tile('Revenue', 'রেভিনিউ', fmt(L['rev_cr']) + '<small> Tk cr</small>', fmt(L['rev_cr'], 0, 'bn') + '<small> কোটি টাকা</small>', *yoy('rev_cr'))
-             + tile('EBITDA margin', 'EBITDA মার্জিন', fmt(L['ebitda_margin_pct'], 1) + '<small>%</small>', fmt(L['ebitda_margin_pct'], 1, 'bn') + '<small>%</small>', *pp('ebitda_margin_pct'))
-             + tile('Profit after tax', 'কর-পরবর্তী মুনাফা', fmt(L['pat_cr']) + '<small> Tk cr</small>', fmt(L['pat_cr'], 0, 'bn') + '<small> কোটি টাকা</small>', *yoy('pat_cr'))
-             + tile('ARPU (monthly)', 'ARPU (মাসিক)', fmt(L['arpu_bdt']) + '<small> Tk</small>', fmt(L['arpu_bdt'], 0, 'bn') + '<small> টাকা</small>', *yoy('arpu_bdt'))
-             + tile('Subscribers', 'গ্রাহক', fmt(L['subs_m'], 1) + '<small>m</small>', fmt(L['subs_m'], 1, 'bn') + '<small>মি.</small>', *yoy('subs_m'))
-             + tile('Data revenue share', 'রেভিনিউতে ডেটার ভাগ', fmt(L['data_share'], 1) + '<small>%</small>', fmt(L['data_share'], 1, 'bn') + '<small>%</small>', *pp('data_share'))
-             + tile('Data use per subscriber', 'গ্রাহকপ্রতি ডেটা ব্যবহার', fmt(L['gb_per_sub_month'], 1) + '<small> GB/mo</small>', fmt(L['gb_per_sub_month'], 1, 'bn') + '<small> GB/মাস</small>', *yoy('gb_per_sub_month'))
-             + tile('Network sites', 'নেটওয়ার্ক সাইট', fmt(L['sites']), fmt(L['sites'], 0, 'bn'), *yoy('sites')))
-
-    r9, r90 = s(ytd, 'rev_cr'), s(ytd0, 'rev_cr'); p9, p90 = s(ytd, 'pat_cr'), s(ytd0, 'pat_cr')
-    best = max(R, key=lambda r: r['rev_cr'])
-    F = R[0]
-    story = T(('In %s Robi earned Tk %s crore in revenue, %s%% %s than a year earlier, and kept Tk %s crore as profit after tax. '
-               'For the first %d quarters of %d revenue reached Tk %s crore (%s%%) and profit Tk %s crore (%s%%). '
-               'Quarterly revenue has grown from Tk %s crore in %s, and the best quarter on record is %s at Tk %s crore. '
-               'Data now brings in %s%% of revenue, and the average subscriber uses %s GB a month.') % (
-        ql(L), fmt(L['rev_cr']), fmt(abs(pc(L['rev_cr'], Y['rev_cr'])), 1), 'more' if L['rev_cr'] > Y['rev_cr'] else 'less', fmt(L['pat_cr']), len(ytd), L['y'], fmt(r9), sgn(pc(r9, r90), 1), fmt(p9), sgn(pc(p9, p90), 1),
-        fmt(F['rev_cr']), ql(F), ql(best), fmt(best['rev_cr']), fmt(L['data_share'], 1), fmt(L['gb_per_sub_month'], 1)),
-        ('%s এ রবির রেভিনিউ %s কোটি টাকা, আগের বছরের একই প্রান্তিকের চেয়ে %s%% %s, আর কর-পরবর্তী মুনাফা %s কোটি টাকা। '
-         '%s সালের প্রথম %sটি প্রান্তিকে রেভিনিউ %s কোটি টাকা (%s%%) আর মুনাফা %s কোটি টাকা (%s%%)। '
-         '%s এ প্রান্তিক রেভিনিউ ছিল %s কোটি টাকা। এখন পর্যন্ত সবচেয়ে বেশি রেভিনিউ %s এ, %s কোটি টাকা। '
-         'রেভিনিউর %s%% এখন আসে ডেটা থেকে, আর একজন গ্রাহক গড়ে মাসে %s GB ডেটা ব্যবহার করেন।') % (
-        ql(L, 'bn'), fmt(L['rev_cr'], 0, 'bn'), fmt(abs(pc(L['rev_cr'], Y['rev_cr'])), 1, 'bn'), 'বেশি' if L['rev_cr'] > Y['rev_cr'] else 'কম', fmt(L['pat_cr'], 0, 'bn'), bn(L['y']), bn(len(ytd)), fmt(r9, 0, 'bn'), sgn(pc(r9, r90), 1, 'bn'), fmt(p9, 0, 'bn'), sgn(pc(p9, p90), 1, 'bn'),
-        ql(F, 'bn'), fmt(F['rev_cr'], 0, 'bn'), ql(best, 'bn'), fmt(best['rev_cr'], 0, 'bn'), fmt(L['data_share'], 1, 'bn'), fmt(L['gb_per_sub_month'], 1, 'bn')), 'p')
-
-    C = lambda *a, **k: qchart(B, R, *a, **k)
-    charts = [
-        (('Quarterly revenue', 'প্রান্তিক রেভিনিউ'), ('Tk crore. The latest quarter is shaded darker.', 'কোটি টাকা। সর্বশেষ প্রান্তিক গাঢ় রঙে।'),
-         C([('rev_cr', 'Revenue', 'রেভিনিউ', '--robi')], 0, 2800, 700, ' cr', ' কোটি')),
-        (('EBITDA margin', 'EBITDA মার্জিন'), ('EBITDA as a share of revenue, %', 'রেভিনিউর তুলনায় EBITDA, %'),
-         C([('ebitda_margin_pct', 'EBITDA margin', 'EBITDA মার্জিন', '--robi')], 30, 60, 10, '%', '%', d=1, kind='line')),
-        (('Profit after tax', 'কর-পরবর্তী মুনাফা'), ('Tk crore. Red bars are losses.', 'কোটি টাকা। লাল বার মানে লোকসান।'),
-         C([('pat_cr', 'Profit after tax', 'কর-পরবর্তী মুনাফা', '--accent')], -100, 400, 100, ' cr', ' কোটি')),
-        (('Data revenue and its share of revenue', 'ডেটা রেভিনিউ আর মোট রেভিনিউতে এর ভাগ'), ('Data revenue in Tk crore (bars). Robi publishes it from the last quarter of 2020.', 'ডেটা রেভিনিউ, কোটি টাকা (বার)। রবি এটা ২০২০ এর শেষ প্রান্তিক থেকে প্রকাশ করে।'),
-         C([('data_cr', 'Data revenue', 'ডেটা রেভিনিউ', '--gp')], 0, 1300, 325, ' cr', ' কোটি')),
-        (('Data use per subscriber', 'গ্রাহকপ্রতি ডেটা ব্যবহার'), ('GB per subscriber per month', 'প্রতি মাসে গ্রাহকপ্রতি GB'),
-         C([('gb_per_sub_month', 'GB per month', 'মাসে GB', '--gp')], 0, 12, 3, ' GB', ' GB', d=1)),
-        (('Subscribers', 'গ্রাহক'), ('Millions: all subscribers, data users and 4G data users', 'মিলিয়ন: মোট গ্রাহক, ডেটা ব্যবহারকারী আর 4G ডেটা ব্যবহারকারী'),
-         C([('subs_m', 'All', 'মোট', '--robi'), ('data_subs_m', 'Data', 'ডেটা', '--gp'), ('users_4g_m', '4G data', '4G ডেটা', '--tt')], 0, 60, 15, 'm', ' মি.', d=1, kind='line', h=280)),
-        (('ARPU', 'ARPU'), ('Average monthly revenue per user, Tk. See the note on method changes below.', 'গ্রাহকপ্রতি গড় মাসিক আয়, টাকা। পদ্ধতি বদলের নোট নিচে দেখুন।'),
-         C([('arpu_bdt', 'ARPU', 'ARPU', '--robi')], 100, 160, 15, ' Tk', ' টাকা', kind='line')),
-        (('Capital spending', 'মূলধনী বিনিয়োগ (ক্যাপেক্স)'), ('Tk crore, excluding spectrum and leased assets', 'কোটি টাকা, তরঙ্গ আর লিজ সম্পদ বাদে'),
-         C([('capex_cr', 'Capex', 'ক্যাপেক্স', '--amber')], 0, 800, 200, ' cr', ' কোটি')),
-        (('Network sites', 'নেটওয়ার্ক সাইট'), ('Thousands of on-air sites, all and 4G', 'চালু সাইট, হাজারে: মোট আর 4G'),
-         C([('sites_k', 'All sites', 'মোট সাইট', '--robi'), ('sites4_k', '4G sites', '4G সাইট', '--tt')], 10, 22, 3, 'k', ' হা.', d=1, kind='line', h=260)),
-    ]
-    chtml = ''.join('<section class="block"><div class="card"><h3>%s</h3><p class="sub">%s</p>%s</div></section>' % (T(*a), T(*b), c) for a, b, c in charts)
-
-    # annual table
-    years = sorted(set(r['y'] for r in R))
-    arows = ''
-    for yv in reversed(years):
-        rs = [r for r in R if r['y'] == yv]
-        if len(rs) < 4 and yv != L['y']: continue
-        lab = T(str(yv), bn(yv)) if len(rs) == 4 else T('%d (Q1 to Q%s)' % (yv, L['q']), '%s (Q১ থেকে Q%s)' % (bn(yv), QBN[L['q']]))
-        rev, eb, pat, cap = s(rs, 'rev_cr'), s(rs, 'ebitda_cr'), s(rs, 'pat_cr'), s(rs, 'capex_cr')
-        dr = s(rs, 'data_cr') if all(r['data_cr'] is not None for r in rs) else None
-        cell = lambda v, d=0: '<td>%s</td>' % (T(fmt(v, d), fmt(v, d, 'bn')) if v is not None else '<span class="gap">–</span>')
-        arows += '<tr><td>%s</td>%s%s%s%s%s%s</tr>' % (lab, cell(rev), cell(eb), cell(eb / rev * 100, 1), cell(pat), cell(cap), cell(dr))
-    ath = ''.join('<th>%s</th>' % T(a, b) for a, b in [('Year', 'বছর'), ('Revenue', 'রেভিনিউ'), ('EBITDA', 'EBITDA'), ('Margin %', 'মার্জিন %'), ('Profit after tax', 'কর-পরবর্তী মুনাফা'), ('Capex', 'ক্যাপেক্স'), ('Data revenue', 'ডেটা রেভিনিউ')])
-
-    # quarterly table
-    QC = [('rev_cr', 'Revenue (cr)', 'রেভিনিউ (কোটি)', 0), ('ebitda_cr', 'EBITDA (cr)', 'EBITDA (কোটি)', 0), ('ebitda_margin_pct', 'Margin %', 'মার্জিন %', 1), ('pat_cr', 'PAT (cr)', 'মুনাফা (কোটি)', 0),
-          ('capex_cr', 'Capex (cr)', 'ক্যাপেক্স (কোটি)', 0), ('data_cr', 'Data rev (cr)', 'ডেটা রেভিনিউ (কোটি)', 0), ('subs_m', 'Subs (m)', 'গ্রাহক (মি.)', 1), ('data_subs_m', 'Data subs (m)', 'ডেটা গ্রাহক (মি.)', 1),
-          ('users_4g_m', '4G users (m)', '4G ব্যবহারকারী (মি.)', 1), ('arpu_bdt', 'ARPU (Tk)', 'ARPU (টাকা)', 0), ('gb_per_sub_month', 'GB/sub/mo', 'GB/গ্রাহক/মাস', 1), ('mou_min', 'Minutes/sub', 'মিনিট/গ্রাহক', 0), ('sites', 'Sites', 'সাইট', 0), ('sites_4g', '4G sites', '4G সাইট', 0)]
-    qth = '<th>%s</th>' % T('Quarter', 'প্রান্তিক') + ''.join('<th>%s</th>' % T(a, b) for _, a, b, _ in QC)
-    def qcell(r, k, d):
-        v = r[k]
-        if v is None: return '<td><span class="gap">–</span></td>'
-        fl = (k in ('data_cr', 'users_4g_m', 'gb_per_sub_month') and r['quarter'] == '3Q24')
-        return '<td%s>%s</td>' % (' class="flag" title="Excludes free data"' if fl else '', T(fmt(v, d), fmt(v, d, 'bn')))
-    qrows = ''.join('<tr><td>%s</td>%s</tr>' % (T(ql(r), ql(r, 'bn')), ''.join(qcell(r, k, d) for k, _, _, d in QC)) for r in reversed(R))
-
-    notes = [
+OPS_FIN = {
+    'robi': dict(src='robi-financials.csv', csv='robi-financials-2020-2026.csv', op=1, col='--robi', company='Robi Axiata PLC', company_bn='রবি আজিয়াটা পিএলসি',
+                 pub=('29 Oct 2026', '২৯ অক্টো ২০২৬'), site='https://www.robi.com.bd',
+                 tile8=('sites', 'Network sites', 'নেটওয়ার্ক সাইট', 0, '', ''),
+                 notes=[
         ('ARPU method changes. Robi has changed how it calculates ARPU more than once, and its own reports show different values for the same quarter. For example, one 2025 summary gives 125 Tk for the first quarter of 2025 while the investor presentations give 138 Tk. This page uses the series that matches Robi’s latest presentations, so compare ARPU across long periods with care.',
          'ARPU এর হিসাবের পদ্ধতি: রবি একাধিকবার ARPU হিসাবের পদ্ধতি বদলেছে, তাই তাদের নিজেদের প্রতিবেদনেই একই প্রান্তিকের আলাদা সংখ্যা পাওয়া যায়। যেমন ২০২৫ এর একটি সারসংক্ষেপে ২০২৫ এর প্রথম প্রান্তিকের ARPU ১২৫ টাকা, কিন্তু বিনিয়োগকারীদের প্রেজেন্টেশনে ১৩৮ টাকা। এই পেজে রবির সর্বশেষ প্রেজেন্টেশনের সাথে মেলে এমন সিরিজ ব্যবহার করা হয়েছে, তাই দীর্ঘ সময়ের ARPU তুলনা সাবধানে করুন।'),
         ('Q3 2024: the older five-year summary repeats the second quarter’s balance sheet in the third quarter column. This page uses the corrected figures from Robi’s 2024 to 2025 summary (total assets Tk 213,546 million). Data revenue, 4G users and data use for that quarter exclude free data given during the period, as Robi notes; those cells are marked.',
@@ -192,55 +116,275 @@ def build_finance(B):
         ('Q4 2025: depreciation jumped to Tk 6,624 million from about Tk 3,700 million a quarter, so operating profit (EBIT) fell to Tk 2,724 million even though EBITDA held steady. Profit after tax still rose that quarter.',
          '২০২৫ এর চতুর্থ প্রান্তিক: অবচয় প্রতি প্রান্তিকের প্রায় ৩,৭০০ মিলিয়ন টাকা থেকে বেড়ে ৬,৬২৪ মিলিয়ন টাকা হয়েছে, তাই EBITDA স্থির থাকলেও পরিচালন মুনাফা (EBIT) কমে ২,৭২৪ মিলিয়ন টাকা হয়েছে। তবু সেই প্রান্তিকে কর-পরবর্তী মুনাফা বেড়েছে।'),
         ('Every quarter is checked: mobile, interconnect and other revenue add up to total revenue; EBITDA minus depreciation and amortisation equals EBIT; liabilities plus equity equal total assets. Data revenue added up by year matches the yearly totals in Robi’s presentations.',
-         'প্রতিটি প্রান্তিক যাচাই করা: মোবাইল, ইন্টারকানেক্ট আর অন্যান্য রেভিনিউ যোগ করলে মোট রেভিনিউ হয়; EBITDA থেকে অবচয় ও অ্যামর্টাইজেশন বাদ দিলে EBIT হয়; দায় আর ইকুইটি যোগ করলে মোট সম্পদ হয়। বছরভিত্তিক ডেটা রেভিনিউর যোগফল রবির প্রেজেন্টেশনের বার্ষিক মোটের সাথে মেলে।'),
+         'প্রতিটি প্রান্তিক যাচাই করা: মোবাইল, ইন্টারকানেক্ট আর অন্যান্য রেভিনিউ যোগ করলে মোট রেভিনিউ হয়; EBITDA থেকে অবচয় ও অ্যামর্টাইজেশন বাদ দিলে EBIT হয়; দায় আর ইকুইটি যোগ করলে মোট সম্পদ হয়। বছরভিত্তিক ডেটা রেভিনিউর যোগফল রবির প্রেজেন্টেশনের বার্ষিক মোটের সাথে মেলে।')],
+                 flag=('3Q24', ('data_cr', 'users_4g_m', 'gb_per_sub_month'), 'Excludes free data')),
+    'grameenphone': dict(src='gp-financials.csv', csv='grameenphone-financials-2020-2026.csv', op=0, col='--gp', company='Grameenphone Ltd.', company_bn='গ্রামীণফোন লিমিটেড',
+               pub=('27 Oct 2026', '২৭ অক্টো ২০২৬'), site='https://www.grameenphone.com/about/investor-relations',
+               tile8=('eps_bdt', 'Earnings per share', 'শেয়ারপ্রতি আয়', 2, ' Tk', ' টাকা'),
+               notes=[
+        ('Data revenue is shown only up to the end of 2023, because Grameenphone stopped publishing it after that. Grameenphone’s data revenue covers pay-as-you-go data, data packs and outbound roaming; data inside voice and data bundles is counted separately as bundle revenue, so it is not directly comparable with Robi’s data revenue.',
+         'ডেটা রেভিনিউ দেখানো হয়েছে ২০২৩ সালের শেষ পর্যন্ত, কারণ এরপর গ্রামীণফোন এটা প্রকাশ করা বন্ধ করেছে। গ্রামীণফোনের ডেটা রেভিনিউতে আছে পে-অ্যাজ-ইউ-গো ডেটা, ডেটা প্যাক আর আউটবাউন্ড রোমিং; ভয়েস ও ডেটার বান্ডেল প্যাকের আয় আলাদা করে "বান্ডেল রেভিনিউ" হিসেবে গোনা হয়। তাই এটা রবির ডেটা রেভিনিউর সাথে সরাসরি তুলনীয় নয়।'),
+        ('Active data users are subscriptions with at least 150 KB of data use in the last three months. Grameenphone published 4G data users only from the end of 2021 to the end of 2023, and does not publish quarterly site counts.',
+         'সক্রিয় ডেটা ব্যবহারকারী মানে যে সাবস্ক্রিপশনে গত তিন মাসে অন্তত ১৫০ কেবি ডেটা ব্যবহার হয়েছে। গ্রামীণফোন 4G ডেটা ব্যবহারকারীর সংখ্যা শুধু ২০২১ এর শেষ থেকে ২০২৩ এর শেষ পর্যন্ত প্রকাশ করেছে, আর প্রান্তিকভিত্তিক সাইট সংখ্যা প্রকাশ করে না।'),
+        ('Quarterly profit for 2020 comes from Grameenphone’s presentations and earnings per share (1,350.3 million shares). The four quarters add up to the audited 2020 profit of Tk 37,187 million. In the newest analytical workbook the 2020 subscriber and ARPU cells are misaligned, so those come from the 2021 workbook.',
+         '২০২০ সালের প্রান্তিক মুনাফা নেওয়া হয়েছে গ্রামীণফোনের প্রেজেন্টেশন আর শেয়ারপ্রতি আয় থেকে (১৩৫.০৩ কোটি শেয়ার)। চার প্রান্তিকের যোগফল অডিট করা ২০২০ সালের মুনাফা ৩৭,১৮৭ মিলিয়ন টাকার সাথে হুবহু মেলে। সর্বশেষ বিশ্লেষণী ওয়ার্কবুকে ২০২০ এর গ্রাহক আর ARPU এর ঘরগুলো এলোমেলো, তাই সেগুলো ২০২১ এর ওয়ার্কবুক থেকে নেওয়া।'),
+        ('EBITDA is before other items, as Grameenphone reports it. Capex excludes licence and spectrum fees and leased assets, the same basis as Robi. Every quarter is checked: mobile and non-mobile revenue add up to total revenue, EBITDA minus depreciation equals operating profit, and liabilities plus equity equal total assets. Each year’s quarters add up to the audited annual revenue and profit.',
+         'EBITDA গ্রামীণফোনের হিসাব অনুযায়ী অন্যান্য খাতের আগে। ক্যাপেক্সে লাইসেন্স ও তরঙ্গ ফি আর লিজ সম্পদ বাদ, রবির মতোই। প্রতিটি প্রান্তিক যাচাই করা: মোবাইল আর নন-মোবাইল রেভিনিউ যোগ করলে মোট রেভিনিউ হয়, EBITDA থেকে অবচয় বাদ দিলে পরিচালন মুনাফা হয়, আর দায় ও ইকুইটি যোগ করলে মোট সম্পদ হয়। প্রতি বছরের প্রান্তিকগুলোর যোগফল অডিট করা বার্ষিক রেভিনিউ আর মুনাফার সাথে মেলে।')],
+               flag=None),
+}
+
+
+def build_one(B, slug, R):
+    T, bn, ic, page, sgn = B.T, B.bn, B.ic, B.page, B.sgn
+    write = lambda p, h: B.write(p, bnfix(h))
+    C_ = OPS_FIN[slug]; O = B.OPS[C_['op']]; col = C_['col']
+    L = R[-1]; Y = [r for r in R if r['key'] == L['key'] - 10][0]
+    ytd = [r for r in R if r['y'] == L['y']]; ytd0 = [r for r in R if r['y'] == L['y'] - 1 and int(r['q']) <= int(L['q'])]
+    s = lambda rs, k: sum(r[k] for r in rs)
+    pc = lambda a, b: (a - b) / abs(b) * 100
+    F = R[0]
+
+    raw = list(csv.DictReader(open(os.path.join(B.HERE, 'data_src', C_['src']))))
+    with open(os.path.join(B.OUT, C_['csv']), 'w', newline='') as f:
+        w = csv.writer(f); hdr = list(raw[0].keys())
+        w.writerow(['operator'] + [h + ('_bdt_m' if h in MILLION_COLS else '') for h in hdr])
+        for r in raw: w.writerow([O['en']] + [r[h] for h in hdr])
+
+    def yoy(k):
+        v = pc(L[k], Y[k]); c = 'up' if v > 0 else 'down'
+        return ('<b class="%s">%s%%</b> vs %s' % (c, sgn(v, 1), ql(Y, 'en', True)), '%s এর তুলনায় <b class="%s">%s%%</b>' % (ql(Y, 'bn', True), c, sgn(v, 1, 'bn')))
+
+    def pp(k):
+        v = L[k] - Y[k]; c = 'up' if v > 0 else 'down'
+        return ('<b class="%s">%s pts</b> vs %s' % (c, sgn(v, 1), ql(Y, 'en', True)), '%s এর তুলনায় <b class="%s">%s পয়েন্ট</b>' % (ql(Y, 'bn', True), c, sgn(v, 1, 'bn')))
+
+    def tile(en, bnn, v_en, v_bn, ch):
+        return '<div class="tile kpi"><div class="l">%s</div><div class="v">%s</div><div class="d">%s</div><div class="meta">%s</div></div>' % (
+            T(en, bnn), T(v_en, v_bn), T(*ch), T(ql(L) + ' · ' + O['en'], ql(L, 'bn') + ' · ' + O['bn']))
+    k8, e8, b8, d8, ue8, ub8 = C_['tile8']
+    tiles = (tile('Revenue', 'রেভিনিউ', fmt(L['rev_cr']) + '<small> Tk cr</small>', fmt(L['rev_cr'], 0, 'bn') + '<small> কোটি টাকা</small>', yoy('rev_cr'))
+             + tile('EBITDA margin', 'EBITDA মার্জিন', fmt(L['ebitda_margin_pct'], 1) + '<small>%</small>', fmt(L['ebitda_margin_pct'], 1, 'bn') + '<small>%</small>', pp('ebitda_margin_pct'))
+             + tile('Profit after tax', 'কর-পরবর্তী মুনাফা', fmt(L['pat_cr']) + '<small> Tk cr</small>', fmt(L['pat_cr'], 0, 'bn') + '<small> কোটি টাকা</small>', yoy('pat_cr'))
+             + tile('ARPU (monthly)', 'ARPU (মাসিক)', fmt(L['arpu_bdt']) + '<small> Tk</small>', fmt(L['arpu_bdt'], 0, 'bn') + '<small> টাকা</small>', yoy('arpu_bdt'))
+             + tile('Subscribers', 'গ্রাহক', fmt(L['subs_m'], 1) + '<small>m</small>', fmt(L['subs_m'], 1, 'bn') + '<small>মি.</small>', yoy('subs_m'))
+             + tile('Data users', 'ডেটা ব্যবহারকারী', fmt(L['data_subs_m'], 1) + '<small>m</small>', fmt(L['data_subs_m'], 1, 'bn') + '<small>মি.</small>', yoy('data_subs_m'))
+             + tile('Data use per subscriber', 'গ্রাহকপ্রতি ডেটা ব্যবহার', fmt(L['gb_per_sub_month'], 1) + '<small> GB/mo</small>', fmt(L['gb_per_sub_month'], 1, 'bn') + '<small> GB/মাস</small>', yoy('gb_per_sub_month'))
+             + tile(e8, b8, fmt(L[k8], d8) + ('<small>%s</small>' % ue8 if ue8 else ''), fmt(L[k8], d8, 'bn') + ('<small>%s</small>' % ub8 if ub8 else ''), yoy(k8)))
+
+    r9, r90 = s(ytd, 'rev_cr'), s(ytd0, 'rev_cr'); p9, p90 = s(ytd, 'pat_cr'), s(ytd0, 'pat_cr')
+    best = max(R, key=lambda r: r['rev_cr'])
+    dv = pc(L['rev_cr'], Y['rev_cr'])
+    tail_en = ('Data now brings in %s%% of revenue, and the average subscriber uses %s GB a month.' % (fmt(L['data_share'], 1), fmt(L['gb_per_sub_month'], 1))) if L['data_share'] else \
+              ('%s million of its %s million subscribers use data, and the average subscriber uses %s GB a month.' % (fmt(L['data_subs_m'], 1), fmt(L['subs_m'], 1), fmt(L['gb_per_sub_month'], 1)))
+    tail_bn = ('রেভিনিউর %s%% এখন আসে ডেটা থেকে, আর একজন গ্রাহক গড়ে মাসে %s GB ডেটা ব্যবহার করেন।' % (fmt(L['data_share'], 1, 'bn'), fmt(L['gb_per_sub_month'], 1, 'bn'))) if L['data_share'] else \
+              ('%s মিলিয়ন গ্রাহকের মধ্যে %s মিলিয়ন ডেটা ব্যবহার করেন, আর একজন গ্রাহক গড়ে মাসে %s GB ডেটা ব্যবহার করেন।' % (fmt(L['subs_m'], 1, 'bn'), fmt(L['data_subs_m'], 1, 'bn'), fmt(L['gb_per_sub_month'], 1, 'bn')))
+    story = T(('In %s %s earned Tk %s crore in revenue, %s%% %s than a year earlier, and kept Tk %s crore as profit after tax. '
+               'For the first %d quarters of %d revenue reached Tk %s crore (%s%%) and profit Tk %s crore (%s%%). '
+               'In %s quarterly revenue was Tk %s crore, and the best quarter on record is %s at Tk %s crore. ') % (
+        ql(L), O['en'], fmt(L['rev_cr']), fmt(abs(dv), 1), 'more' if dv > 0 else 'less', fmt(L['pat_cr']), len(ytd), L['y'], fmt(r9), sgn(pc(r9, r90), 1), fmt(p9), sgn(pc(p9, p90), 1),
+        ql(F), fmt(F['rev_cr']), ql(best), fmt(best['rev_cr'])) + tail_en,
+        ('%s এ %s এর রেভিনিউ %s কোটি টাকা, আগের বছরের একই প্রান্তিকের চেয়ে %s%% %s, আর কর-পরবর্তী মুনাফা %s কোটি টাকা। '
+         '%s সালের প্রথম %sটি প্রান্তিকে রেভিনিউ %s কোটি টাকা (%s%%) আর মুনাফা %s কোটি টাকা (%s%%)। '
+         '%s এ প্রান্তিক রেভিনিউ ছিল %s কোটি টাকা। এখন পর্যন্ত সবচেয়ে বেশি রেভিনিউ %s এ, %s কোটি টাকা। ') % (
+        ql(L, 'bn'), O['bn'], fmt(L['rev_cr'], 0, 'bn'), fmt(abs(dv), 1, 'bn'), 'বেশি' if dv > 0 else 'কম', fmt(L['pat_cr'], 0, 'bn'), bn(L['y']), bn(len(ytd)), fmt(r9, 0, 'bn'), sgn(pc(r9, r90), 1, 'bn'), fmt(p9, 0, 'bn'), sgn(pc(p9, p90), 1, 'bn'),
+        ql(F, 'bn'), fmt(F['rev_cr'], 0, 'bn'), ql(best, 'bn'), fmt(best['rev_cr'], 0, 'bn')) + tail_bn, 'p')
+
+    def C(series, ue, ub, d=0, kind='bar', h=260, floor0=True):
+        a, b, st = nice([r[k] for r in R for k, *_ in series if r[k] is not None], floor0=floor0)
+        return qchart(B, R, series, a, b, st, ue, ub, d=d, kind=kind, h=h)
+    has_dr = any(r['data_cr'] for r in R); has_4g = any(r['users_4g_m'] for r in R); has_sites = any(r['sites_k'] for r in R)
+    lastdr = [r for r in R if r['data_cr']][-1] if has_dr else None
+    charts = [
+        (('Quarterly revenue', 'প্রান্তিক রেভিনিউ'), ('Tk crore. The latest quarter is shaded darker.', 'কোটি টাকা। সর্বশেষ প্রান্তিক গাঢ় রঙে।'), C([('rev_cr', 'Revenue', 'রেভিনিউ', col)], ' cr', ' কোটি')),
+        (('EBITDA margin', 'EBITDA মার্জিন'), ('EBITDA as a share of revenue, %', 'রেভিনিউর তুলনায় EBITDA, %'), C([('ebitda_margin_pct', 'EBITDA margin', 'EBITDA মার্জিন', col)], '%', '%', d=1, kind='line', floor0=False)),
+        (('Profit after tax', 'কর-পরবর্তী মুনাফা'), ('Tk crore. Red bars are losses.', 'কোটি টাকা। লাল বার মানে লোকসান।'), C([('pat_cr', 'Profit after tax', 'কর-পরবর্তী মুনাফা', '--accent')], ' cr', ' কোটি')),
     ]
-    nhtml = ''.join('<li>%s</li>' % T(a, b) for a, b in notes)
+    if has_dr:
+        charts.append((('Data revenue', 'ডেটা রেভিনিউ'), ('Tk crore, %s to %s, as published by %s.' % (ql([r for r in R if r['data_cr']][0]), ql(lastdr), O['en']), 'কোটি টাকা, %s থেকে %s, %s এর প্রকাশিত হিসাব।' % (ql([r for r in R if r['data_cr']][0], 'bn'), ql(lastdr, 'bn'), O['bn'])),
+                       C([('data_cr', 'Data revenue', 'ডেটা রেভিনিউ', '--total')], ' cr', ' কোটি')))
+    charts += [
+        (('Data use per subscriber', 'গ্রাহকপ্রতি ডেটা ব্যবহার'), ('GB per subscriber per month', 'প্রতি মাসে গ্রাহকপ্রতি GB'), C([('gb_per_sub_month', 'GB per month', 'মাসে GB', '--total')], ' GB', ' GB', d=1)),
+        (('Subscribers', 'গ্রাহক'), ('Millions: all subscribers, data users%s' % (' and 4G data users' if has_4g else ''), 'মিলিয়ন: মোট গ্রাহক, ডেটা ব্যবহারকারী%s' % (' আর 4G ডেটা ব্যবহারকারী' if has_4g else '')),
+         C([('subs_m', 'All', 'মোট', col), ('data_subs_m', 'Data', 'ডেটা', '--total')] + ([('users_4g_m', '4G data', '4G ডেটা', '--tt')] if has_4g else []), 'm', ' মি.', d=1, kind='line', h=280)),
+        (('ARPU', 'ARPU'), ('Average monthly revenue per user, Tk', 'গ্রাহকপ্রতি গড় মাসিক আয়, টাকা'), C([('arpu_bdt', 'ARPU', 'ARPU', col)], ' Tk', ' টাকা', kind='line', floor0=False)),
+        (('Capital spending', 'মূলধনী বিনিয়োগ (ক্যাপেক্স)'), ('Tk crore, excluding spectrum, licence fees and leased assets', 'কোটি টাকা, তরঙ্গ, লাইসেন্স ফি আর লিজ সম্পদ বাদে'), C([('capex_cr', 'Capex', 'ক্যাপেক্স', '--amber')], ' cr', ' কোটি')),
+    ]
+    if has_sites:
+        charts.append((('Network sites', 'নেটওয়ার্ক সাইট'), ('Thousands of on-air sites, all and 4G', 'চালু সাইট, হাজারে: মোট আর 4G'),
+                       C([('sites_k', 'All sites', 'মোট সাইট', col), ('sites4_k', '4G sites', '4G সাইট', '--tt')], 'k', ' হা.', d=1, kind='line', floor0=False)))
+    chtml = ''.join('<section class="block"><div class="card"><h3>%s</h3><p class="sub">%s</p>%s</div></section>' % (T(*a), T(*b), c) for a, b, c in charts)
+
+    years = sorted(set(r['y'] for r in R)); arows = ''
+    cell = lambda v, d=0: '<td>%s</td>' % (T(fmt(v, d), fmt(v, d, 'bn')) if v is not None else '<span class="gap">–</span>')
+    for yv in reversed(years):
+        rs = [r for r in R if r['y'] == yv]
+        if len(rs) < 4 and yv != L['y']: continue
+        lab = T(str(yv), bn(yv)) if len(rs) == 4 else T('%d (Q1 to Q%s)' % (yv, L['q']), '%s (Q১ থেকে Q%s)' % (bn(yv), QBN[L['q']]))
+        rev, eb, pat, cap = s(rs, 'rev_cr'), s(rs, 'ebitda_cr'), s(rs, 'pat_cr'), s(rs, 'capex_cr')
+        dr = s(rs, 'data_cr') if all(r['data_cr'] is not None for r in rs) else None
+        arows += '<tr><td>%s</td>%s%s%s%s%s%s</tr>' % (lab, cell(rev), cell(eb), cell(eb / rev * 100, 1), cell(pat), cell(cap), cell(dr))
+    ath = ''.join('<th>%s</th>' % T(a, b) for a, b in [('Year', 'বছর'), ('Revenue', 'রেভিনিউ'), ('EBITDA', 'EBITDA'), ('Margin %', 'মার্জিন %'), ('Profit after tax', 'কর-পরবর্তী মুনাফা'), ('Capex', 'ক্যাপেক্স'), ('Data revenue', 'ডেটা রেভিনিউ')])
+
+    QC = [('rev_cr', 'Revenue (cr)', 'রেভিনিউ (কোটি)', 0), ('ebitda_cr', 'EBITDA (cr)', 'EBITDA (কোটি)', 0), ('ebitda_margin_pct', 'Margin %', 'মার্জিন %', 1), ('pat_cr', 'PAT (cr)', 'মুনাফা (কোটি)', 0),
+          ('capex_cr', 'Capex (cr)', 'ক্যাপেক্স (কোটি)', 0), ('data_cr', 'Data rev (cr)', 'ডেটা রেভিনিউ (কোটি)', 0), ('subs_m', 'Subs (m)', 'গ্রাহক (মি.)', 1), ('data_subs_m', 'Data users (m)', 'ডেটা ব্যবহারকারী (মি.)', 1),
+          ('users_4g_m', '4G users (m)', '4G ব্যবহারকারী (মি.)', 1), ('arpu_bdt', 'ARPU (Tk)', 'ARPU (টাকা)', 0), ('gb_per_sub_month', 'GB/sub/mo', 'GB/গ্রাহক/মাস', 1), ('mou_min', 'Minutes/sub', 'মিনিট/গ্রাহক', 0)]
+    if has_sites: QC += [('sites', 'Sites', 'সাইট', 0), ('sites_4g', '4G sites', '4G সাইট', 0)]
+    if not has_dr: QC = [x for x in QC if x[0] != 'data_cr']
+    qth = '<th>%s</th>' % T('Quarter', 'প্রান্তিক') + ''.join('<th>%s</th>' % T(a, b) for _, a, b, _ in QC)
+    fl = C_['flag']
+    def qcell(r, k, d):
+        v = r[k]
+        if v is None: return '<td><span class="gap">–</span></td>'
+        f_ = fl and r['quarter'] == fl[0] and k in fl[1]
+        return '<td%s>%s</td>' % (' class="flag" title="%s"' % fl[2] if f_ else '', T(fmt(v, d), fmt(v, d, 'bn')))
+    qrows = ''.join('<tr><td>%s</td>%s</tr>' % (T(ql(r), ql(r, 'bn')), ''.join(qcell(r, k, d) for k, _, _, d in QC)) for r in reversed(R))
+    nhtml = ''.join('<li>%s</li>' % T(a, b) for a, b in C_['notes'])
+    other = [x for x in OPS_FIN if x != slug]
+    rel = ''.join('<a class="linkcard" href="/bd-telecom/kpi/finance/%s/"><span class="ti">%s%s</span><p>%s</p></a>' % (x, B.badge(B.OPS[OPS_FIN[x]['op']]), T(B.OPS[OPS_FIN[x]['op']]['en'] + ' finances', B.OPS[OPS_FIN[x]['op']]['bn'] + ' এর আর্থিক অবস্থা'), T('Every quarter since 2020', '২০২০ থেকে প্রতি প্রান্তিক')) for x in other)
 
     body = '''<header class="pagehead"><h1 style="display:flex;align-items:center;gap:14px">%s%s</h1><p class="dek">%s</p><span class="updated">%s</span></header>
 %s
 <div class="tiles kpis">%s</div>
-<div class="btns" style="margin:4px 0 14px"><a class="btn primary adm" href="/bd-telecom/robi-financials-2020-2026.csv" download>%s%s</a><a class="btn" href="https://www.robi.com.bd" rel="noopener">%s%s</a></div>
+<div class="btns" style="margin:4px 0 14px"><a class="btn primary adm" href="/bd-telecom/%s" download>%s%s</a><a class="btn" href="/bd-telecom/kpi/finance/">%s%s</a><a class="btn" href="%s" rel="noopener">%s%s</a></div>
 <div class="callout"><span>%s</span><p>%s</p></div>
 %s
 <section class="block"><div class="sechead"><h2>%s</h2></div><p class="sub" style="margin:0 0 12px">%s</p><div class="card"><div class="tablewrap"><table><thead><tr>%s</tr></thead><tbody>%s</tbody></table></div></div></section>
 <section class="block"><div class="sechead"><h2>%s</h2></div><p class="sub" style="margin:0 0 12px">%s</p><div class="card"><div class="tablewrap"><table class="wide"><thead><tr>%s</tr></thead><tbody>%s</tbody></table></div></div></section>
 <section class="block"><div class="sechead"><h2>%s</h2></div><div class="callout warn"><span>%s</span><ul style="margin:0;padding-left:18px">%s</ul></div></section>
-<section class="block"><div class="sechead"><h2>%s</h2></div><div class="cards"><a class="linkcard" href="/bd-telecom/operators/robi/"><span class="ti">%s%s</span><p>%s</p></a><a class="linkcard" href="/bd-telecom/kpi/"><span class="ti">%s</span><p>%s</p></a></div></section>''' % (
-        B.badge(B.OPS[1], 'badge big'), T('Robi finances, 2020 to 2026', 'রবির আর্থিক অবস্থা, ২০২০ থেকে ২০২৬'),
-        T('Revenue, profit, ARPU, data and network for every quarter from %s to %s, from Robi Axiata PLC’s published results.' % (ql(F), ql(L)),
-          '%s থেকে %s পর্যন্ত প্রতি প্রান্তিকে রবির রেভিনিউ, মুনাফা, ARPU, ডেটা আর নেটওয়ার্ক, রবি আজিয়াটা পিএলসির প্রকাশিত ফলাফল থেকে।' % (ql(F, 'bn'), ql(L, 'bn'))),
-        T('Latest: %s results, published 29 Oct 2026' % ql(L), 'সর্বশেষ: %s এর ফলাফল, প্রকাশ ২৯ অক্টো ২০২৬' % ql(L, 'bn')),
+<section class="block"><div class="sechead"><h2>%s</h2></div><div class="cards">%s<a class="linkcard" href="/bd-telecom/operators/%s/"><span class="ti">%s%s</span><p>%s</p></a><a class="linkcard" href="/bd-telecom/kpi/"><span class="ti">%s</span><p>%s</p></a></div></section>''' % (
+        B.badge(O, 'badge big'), T('%s finances, %d to %d' % (O['en'], F['y'], L['y']), '%s এর আর্থিক অবস্থা, %s থেকে %s' % (O['bn'], bn(F['y']), bn(L['y']))),
+        T('Revenue, profit, ARPU, data use and subscribers for every quarter from %s to %s, from %s’s published results.' % (ql(F), ql(L), C_['company']),
+          '%s থেকে %s পর্যন্ত প্রতি প্রান্তিকে %s এর রেভিনিউ, মুনাফা, ARPU, ডেটা ব্যবহার আর গ্রাহক, %s এর প্রকাশিত ফলাফল থেকে।' % (ql(F, 'bn'), ql(L, 'bn'), O['bn'], C_['company_bn'])),
+        T('Latest: %s results, published %s' % (ql(L), C_['pub'][0]), 'সর্বশেষ: %s এর ফলাফল, প্রকাশ %s' % (ql(L, 'bn'), C_['pub'][1])),
         story, tiles,
-        ic('download'), T('Download CSV', 'CSV ডাউনলোড'), ic('book'), T('Robi’s website', 'রবির ওয়েবসাইট'),
-        ic('info'), T('All money figures are in Tk crore (1 crore = 10 million). Changes compare with the same quarter a year earlier. Robi is listed on the Dhaka and Chittagong stock exchanges and publishes these figures every quarter.',
-                      'সব টাকার অঙ্ক কোটি টাকায় (১ কোটি = ১০ মিলিয়ন)। পরিবর্তন আগের বছরের একই প্রান্তিকের তুলনায়। রবি ঢাকা ও চট্টগ্রাম স্টক এক্সচেঞ্জে তালিকাভুক্ত, আর প্রতি প্রান্তিকে এই সংখ্যাগুলো প্রকাশ করে।'),
+        C_['csv'], ic('download'), T('Download CSV', 'CSV ডাউনলোড'), ic('chart'), T('Compare operators', 'অপারেটরদের তুলনা'), C_['site'], ic('book'), T('Investor page', 'বিনিয়োগকারী পেজ'),
+        ic('info'), T('All money figures are in Tk crore (1 crore = 10 million). Changes compare with the same quarter a year earlier. %s is listed on the Dhaka and Chittagong stock exchanges and publishes these figures every quarter.' % O['en'],
+                      'সব টাকার অঙ্ক কোটি টাকায় (১ কোটি = ১০ মিলিয়ন)। পরিবর্তন আগের বছরের একই প্রান্তিকের তুলনায়। %s ঢাকা ও চট্টগ্রাম স্টক এক্সচেঞ্জে তালিকাভুক্ত, আর প্রতি প্রান্তিকে এই সংখ্যাগুলো প্রকাশ করে।' % O['bn']),
         chtml,
         T('Year by year', 'বছরভিত্তিক'), T('Tk crore, sum of the quarters', 'কোটি টাকা, প্রান্তিকগুলোর যোগফল'), ath, arows,
-        T('Quarter by quarter', 'প্রান্তিকভিত্তিক'), T('Money in Tk crore. Shaded cells have a note below.', 'টাকার অঙ্ক কোটিতে। রঙিন ঘরের ব্যাখ্যা নিচে।'), qth, qrows,
+        T('Quarter by quarter', 'প্রান্তিকভিত্তিক'), T('Money in Tk crore.%s' % (' Shaded cells have a note below.' if fl else ''), 'টাকার অঙ্ক কোটিতে।%s' % (' রঙিন ঘরের ব্যাখ্যা নিচে।' if fl else '')), qth, qrows,
         T('Notes on the data', 'ডেটা নিয়ে কিছু কথা'), ic('alert'), nhtml,
-        T('Related', 'সম্পর্কিত'), B.badge(B.OPS[1]), T('Robi subscribers and market share', 'রবির গ্রাহক ও মার্কেট শেয়ার'), T('Monthly BTRC figures', 'BTRC এর মাসিক সংখ্যা'),
+        T('Related', 'সম্পর্কিত'), rel, O['slug'], B.badge(O), T('%s subscribers and market share' % O['en'], '%s এর গ্রাহক ও মার্কেট শেয়ার' % O['bn']), T('Monthly BTRC figures', 'BTRC এর মাসিক সংখ্যা'),
         T('All telecom KPIs', 'সব টেলিকম KPI'), T('Subscribers, quality, finance and infrastructure', 'গ্রাহক, মান, আর্থিক আর অবকাঠামো'))
-    write('kpi/finance/robi/index.html', page('kpi/finance/robi/', 'kpi', 'Robi revenue, profit and ARPU by quarter, 2020 to 2026 | BD Telecom', 'রবির রেভিনিউ, মুনাফা ও ARPU, প্রান্তিকভিত্তিক ২০২০-২০২৬ | BD Telecom',
-          'Robi Axiata quarterly results from %s to %s: revenue Tk %s crore in %s (%s%% a year), EBITDA margin %.1f%%, ARPU Tk %d. Charts, tables and CSV.' % (ql(F), ql(L), fmt(L['rev_cr']), ql(L), sgn(pc(L['rev_cr'], Y['rev_cr']), 1), L['ebitda_margin_pct'], L['arpu_bdt']), body,
+    write('kpi/finance/%s/index.html' % slug, page('kpi/finance/%s/' % slug, 'kpi', '%s revenue, profit and ARPU by quarter, %d to %d | BD Telecom' % (O['en'], F['y'], L['y']), '%s এর রেভিনিউ, মুনাফা ও ARPU, প্রান্তিকভিত্তিক %s-%s | BD Telecom' % (O['bn'], bn(F['y']), bn(L['y'])),
+          '%s quarterly results from %s to %s: revenue Tk %s crore in %s (%s%% a year), EBITDA margin %.1f%%, ARPU Tk %d. Charts, tables and CSV.' % (O['en'], ql(F), ql(L), fmt(L['rev_cr']), ql(L), sgn(dv, 1), L['ebitda_margin_pct'], L['arpu_bdt']), body,
+          crumbs=[('/bd-telecom/', 'BD Telecom', 'BD Telecom'), ('/bd-telecom/kpi/', 'KPI', 'KPI'), ('/bd-telecom/kpi/finance/', 'Finance', 'আর্থিক')]))
+    return L, Y
+
+
+def build_compare(B, D):
+    """Side-by-side page for every operator with financial data."""
+    T, bn, ic, page, sgn = B.T, B.bn, B.ic, B.page, B.sgn
+    write = lambda p, h: B.write(p, bnfix(h))
+    slugs = list(D)
+    keys = sorted(set(r['key'] for s_ in slugs for r in D[s_]))
+    common_last = min(D[s_][-1]['key'] for s_ in slugs)
+    keys = [k for k in keys if k <= common_last]
+    idx = {s_: {r['key']: r for r in D[s_]} for s_ in slugs}
+    M = []
+    for k in keys:
+        row = dict(key=k, y=k // 10, q=str(k % 10), quarter='%dQ%02d' % (k % 10, (k // 10) % 100))
+        for s_ in slugs:
+            r = idx[s_].get(k)
+            for f in ('rev_cr', 'ebitda_margin_pct', 'pat_cr', 'arpu_bdt', 'subs_m', 'data_subs_m', 'gb_per_sub_month', 'capex_cr', 'du_share'):
+                row[s_ + '_' + f] = r[f] if r else None
+        M.append(row)
+    ops = {s_: B.OPS[OPS_FIN[s_]['op']] for s_ in slugs}
+    pc = lambda a, b: (a - b) / abs(b) * 100
+
+    def C(f, ue, ub, d=0, floor0=True, h=280, n=4):
+        ser = [(s_ + '_' + f, ops[s_]['en'], ops[s_]['bn'], OPS_FIN[s_]['col']) for s_ in slugs]
+        a, b, st = nice([r[k] for r in M for k, *_ in ser if r[k] is not None], n=n, floor0=floor0)
+        return qchart(B, M, ser, a, b, st, ue, ub, d=d, kind='line', h=h)
+    charts = [
+        (('Quarterly revenue', 'প্রান্তিক রেভিনিউ'), ('Tk crore', 'কোটি টাকা'), C('rev_cr', ' cr', ' কোটি')),
+        (('EBITDA margin', 'EBITDA মার্জিন'), ('EBITDA as a share of revenue, %', 'রেভিনিউর তুলনায় EBITDA, %'), C('ebitda_margin_pct', '%', '%', 1, False)),
+        (('Profit after tax', 'কর-পরবর্তী মুনাফা'), ('Tk crore', 'কোটি টাকা'), C('pat_cr', ' cr', ' কোটি', n=7)),
+        (('ARPU', 'ARPU'), ('Average monthly revenue per user, Tk. Each operator calculates it its own way.', 'গ্রাহকপ্রতি গড় মাসিক আয়, টাকা। প্রতিটি অপারেটর নিজের পদ্ধতিতে হিসাব করে।'), C('arpu_bdt', ' Tk', ' টাকা', 0, False)),
+        (('Subscribers', 'গ্রাহক'), ('Millions, as each operator reports them', 'মিলিয়ন, প্রতিটি অপারেটরের নিজের হিসাবে'), C('subs_m', 'm', ' মি.', 1)),
+        (('Data users as a share of subscribers', 'গ্রাহকের মধ্যে ডেটা ব্যবহারকারীর ভাগ'), ('%', '%'), C('du_share', '%', '%', 1, False)),
+        (('Data use per subscriber', 'গ্রাহকপ্রতি ডেটা ব্যবহার'), ('GB per subscriber per month', 'প্রতি মাসে গ্রাহকপ্রতি GB'), C('gb_per_sub_month', ' GB', ' GB', 1)),
+        (('Capital spending', 'মূলধনী বিনিয়োগ (ক্যাপেক্স)'), ('Tk crore, excluding spectrum, licence fees and leased assets', 'কোটি টাকা, তরঙ্গ, লাইসেন্স ফি আর লিজ সম্পদ বাদে'), C('capex_cr', ' cr', ' কোটি')),
+    ]
+    chtml = ''.join('<section class="block"><div class="card"><h3>%s</h3><p class="sub">%s</p>%s</div></section>' % (T(*a), T(*b), c) for a, b, c in charts)
+
+    LQ = {s_: idx[s_][common_last] for s_ in slugs}; YQ = {s_: idx[s_][common_last - 10] for s_ in slugs}
+    Lr = LQ[slugs[0]]
+    rows_ = [('Revenue (Tk crore)', 'রেভিনিউ (কোটি টাকা)', 'rev_cr', 0, True), ('Revenue growth, a year', 'এক বছরে রেভিনিউ বৃদ্ধি', None, 1, False), ('EBITDA margin %', 'EBITDA মার্জিন %', 'ebitda_margin_pct', 1, False),
+             ('Profit after tax (Tk crore)', 'কর-পরবর্তী মুনাফা (কোটি টাকা)', 'pat_cr', 0, True), ('Profit margin %', 'মুনাফার হার %', 'npm', 1, False), ('ARPU (Tk)', 'ARPU (টাকা)', 'arpu_bdt', 0, False),
+             ('Subscribers (m)', 'গ্রাহক (মি.)', 'subs_m', 1, False), ('Data users (m)', 'ডেটা ব্যবহারকারী (মি.)', 'data_subs_m', 1, False), ('GB per subscriber a month', 'গ্রাহকপ্রতি মাসিক GB', 'gb_per_sub_month', 1, False),
+             ('Capex (Tk crore)', 'ক্যাপেক্স (কোটি টাকা)', 'capex_cr', 0, True)]
+    for s_ in slugs: LQ[s_]['npm'] = LQ[s_]['pat_cr'] / LQ[s_]['rev_cr'] * 100
+    trs = ''
+    for en, bnn, k, d, _ in rows_:
+        tds = ''
+        for s_ in slugs:
+            if k is None:
+                v = pc(LQ[s_]['rev_cr'], YQ[s_]['rev_cr']); tds += '<td><b style="color:var(--%s)">%s</b></td>' % ('up' if v > 0 else 'down', T(sgn(v, 1) + '%', sgn(v, 1, 'bn') + '%'))
+            else:
+                tds += '<td>%s</td>' % T(fmt(LQ[s_][k], d), fmt(LQ[s_][k], d, 'bn'))
+        trs += '<tr><td style="text-align:left">%s</td>%s</tr>' % (T(en, bnn), tds)
+    th = '<th style="text-align:left">%s</th>' % T(ql(Lr), ql(Lr, 'bn')) + ''.join('<th>%s%s</th>' % (B.badge(ops[s_]), T(ops[s_]['en'], ops[s_]['bn'])) for s_ in slugs)
+
+    tot = sum(LQ[s_]['rev_cr'] for s_ in slugs)
+    shares = ' and '.join('%s %s%%' % (ops[s_]['en'], fmt(LQ[s_]['rev_cr'] / tot * 100, 1)) for s_ in slugs)
+    shares_bn = ' আর '.join('%s %s%%' % (ops[s_]['bn'], fmt(LQ[s_]['rev_cr'] / tot * 100, 1, 'bn')) for s_ in slugs)
+    g = {s_: pc(LQ[s_]['rev_cr'], YQ[s_]['rev_cr']) for s_ in slugs}; fast = max(slugs, key=lambda s_: g[s_])
+    mg = max(slugs, key=lambda s_: LQ[s_]['ebitda_margin_pct'])
+    story = T(('In %s the two listed operators together earned Tk %s crore in revenue. Of that, %s. %s grew fastest over the year (%s%%), while %s kept the highest EBITDA margin (%s%%). '
+               'Banglalink and Teletalk are not listed and are not included here yet.') % (ql(Lr), fmt(tot), shares, ops[fast]['en'], sgn(g[fast], 1), ops[mg]['en'], fmt(LQ[mg]['ebitda_margin_pct'], 1)),
+              ('%s এ তালিকাভুক্ত দুই অপারেটরের মোট রেভিনিউ %s কোটি টাকা। এর মধ্যে %s। এক বছরে সবচেয়ে বেশি বেড়েছে %s এর রেভিনিউ (%s%%), আর EBITDA মার্জিন সবচেয়ে বেশি %s এর (%s%%)। '
+               'বাংলালিংক আর টেলিটক তালিকাভুক্ত নয়, তাই এখনো এখানে নেই।') % (ql(Lr, 'bn'), fmt(tot, 0, 'bn'), shares_bn, ops[fast]['bn'], sgn(g[fast], 1, 'bn'), ops[mg]['bn'], fmt(LQ[mg]['ebitda_margin_pct'], 1, 'bn')), 'p')
+    cards = ''.join('<a class="linkcard" href="/bd-telecom/kpi/finance/%s/"><span class="ti">%s%s</span><p>%s</p></a>' % (s_, B.badge(ops[s_]), T(ops[s_]['en'] + ' finances', ops[s_]['bn'] + ' এর আর্থিক অবস্থা'),
+                    T('Revenue Tk %s crore in %s · every quarter since %d' % (fmt(D[s_][-1]['rev_cr']), ql(D[s_][-1]), D[s_][0]['y']), '%s এ রেভিনিউ %s কোটি টাকা · %s থেকে প্রতি প্রান্তিক' % (ql(D[s_][-1], 'bn'), fmt(D[s_][-1]['rev_cr'], 0, 'bn'), bn(D[s_][0]['y'])))) for s_ in slugs)
+    notes = [('Each operator defines subscribers, data users and ARPU in its own way, so the lines show direction and scale rather than an exact like-for-like match. Grameenphone counts a data user after 150 KB of use in three months.',
+              'প্রতিটি অপারেটর গ্রাহক, ডেটা ব্যবহারকারী আর ARPU নিজের মতো করে হিসাব করে, তাই রেখাগুলো দিক আর আকার বোঝায়, হুবহু তুলনা নয়। গ্রামীণফোন তিন মাসে ১৫০ কেবি ব্যবহার হলে ডেটা ব্যবহারকারী ধরে।'),
+             ('Data revenue is left out of this comparison: Grameenphone stopped publishing it after 2023 and counts bundle revenue separately, so the two series do not match.',
+              'এই তুলনায় ডেটা রেভিনিউ রাখা হয়নি: গ্রামীণফোন ২০২৩ এর পর এটা প্রকাশ বন্ধ করেছে আর বান্ডেলের আয় আলাদা করে গোনে, তাই দুই সিরিজ মেলে না।'),
+             ('Capex excludes spectrum, licence fees and leased assets for both operators, so it is directly comparable.', 'দুই অপারেটরের ক্যাপেক্সেই তরঙ্গ, লাইসেন্স ফি আর লিজ সম্পদ বাদ, তাই সরাসরি তুলনা করা যায়।')]
+    body = '''<header class="pagehead"><h1>%s</h1><p class="dek">%s</p><span class="updated">%s</span></header>
+%s
+<div class="cards">%s</div>
+<section class="block"><div class="sechead"><h2>%s</h2></div><div class="card"><div class="tablewrap"><table><thead><tr>%s</tr></thead><tbody>%s</tbody></table></div></div></section>
+%s
+<section class="block"><div class="sechead"><h2>%s</h2></div><div class="callout warn"><span>%s</span><ul style="margin:0;padding-left:18px">%s</ul></div></section>''' % (
+        T('Mobile operator finances in Bangladesh', 'বাংলাদেশের মোবাইল অপারেটরদের আর্থিক অবস্থা'),
+        T('Grameenphone and Robi side by side: revenue, margins, profit, ARPU, data use and capex for every quarter since 2020, from each company’s published results.',
+          'গ্রামীণফোন আর রবি পাশাপাশি: ২০২০ থেকে প্রতি প্রান্তিকের রেভিনিউ, মার্জিন, মুনাফা, ARPU, ডেটা ব্যবহার আর ক্যাপেক্স, প্রতিটি কোম্পানির প্রকাশিত ফলাফল থেকে।'),
+        T('Latest common quarter: %s' % ql(Lr), 'সর্বশেষ সাধারণ প্রান্তিক: %s' % ql(Lr, 'bn')), story, cards,
+        T('%s at a glance' % ql(Lr), '%s এক নজরে' % ql(Lr, 'bn')), th, trs, chtml,
+        T('Comparing fairly', 'ন্যায্য তুলনার জন্য'), ic('alert'), ''.join('<li>%s</li>' % T(a, b) for a, b in notes))
+    write('kpi/finance/index.html', page('kpi/finance/', 'kpi', 'Grameenphone vs Robi: revenue, profit and ARPU by quarter | BD Telecom', 'গ্রামীণফোন বনাম রবি: রেভিনিউ, মুনাফা ও ARPU | BD Telecom',
+          'Grameenphone and Robi quarterly results compared since 2020: revenue, EBITDA margin, profit, ARPU, subscribers, data use and capex. In %s revenue was Tk %s crore and Tk %s crore.' % (ql(Lr), fmt(LQ['grameenphone']['rev_cr']), fmt(LQ['robi']['rev_cr'])), body,
           crumbs=[('/bd-telecom/', 'BD Telecom', 'BD Telecom'), ('/bd-telecom/kpi/', 'KPI', 'KPI')]))
-
-    # cards for the KPI hub
-    def hub(en, bnn, v_en, v_bn, ch, key, d):
-        return ('<div class="tile kpi"><div class="l">%s %s</div><div class="v">%s</div><div class="d">%s</div>%s<a class="kmore" href="/bd-telecom/kpi/finance/robi/">%s</a><div class="meta">%s</div></div>' % (
-            B.badge(B.OPS[1]), T(en, bnn), T(v_en, v_bn), T(*ch), spark(B, R[-12:], key), T('Full history and table →', 'পুরো ইতিহাস ও সারণি →'), T(ql(L) + ' · Robi results', ql(L, 'bn') + ' · রবির ফলাফল')))
-    cards = (hub('Revenue (quarter)', 'রেভিনিউ (প্রান্তিক)', fmt(L['rev_cr']) + '<small> Tk cr</small>', fmt(L['rev_cr'], 0, 'bn') + '<small> কোটি</small>', yoy('rev_cr'), 'rev_cr', 0)
-             + hub('EBITDA margin', 'EBITDA মার্জিন', fmt(L['ebitda_margin_pct'], 1) + '<small>%</small>', fmt(L['ebitda_margin_pct'], 1, 'bn') + '<small>%</small>', pp('ebitda_margin_pct'), 'ebitda_margin_pct', 1)
-             + hub('ARPU (monthly)', 'ARPU (মাসিক)', fmt(L['arpu_bdt']) + '<small> Tk</small>', fmt(L['arpu_bdt'], 0, 'bn') + '<small> টাকা</small>', yoy('arpu_bdt'), 'arpu_bdt', 0)
-             + hub('Capex (quarter)', 'ক্যাপেক্স (প্রান্তিক)', fmt(L['capex_cr']) + '<small> Tk cr</small>', fmt(L['capex_cr'], 0, 'bn') + '<small> কোটি</small>', yoy('capex_cr'), 'capex_cr', 0)
-             + '<a class="tile kpi more" href="/bd-telecom/kpi/finance/robi/"><div class="l">%s</div><div class="v" style="font-size:1.05rem">%s →</div><div class="meta">%s</div></a>' % (
-                 T('Robi finances', 'রবির আর্থিক অবস্থা'), T('Every quarter since 2020', '২০২০ থেকে প্রতি প্রান্তিক'), T('Charts, tables and CSV', 'চার্ট, সারণি আর CSV')))
-    note = T('Robi results to %s. Grameenphone and Banglalink are being added.' % ql(L), '%s পর্যন্ত রবির ফলাফল। গ্রামীণফোন আর বাংলালিংক যোগ হচ্ছে।' % ql(L, 'bn'))
-    return cards, note, ['bd-telecom/kpi/finance/robi/']
+    return LQ, YQ
 
 
-def spark(B, rows, key):
-    pts = [r[key] for r in rows if r[key] is not None]
-    W, H, p = 200, 40, 5; mn, mx = min(pts), max(pts); n = len(pts)
-    X = lambda i: p + i / (n - 1) * (W - 2 * p); Yy = lambda v: p + (1 - (v - mn) / ((mx - mn) or 1)) * (H - 2 * p)
-    d = ''.join(('M' if i == 0 else 'L') + '%.1f %.1f' % (X(i), Yy(v)) for i, v in enumerate(pts))
-    return '<svg class="mini" viewBox="0 0 %d %d" aria-hidden="true" style="margin:6px 0 2px"><path d="%s" fill="none" stroke="var(--robi)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="%.1f" cy="%.1f" r="3.4" fill="var(--robi)"/></svg>' % (W, H, d, X(n - 1), Yy(pts[-1]))
+def build_finance(B):
+    T, sgn = B.T, B.sgn
+    D = {s_: load(B, OPS_FIN[s_]['src']) for s_ in ('grameenphone', 'robi')}
+    for s_ in D: build_one(B, s_, D[s_])
+    LQ, YQ = build_compare(B, D)
+    pc = lambda a, b: (a - b) / abs(b) * 100
+
+    def duo(en, bnn, k, d, unit_en, unit_bn, pts=False):
+        rows = ''
+        for s_ in D:
+            L, Y = D[s_][-1], [r for r in D[s_] if r['key'] == D[s_][-1]['key'] - 10][0]
+            ch = (L[k] - Y[k]) if pts else pc(L[k], Y[k]); c = 'up' if ch > 0 else 'down'
+            o = B.OPS[OPS_FIN[s_]['op']]
+            rows += '<div style="display:flex;align-items:center;gap:8px;margin:6px 0"><a href="/bd-telecom/kpi/finance/%s/" style="display:flex;align-items:center;gap:6px;color:inherit;text-decoration:none;min-width:0;flex:1">%s<b style="font-size:1.25rem">%s</b><small style="color:var(--muted)">%s</small></a><b style="font-size:.85rem;color:var(--%s)">%s</b></div>' % (
+                s_, B.badge(o), T(fmt(L[k], d), fmt(L[k], d, 'bn')), T(unit_en, unit_bn), c, T(sgn(ch, 1) + (' pts' if pts else '%'), sgn(ch, 1, 'bn') + (' পয়েন্ট' if pts else '%')))
+        L0 = D['grameenphone'][-1]
+        return '<div class="tile kpi"><div class="l">%s</div>%s<div class="meta">%s</div></div>' % (T(en, bnn), rows, T(ql(L0) + ' · company results · change vs a year earlier', ql(L0, 'bn') + ' · কোম্পানির ফলাফল · এক বছরের পরিবর্তন'))
+    cards = (duo('Revenue (quarter)', 'রেভিনিউ (প্রান্তিক)', 'rev_cr', 0, 'Tk cr', 'কোটি')
+             + duo('EBITDA margin', 'EBITDA মার্জিন', 'ebitda_margin_pct', 1, '%', '%', True)
+             + duo('ARPU (monthly)', 'ARPU (মাসিক)', 'arpu_bdt', 0, 'Tk', 'টাকা')
+             + duo('Profit after tax (quarter)', 'কর-পরবর্তী মুনাফা (প্রান্তিক)', 'pat_cr', 0, 'Tk cr', 'কোটি')
+             + duo('Capex (quarter)', 'ক্যাপেক্স (প্রান্তিক)', 'capex_cr', 0, 'Tk cr', 'কোটি')
+             + '<a class="tile kpi more" href="/bd-telecom/kpi/finance/"><div class="l">%s</div><div class="v" style="font-size:1.05rem">%s →</div><div class="meta">%s</div></a>' % (
+                 T('Compare operators', 'অপারেটরদের তুলনা'), T('Grameenphone vs Robi since 2020', '২০২০ থেকে গ্রামীণফোন বনাম রবি'), T('Charts and tables', 'চার্ট আর সারণি')))
+    L0 = D['grameenphone'][-1]
+    note = T('Grameenphone and Robi results to %s. Banglalink and Teletalk are not listed and do not publish full results.' % ql(L0), '%s পর্যন্ত গ্রামীণফোন আর রবির ফলাফল। বাংলালিংক আর টেলিটক তালিকাভুক্ত নয়, পূর্ণাঙ্গ ফলাফল প্রকাশ করে না।' % ql(L0, 'bn'))
+    cards, note = bnfix(cards), bnfix(note)
+    return cards, note, ['bd-telecom/kpi/finance/', 'bd-telecom/kpi/finance/grameenphone/', 'bd-telecom/kpi/finance/robi/']
