@@ -281,3 +281,14 @@ table.spec td .badge{width:20px;height:20px;font-size:8.5px;vertical-align:-4px;
 .chart .schart text.bv.ex{font-size:10.5px;font-weight:700;fill:var(--ink)}
 .chart .schart text.pk{font-size:11px;font-weight:700;font-variant-numeric:tabular-nums;paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round}
 .pkleg{font-size:.78rem;color:var(--muted);margin-top:6px}
+
+.sharebar{display:flex;height:22px;border-radius:8px;overflow:hidden;gap:2px}
+.shleg{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:12px}
+.shleg .shl{display:flex;align-items:center;gap:8px;flex-wrap:wrap;text-decoration:none;color:inherit;font-size:.92rem}
+.shleg .shl span:last-child{color:var(--muted);font-size:.85rem;width:100%;padding-left:30px;margin-top:-4px}
+ul.updates{list-style:none;margin:0;padding:0}
+ul.updates li{display:flex;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);align-items:baseline}
+ul.updates li:last-child{border-bottom:0}
+ul.updates .ud{flex:0 0 92px;color:var(--muted);font-size:.85rem;font-variant-numeric:tabular-nums}
+ul.updates a{color:var(--ink);text-decoration:none}
+ul.updates a:hover{text-decoration:underline}

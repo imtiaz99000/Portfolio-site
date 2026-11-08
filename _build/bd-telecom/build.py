@@ -68,7 +68,7 @@ def tint(c): return 'background:color-mix(in srgb,var(%s) 16%%,transparent);colo
 LOGO = ('<svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="mg" x1="0" x2="1"><stop offset="0" stop-color="#0E8A86"/>'
         '<stop offset="1" stop-color="#F2A93B"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="#102A2B"/><path d="M12 44 C24 44 26 22 38 22 S50 34 54 20" '
         'stroke="url(#mg)" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="12" cy="44" r="5" fill="#0E8A86"/><circle cx="54" cy="20" r="5" fill="#F2A93B"/></svg>')
-NAV = [('dash', '/bd-telecom/', 'Dashboard', 'ড্যাশবোর্ড'), ('kpi', '/bd-telecom/kpi/', 'KPI', 'KPI'), ('ops', '/bd-telecom/operators/', 'Operators', 'অপারেটর'),
+NAV = [('dash', '/bd-telecom/', 'Home', 'হোম'), ('kpi', '/bd-telecom/kpi/', 'KPI', 'KPI'), ('ops', '/bd-telecom/operators/', 'Operators', 'অপারেটর'),
        ('data', '/bd-telecom/data/', 'Data', 'ডেটা'), ('lic', '/bd-telecom/licensees/', 'Licensees', 'লাইসেন্সধারী'), ('guides', '/bd-telecom/guides/', 'Guides', 'গাইড')]
 def header(active):
     nav = ''.join('<a href="%s"%s>%s</a>' % (u, ' aria-current="page"' if k == active else '', T(e, b)) for k, u, e, b in NAV)
@@ -80,7 +80,20 @@ def header(active):
 FAVICON = open(os.path.join(HERE, 'dashboard.tpl.html')).read().split('<link rel="icon" href="')[1].split('"')[0]
 FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&family=Anek+Bangla:wght@400;500;600;700&display=swap" rel="stylesheet">'
 
-def page(path, active, title_en, title_bn, desc_en, body, default_lang='bn', crumbs=None):
+AUTHOR = {'@type': 'Person', 'name': 'Mohd Imtiaz Karim', 'url': 'https://www.imtiazkarim.com/'}
+def ld_script(objs):
+    return ''.join('<script type="application/ld+json">%s</script>' % json.dumps(o, ensure_ascii=False, separators=(',', ':')) for o in objs if o)
+def crumbs_ld(crumbs, name, path):
+    items = [(u, n) for u, n in crumbs] + [('/bd-telecom/' + path, name)]
+    return {'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'name': n, 'item': 'https://www.imtiazkarim.com' + u} for i, (u, n) in enumerate(items)]}
+def dataset_ld(name, desc, path, csv):
+    return {'@context': 'https://schema.org', '@type': 'Dataset', 'name': name, 'description': desc[:4900] if len(desc) >= 50 else desc + ' Source data from BTRC and operator reports, checked and dated.',
+            'url': 'https://www.imtiazkarim.com/bd-telecom/' + path, 'creator': AUTHOR, 'isAccessibleForFree': True, 'inLanguage': ['bn', 'en'],
+            'spatialCoverage': {'@type': 'Place', 'name': 'Bangladesh'},
+            'distribution': [{'@type': 'DataDownload', 'encodingFormat': 'text/csv', 'contentUrl': 'https://www.imtiazkarim.com' + csv}]}
+
+FOOT_BTRC = ('Data: Bangladesh Telecommunication Regulatory Commission (BTRC). Analysis by Mohd Imtiaz Karim.', 'ডেটা: বাংলাদেশ টেলিযোগাযোগ নিয়ন্ত্রণ কমিশন (BTRC)। বিশ্লেষণ: মোহাম্মদ ইমতিয়াজ করিম।')
+def page(path, active, title_en, title_bn, desc_en, body, default_lang='bn', crumbs=None, foot=None):
     url = 'https://www.imtiazkarim.com/bd-telecom/' + path
     cr = ''
     if crumbs:
@@ -109,6 +122,7 @@ def page(path, active, title_en, title_bn, desc_en, body, default_lang='bn', cru
 %(fonts)s
 <script>try{var q=new URLSearchParams(location.search).get('admin');if(q==='ik-csv-2026')localStorage.setItem('bdt-admin','1');if(q==='off')localStorage.removeItem('bdt-admin');if(localStorage.getItem('bdt-admin')==='1')document.documentElement.classList.add('is-admin')}catch(e){}</script>
 <link rel="stylesheet" href="/bd-telecom/assets/bdt.css?v=%(cssv)s">
+%(ld)s
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
@@ -122,8 +136,25 @@ def page(path, active, title_en, title_bn, desc_en, body, default_lang='bn', cru
 </body>
 </html>
 ''' % dict(tm=esc(title_main), dm=esc(desc_main), dl=default_lang, te=esc(title_en), tb=esc(title_bn), de=esc(desc_en), url=url, fav=FAVICON, fonts=FONTS, cssv=CSSV, jsv=JSV, head=header(active), cr=cr, body=body,
-           foot=T('Data: Bangladesh Telecommunication Regulatory Commission (BTRC). Analysis by Mohd Imtiaz Karim.', 'ডেটা: বাংলাদেশ টেলিযোগাযোগ নিয়ন্ত্রণ কমিশন (BTRC)। বিশ্লেষণ: মোহাম্মদ ইমতিয়াজ করিম।'),
+           foot=T(*(foot or FOOT_BTRC)), ld=page_ld(path, title_en, desc_en, body, crumbs),
            home=T('Back to imtiazkarim.com', 'imtiazkarim.com এ ফিরুন'))
+
+def page_ld(path, title_en, desc_en, body, crumbs):
+    import re as _re
+    name = title_en.split(' | ')[0]
+    objs = []
+    if crumbs: objs.append(crumbs_ld([(u, e) for u, e, b in crumbs], name, path))
+    if path == '':
+        objs.append({'@context': 'https://schema.org', '@type': 'WebSite', 'name': 'BD Telecom by Mohd Imtiaz Karim', 'url': 'https://www.imtiazkarim.com/bd-telecom/', 'inLanguage': ['bn', 'en'], 'author': AUTHOR})
+    elif path.startswith('guides/') and path != 'guides/':
+        objs.append({'@context': 'https://schema.org', '@type': 'Article', 'headline': name[:110], 'description': desc_en, 'url': 'https://www.imtiazkarim.com/bd-telecom/' + path,
+                     'author': AUTHOR, 'publisher': AUTHOR, 'inLanguage': ['bn', 'en'], 'image': 'https://www.imtiazkarim.com/bd-telecom/og.png'})
+    csvs = _re.findall(r'href="(/bd-telecom/[^"]+\.csv)"', body)
+    if csvs:
+        d = dataset_ld(name, desc_en, path, csvs[0])
+        d['distribution'] = [{'@type': 'DataDownload', 'encodingFormat': 'text/csv', 'contentUrl': 'https://www.imtiazkarim.com' + c} for c in dict.fromkeys(csvs)]
+        objs.append(d)
+    return ld_script(objs)
 
 def write(rel, content):
     p = os.path.join(OUT, rel); os.makedirs(os.path.dirname(p), exist_ok=True)
@@ -203,7 +234,11 @@ def build():
     # dashboard
     t = open(os.path.join(HERE, 'dashboard.tpl.html')).read()
     t = t.replace('__HEADER__', header('dash')).replace('__CSSV__', CSSV).replace('__DATA__', json.dumps(DATA, separators=(',', ':')))
-    write('index.html', t)
+    t = t.replace('<link rel="canonical" href="https://www.imtiazkarim.com/bd-telecom/">', '<link rel="canonical" href="https://www.imtiazkarim.com/bd-telecom/market-2024-2026/">')
+    t = t.replace('২০২৪–২০২৬', '২০২৪ থেকে ২০২৬').replace('href="analysis.sql"', 'href="/bd-telecom/analysis.sql"').replace('href="subscribers.csv"', 'href="/bd-telecom/subscribers.csv"')
+    t = t.replace('</head>', ld_script([crumbs_ld([('/bd-telecom/', 'BD Telecom')], 'The 2024 to 2026 subscriber slump', 'market-2024-2026/'),
+                  dataset_ld('Bangladesh mobile subscribers by operator, August 2024 to August 2026', 'Monthly BTRC active mobile subscriptions by operator, checked against published totals.', 'market-2024-2026/', '/bd-telecom/subscribers.csv')]) + '</head>', 1)
+    write('market-2024-2026/index.html', t)
 
     # operators index + pages
     cards = ''
@@ -305,6 +340,9 @@ def build():
     licpages = licensees.build_licensees(sys.modules[__name__])
     import kpi
     licpages += kpi.build_kpi(sys.modules[__name__])
+    import hub
+    hub.build_hub(sys.modules[__name__], guides)
+    licpages.append('bd-telecom/market-2024-2026/')
     # sitemap + robots for the whole site
     pages = ['', 'tools/pdf-squeeze/', 'tools/pixelshrink/', 'rssp-demo/', 'bd-telecom/', 'bd-telecom/operators/', 'bd-telecom/data/', 'bd-telecom/guides/'] + \
             ['bd-telecom/operators/%s/' % o['slug'] for o in OPS] + ['bd-telecom/guides/%s/' % g['slug'] for g in guides] + licpages

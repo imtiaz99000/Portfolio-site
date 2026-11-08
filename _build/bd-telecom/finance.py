@@ -142,6 +142,9 @@ def nice(vals, n=4, floor0=True):
     return a, b, step
 
 
+FOOT = ('Data: Grameenphone and Robi Axiata published results, and VEON factbooks for Banglalink. Analysis by Mohd Imtiaz Karim.', 'ডেটা: গ্রামীণফোন আর রবি আজিয়াটার প্রকাশিত ফলাফল, আর বাংলালিংকের জন্য VEON এর ফ্যাক্টবুক। বিশ্লেষণ: মোহাম্মদ ইমতিয়াজ করিম।')
+
+
 def bnfix(h):
     return h.replace('গ্রামীণফোন এর', 'গ্রামীণফোনের').replace('রবি এর', 'রবির').replace('বাংলালিংক এর', 'বাংলালিংকের')
 
@@ -338,7 +341,7 @@ def build_one(B, slug, R):
         T('All telecom KPIs', 'সব টেলিকম KPI'), T('Subscribers, quality, finance and infrastructure', 'গ্রাহক, মান, আর্থিক আর অবকাঠামো'))
     write('kpi/finance/%s/index.html' % slug, page('kpi/finance/%s/' % slug, 'kpi', '%s revenue, profit and ARPU by quarter, %d to %d | BD Telecom' % (O['en'], F['y'], L['y']), '%s এর রেভিনিউ, মুনাফা ও ARPU, প্রান্তিকভিত্তিক %s-%s | BD Telecom' % (O['bn'], bn(F['y']), bn(L['y'])),
           '%s quarterly results from %s to %s: revenue Tk %s crore in %s (%s%% a year), EBITDA margin %.1f%%, ARPU Tk %d. Charts, tables and CSV.' % (O['en'], ql(F), ql(L), fmt(L['rev_cr']), ql(L), sgn(dv, 1), L['ebitda_margin_pct'], L['arpu_bdt']), body,
-          crumbs=[('/bd-telecom/', 'BD Telecom', 'BD Telecom'), ('/bd-telecom/kpi/', 'KPI', 'KPI'), ('/bd-telecom/kpi/finance/', 'Finance', 'আর্থিক')]))
+          crumbs=[('/bd-telecom/', 'BD Telecom', 'BD Telecom'), ('/bd-telecom/kpi/', 'KPI', 'KPI'), ('/bd-telecom/kpi/finance/', 'Finance', 'আর্থিক')], foot=FOOT))
     return L, Y
 
 
@@ -428,7 +431,7 @@ def build_compare(B, D):
         T('Comparing fairly', 'ন্যায্য তুলনার জন্য'), ic('alert'), ''.join('<li>%s</li>' % T(a, b) for a, b in notes))
     write('kpi/finance/index.html', page('kpi/finance/', 'kpi', 'Grameenphone vs Robi vs Banglalink: revenue, profit and ARPU by quarter | BD Telecom', 'গ্রামীণফোন, রবি ও বাংলালিংক: রেভিনিউ, মুনাফা ও ARPU | BD Telecom',
           'Grameenphone, Robi and Banglalink quarterly results compared since 2020: revenue, EBITDA margin, profit, ARPU, subscribers, data use and capex. In %s revenue was Tk %s crore, Tk %s crore and Tk %s crore.' % (ql(Lr), fmt(LQ['grameenphone']['rev_cr']), fmt(LQ['robi']['rev_cr']), fmt(LQ['banglalink']['rev_cr'])), body,
-          crumbs=[('/bd-telecom/', 'BD Telecom', 'BD Telecom'), ('/bd-telecom/kpi/', 'KPI', 'KPI')]))
+          crumbs=[('/bd-telecom/', 'BD Telecom', 'BD Telecom'), ('/bd-telecom/kpi/', 'KPI', 'KPI')], foot=FOOT))
     return LQ, YQ
 
 
