@@ -2,6 +2,7 @@
 import json, os
 
 UPDATES = [
+    ('2026-11-08', 'kpi/qos/area/', 'Network quality where you live: check your upazila for Grameenphone, Robi and Banglalink', 'আপনার এলাকায় নেটওয়ার্কের মান: আপনার উপজেলায় গ্রামীণফোন, রবি আর বাংলালিংকের ফল'),
     ('2026-11-08', 'kpi/finance/', 'Operator finances: Grameenphone, Robi and Banglalink, every quarter since 2020, with a side-by-side comparison', 'অপারেটরদের আর্থিক অবস্থা: গ্রামীণফোন, রবি আর বাংলালিংক, ২০২০ থেকে প্রতি প্রান্তিক, পাশাপাশি তুলনা সহ'),
     ('2026-10-31', 'kpi/qos/', 'BTRC quality of service report for August 2026: national, district and upazila results', 'আগস্ট ২০২৬ এর BTRC সেবার মান (QoS) প্রতিবেদন: জাতীয়, জেলা আর উপজেলার ফল'),
     ('2026-10-31', 'kpi/spectrum/', 'Spectrum assigned to each operator, by band', 'অপারেটরভিত্তিক বরাদ্দকৃত তরঙ্গ, ব্যান্ড অনুযায়ী'),
@@ -56,6 +57,7 @@ def build_hub(B, guides):
     sections = [
         ('kpi/', 'chart', '--accent', 'KPI', 'KPI', 'Every key telecom number with its month, source and change: subscribers, quality, finance and infrastructure.', 'খাতের সব গুরুত্বপূর্ণ সংখ্যা, মাস, সূত্র আর পরিবর্তন সহ: গ্রাহক, সেবার মান, আর্থিক অবস্থা আর অবকাঠামো।'),
         ('kpi/finance/', 'chart', '--amber', 'Operator finances', 'অপারেটরদের আর্থিক অবস্থা', 'Revenue, margins, profit and ARPU for Grameenphone, Robi and Banglalink, every quarter since 2020.', '২০২০ থেকে প্রতি প্রান্তিকে গ্রামীণফোন, রবি আর বাংলালিংকের রেভিনিউ, মার্জিন, মুনাফা আর ARPU।'),
+        ('kpi/qos/area/', 'signal', '--tt', 'Network quality where you live', 'আপনার এলাকায় নেটওয়ার্কের মান', 'Pick your upazila to see whether each operator met BTRC’s quality benchmarks there.', 'আপনার উপজেলা বেছে নিন, দেখুন প্রতিটি অপারেটর সেখানে BTRC এর মান পূরণ করেছে কিনা।'),
         ('operators/', 'users', '--gp', 'Operators', 'অপারেটর', 'Subscribers and market share for each of the four mobile operators.', 'চার মোবাইল অপারেটরের গ্রাহক আর মার্কেট শেয়ার।'),
         ('market-2024-2026/', 'signal', '--robi', 'The 2024 to 2026 subscriber slump', '২০২৪ থেকে ২০২৬ এর গ্রাহক পতন', 'How the market lost 6.6 million subscriptions in 17 months and then recovered: a data story.', 'কীভাবে বাজার ১৭ মাসে ৬৬ লাখ সাবস্ক্রিপশন হারিয়ে আবার ঘুরে দাঁড়াল: ডেটার গল্প।'),
         ('data/', 'db', '--tt', 'Data archive', 'ডেটা আর্কাইভ', 'Monthly subscriber data with SQL and CSV downloads.', 'মাসিক গ্রাহক ডেটা, SQL আর CSV ডাউনলোড সহ।'),

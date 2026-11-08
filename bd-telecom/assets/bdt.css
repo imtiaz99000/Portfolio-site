@@ -293,4 +293,19 @@ ul.updates .ud{flex:0 0 92px;color:var(--muted);font-size:.85rem;font-variant-nu
 ul.updates a{color:var(--ink);text-decoration:none}
 ul.updates a:hover{text-decoration:underline}
 
+.qa-pick{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 16px}
+.qa-pick label{display:flex;flex-direction:column;gap:6px;font-size:.88rem;color:var(--muted)}
+.qa-pick select{font:inherit;font-size:1rem;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-height:44px}
+.qa-pick select:disabled{opacity:.5}
+@media (max-width:640px){.qa-pick{grid-template-columns:1fr}}
+.qa-place{margin:6px 0 4px}
+.qa-sum{margin:0 0 12px;font-weight:600}
+.qa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:12px}
+.qa-op .qa-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.qa-op .qa-h .pill{margin-left:auto}
+.qa-k{list-style:none;margin:10px 0 0;padding:0}
+.qa-k li{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:6px 0;border-top:1px solid var(--line);font-size:.9rem}
+.qa-tt{margin-bottom:18px}
+.qa-def{margin:0;padding-left:18px}.qa-def li{margin:0 0 10px}.qa-def small{color:var(--muted)}
+
 .chart svg.schart{display:block;width:100%;height:auto}

@@ -73,6 +73,8 @@ def build_kpi(B):
     HS, HSP = handsets.build_handsets(B)
     import qospage
     QQ = qospage.build_qos(B)
+    import qosarea
+    QA = qosarea.build_qosarea(B)
     import spectrum
     SP, SPM = spectrum.build_spectrum(B)
     import finance
@@ -138,7 +140,7 @@ def build_kpi(B):
                     else:
                         met = sum(1 for x in QQ['national'][k] if x == 'ok'); v = T('%d / 12' % met, '%s / ১২' % bn(met)); d_ = T('national benchmarks met · %d upazilas short' % nu, 'জাতীয় মানদণ্ড পূরণ · %sটি উপজেলায় ঘাটতি' % bn(nu))
                     return '<div class="tile kpi"><div class="l">%s %s</div><div class="v" style="font-size:1.45rem">%s</div><div class="d">%s</div><div class="meta">%s</div></div>' % (B.badge(B.OPS[['gp','robi','bl','tt'].index(k)]), T(en, bnn), v, d_, T(mlab(QQ['month']) + ' · BTRC QoS report', mlab(QQ['month'], 'bn') + ' · BTRC QoS প্রতিবেদন'))
-                cards = qc('gp', 'Grameenphone', 'গ্রামীণফোন') + qc('robi', 'Robi', 'রবি') + qc('bl', 'Banglalink', 'বাংলালিংক') + qc('tt', 'Teletalk', 'টেলিটক') + '<a class="tile kpi more" href="/bd-telecom/kpi/qos/"><div class="l">%s</div><div class="v" style="font-size:1.05rem">%s →</div><div class="meta">%s</div></a>' % (T('QoS report', 'QoS প্রতিবেদন'), T('National, district and upazila results', 'জাতীয়, জেলা আর উপজেলার ফল'), T('Tables, lists and PDFs', 'সারণি, তালিকা আর PDF'))
+                cards = qc('gp', 'Grameenphone', 'গ্রামীণফোন') + qc('robi', 'Robi', 'রবি') + qc('bl', 'Banglalink', 'বাংলালিংক') + qc('tt', 'Teletalk', 'টেলিটক') + '<a class="tile kpi more" href="/bd-telecom/kpi/qos/"><div class="l">%s</div><div class="v" style="font-size:1.05rem">%s →</div><div class="meta">%s</div></a>' % (T('QoS report', 'QoS প্রতিবেদন'), T('National, district and upazila results', 'জাতীয়, জেলা আর উপজেলার ফল'), T('Tables, lists and PDFs', 'সারণি, তালিকা আর PDF')) + '<a class="tile kpi more" href="/bd-telecom/kpi/qos/area/"><div class="l">%s</div><div class="v" style="font-size:1.05rem">%s →</div><div class="meta">%s</div></a>' % (T('Your area', 'আপনার এলাকা'), T('Check your upazila', 'আপনার উপজেলা দেখুন'), T('All 516 upazilas and city thanas', '৫১৬টি উপজেলা ও শহরের থানা'))
                 note = T('BTRC QoS report for %s, published 30 September 2026.' % mlab(QQ['month']), 'BTRC এর %s এর QoS প্রতিবেদন, প্রকাশ ৩০ সেপ্টেম্বর ২০২৬।' % mlab(QQ['month'], 'bn'))
             if g == 'inf':
                 tw = [dict(id='tw', en='Mobile towers', bn='মোবাইল টাওয়ার', value=TW['total'] / 1000, prev=TWP['total'] / 1000, d=2, unit_en='k', unit_bn=' হাজার', period=TW['month'], prev_period=TWP['month'], source='BTRC'),
@@ -163,4 +165,4 @@ def build_kpi(B):
     write('kpi/index.html', page('kpi/', 'kpi', 'Bangladesh telecom KPIs: subscribers, market share, QoS, finance | BD Telecom', 'বাংলাদেশ টেলিকম KPI | BD Telecom',
           'Monthly Bangladesh telecom KPIs: mobile and internet subscribers, operator market share, network quality, finances and infrastructure, each with its source.', body,
           crumbs=[('/bd-telecom/', 'BD Telecom', 'BD Telecom')]))
-    return ['bd-telecom/kpi/', 'bd-telecom/kpi/teledensity/', 'bd-telecom/kpi/mobile-subscribers/', 'bd-telecom/kpi/internet-subscribers/', 'bd-telecom/kpi/towers/', 'bd-telecom/kpi/handsets/', 'bd-telecom/kpi/qos/', 'bd-telecom/kpi/spectrum/'] + FP
+    return ['bd-telecom/kpi/', 'bd-telecom/kpi/teledensity/', 'bd-telecom/kpi/mobile-subscribers/', 'bd-telecom/kpi/internet-subscribers/', 'bd-telecom/kpi/towers/', 'bd-telecom/kpi/handsets/', 'bd-telecom/kpi/qos/', 'bd-telecom/kpi/spectrum/'] + FP + QA

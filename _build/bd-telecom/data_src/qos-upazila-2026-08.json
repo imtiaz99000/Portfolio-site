@@ -1,0 +1,13934 @@
+[
+{
+"d": "Bagerhat",
+"db": "বাগেরহাট",
+"u": "Bagerhat Sadar",
+"ub": "বাগেরহাট সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+null,
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bagerhat",
+"db": "বাগেরহাট",
+"u": "Chitalmari",
+"ub": "চিতলমারী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bagerhat",
+"db": "বাগেরহাট",
+"u": "Fakirhat",
+"ub": "ফকিরহাট",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bagerhat",
+"db": "বাগেরহাট",
+"u": "Kachua",
+"ub": "কচুয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bagerhat",
+"db": "বাগেরহাট",
+"u": "Mollahat",
+"ub": "মোল্লাহাট",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bagerhat",
+"db": "বাগেরহাট",
+"u": "Mongla",
+"ub": "মোংলা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bagerhat",
+"db": "বাগেরহাট",
+"u": "Morrelganj",
+"ub": "মোড়েলগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bagerhat",
+"db": "বাগেরহাট",
+"u": "Rampal",
+"ub": "রামপাল",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bagerhat",
+"db": "বাগেরহাট",
+"u": "Sarankhola",
+"ub": "শরণখোলা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bandarban",
+"db": "বান্দরবান",
+"u": "Alikadam",
+"ub": "আলীকদম",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"nos",
+"nos",
+"nos",
+"nos",
+"nos"
+]
+},
+{
+"d": "Bandarban",
+"db": "বান্দরবান",
+"u": "Bandarban Sadar",
+"ub": "বান্দরবান সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bandarban",
+"db": "বান্দরবান",
+"u": "Lama",
+"ub": "লামা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bandarban",
+"db": "বান্দরবান",
+"u": "Naikhongchhari",
+"ub": "নাইক্ষ্যংছড়ি",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bandarban",
+"db": "বান্দরবান",
+"u": "Rowangchhari",
+"ub": "রোয়াংছড়ি",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bandarban",
+"db": "বান্দরবান",
+"u": "Ruma",
+"ub": "রুমা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"nos",
+"nos",
+"nos",
+"nos",
+"nos"
+]
+},
+{
+"d": "Bandarban",
+"db": "বান্দরবান",
+"u": "Thanchi",
+"ub": "থানচি",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"nos",
+"nos",
+"nos",
+"nos",
+"nos"
+]
+},
+{
+"d": "Barguna",
+"db": "বরগুনা",
+"u": "Amtali",
+"ub": "আমতলী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Barguna",
+"db": "বরগুনা",
+"u": "Bamna",
+"ub": "বামনা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Barguna",
+"db": "বরগুনা",
+"u": "Barguna Sadar",
+"ub": "বরগুনা সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Barguna",
+"db": "বরগুনা",
+"u": "Betagi",
+"ub": "বেতাগী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Barguna",
+"db": "বরগুনা",
+"u": "Patharghata",
+"ub": "পাথরঘাটা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Barisal",
+"db": "বরিশাল",
+"u": "Agailjhara",
+"ub": "আগৈলঝাড়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Barisal",
+"db": "বরিশাল",
+"u": "Babuganj",
+"ub": "বাবুগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Barisal",
+"db": "বরিশাল",
+"u": "Bakerganj",
+"ub": "বাকেরগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Barisal",
+"db": "বরিশাল",
+"u": "Banari Para",
+"ub": "বানারীপাড়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Barisal",
+"db": "বরিশাল",
+"u": "Gaurnadi",
+"ub": "গৌরনদী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Barisal",
+"db": "বরিশাল",
+"u": "Hizla",
+"ub": "হিজলা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Barisal",
+"db": "বরিশাল",
+"u": "Mehendiganj",
+"ub": "মেহেন্দিগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Barisal",
+"db": "বরিশাল",
+"u": "Muladi",
+"ub": "মুলাদী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Barisal",
+"db": "বরিশাল",
+"u": "Wazirpur",
+"ub": "উজিরপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bhola",
+"db": "ভোলা",
+"u": "Bhola Sadar",
+"ub": "ভোলা সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bhola",
+"db": "ভোলা",
+"u": "Burhanuddin",
+"ub": "বোরহান উদ্দিন",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bhola",
+"db": "ভোলা",
+"u": "Char Fasson",
+"ub": "চরফ্যাশন",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bhola",
+"db": "ভোলা",
+"u": "Daulatkhan",
+"ub": "দৌলতখান",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bhola",
+"db": "ভোলা",
+"u": "Lalmohan",
+"ub": "লালমোহন",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bhola",
+"db": "ভোলা",
+"u": "Manpura",
+"ub": "মনপুরা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bhola",
+"db": "ভোলা",
+"u": "Tazumuddin",
+"ub": "তজুমদ্দিন",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bogra",
+"db": "বগুড়া",
+"u": "Adamdighi",
+"ub": "আদমদিঘি",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bogra",
+"db": "বগুড়া",
+"u": "Bogra Sadar",
+"ub": "বগুড়া সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bogra",
+"db": "বগুড়া",
+"u": "Dhunat",
+"ub": "ধুনট",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bogra",
+"db": "বগুড়া",
+"u": "Dhupchanchia",
+"ub": "দুপচাচিঁয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bogra",
+"db": "বগুড়া",
+"u": "Gabtali",
+"ub": "গাবতলী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bogra",
+"db": "বগুড়া",
+"u": "Nandigram",
+"ub": "নন্দিগ্রাম",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bogra",
+"db": "বগুড়া",
+"u": "Sariakandi",
+"ub": "সারিয়াকান্দি",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bogra",
+"db": "বগুড়া",
+"u": "Shajahanpur",
+"ub": "শাজাহানপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bogra",
+"db": "বগুড়া",
+"u": "Sherpur",
+"ub": "শেরপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bogra",
+"db": "বগুড়া",
+"u": "Shibganj",
+"ub": "শিবগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Bogra",
+"db": "বগুড়া",
+"u": "Sonatola",
+"ub": "সোনাতলা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Brahmanbaria",
+"db": "ব্রাহ্মণবাড়িয়া",
+"u": "Akhaura",
+"ub": "আখাউড়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"non",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"non",
+"ok",
+"ok",
+"non"
+]
+},
+{
+"d": "Brahmanbaria",
+"db": "ব্রাহ্মণবাড়িয়া",
+"u": "Ashuganj",
+"ub": "আশুগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Brahmanbaria",
+"db": "ব্রাহ্মণবাড়িয়া",
+"u": "Banchharampur",
+"ub": "বাঞ্ছারামপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Brahmanbaria",
+"db": "ব্রাহ্মণবাড়িয়া",
+"u": "Bijoynagar",
+"ub": "বিজয়নগর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Brahmanbaria",
+"db": "ব্রাহ্মণবাড়িয়া",
+"u": "Brahmanbaria Sadar",
+"ub": "ব্রাহ্মণবাড়িয়া সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Brahmanbaria",
+"db": "ব্রাহ্মণবাড়িয়া",
+"u": "Kasba",
+"ub": "কসবা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Brahmanbaria",
+"db": "ব্রাহ্মণবাড়িয়া",
+"u": "Nabinagar",
+"ub": "নবীনগর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Brahmanbaria",
+"db": "ব্রাহ্মণবাড়িয়া",
+"u": "Nasirnagar",
+"ub": "নাসিরনগর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Brahmanbaria",
+"db": "ব্রাহ্মণবাড়িয়া",
+"u": "Sarail",
+"ub": "সরাইল",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chandpur",
+"db": "চাঁদপুর",
+"u": "Chandpur Sadar",
+"ub": "চাঁদপুর সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chandpur",
+"db": "চাঁদপুর",
+"u": "Faridganj",
+"ub": "ফরিদগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chandpur",
+"db": "চাঁদপুর",
+"u": "Haim Char",
+"ub": "হাইমচর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chandpur",
+"db": "চাঁদপুর",
+"u": "Kachua",
+"ub": "কচুয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chandpur",
+"db": "চাঁদপুর",
+"u": "Matlab Dakshin",
+"ub": "মতলব দক্ষিণ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chandpur",
+"db": "চাঁদপুর",
+"u": "Matlab Uttar",
+"ub": "মতলব উত্তর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chandpur",
+"db": "চাঁদপুর",
+"u": "Shahrasti",
+"ub": "শাহরাস্তি\t",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Anowara",
+"ub": "আনোয়ারা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Bakalia",
+"ub": "বাকলিয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Banshkhali",
+"ub": "বাঁশখালী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Bayejid Bostami",
+"ub": "বায়েজিদ বোস্তামী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Boalkhali",
+"ub": "বোয়ালখালী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Chandanaish",
+"ub": "চন্দনাইশ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Chandgaon",
+"ub": "চান্দগাঁও",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Chittagong Port",
+"ub": "চট্টগ্রাম বন্দর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Double Mooring",
+"ub": "ডবলমুরিং",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Fatikchhari",
+"ub": "ফটিকছড়ি",
+"gp": [
+"ok",
+"non",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Halishahar",
+"ub": "হালিশহর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Hathazari",
+"ub": "হাটহাজারী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Khulshi",
+"ub": "খুলশী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Kotwali",
+"ub": "কোতোয়ালী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Lohagara",
+"ub": "লোহাগাড়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Mirsharai",
+"ub": "মীরসরাই",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Pahartali",
+"ub": "পাহাড়তলী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Panchlaish",
+"ub": "পাঁচলাইশ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Patenga",
+"ub": "পতেঙ্গা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Patiya",
+"ub": "পটিয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Rangunia",
+"ub": "রাঙ্গুনিয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Raozan",
+"ub": "রাউজান",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Sandwip",
+"ub": "সন্দ্বীপ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Satkania",
+"ub": "সাতকানিয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chittagong",
+"db": "চট্টগ্রাম",
+"u": "Sitakunda",
+"ub": "সীতাকুন্ড",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chuadanga",
+"db": "চুয়াডাঙ্গা",
+"u": "Alamdanga",
+"ub": "আলমডাঙ্গা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chuadanga",
+"db": "চুয়াডাঙ্গা",
+"u": "Damurhuda",
+"ub": "দামুড়হুদা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chuadanga",
+"db": "চুয়াডাঙ্গা",
+"u": "Jiban Nagar",
+"ub": "জীবননগর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Comilla",
+"db": "কুমিল্লা",
+"u": "Barura",
+"ub": "বরুড়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Comilla",
+"db": "কুমিল্লা",
+"u": "Brahman Para",
+"ub": "ব্রাহ্মণপাড়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Comilla",
+"db": "কুমিল্লা",
+"u": "Burichang",
+"ub": "বুড়িচং",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Comilla",
+"db": "কুমিল্লা",
+"u": "Chandina",
+"ub": "চান্দিনা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Comilla",
+"db": "কুমিল্লা",
+"u": "Chauddagram",
+"ub": "চৌদ্দগ্রাম",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Comilla",
+"db": "কুমিল্লা",
+"u": "Comilla Adarsha Sadar",
+"ub": "কুমিল্লা আদর্শ সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Comilla",
+"db": "কুমিল্লা",
+"u": "Comilla Sadar Dakshin",
+"ub": "কুমিল্লা সদর দক্ষিণ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Comilla",
+"db": "কুমিল্লা",
+"u": "Debidwar",
+"ub": "দেবিদ্বার",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Comilla",
+"db": "কুমিল্লা",
+"u": "Homna",
+"ub": "হোমনা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Comilla",
+"db": "কুমিল্লা",
+"u": "Laksam",
+"ub": "লাকসাম",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Comilla",
+"db": "কুমিল্লা",
+"u": "Manoharganj",
+"ub": "মনোহরগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Comilla",
+"db": "কুমিল্লা",
+"u": "Meghna",
+"ub": "মেঘনা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Comilla",
+"db": "কুমিল্লা",
+"u": "Muradnagar",
+"ub": "মুরাদনগর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Comilla",
+"db": "কুমিল্লা",
+"u": "Nangalkot",
+"ub": "নাঙ্গলকোট",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Comilla",
+"db": "কুমিল্লা",
+"u": "Titas",
+"ub": "তিতাস",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Cox's Bazar",
+"db": "কক্সবাজার",
+"u": "Chakaria",
+"ub": "চকরিয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Cox's Bazar",
+"db": "কক্সবাজার",
+"u": "Cox's Bazar Sadar",
+"ub": "কক্সবাজার সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Cox's Bazar",
+"db": "কক্সবাজার",
+"u": "Kutubdia",
+"ub": "কুতুবদিয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Cox's Bazar",
+"db": "কক্সবাজার",
+"u": "Pekua",
+"ub": "পেকুয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Cox's Bazar",
+"db": "কক্সবাজার",
+"u": "Ramu",
+"ub": "রামু",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Cox's Bazar",
+"db": "কক্সবাজার",
+"u": "Teknaf",
+"ub": "টেকনাফ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Cox's Bazar",
+"db": "কক্সবাজার",
+"u": "Ukhia",
+"ub": "উখিয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"non",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Adabor",
+"ub": "আদাবর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Badda",
+"ub": "বাড্ডা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Bangshal",
+"ub": "বংশাল",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Biman Bandar",
+"ub": "বিমানবন্দর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Cantonment",
+"ub": "ক্যান্টনমেন্ট",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Chak Bazar",
+"ub": "চকবাজার",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Dakshinkhan",
+"ub": "দক্ষিণখান",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Darus Salam",
+"ub": "দারুস সালাম",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Demra",
+"ub": "ডেমরা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Dhamrai",
+"ub": "ধামরাই",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Dhanmondi",
+"ub": "ধানমন্ডি",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Dohar",
+"ub": "দোহার",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Gendaria",
+"ub": "গেন্ডারিয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Gulshan",
+"ub": "গুলশান",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Hazaribagh",
+"ub": "হাজারীবাগ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Jatrabari",
+"ub": "যাত্রাবাড়ী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Kadamtali",
+"ub": "কদমতলী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Kafrul",
+"ub": "কাফরুল",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Kalabagan",
+"ub": "কলাবাগান",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Kamrangir Char",
+"ub": "কামরাঙ্গীরচর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Keraniganj",
+"ub": "কেরাণীগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Khilgaon",
+"ub": "খিলগাঁও",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Kotwali",
+"ub": "কোতোয়ালী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Lalbagh",
+"ub": "লালবাগ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Mirpur",
+"ub": "মিরপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Mohammadpur",
+"ub": "মোহাম্মদপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Motijheel",
+"ub": "মতিঝিল",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Nawabganj",
+"ub": "নবাবগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "New Market",
+"ub": "নিউমার্কেট",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Pallabi",
+"ub": "পল্লবী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Paltan",
+"ub": "পল্টন",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Ramna",
+"ub": "রমনা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Rampura",
+"ub": "রামপুরা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Sabujbagh",
+"ub": "সবুজবাগ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Savar",
+"ub": "সাভার",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Shah Ali",
+"ub": "শাহ আলী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Shahbagh",
+"ub": "শাহবাগ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Sher-e-bangla Nagar",
+"ub": "শেরেবাংলা নগর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Shyampur",
+"ub": "শ্যামপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Sutrapur",
+"ub": "সূত্রাপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Tejgaon",
+"ub": "তেজগাঁও",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Tejgaon Ind. Area",
+"ub": "তেজগাঁও শিল্পাঞ্চল",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Turag",
+"ub": "তুরাগ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Uttar Khan",
+"ub": "উত্তরখান",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dhaka",
+"db": "ঢাকা",
+"u": "Uttara",
+"ub": "উত্তরা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dinajpur",
+"db": "দিনাজপুর",
+"u": "Biral",
+"ub": "বিরল",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dinajpur",
+"db": "দিনাজপুর",
+"u": "Birampur",
+"ub": "বিরামপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dinajpur",
+"db": "দিনাজপুর",
+"u": "Birganj",
+"ub": "বীরগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dinajpur",
+"db": "দিনাজপুর",
+"u": "Bochaganj",
+"ub": "বোচাগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dinajpur",
+"db": "দিনাজপুর",
+"u": "Chirirbandar",
+"ub": "চিরিরবন্দর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dinajpur",
+"db": "দিনাজপুর",
+"u": "Dinajpur Sadar",
+"ub": "দিনাজপুর সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dinajpur",
+"db": "দিনাজপুর",
+"u": "Fulbari",
+"ub": "ফুলবাড়ী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dinajpur",
+"db": "দিনাজপুর",
+"u": "Ghoraghat",
+"ub": "ঘোড়াঘাট",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dinajpur",
+"db": "দিনাজপুর",
+"u": "Hakimpur",
+"ub": "হাকিমপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dinajpur",
+"db": "দিনাজপুর",
+"u": "Kaharole",
+"ub": "কাহারোল",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dinajpur",
+"db": "দিনাজপুর",
+"u": "Khansama",
+"ub": "খানসামা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dinajpur",
+"db": "দিনাজপুর",
+"u": "Nawabganj",
+"ub": "নবাবগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Dinajpur",
+"db": "দিনাজপুর",
+"u": "Parbatipur",
+"ub": "পার্বতীপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Faridpur",
+"db": "ফরিদপুর",
+"u": "Alfadanga",
+"ub": "আলফাডাঙ্গা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Faridpur",
+"db": "ফরিদপুর",
+"u": "Bhanga",
+"ub": "ভাঙ্গা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Faridpur",
+"db": "ফরিদপুর",
+"u": "Boalmari",
+"ub": "বোয়ালমারী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Faridpur",
+"db": "ফরিদপুর",
+"u": "Char Bhadrasan",
+"ub": "চরভদ্রাসন",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Faridpur",
+"db": "ফরিদপুর",
+"u": "Faridpur Sadar",
+"ub": "ফরিদপুর সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Faridpur",
+"db": "ফরিদপুর",
+"u": "Madhukhali",
+"ub": "মধুখালী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Faridpur",
+"db": "ফরিদপুর",
+"u": "Nagarkanda",
+"ub": "নগরকান্দা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Faridpur",
+"db": "ফরিদপুর",
+"u": "Sadarpur",
+"ub": "সদরপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Faridpur",
+"db": "ফরিদপুর",
+"u": "Saltha",
+"ub": "সালথা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Feni",
+"db": "ফেনী",
+"u": "Chhagalnaiya",
+"ub": "ছাগলনাইয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Feni",
+"db": "ফেনী",
+"u": "Daganbhuiyan",
+"ub": "দাগনভূঞা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Feni",
+"db": "ফেনী",
+"u": "Fulgazi",
+"ub": "ফুলগাজী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Feni",
+"db": "ফেনী",
+"u": "Parshuram",
+"ub": "পরশুরাম",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Feni",
+"db": "ফেনী",
+"u": "Sonagazi",
+"ub": "সোনাগাজী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Gaibandha",
+"db": "গাইবান্ধা",
+"u": "Fulchhari",
+"ub": "ফুলছড়ি",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Gaibandha",
+"db": "গাইবান্ধা",
+"u": "Gaibandha Sadar",
+"ub": "গাইবান্ধা সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Gaibandha",
+"db": "গাইবান্ধা",
+"u": "Gobindaganj",
+"ub": "গোবিন্দগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Gaibandha",
+"db": "গাইবান্ধা",
+"u": "Palashbari",
+"ub": "পলাশবাড়ী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Gaibandha",
+"db": "গাইবান্ধা",
+"u": "Sadullapur",
+"ub": "সাদুল্লাপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Gaibandha",
+"db": "গাইবান্ধা",
+"u": "Saghatta",
+"ub": "সাঘাটা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Gaibandha",
+"db": "গাইবান্ধা",
+"u": "Sundarganj",
+"ub": "সুন্দরগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Gazipur",
+"db": "গাজীপুর",
+"u": "Gazipur Sadar",
+"ub": "গাজীপুর সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Gazipur",
+"db": "গাজীপুর",
+"u": "Kaliakair",
+"ub": "কালিয়াকৈর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Gazipur",
+"db": "গাজীপুর",
+"u": "Kaliganj",
+"ub": "কালীগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Gazipur",
+"db": "গাজীপুর",
+"u": "Kapasia",
+"ub": "কাপাসিয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Gazipur",
+"db": "গাজীপুর",
+"u": "Sreepur",
+"ub": "শ্রীপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Gopalganj",
+"db": "গোপালগঞ্জ",
+"u": "Gopalganj Sadar",
+"ub": "গোপালগঞ্জ সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Gopalganj",
+"db": "গোপালগঞ্জ",
+"u": "Kashiani",
+"ub": "কাশিয়ানী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Gopalganj",
+"db": "গোপালগঞ্জ",
+"u": "Kotali Para",
+"ub": "কোটালীপাড়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Gopalganj",
+"db": "গোপালগঞ্জ",
+"u": "Muksudpur",
+"ub": "মুকসুদপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Gopalganj",
+"db": "গোপালগঞ্জ",
+"u": "Tungi Para",
+"ub": "টুংগীপাড়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Habiganj",
+"db": "হবিগঞ্জ",
+"u": "Ajmiriganj",
+"ub": "আজমিরীগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Habiganj",
+"db": "হবিগঞ্জ",
+"u": "Bahubal",
+"ub": "বাহুবল",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Habiganj",
+"db": "হবিগঞ্জ",
+"u": "Baniachong",
+"ub": "বানিয়াচং",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Habiganj",
+"db": "হবিগঞ্জ",
+"u": "Habiganj Sadar",
+"ub": "হবিগঞ্জ সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Habiganj",
+"db": "হবিগঞ্জ",
+"u": "Lakhai",
+"ub": "লাখাই",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Habiganj",
+"db": "হবিগঞ্জ",
+"u": "Madhabpur",
+"ub": "মাধবপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Habiganj",
+"db": "হবিগঞ্জ",
+"u": "Nabiganj",
+"ub": "নবীগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Jamalpur",
+"db": "জামালপুর",
+"u": "Bakshiganj",
+"ub": "বকশীগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Jamalpur",
+"db": "জামালপুর",
+"u": "Dewanganj",
+"ub": "দেওয়ানগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Jamalpur",
+"db": "জামালপুর",
+"u": "Islampur",
+"ub": "ইসলামপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Jamalpur",
+"db": "জামালপুর",
+"u": "Jamalpur Sadar",
+"ub": "জামালপুর সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Jamalpur",
+"db": "জামালপুর",
+"u": "Madarganj",
+"ub": "মাদারগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Jamalpur",
+"db": "জামালপুর",
+"u": "Melandaha",
+"ub": "মেলান্দহ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Jamalpur",
+"db": "জামালপুর",
+"u": "Sarishabari",
+"ub": "সরিষাবাড়ী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Jessore",
+"db": "যশোর",
+"u": "Abhaynagar",
+"ub": "অভয়নগর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Jessore",
+"db": "যশোর",
+"u": "Bagher Para",
+"ub": "বাঘারপাড়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Jessore",
+"db": "যশোর",
+"u": "Chaugachha",
+"ub": "চৌগাছা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Jessore",
+"db": "যশোর",
+"u": "Keshabpur",
+"ub": "কেশবপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Jessore",
+"db": "যশোর",
+"u": "Kotwali",
+"ub": "কোতোয়ালী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Jessore",
+"db": "যশোর",
+"u": "Manirampur",
+"ub": "মণিরামপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Jessore",
+"db": "যশোর",
+"u": "Sharsha",
+"ub": "শার্শা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Jhalokati",
+"db": "ঝালকাঠি",
+"u": "Jhalokati Sadar",
+"ub": "ঝালকাঠি সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Jhalokati",
+"db": "ঝালকাঠি",
+"u": "Nalchity",
+"ub": "নলছিটি",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Jhalokati",
+"db": "ঝালকাঠি",
+"u": "Rajapur",
+"ub": "রাজাপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Jhenaidah",
+"db": "ঝিনাইদহ",
+"u": "Harinakunda",
+"ub": "হরিণাকুন্ডু",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Jhenaidah",
+"db": "ঝিনাইদহ",
+"u": "Jhenaidah Sadar",
+"ub": "ঝিনাইদহ সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Jhenaidah",
+"db": "ঝিনাইদহ",
+"u": "Kotchandpur",
+"ub": "কোটচাঁদপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Jhenaidah",
+"db": "ঝিনাইদহ",
+"u": "Maheshpur",
+"ub": "মহেশপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Jhenaidah",
+"db": "ঝিনাইদহ",
+"u": "Shailkupa",
+"ub": "শৈলকুপা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Joypurhat",
+"db": "জয়পুরহাট",
+"u": "Akkelpur",
+"ub": "আক্কেলপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Joypurhat",
+"db": "জয়পুরহাট",
+"u": "Joypurhat Sadar",
+"ub": "জয়পুরহাট সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Joypurhat",
+"db": "জয়পুরহাট",
+"u": "Kalai",
+"ub": "কালাই",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Joypurhat",
+"db": "জয়পুরহাট",
+"u": "Khetlal",
+"ub": "ক্ষেতলাল",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Joypurhat",
+"db": "জয়পুরহাট",
+"u": "Panchbibi",
+"ub": "পাঁচবিবি",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Khagrachhari",
+"db": "খাগড়াছড়ি",
+"u": "Dighinala",
+"ub": "দিঘীনালা",
+"gp": [
+"non",
+"ok",
+"nos",
+"non",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Khagrachhari",
+"db": "খাগড়াছড়ি",
+"u": "Khagrachhari Sadar",
+"ub": "খাগড়াছড়ি সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Khagrachhari",
+"db": "খাগড়াছড়ি",
+"u": "Lakshmichhari",
+"ub": "লক্ষীছড়ি",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Khagrachhari",
+"db": "খাগড়াছড়ি",
+"u": "Manikchhari",
+"ub": "মানিকছড়ি",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"non",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Khagrachhari",
+"db": "খাগড়াছড়ি",
+"u": "Matiranga",
+"ub": "মাটিরাঙ্গা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Khagrachhari",
+"db": "খাগড়াছড়ি",
+"u": "Panchhari",
+"ub": "পানছড়ি",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Khagrachhari",
+"db": "খাগড়াছড়ি",
+"u": "Ramgarh",
+"ub": "রামগড়",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"non",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Khulna",
+"db": "খুলনা",
+"u": "Batiaghata",
+"ub": "বটিয়াঘাটা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Khulna",
+"db": "খুলনা",
+"u": "Dacope",
+"ub": "দাকোপ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Khulna",
+"db": "খুলনা",
+"u": "Daulatpur",
+"ub": "দৌলতপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Khulna",
+"db": "খুলনা",
+"u": "Dighalia",
+"ub": "দিঘলিয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Khulna",
+"db": "খুলনা",
+"u": "Dumuria",
+"ub": "ডুমুরিয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Khulna",
+"db": "খুলনা",
+"u": "Khalishpur",
+"ub": "খালিশপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Khulna",
+"db": "খুলনা",
+"u": "Khulna Sadar",
+"ub": "খুলনা সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Khulna",
+"db": "খুলনা",
+"u": "Koyra",
+"ub": "কয়রা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Khulna",
+"db": "খুলনা",
+"u": "Paikgachha",
+"ub": "পাইকগাছা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Khulna",
+"db": "খুলনা",
+"u": "Phultala",
+"ub": "ফুলতলা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Khulna",
+"db": "খুলনা",
+"u": "Rupsa",
+"ub": "রূপসা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Khulna",
+"db": "খুলনা",
+"u": "Sonadanga",
+"ub": "সোনাডাঙ্গা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Khulna",
+"db": "খুলনা",
+"u": "Terokhada",
+"ub": "তেরখাদা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kishoreganj",
+"db": "কিশোরগঞ্জ",
+"u": "Austagram",
+"ub": "অষ্টগ্রাম",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kishoreganj",
+"db": "কিশোরগঞ্জ",
+"u": "Bajitpur",
+"ub": "বাজিতপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kishoreganj",
+"db": "কিশোরগঞ্জ",
+"u": "Bhairab",
+"ub": "ভৈরব",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kishoreganj",
+"db": "কিশোরগঞ্জ",
+"u": "Hossainpur",
+"ub": "হোসেনপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kishoreganj",
+"db": "কিশোরগঞ্জ",
+"u": "Itna",
+"ub": "ইটনা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kishoreganj",
+"db": "কিশোরগঞ্জ",
+"u": "Karimganj",
+"ub": "করিমগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kishoreganj",
+"db": "কিশোরগঞ্জ",
+"u": "Katiadi",
+"ub": "কটিয়াদী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kishoreganj",
+"db": "কিশোরগঞ্জ",
+"u": "Kishoreganj Sadar",
+"ub": "কিশোরগঞ্জ সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kishoreganj",
+"db": "কিশোরগঞ্জ",
+"u": "Kuliar Char",
+"ub": "কুলিয়ারচর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kishoreganj",
+"db": "কিশোরগঞ্জ",
+"u": "Mithamain",
+"ub": "মিঠামইন",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kishoreganj",
+"db": "কিশোরগঞ্জ",
+"u": "Nikli",
+"ub": "নিকলী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kishoreganj",
+"db": "কিশোরগঞ্জ",
+"u": "Pakundia",
+"ub": "পাকুন্দিয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kishoreganj",
+"db": "কিশোরগঞ্জ",
+"u": "Tarail",
+"ub": "তাড়াইল",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kurigram",
+"db": "কুড়িগ্রাম",
+"u": "Bhurungamari",
+"ub": "ভুরুঙ্গামারী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kurigram",
+"db": "কুড়িগ্রাম",
+"u": "Char Rajibpur",
+"ub": "চর রাজিবপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kurigram",
+"db": "কুড়িগ্রাম",
+"u": "Chilmari",
+"ub": "চিলমারী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kurigram",
+"db": "কুড়িগ্রাম",
+"u": "Kurigram Sadar",
+"ub": "কুড়িগ্রাম সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kurigram",
+"db": "কুড়িগ্রাম",
+"u": "Nageshwari",
+"ub": "নাগেশ্বরী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kurigram",
+"db": "কুড়িগ্রাম",
+"u": "Phulbari",
+"ub": "ফুলবাড়ী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kurigram",
+"db": "কুড়িগ্রাম",
+"u": "Rajarhat",
+"ub": "রাজারহাট",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kurigram",
+"db": "কুড়িগ্রাম",
+"u": "Raumari",
+"ub": "রৌমারী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kurigram",
+"db": "কুড়িগ্রাম",
+"u": "Ulipur",
+"ub": "উলিপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"non",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kushtia",
+"db": "কুষ্টিয়া",
+"u": "Bheramara",
+"ub": "ভেড়ামারা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kushtia",
+"db": "কুষ্টিয়া",
+"u": "Daulatpur",
+"ub": "দৌলতপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kushtia",
+"db": "কুষ্টিয়া",
+"u": "Kumarkhali",
+"ub": "কুমারখালী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kushtia",
+"db": "কুষ্টিয়া",
+"u": "Kushtia Sadar",
+"ub": "কুষ্টিয়া সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Kushtia",
+"db": "কুষ্টিয়া",
+"u": "Mirpur",
+"ub": "মিরপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Lakshmipur",
+"db": "লক্ষ্মীপুর",
+"u": "Kamalnagar",
+"ub": "কমলনগর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Lakshmipur",
+"db": "লক্ষ্মীপুর",
+"u": "Lakshmipur Sadar",
+"ub": "লক্ষ্মীপুর সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Lakshmipur",
+"db": "লক্ষ্মীপুর",
+"u": "Ramganj",
+"ub": "রামগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Lakshmipur",
+"db": "লক্ষ্মীপুর",
+"u": "Ramgati",
+"ub": "রামগতি",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"non",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Lakshmipur",
+"db": "লক্ষ্মীপুর",
+"u": "Roypur",
+"ub": "রায়পুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Lalmonirhat",
+"db": "লালমনিরহাট",
+"u": "Aditmari",
+"ub": "আদিতমারী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Lalmonirhat",
+"db": "লালমনিরহাট",
+"u": "Hatibandha",
+"ub": "হাতীবান্ধা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Lalmonirhat",
+"db": "লালমনিরহাট",
+"u": "Kaliganj",
+"ub": "কালীগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Lalmonirhat",
+"db": "লালমনিরহাট",
+"u": "Lalmonirhat Sadar",
+"ub": "লালমনিরহাট সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Lalmonirhat",
+"db": "লালমনিরহাট",
+"u": "Patgram",
+"ub": "পাটগ্রাম",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Madaripur",
+"db": "মাদারীপুর",
+"u": "Kalkini",
+"ub": "কালকিনি",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Madaripur",
+"db": "মাদারীপুর",
+"u": "Rajoir",
+"ub": "রাজৈর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Madaripur",
+"db": "মাদারীপুর",
+"u": "Shib Char",
+"ub": "শিবচর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Magura",
+"db": "মাগুরা",
+"u": "Magura Sadar",
+"ub": "মাগুরা সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Magura",
+"db": "মাগুরা",
+"u": "Shalikha",
+"ub": "শালিখা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Magura",
+"db": "মাগুরা",
+"u": "Sreepur",
+"ub": "শ্রীপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Manikganj",
+"db": "মানিকগঞ্জ",
+"u": "Daulatpur",
+"ub": "দৌলতপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Manikganj",
+"db": "মানিকগঞ্জ",
+"u": "Ghior",
+"ub": "ঘিওর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Manikganj",
+"db": "মানিকগঞ্জ",
+"u": "Harirampur",
+"ub": "হরিরামপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Manikganj",
+"db": "মানিকগঞ্জ",
+"u": "Manikganj Sadar",
+"ub": "মানিকগঞ্জ সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Manikganj",
+"db": "মানিকগঞ্জ",
+"u": "Saturia",
+"ub": "সাটুরিয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Manikganj",
+"db": "মানিকগঞ্জ",
+"u": "Shibalaya",
+"ub": "শিবালয়",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Manikganj",
+"db": "মানিকগঞ্জ",
+"u": "Singair",
+"ub": "সিংগাইর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Moulvibazar",
+"db": "মৌলভীবাজার",
+"u": "Barlekha",
+"ub": "বড়লেখা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Moulvibazar",
+"db": "মৌলভীবাজার",
+"u": "Juri",
+"ub": "জুড়ী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Moulvibazar",
+"db": "মৌলভীবাজার",
+"u": "Kamalganj",
+"ub": "কমলগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Moulvibazar",
+"db": "মৌলভীবাজার",
+"u": "Kulaura",
+"ub": "কুলাউড়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Moulvibazar",
+"db": "মৌলভীবাজার",
+"u": "Maulvi Bazar Sadar",
+"ub": "মৌলভীবাজার সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Moulvibazar",
+"db": "মৌলভীবাজার",
+"u": "Rajnagar",
+"ub": "রাজনগর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Moulvibazar",
+"db": "মৌলভীবাজার",
+"u": "Sreemangal",
+"ub": "শ্রীমঙ্গল",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Meherpur",
+"db": "মেহেরপুর",
+"u": "Gangni",
+"ub": "গাংনী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Meherpur",
+"db": "মেহেরপুর",
+"u": "Meherpur Sadar",
+"ub": "মেহেরপুর সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Meherpur",
+"db": "মেহেরপুর",
+"u": "Mujib Nagar",
+"ub": "মুজিবনগর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Munshiganj",
+"db": "মুন্সিগঞ্জ",
+"u": "Gazaria",
+"ub": "গজারিয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Munshiganj",
+"db": "মুন্সিগঞ্জ",
+"u": "Lohajang",
+"ub": "লৌহজং",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Munshiganj",
+"db": "মুন্সিগঞ্জ",
+"u": "Serajdikhan",
+"ub": "সিরাজদিখান",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Munshiganj",
+"db": "মুন্সিগঞ্জ",
+"u": "Sreenagar",
+"ub": "শ্রীনগর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Munshiganj",
+"db": "মুন্সিগঞ্জ",
+"u": "Tongibari",
+"ub": "টংগীবাড়ি",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Mymensingh",
+"db": "ময়মনসিংহ",
+"u": "Bhaluka",
+"ub": "ভালুকা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Mymensingh",
+"db": "ময়মনসিংহ",
+"u": "Dhobaura",
+"ub": "ধোবাউড়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Mymensingh",
+"db": "ময়মনসিংহ",
+"u": "Fulbaria",
+"ub": "ফুলবাড়ীয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Mymensingh",
+"db": "ময়মনসিংহ",
+"u": "Gaffargaon",
+"ub": "গফরগাঁও",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Mymensingh",
+"db": "ময়মনসিংহ",
+"u": "Gauripur",
+"ub": "গৌরীপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Mymensingh",
+"db": "ময়মনসিংহ",
+"u": "Ishwarganj",
+"ub": "ঈশ্বরগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Mymensingh",
+"db": "ময়মনসিংহ",
+"u": "Muktagachha",
+"ub": "মুক্তাগাছা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Mymensingh",
+"db": "ময়মনসিংহ",
+"u": "Mymensingh Sadar",
+"ub": "ময়মনসিংহ সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Mymensingh",
+"db": "ময়মনসিংহ",
+"u": "Nandail",
+"ub": "নান্দাইল",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Mymensingh",
+"db": "ময়মনসিংহ",
+"u": "Phulpur",
+"ub": "ফুলপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Mymensingh",
+"db": "ময়মনসিংহ",
+"u": "Trishal",
+"ub": "ত্রিশাল",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Naogaon",
+"db": "নওগাঁ",
+"u": "Atrai",
+"ub": "আত্রাই",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Naogaon",
+"db": "নওগাঁ",
+"u": "Badalgachhi",
+"ub": "বদলগাছী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Naogaon",
+"db": "নওগাঁ",
+"u": "Dhamoirhat",
+"ub": "ধামইরহাট",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Naogaon",
+"db": "নওগাঁ",
+"u": "Mahadebpur",
+"ub": "মহাদেবপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Naogaon",
+"db": "নওগাঁ",
+"u": "Manda",
+"ub": "মান্দা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Naogaon",
+"db": "নওগাঁ",
+"u": "Naogaon Sadar",
+"ub": "নওগাঁ সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Naogaon",
+"db": "নওগাঁ",
+"u": "Niamatpur",
+"ub": "নিয়ামতপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Naogaon",
+"db": "নওগাঁ",
+"u": "Patnitala",
+"ub": "পত্নিতলা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Naogaon",
+"db": "নওগাঁ",
+"u": "Porsha",
+"ub": "পোরশা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Naogaon",
+"db": "নওগাঁ",
+"u": "Raninagar",
+"ub": "রাণীনগর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Naogaon",
+"db": "নওগাঁ",
+"u": "Sapahar",
+"ub": "সাপাহার",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Narail",
+"db": "নড়াইল",
+"u": "Kalia",
+"ub": "কালিয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Narail",
+"db": "নড়াইল",
+"u": "Lohagara",
+"ub": "লোহাগড়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Narail",
+"db": "নড়াইল",
+"u": "Narail Sadar",
+"ub": "নড়াইল সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Narayanganj",
+"db": "নারায়ণগঞ্জ",
+"u": "Araihazar",
+"ub": "আড়াইহাজার",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Narayanganj",
+"db": "নারায়ণগঞ্জ",
+"u": "Bandar",
+"ub": "বন্দর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Narayanganj",
+"db": "নারায়ণগঞ্জ",
+"u": "Narayanganj Sadar",
+"ub": "নারায়নগঞ্জ সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Narayanganj",
+"db": "নারায়ণগঞ্জ",
+"u": "Rupganj",
+"ub": "রূপগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Narayanganj",
+"db": "নারায়ণগঞ্জ",
+"u": "Sonargaon",
+"ub": "সোনারগাঁ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Narsingdi",
+"db": "নরসিংদী",
+"u": "Belabo",
+"ub": "বেলাবো",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Narsingdi",
+"db": "নরসিংদী",
+"u": "Manohardi",
+"ub": "মনোহরদী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Narsingdi",
+"db": "নরসিংদী",
+"u": "Palash",
+"ub": "পলাশ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Narsingdi",
+"db": "নরসিংদী",
+"u": "Roypura",
+"ub": "রায়পুরা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Narsingdi",
+"db": "নরসিংদী",
+"u": "Shibpur",
+"ub": "শিবপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Natore",
+"db": "নাটোর",
+"u": "Bagati Para",
+"ub": "বাগাতিপাড়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Natore",
+"db": "নাটোর",
+"u": "Baraigram",
+"ub": "বড়াইগ্রাম",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Natore",
+"db": "নাটোর",
+"u": "Lalpur",
+"ub": "লালপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Natore",
+"db": "নাটোর",
+"u": "Natore Sadar",
+"ub": "নাটোর সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Natore",
+"db": "নাটোর",
+"u": "Singra",
+"ub": "সিংড়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chapainawabganj",
+"db": "চাঁপাইনবাবগঞ্জ",
+"u": "Bholahat",
+"ub": "ভোলাহাট",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chapainawabganj",
+"db": "চাঁপাইনবাবগঞ্জ",
+"u": "Gomastapur",
+"ub": "গোমস্তাপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chapainawabganj",
+"db": "চাঁপাইনবাবগঞ্জ",
+"u": "Nachole",
+"ub": "নাচোল",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chapainawabganj",
+"db": "চাঁপাইনবাবগঞ্জ",
+"u": "Nawabganj Sadar",
+"ub": "চাঁপাইনবাবগঞ্জ সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Chapainawabganj",
+"db": "চাঁপাইনবাবগঞ্জ",
+"u": "Shibganj",
+"ub": "শিবগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Netrakona",
+"db": "নেত্রকোণা",
+"u": "Atpara",
+"ub": "আটপাড়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Netrakona",
+"db": "নেত্রকোণা",
+"u": "Barhatta",
+"ub": "বারহাট্টা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Netrakona",
+"db": "নেত্রকোণা",
+"u": "Durgapur",
+"ub": "দুর্গাপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Netrakona",
+"db": "নেত্রকোণা",
+"u": "Kalmakanda",
+"ub": "কলমাকান্দা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Netrakona",
+"db": "নেত্রকোণা",
+"u": "Khaliajuri",
+"ub": "খালিয়াজুরী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Netrakona",
+"db": "নেত্রকোণা",
+"u": "Madan",
+"ub": "মদন",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Netrakona",
+"db": "নেত্রকোণা",
+"u": "Mohanganj",
+"ub": "মোহনগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Netrakona",
+"db": "নেত্রকোণা",
+"u": "Netrokona Sadar",
+"ub": "নেত্রকোণা সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Netrakona",
+"db": "নেত্রকোণা",
+"u": "Purbadhala",
+"ub": "পূর্বধলা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Nilphamari",
+"db": "নীলফামারী",
+"u": "Dimla",
+"ub": "ডিমলা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Nilphamari",
+"db": "নীলফামারী",
+"u": "Domar",
+"ub": "ডোমার",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Nilphamari",
+"db": "নীলফামারী",
+"u": "Kishoreganj",
+"ub": "কিশোরগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Nilphamari",
+"db": "নীলফামারী",
+"u": "Nilphamari Sadar",
+"ub": "নীলফামারী সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Nilphamari",
+"db": "নীলফামারী",
+"u": "Saidpur",
+"ub": "সৈয়দপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Noakhali",
+"db": "নোয়াখালী",
+"u": "Begumganj",
+"ub": "বেগমগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Noakhali",
+"db": "নোয়াখালী",
+"u": "Chatkhil",
+"ub": "চাটখিল",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Noakhali",
+"db": "নোয়াখালী",
+"u": "Companiganj",
+"ub": "কোম্পানীগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Noakhali",
+"db": "নোয়াখালী",
+"u": "Hatiya",
+"ub": "হাতিয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"non",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Noakhali",
+"db": "নোয়াখালী",
+"u": "Kabirhat",
+"ub": "কবিরহাট",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Noakhali",
+"db": "নোয়াখালী",
+"u": "Noakhali Sadar (Sudharam)",
+"ub": "নোয়াখালী সদর (সুধারাম)",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Noakhali",
+"db": "নোয়াখালী",
+"u": "Senbagh",
+"ub": "সেনবাগ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Noakhali",
+"db": "নোয়াখালী",
+"u": "Sonaimuri",
+"ub": "সোনাইমুড়ী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Noakhali",
+"db": "নোয়াখালী",
+"u": "Subarnachar",
+"ub": "সুবর্ণচর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Pabna",
+"db": "পাবনা",
+"u": "Atgharia",
+"ub": "আটঘরিয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Pabna",
+"db": "পাবনা",
+"u": "Bera",
+"ub": "বেড়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Pabna",
+"db": "পাবনা",
+"u": "Bhangura",
+"ub": "ভাঙ্গুড়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Pabna",
+"db": "পাবনা",
+"u": "Chatmohar",
+"ub": "চাটমোহর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Pabna",
+"db": "পাবনা",
+"u": "Faridpur",
+"ub": "ফরিদপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Pabna",
+"db": "পাবনা",
+"u": "Ishwardi",
+"ub": "ঈশ্বরদী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Pabna",
+"db": "পাবনা",
+"u": "Pabna Sadar",
+"ub": "পাবনা সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Pabna",
+"db": "পাবনা",
+"u": "Santhia",
+"ub": "সাঁথিয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Pabna",
+"db": "পাবনা",
+"u": "Sujanagar",
+"ub": "সুজানগর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Panchagarh",
+"db": "পঞ্চগড়",
+"u": "Atwari",
+"ub": "আটোয়ারী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Panchagarh",
+"db": "পঞ্চগড়",
+"u": "Boda",
+"ub": "বোদা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Panchagarh",
+"db": "পঞ্চগড়",
+"u": "Debiganj",
+"ub": "দেবীগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Panchagarh",
+"db": "পঞ্চগড়",
+"u": "Panchagarh Sadar",
+"ub": "পঞ্চগড় সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Panchagarh",
+"db": "পঞ্চগড়",
+"u": "Tentulia",
+"ub": "তেতুলিয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Patuakhali",
+"db": "পটুয়াখালী",
+"u": "Bauphal",
+"ub": "বাউফল",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Patuakhali",
+"db": "পটুয়াখালী",
+"u": "Dashmina",
+"ub": "দশমিনা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Patuakhali",
+"db": "পটুয়াখালী",
+"u": "Dumki",
+"ub": "দুমকি",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Patuakhali",
+"db": "পটুয়াখালী",
+"u": "Galachipa",
+"ub": "গলাচিপা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Patuakhali",
+"db": "পটুয়াখালী",
+"u": "Kala Para",
+"ub": "কলাপাড়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Patuakhali",
+"db": "পটুয়াখালী",
+"u": "Mirzaganj",
+"ub": "মির্জাগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Patuakhali",
+"db": "পটুয়াখালী",
+"u": "Patuakhali Sadar",
+"ub": "পটুয়াখালী সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Pirojpur",
+"db": "পিরোজপুর",
+"u": "Bhandaria",
+"ub": "ভান্ডারিয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Pirojpur",
+"db": "পিরোজপুর",
+"u": "Kawkhali",
+"ub": "কাউখালী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Pirojpur",
+"db": "পিরোজপুর",
+"u": "Mathbaria",
+"ub": "মঠবাড়ীয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Pirojpur",
+"db": "পিরোজপুর",
+"u": "Nazirpur",
+"ub": "নাজিরপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Pirojpur",
+"db": "পিরোজপুর",
+"u": "Nesarabad (Swarupkati)",
+"ub": "নেছারাবাদ (স্বরূপকাঠি)",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Pirojpur",
+"db": "পিরোজপুর",
+"u": "Pirojpur Sadar",
+"ub": "পিরোজপুর সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Pirojpur",
+"db": "পিরোজপুর",
+"u": "Zianagar",
+"ub": "জিয়ানগর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rajbari",
+"db": "রাজবাড়ী",
+"u": "Balia Kandi",
+"ub": "বালিয়াকান্দি",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rajbari",
+"db": "রাজবাড়ী",
+"u": "Goalandaghat",
+"ub": "গোয়ালন্দ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rajbari",
+"db": "রাজবাড়ী",
+"u": "Kalukhali",
+"ub": "কালুখালী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rajbari",
+"db": "রাজবাড়ী",
+"u": "Pangsha",
+"ub": "পাংশা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rajbari",
+"db": "রাজবাড়ী",
+"u": "Rajbari Sadar",
+"ub": "রাজবাড়ী সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rajshahi",
+"db": "রাজশাহী",
+"u": "Bagha",
+"ub": "বাঘা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rajshahi",
+"db": "রাজশাহী",
+"u": "Baghmara",
+"ub": "বাগমারা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rajshahi",
+"db": "রাজশাহী",
+"u": "Boalia",
+"ub": "বোয়ালিয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rajshahi",
+"db": "রাজশাহী",
+"u": "Charghat",
+"ub": "চারঘাট",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rajshahi",
+"db": "রাজশাহী",
+"u": "Durgapur",
+"ub": "দুর্গাপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rajshahi",
+"db": "রাজশাহী",
+"u": "Godagari",
+"ub": "গোদাগাড়ী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rajshahi",
+"db": "রাজশাহী",
+"u": "Matihar",
+"ub": "মতিহার",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rajshahi",
+"db": "রাজশাহী",
+"u": "Mohanpur",
+"ub": "মোহনপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rajshahi",
+"db": "রাজশাহী",
+"u": "Paba",
+"ub": "পবা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rajshahi",
+"db": "রাজশাহী",
+"u": "Puthia",
+"ub": "পুঠিয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rajshahi",
+"db": "রাজশাহী",
+"u": "Rajpara",
+"ub": "রাজপাড়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rajshahi",
+"db": "রাজশাহী",
+"u": "Shah Makhdum",
+"ub": "শাহ মখদুম",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rajshahi",
+"db": "রাজশাহী",
+"u": "Tanore",
+"ub": "তানোর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rangamati",
+"db": "রাঙ্গামাটি",
+"u": "Baghai Chhari",
+"ub": "বাঘাইছড়ি",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"non",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"non",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rangamati",
+"db": "রাঙ্গামাটি",
+"u": "Barkal",
+"ub": "বরকল",
+"gp": [
+"nos",
+"nos",
+"nos",
+"nos",
+"nos"
+],
+"robi": [
+"ok",
+"non",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"nos",
+"nos",
+"nos",
+"nos",
+"nos"
+]
+},
+{
+"d": "Rangamati",
+"db": "রাঙ্গামাটি",
+"u": "Belai Chhari",
+"ub": "বিলাইছড়ি",
+"gp": [
+"nos",
+"nos",
+"nos",
+"nos",
+"nos"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"nos",
+"nos",
+"nos",
+"nos",
+"nos"
+]
+},
+{
+"d": "Rangamati",
+"db": "রাঙ্গামাটি",
+"u": "Jurai Chhari",
+"ub": "জুরাছড়ি",
+"gp": [
+"nos",
+"nos",
+"nos",
+"nos",
+"nos"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"nos",
+"nos",
+"nos",
+"nos",
+"nos"
+]
+},
+{
+"d": "Rangamati",
+"db": "রাঙ্গামাটি",
+"u": "Kawkhali (Betbunia)",
+"ub": "কাউখালী (বেতবুনিয়া)",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rangamati",
+"db": "রাঙ্গামাটি",
+"u": "Langadu",
+"ub": "লংগদু",
+"gp": [
+"nos",
+"nos",
+"nos",
+"nos",
+"nos"
+],
+"robi": [
+"ok",
+"non",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rangamati",
+"db": "রাঙ্গামাটি",
+"u": "Naniarchar",
+"ub": "নানিয়ারচর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rangamati",
+"db": "রাঙ্গামাটি",
+"u": "Rajasthali",
+"ub": "রাজস্থলী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rangamati",
+"db": "রাঙ্গামাটি",
+"u": "Rangamati Sadar",
+"ub": "রাঙ্গামাটি সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rangpur",
+"db": "রংপুর",
+"u": "Badarganj",
+"ub": "বদরগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rangpur",
+"db": "রংপুর",
+"u": "Gangachara",
+"ub": "গংগাচড়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rangpur",
+"db": "রংপুর",
+"u": "Kaunia",
+"ub": "কাউনিয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rangpur",
+"db": "রংপুর",
+"u": "Pirgachha",
+"ub": "পীরগাছা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rangpur",
+"db": "রংপুর",
+"u": "Pirganj",
+"ub": "পীরগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rangpur",
+"db": "রংপুর",
+"u": "Rangpur Sadar",
+"ub": "রংপুর সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Rangpur",
+"db": "রংপুর",
+"u": "Taraganj",
+"ub": "তারাগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Satkhira",
+"db": "সাতক্ষীরা",
+"u": "Assasuni",
+"ub": "আশাশুনি",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Satkhira",
+"db": "সাতক্ষীরা",
+"u": "Debhata",
+"ub": "দেবহাটা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Satkhira",
+"db": "সাতক্ষীরা",
+"u": "Kalaroa",
+"ub": "কলারোয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Satkhira",
+"db": "সাতক্ষীরা",
+"u": "Kaliganj",
+"ub": "কালিগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Satkhira",
+"db": "সাতক্ষীরা",
+"u": "Satkhira Sadar",
+"ub": "সাতক্ষীরা সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Satkhira",
+"db": "সাতক্ষীরা",
+"u": "Shyamnagar",
+"ub": "শ্যামনগর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Satkhira",
+"db": "সাতক্ষীরা",
+"u": "Tala",
+"ub": "তালা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Shariatpur",
+"db": "শরীয়তপুর",
+"u": "Bhedarganj",
+"ub": "ভেদরগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Shariatpur",
+"db": "শরীয়তপুর",
+"u": "Damudya",
+"ub": "ডামুড্যা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Shariatpur",
+"db": "শরীয়তপুর",
+"u": "Naria",
+"ub": "নড়িয়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Shariatpur",
+"db": "শরীয়তপুর",
+"u": "Shariatpur Sadar",
+"ub": "শরিয়তপুর সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Shariatpur",
+"db": "শরীয়তপুর",
+"u": "Zanjira",
+"ub": "জাজিরা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sherpur",
+"db": "শেরপুর",
+"u": "Jhenaigati",
+"ub": "ঝিনাইগাতী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sherpur",
+"db": "শেরপুর",
+"u": "Nakla",
+"ub": "নকলা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sherpur",
+"db": "শেরপুর",
+"u": "Nalitabari",
+"ub": "নালিতাবাড়ী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sherpur",
+"db": "শেরপুর",
+"u": "Sherpur Sadar",
+"ub": "শেরপুর সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sherpur",
+"db": "শেরপুর",
+"u": "Sreebardi",
+"ub": "শ্রীবরদী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sirajganj",
+"db": "সিরাজগঞ্জ",
+"u": "Belkuchi",
+"ub": "বেলকুচি",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sirajganj",
+"db": "সিরাজগঞ্জ",
+"u": "Chauhali",
+"ub": "চৌহালি",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"non"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sirajganj",
+"db": "সিরাজগঞ্জ",
+"u": "Kamarkhanda",
+"ub": "কামারখন্দ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sirajganj",
+"db": "সিরাজগঞ্জ",
+"u": "Kazipur",
+"ub": "কাজীপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sirajganj",
+"db": "সিরাজগঞ্জ",
+"u": "Royganj",
+"ub": "রায়গঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sirajganj",
+"db": "সিরাজগঞ্জ",
+"u": "Shahjadpur",
+"ub": "শাহজাদপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sirajganj",
+"db": "সিরাজগঞ্জ",
+"u": "Sirajganj Sadar",
+"ub": "সিরাজগঞ্জ সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sirajganj",
+"db": "সিরাজগঞ্জ",
+"u": "Tarash",
+"ub": "তাড়াশ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sirajganj",
+"db": "সিরাজগঞ্জ",
+"u": "Ullah Para",
+"ub": "উল্লাপাড়া",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sunamganj",
+"db": "সুনামগঞ্জ",
+"u": "Bishwambarpur",
+"ub": "বিশ্বম্ভরপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sunamganj",
+"db": "সুনামগঞ্জ",
+"u": "Chhatak",
+"ub": "ছাতক",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sunamganj",
+"db": "সুনামগঞ্জ",
+"u": "Dakshin Sunamganj",
+"ub": "দক্ষিণ সুনামগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sunamganj",
+"db": "সুনামগঞ্জ",
+"u": "Derai",
+"ub": "দিরাই",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sunamganj",
+"db": "সুনামগঞ্জ",
+"u": "Dharampasha",
+"ub": "ধর্মপাশা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sunamganj",
+"db": "সুনামগঞ্জ",
+"u": "Dowarabazar",
+"ub": "দোয়ারাবাজার",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sunamganj",
+"db": "সুনামগঞ্জ",
+"u": "Jagannathpur",
+"ub": "জগন্নাথপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sunamganj",
+"db": "সুনামগঞ্জ",
+"u": "Jamalganj",
+"ub": "জামালগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sunamganj",
+"db": "সুনামগঞ্জ",
+"u": "Sulla",
+"ub": "শাল্লা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sunamganj",
+"db": "সুনামগঞ্জ",
+"u": "Sunamganj Sadar",
+"ub": "সুনামগঞ্জ সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sunamganj",
+"db": "সুনামগঞ্জ",
+"u": "Tahirpur",
+"ub": "তাহিরপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sylhet",
+"db": "সিলেট",
+"u": "Balaganj",
+"ub": "বালাগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sylhet",
+"db": "সিলেট",
+"u": "Beani Bazar",
+"ub": "বিয়ানীবাজার",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sylhet",
+"db": "সিলেট",
+"u": "Bishwanath",
+"ub": "বিশ্বনাথ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sylhet",
+"db": "সিলেট",
+"u": "Companiganj",
+"ub": "কোম্পানীগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sylhet",
+"db": "সিলেট",
+"u": "Dakshin Surma",
+"ub": "দক্ষিণ সুরমা",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sylhet",
+"db": "সিলেট",
+"u": "Golabganj",
+"ub": "গোলাপগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sylhet",
+"db": "সিলেট",
+"u": "Gowainghat",
+"ub": "গোয়াইনঘাট",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sylhet",
+"db": "সিলেট",
+"u": "Jaintiapur",
+"ub": "জৈন্তাপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sylhet",
+"db": "সিলেট",
+"u": "Kanaighat",
+"ub": "কানাইঘাট",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sylhet",
+"db": "সিলেট",
+"u": "Sylhet Sadar",
+"ub": "সিলেট সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Sylhet",
+"db": "সিলেট",
+"u": "Zakiganj",
+"ub": "জকিগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Tangail",
+"db": "টাঙ্গাইল",
+"u": "Basail",
+"ub": "বাসাইল",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Tangail",
+"db": "টাঙ্গাইল",
+"u": "Bhuapur",
+"ub": "ভুয়াপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Tangail",
+"db": "টাঙ্গাইল",
+"u": "Delduar",
+"ub": "দেলদুয়ার",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Tangail",
+"db": "টাঙ্গাইল",
+"u": "Dhanbari",
+"ub": "ধনবাড়ী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Tangail",
+"db": "টাঙ্গাইল",
+"u": "Ghatail",
+"ub": "ঘাটাইল",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Tangail",
+"db": "টাঙ্গাইল",
+"u": "Kalihati",
+"ub": "কালিহাতী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Tangail",
+"db": "টাঙ্গাইল",
+"u": "Madhupur",
+"ub": "মধুপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Tangail",
+"db": "টাঙ্গাইল",
+"u": "Mirzapur",
+"ub": "মির্জাপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Tangail",
+"db": "টাঙ্গাইল",
+"u": "Nagarpur",
+"ub": "নাগরপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Tangail",
+"db": "টাঙ্গাইল",
+"u": "Sakhipur",
+"ub": "সখিপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Tangail",
+"db": "টাঙ্গাইল",
+"u": "Tangail Sadar",
+"ub": "টাঙ্গাইল সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Thakurgaon",
+"db": "ঠাকুরগাঁও",
+"u": "Baliadangi",
+"ub": "বালিয়াডাঙ্গী",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Thakurgaon",
+"db": "ঠাকুরগাঁও",
+"u": "Haripur",
+"ub": "হরিপুর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Thakurgaon",
+"db": "ঠাকুরগাঁও",
+"u": "Pirganj",
+"ub": "পীরগঞ্জ",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Thakurgaon",
+"db": "ঠাকুরগাঁও",
+"u": "Ranisankail",
+"ub": "রাণীশংকৈল",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+},
+{
+"d": "Thakurgaon",
+"db": "ঠাকুরগাঁও",
+"u": "Thakurgaon Sadar",
+"ub": "ঠাকুরগাঁও সদর",
+"gp": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"robi": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+],
+"bl": [
+"ok",
+"ok",
+"ok",
+"ok",
+"ok"
+]
+}
+]
