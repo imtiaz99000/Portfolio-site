@@ -100,20 +100,23 @@
     inline(svg, cl);
     [].forEach.call(cl.querySelectorAll('circle.pt'), function (x) { x.remove(); });
     var vb = svg.viewBox.baseVal, W = vb.width, H = vb.height;
-    cl.setAttribute('width', W); cl.setAttribute('height', H); cl.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    cl.setAttribute('width', W * 12); cl.setAttribute('height', H * 12); cl.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
     var bg = getComputedStyle(document.body).backgroundColor, ink = getComputedStyle(document.body).color;
     var muted = getComputedStyle(card.querySelector('.sub') || document.body).color;
     var url = URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(cl)], { type: 'image/svg+xml;charset=utf-8' }));
     var img = new Image();
     img.onload = function () {
-      var S = 2, pad = 28, head = sub ? 78 : 54, foot = 40, cw = W + pad * 2, ch = H + head + foot + pad;
+      var pad = 28, head = sub ? 78 : 54, foot = 40, cw = W + pad * 2, ch = H + head + foot + pad;
+      // 8K export: 7680 px wide. iPhone and iPad cap a canvas at about 16.7 million pixels, so stay under that there.
+      var S = 7680 / cw;
+      if (/iPhone|iPad|Macintosh/.test(navigator.userAgent) && 'ontouchend' in document) S = Math.min(S, Math.sqrt(16.7e6 / (cw * ch)));
       var cv = document.createElement('canvas'); cv.width = cw * S; cv.height = ch * S;
       var g = cv.getContext('2d'); g.scale(S, S);
       g.fillStyle = bg; g.fillRect(0, 0, cw, ch);
       var ff = getComputedStyle(document.body).fontFamily;
       g.fillStyle = ink; g.font = '700 22px ' + ff; g.fillText(title, pad, pad + 20);
       if (sub) { g.fillStyle = muted; g.font = '15px ' + ff; g.fillText(sub.length > 110 ? sub.slice(0, 107) + '…' : sub, pad, pad + 48); }
-      g.drawImage(img, pad, head);
+      g.drawImage(img, pad, head, W, H);
       g.fillStyle = muted; g.font = '13px ' + ff;
       g.fillText(bnMode() ? 'সূত্র: BD Telecom · মোহাম্মদ ইমতিয়াজ করিম · imtiazkarim.com/bd-telecom' : 'Source: BD Telecom by Mohd Imtiaz Karim · imtiazkarim.com/bd-telecom', pad, ch - 16);
       URL.revokeObjectURL(url);
