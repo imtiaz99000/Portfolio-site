@@ -6,6 +6,5 @@ _build
 tools/pixelshrink/isnet.part*.wasm
 tools/pixelshrink/ort-wasm-simd-threaded.wasm
 tools/pixelshrink/ort-wasm-simd-threaded.mjs
-# PDFs are served from the static-assets branch via jsDelivr (redirects in vercel.json).
-bd-telecom/docs/
+# Work PDFs are served from the static-assets branch via jsDelivr (redirects in vercel.json).
 work/*/*.pdf

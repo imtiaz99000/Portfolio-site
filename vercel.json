@@ -27,22 +27,18 @@
           "value": "noindex, nofollow"
         }
       ]
-    },
-    {
-      "source": "/bd-telecom/(.*)\\.csv",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
-        }
-      ]
     }
   ],
   "redirects": [
     {
-      "source": "/bd-telecom/docs/:path*",
-      "destination": "https://cdn.jsdelivr.net/gh/imtiaz99000/Portfolio-site@979acba772ebc926b8c1685c5f17e54280fdcbf3/bd-telecom/docs/:path*",
-      "permanent": false
+      "source": "/bd-telecom",
+      "destination": "https://telecom.imtiazkarim.com/",
+      "permanent": true
+    },
+    {
+      "source": "/bd-telecom/:path*",
+      "destination": "https://telecom.imtiazkarim.com/:path*",
+      "permanent": true
     },
     {
       "source": "/work/:slug/:file(.*\\.pdf)",
