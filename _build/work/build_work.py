@@ -184,7 +184,7 @@ def build(p):
         lessons = ('<h3 style="margin-top:34px">Three things this journey taught me</h3><ul class="lessons">%s</ul>'
                    % ''.join('<li><b>%s</b><span>%s</span></li>' % (esc(a), esc(b)) for a, b in p['lessons']))
     others = ''.join('<a href="/work/%s/"><b>%s</b><span>Field case study</span></a>' % (o['slug'], esc(o['title']))
-                     for o in PAGES if o['slug'] != slug)
+                     for o in PAGES if o['slug'] != slug) + '<a href="/work/taka-gelo-koi/"><b>Taka Gelo Koi?, a money app I built end to end</b><span>Product case study</span></a>'
     ph = p['photo']
     page = f"""<!doctype html>
 <html lang="en">
@@ -291,5 +291,185 @@ def build(p):
     print('wrote work/%s/index.html (%d slides)' % (slug, n))
 
 
+TAKA = dict(
+  title='Taka Gelo Koi? A full money app, built from my own records',
+  seo='Taka Gelo Koi?: building a bilingual, encrypted money app',
+  desc='Case study by Mohd Imtiaz Karim: how 25 months of personal spending records became Taka Gelo Koi?, a bilingual money app with payslip PDF reading, income tax, salary projection, Zakat and end-to-end encryption.',
+  lede='I kept my household accounts in Excel for 25 months. Every month I fixed broken formulas, retyped payslip figures and guessed how much tax I owed. So I turned the spreadsheet into an app anyone in Bangladesh can use: log money in Bangla or English, read payslip PDFs, work out income tax, project salary against inflation, plan savings and calculate Zakat. Every entry is encrypted on the phone before it is saved.',
+  tags=['Product design', 'JavaScript', 'Firebase', 'Web Crypto', 'pdf.js', 'SheetJS', 'Forecasting', 'Data privacy'],
+  proof=[('25 months', 'of my own records it started from'), ('12', 'sections, from spending to tax and projection'), ('2 languages', 'full Bangla and English'), ('AES-256', 'encryption on the device before saving')],
+  problem=['A spreadsheet is fine until it is not. Mine had one sheet per month, categories typed slightly differently each time, payslip figures copied by hand and a tax estimate I redid every June. I could see what I spent, but not where my salary was heading, whether a raise beat inflation, or when a savings goal would actually be reached.',
+           'Most money apps in the market are built for other countries. They do not know a Bangladeshi payslip, the income tax slabs, Eid bonuses, PMS, provident fund or Zakat, and many of them want your data on their servers in plain text.'],
+  built=[('Income and spending', 'Log entries in Bangla or English, with the category picked from the item name. Monthly budgets per category turn red when you go over. An existing Excel tracker imports in one step.'),
+         ('Payslip reader', 'Upload payslip PDFs or a .zip of them. The app reads fixed pay, incentive, bonuses, provident fund and tax on the phone itself and never keeps bank account or TIN numbers. It then charts what each payslip paid and how incentive moves month to month.'),
+         ('Income tax', 'Works out the year\'s tax the way an employer\'s tax card does: taxable income, each slab, the investment rebate, what has been deducted and what is still due, with a hint of how much more investment would lower the bill.'),
+         ('Salary projection', 'Projects fixed and regular pay for the next five years from the latest payslip, with yearly increments, bonuses and a what-if-I\'m-promoted option, then shows it again in today\'s money using BBS inflation, so a raise can be judged against prices.'),
+         ('Savings goal', 'Set a target and the money going in each month, and the app finds the month the goal is reached, the milestones on the way and an execution plan for each period.'),
+         ('Zakat, loans and funds', 'A Zakat calculator with assets, debts, nisab and a record of payments, a register of money lent and borrowed with repayments, and separate funds for money held for others.')],
+  safety=['Sign in with Google, or use it without an account and keep everything in the browser.',
+          'Every document is compressed and encrypted in the browser with AES-256-GCM before it leaves the phone. The key is protected by your passphrase (600,000 rounds of PBKDF2) and a recovery code. Neither I nor Google can read anyone\'s entries.',
+          'One encrypted copy is kept per day for 30 days, so a mistake can be rolled back. Full backups download as a file at any time.'],
+  learned=[('Start from a real problem you have.', 'Every feature exists because I needed it in my own monthly routine first. That made it easy to say no to features nobody would use.'),
+           ('Messy inputs are most of the work.', 'Payslips change layout, re-issued copies repeat months and Excel sheets are never consistent. Most of the code is cleaning and checking, the same as any analytics job.'),
+           ('Trust is a feature.', 'People will not put their salary into an app they cannot trust, so encryption and a clear privacy policy came before any new screen.')],
+  shots=[('overview', 'Overview: money in and out, savings rate, where it went against budget and the biggest spends'),
+         ('payslips', 'Payslips: what each payslip paid, with bonuses marked, and incentive month by month against the average'),
+         ('projection', 'Projection: where the salary is heading for five years, in taka and in today\'s money'),
+         ('tax', 'Income tax: taxable income, each slab, the investment rebate and what is still due'),
+         ('goal', 'Savings goal: the month the target is reached and the balance over time'),
+         ('spending', 'Income and spending: monthly entries with category budgets'),
+         ('zakat', 'Zakat: assets, nisab and payments made')],
+)
+
+
+def build_taka():
+    p = TAKA; slug = 'taka-gelo-koi'
+    from PIL import Image
+    url = 'https://www.imtiazkarim.com/work/%s/' % slug
+    def shot(k, cap, first=False):
+        w, h = Image.open(os.path.join(ROOT, 'work', slug, 'shots', k + '.webp')).size
+        return '<figure class="shot"><img src="shots/%s.webp" width="%d" height="%d" alt="%s" %s><figcaption>%s</figcaption></figure>' % (k, w, h, esc(cap), 'fetchpriority="high"' if first else 'loading="lazy"', esc(cap))
+    hero = shot(*p['shots'][0], first=True)
+    gallery = ''.join(shot(k, c) for k, c in p['shots'][1:])
+    mob = ''.join('<figure class="mob"><img src="shots/mobile-bn-%s.webp" width="780" height="1688" alt="%s" loading="lazy"></figure>' % (k, a) for k, a in [('home', 'Overview in Bangla on a phone'), ('pay', 'Payslips in Bangla on a phone')])
+    proof = ''.join('<div><dt>%s</dt><dd>%s</dd></div>' % (esc(a), esc(b)) for a, b in p['proof'])
+    built = ''.join('<li><div><b>%s</b><span>%s</span></div></li>' % (esc(a), esc(b)) for a, b in p['built'])
+    learned = ''.join('<li><b>%s</b><span>%s</span></li>' % (esc(a), esc(b)) for a, b in p['learned'])
+    others = ''.join('<a href="/work/%s/"><b>%s</b><span>Field case study</span></a>' % (o['slug'], esc(o['title'])) for o in PAGES)
+    css = EXTRA_CSS + """
+.shot{margin:0 0 22px;max-width:var(--read)}
+.shot img{width:100%;height:auto;border-radius:14px;border:1px solid var(--line);box-shadow:10px 12px 0 var(--mist);background:#fff}
+.shot figcaption{font-size:.92rem;color:var(--muted);margin-top:10px}
+.intro .shot{margin-top:30px;max-width:900px}
+.mobs{display:flex;gap:16px;margin:8px 0 0;flex-wrap:wrap}
+.mob{margin:0;width:min(240px,46%)}.mob img{width:100%;height:auto;border-radius:18px;border:6px solid var(--ink)}
+.note-sample{font-size:.9rem;color:var(--muted);background:#FDF1DC;border-radius:10px;padding:10px 14px;max-width:var(--read)}
+"""
+    page = f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{esc(p['seo'])} · Mohd Imtiaz Karim</title>
+<meta name="description" content="{esc(p['desc'])}">
+<meta property="og:title" content="{esc(p['title'])}">
+<meta property="og:description" content="{esc(p['desc'])}">
+<meta property="og:image" content="https://www.imtiazkarim.com/work/{slug}/share.jpg">
+<meta property="og:type" content="article">
+<link rel="canonical" href="{url}">
+{ICON}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>{BASE_CSS}{css}</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<header class="top" id="top">
+  <div class="wrap">
+    {MARK}
+    <nav class="nav" aria-label="Sections">
+      <a href="#problem">Problem</a><a href="#built">What I built</a><a href="#screens">Screens</a><a href="/#projects">All projects</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="intro">
+  <div class="wrap">
+    <a class="back" href="/#projects">&larr; Back to projects</a>
+    <p class="kicker">Product case study · Personal finance app</p>
+    <h1>{esc(p['title'])}</h1>
+    <p class="lede">{esc(p['lede'])}</p>
+    <div class="meta">{''.join('<span>%s</span>' % esc(t) for t in p['tags'])}</div>
+    <div class="cta">
+      <a class="btn primary" href="https://taka.imtiazkarim.com/" target="_blank" rel="noopener">Open the app</a>
+      <a class="btn" href="#screens">See the screens</a>
+    </div>
+    {hero}
+    <p class="note-sample">Every screen on this page shows the app's built-in sample data for a made-up household. None of it is my own money.</p>
+  </div>
+</section>
+
+<section class="proof" aria-label="Headline numbers">
+  <div class="wrap"><dl>{proof}</dl></div>
+</section>
+
+<section class="block story" id="problem">
+  <div class="wrap read">
+    <span class="num">01 · THE PROBLEM</span>
+    <h2>Why a spreadsheet was not enough</h2>
+    {''.join('<p>%s</p>' % esc(x) for x in p['problem'])}
+  </div>
+</section>
+
+<section class="block" id="built">
+  <div class="wrap read">
+    <span class="num">02 · WHAT I BUILT</span>
+    <h2>Six parts, one app</h2>
+    <ol class="steps">{built}</ol>
+  </div>
+</section>
+
+<section class="block" id="screens">
+  <div class="wrap">
+    <span class="num">03 · THE SCREENS</span>
+    <h2>What it looks like</h2>
+    {gallery}
+    <h3 style="margin-top:30px">Fully in Bangla, made for a phone</h3>
+    <p>Every label, number and month switches to Bangla with one tap.</p>
+    <div class="mobs">{mob}</div>
+  </div>
+</section>
+
+<section class="block" id="privacy">
+  <div class="wrap read">
+    <span class="num">04 · KEEPING IT PRIVATE</span>
+    <h2>Only you can read your entries</h2>
+    {''.join('<p>%s</p>' % esc(x) for x in p['safety'])}
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap read">
+    <span class="num">05 · WHAT I LEARNED</span>
+    <h2>Three lessons from building it</h2>
+    <ul class="lessons">{learned}</ul>
+    <div class="cta"><a class="btn primary" href="https://taka.imtiazkarim.com/" target="_blank" rel="noopener">Try Taka Gelo Koi?</a></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <span class="num">MORE WORK</span>
+    <h2>Field case studies</h2>
+    <div class="more">{others}</div>
+    <p style="margin-top:22px"><a href="/#projects">See every project, including the data work</a></p>
+  </div>
+</section>
+</main>
+
+<footer class="contact" id="contact">
+  <div class="wrap">
+    <h2>Looking for someone who knows both the field and the data?</h2>
+    <p>I'm open to business analyst and analytics roles where operations experience counts. The quickest way to reach me is LinkedIn or WhatsApp.</p>
+    <div class="cta">
+      <a class="btn primary" data-link="linkedin" href="#">Message me on LinkedIn</a>
+      <a class="btn" data-link="whatsapp" href="#">WhatsApp</a>
+      <a class="btn" href="https://github.com/imtiaz99000" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <div class="foot"><span>© 2026 Mohd Imtiaz Karim, Chandpur, Bangladesh</span><span>Screens show the app's sample data, not real figures.</span></div>
+  </div>
+</footer>
+
+{SCRIPT}
+</body>
+</html>
+"""
+    open(os.path.join(ROOT, 'work', slug, 'index.html'), 'w', encoding='utf-8').write(page)
+    print('wrote work/%s/index.html' % slug)
+
+
 for p in PAGES:
     build(p)
+build_taka()
