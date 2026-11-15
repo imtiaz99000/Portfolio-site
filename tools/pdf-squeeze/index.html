@@ -129,6 +129,9 @@ select,input[type=text]{font:inherit;padding:8px 10px;border:1px solid var(--lin
 .levels label small{color:var(--muted);font-size:12px;line-height:1.35}
 .levels input:checked + label{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent)}
 .levels input:focus-visible + label{outline:3px solid var(--accent);outline-offset:2px}
+.levels label .est{display:block;margin-top:4px;min-height:1.5em;font-family:var(--mono);font-size:12px;font-weight:600;color:var(--good);font-variant-numeric:tabular-nums}
+.levels label .est.wait{color:var(--muted);font-weight:400}
+.levels label .est.same{color:var(--warn)}
 .opts{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center}
 .opts label{display:inline-flex;align-items:center;gap:8px;cursor:pointer}
 .opts input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent)}
@@ -300,11 +303,12 @@ footer p{margin:0 0 6px;max-width:68ch}
     <section class="panel" aria-label="Compression settings">
       <div class="label">Compression level</div>
       <div class="levels" role="radiogroup">
-        <input type="radio" name="lvl" id="lvl-lossless" value="lossless"><label for="lvl-lossless"><b>Light</b><small>Lossless cleanup. Text stays selectable.</small></label>
-        <input type="radio" name="lvl" id="lvl-balanced" value="balanced" checked><label for="lvl-balanced"><b>Balanced</b><small>144 DPI. Good for email and sharing.</small></label>
-        <input type="radio" name="lvl" id="lvl-strong" value="strong"><label for="lvl-strong"><b>Strong</b><small>110 DPI. Upload portals and WhatsApp.</small></label>
-        <input type="radio" name="lvl" id="lvl-max" value="max"><label for="lvl-max"><b>Maximum</b><small>80 DPI. Smallest, for on-screen reading.</small></label>
+        <input type="radio" name="lvl" id="lvl-lossless" value="lossless"><label for="lvl-lossless"><b>Light</b><small>Lossless cleanup. Text stays selectable.</small><span class="est" id="est-lossless"></span></label>
+        <input type="radio" name="lvl" id="lvl-balanced" value="balanced" checked><label for="lvl-balanced"><b>Balanced</b><small>144 DPI. Good for email and sharing.</small><span class="est" id="est-balanced"></span></label>
+        <input type="radio" name="lvl" id="lvl-strong" value="strong"><label for="lvl-strong"><b>Strong</b><small>110 DPI. Upload portals and WhatsApp.</small><span class="est" id="est-strong"></span></label>
+        <input type="radio" name="lvl" id="lvl-max" value="max"><label for="lvl-max"><b>Maximum</b><small>80 DPI. Smallest, for on-screen reading.</small><span class="est" id="est-max"></span></label>
       </div>
+      <p class="note" id="estNote" aria-live="polite">Add a PDF to see the estimated size for each level before you compress.</p>
       <div class="opts">
         <label><input type="checkbox" id="gray"> Convert to grayscale</label>
         <label><input type="checkbox" id="targetOn"> Aim under <input type="number" id="targetMb" min="0.05" step="0.05" value="1" aria-label="Target size in MB"> MB each</label>
@@ -1235,7 +1239,9 @@ footer p{margin:0 0 6px;max-width:68ch}
       queueEl.appendChild(it.el);
       items.push(it);
     });
+    items.forEach(queueEstimate);
     items.forEach(draw);
+    showEstimates();
     snack(`${pdfs.length} file${pdfs.length > 1 ? 's' : ''} added.`);
     refresh();
   }
@@ -1254,7 +1260,7 @@ footer p{margin:0 0 6px;max-width:68ch}
     const idx = items.indexOf(it);
     const move = it.status === 'working' ? '' : `<span class="move"><button class="small" data-up="${it.id}" aria-label="Move up" ${idx <= 0 ? 'disabled' : ''}>↑</button><button class="small" data-down="${it.id}" aria-label="Move down" ${idx >= items.length-1 ? 'disabled' : ''}>↓</button></span>`;
     const ratio = it.after != null ? Math.max(1, it.after/it.before*100) : 100;
-    it.el.innerHTML = `<div><div class="name"></div><div class="meta">${fmt(it.before)}${it.after != null ? ' → ' + fmt(it.after) : ''}</div></div>
+    it.el.innerHTML = `<div><div class="name"></div><div class="meta">${fmt(it.before)}${it.after != null ? ' → ' + fmt(it.after) : estText(it)}</div></div>
       <div class="right">${chip}${btn}${move}</div>
       ${it.status === 'working' ? `<div class="progress"><i style="width:${it.progress}%"></i></div>` :
         `<div class="bars"><div class="bar" style="width:100%"></div>${it.after != null ? `<div class="bar after" style="width:${ratio.toFixed(1)}%"></div>` : ''}</div>`}`;
@@ -1423,6 +1429,129 @@ footer p{margin:0 0 6px;max-width:68ch}
     items.forEach(draw);
   }
 
+  /* ---------- size prediction ---------- */
+  // Renders up to 3 sample pages of each PDF at every level and scales the result to the full page count.
+  const EST_LEVELS = ['balanced','strong','max'];
+  const EST_SAMPLES = 3;
+  let estChain = Promise.resolve();
+  const estKey = () => $('gray').checked ? 'gray' : 'color';
+
+  async function estimateFile(it, gray){
+    const bytes = new Uint8Array(await it.file.arrayBuffer());
+    if (it.estLossless === undefined){
+      it.estLossless = bytes.length <= 60e6 ? (await lossless(bytes)).length : null;
+    }
+    const pdf = await pdfjsLib.getDocument({data: bytes.slice(0), isEvalSupported: false}).promise;
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d', {alpha: false});
+    try {
+      const n = pdf.numPages, k = Math.min(n, EST_SAMPLES);
+      const picks = [...new Set(Array.from({length: k}, (_, i) => k === 1 ? 1 : 1 + Math.round(i*(n-1)/(k-1))))];
+      const sums = {};
+      EST_LEVELS.forEach(l => sums[l] = 0);
+      for (const pn of picks){
+        const page = await pdf.getPage(pn);
+        const base = page.getViewport({scale: 1});
+        for (const l of EST_LEVELS){
+          const L = LEVELS[l];
+          let scale = L.dpi / 72;
+          if (base.width*scale*base.height*scale > MAX_PIXELS) scale = Math.sqrt(MAX_PIXELS/(base.width*base.height));
+          const vp = page.getViewport({scale});
+          canvas.width = Math.ceil(vp.width); canvas.height = Math.ceil(vp.height);
+          ctx.globalCompositeOperation = 'source-over';
+          ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+          await page.render({canvasContext: ctx, viewport: vp}).promise;
+          if (gray){
+            ctx.globalCompositeOperation = 'saturation';
+            ctx.fillStyle = 'hsl(0,0%,50%)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.globalCompositeOperation = 'source-over';
+          }
+          const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', L.q));
+          sums[l] += blob ? blob.size : 0;
+          await tick();
+        }
+        page.cleanup();
+      }
+      const out = {pages: n, sampled: picks.length};
+      EST_LEVELS.forEach(l => out[l] = Math.round(sums[l] / picks.length * n + n*700 + 1500));
+      return out;
+    } finally {
+      canvas.width = canvas.height = 0;
+      await pdf.destroy();
+    }
+  }
+
+  function queueEstimate(it){
+    const key = estKey();
+    it.est = it.est || {}; it.estPending = it.estPending || new Set();
+    if (it.est[key] || it.estPending.has(key)) return;
+    if (!window.pdfjsLib || !window.PDFLib) return;
+    it.estPending.add(key);
+    estChain = estChain.then(async () => {
+      while (busy) await new Promise(r => setTimeout(r, 400));
+      if (!items.includes(it)) return;
+      try { it.est[key] = await estimateFile(it, key === 'gray'); }
+      catch(e){ it.est[key] = {error: true}; if (it.estLossless === undefined) it.estLossless = null; }
+      it.estPending.delete(key);
+      showEstimates();
+      if (it.status === 'ready' && items.includes(it)) draw(it);
+    });
+  }
+
+  function estValue(it, level){
+    if (level === 'lossless') return it.estLossless == null ? null : Math.min(it.estLossless, it.before);
+    const e = it.est && it.est[estKey()];
+    return e && !e.error && e[level] != null ? Math.min(e[level], it.before) : null;
+  }
+  function estText(it){
+    if (it.status !== 'ready') return '';
+    const r = document.querySelector('input[name=lvl]:checked');
+    const v = r ? estValue(it, r.value) : null;
+    return v == null ? '' : ` → ≈ ${fmt(v)} estimated`;
+  }
+
+  function showEstimates(){
+    const key = estKey(), note = $('estNote');
+    const live = items.filter(i => i.status !== 'error');
+    const lvls = ['lossless'].concat(EST_LEVELS);
+    if (!live.length){
+      lvls.forEach(l => { const el = $('est-' + l); el.textContent = ''; el.className = 'est'; });
+      note.textContent = 'Add a PDF to see the estimated size for each level before you compress.';
+      return;
+    }
+    const before = live.reduce((s, i) => s + i.before, 0);
+    const tMb = parseFloat($('targetMb').value);
+    const target = $('targetOn').checked && tMb > 0 ? tMb*1048576 : 0;
+    let anyWaiting = false;
+    lvls.forEach(l => {
+      const el = $('est-' + l);
+      let total = 0, waiting = false, unknown = false, fits = true;
+      for (const it of live){
+        const e = it.est && it.est[key];
+        let v = e && e.error ? it.before : estValue(it, l);
+        if (v == null){ if (e) unknown = true; else waiting = true; continue; }
+        total += v; if (target && v > target) fits = false;
+      }
+      if (waiting){ anyWaiting = true; el.textContent = 'Estimating…'; el.className = 'est wait'; return; }
+      if (unknown){ el.textContent = 'Too large to estimate'; el.className = 'est wait'; return; }
+      const pct = Math.round((1 - total/before)*100);
+      el.textContent = pct <= 0 ? `≈ ${fmt(total)} · no saving` : `≈ ${fmt(total)} · −${pct}%` + (target ? (fits ? ' · fits target' : ' · above target') : '');
+      el.className = 'est' + (pct <= 0 ? ' same' : '');
+    });
+    if (anyWaiting){ note.textContent = 'Working out the estimated size for each level…'; return; }
+    const exact = live.every(i => { const e = i.est && i.est[key]; return e && !e.error && e.sampled === e.pages; });
+    note.textContent = (live.length > 1 ? `Estimated total for all ${live.length} files. ` : 'Estimated size after compression. ') +
+      (exact ? 'Every page was measured, so the real result should be very close.' : 'Based on 3 sample pages per file, so the real result can differ a little.') +
+      ' Light is measured exactly.';
+  }
+
+  document.querySelectorAll('input[name=lvl], #gray, #targetOn').forEach(el => el.addEventListener('change', () => {
+    items.forEach(it => { if (it.status !== 'error') queueEstimate(it); });
+    showEstimates();
+    if (!busy) items.forEach(it => { if (it.status === 'ready') draw(it); });
+  }));
+  $('targetMb').addEventListener('input', showEstimates);
+
   const drop = $('drop'), picker = $('picker');
   drop.addEventListener('click', () => picker.click());
   drop.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); picker.click(); }});
@@ -1444,7 +1573,7 @@ footer p{margin:0 0 6px;max-width:68ch}
   $('run').addEventListener('click', runAll);
   $('zip').addEventListener('click', saveZip);
   $('merge').addEventListener('click', mergeAll);
-  $('clear').addEventListener('click', () => { items = []; renderExamples(); refresh(); });
+  $('clear').addEventListener('click', () => { items = []; renderExamples(); refresh(); showEstimates(); });
   queueEl.addEventListener('click', e => {
     const up = e.target.closest('[data-up]'); if (up){ moveItem(+up.dataset.up, -1); return; }
     const dn = e.target.closest('[data-down]'); if (dn){ moveItem(+dn.dataset.down, 1); return; }
@@ -1463,7 +1592,7 @@ footer p{margin:0 0 6px;max-width:68ch}
   document.querySelectorAll('input[name=lvl]').forEach(r => r.addEventListener('change', () => store.set('level', r.value)));
 
   /* ---------- start ---------- */
-  renderExamples(); refresh();
+  renderExamples(); refresh(); showEstimates();
   drawGrid();
   makePage(makeSample(), true).catch(() => {});
 })();
