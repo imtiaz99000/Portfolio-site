@@ -826,8 +826,336 @@ footer p{margin:0 0 6px;max-width:68ch}
     return out;
   }
 
-  // Find the paper: bright, low-saturation region; take its largest connected blob and its four extreme corners.
+  // Page finder: straight-edge search (colour gradients → Hough lines → best 4-sided outline).
+  // Scores each candidate outline by how much of its border is a real edge, how different the
+  // colour is just inside vs just outside (paper vs desk, not lines printed on the paper), and size.
+  function detectQuad(src){
+    const W = src.width, H = src.height;
+    const s = Math.min(1, 400 / Math.max(W, H));
+    const w = Math.max(24, Math.round(W*s)), h = Math.max(24, Math.round(H*s)), n = w*h;
+    const cv = mk(w, h), cx = cv.getContext('2d', {willReadFrequently: true});
+    cx.imageSmoothingQuality = 'high'; cx.drawImage(src, 0, 0, w, h);
+    const d = cx.getImageData(0, 0, w, h).data; cv.width = 0;
+
+    // Colour channels, blurred (5-tap binomial, twice) to wash out text and paper texture.
+    const ch = [new Float32Array(n), new Float32Array(n), new Float32Array(n)];
+    for (let i = 0, j = 0; i < n; i++, j += 4){ ch[0][i] = d[j]; ch[1][i] = d[j+1]; ch[2][i] = d[j+2]; }
+    const tmp = new Float32Array(n);
+    const blur = a => {
+      for (let pass = 0; pass < 2; pass++){
+        for (let y = 0; y < h; y++){ const o = y*w;
+          for (let x = 0; x < w; x++){
+            const x0 = x > 1 ? x-2 : 0, x1 = x > 0 ? x-1 : 0, x3 = x < w-1 ? x+1 : w-1, x4 = x < w-2 ? x+2 : w-1;
+            tmp[o+x] = (a[o+x0] + 4*a[o+x1] + 6*a[o+x] + 4*a[o+x3] + a[o+x4]) / 16;
+          } }
+        for (let y = 0; y < h; y++){
+          const y0 = (y > 1 ? y-2 : 0)*w, y1 = (y > 0 ? y-1 : 0)*w, y3 = (y < h-1 ? y+1 : h-1)*w, y4 = (y < h-2 ? y+2 : h-1)*w, o = y*w;
+          for (let x = 0; x < w; x++) a[o+x] = (tmp[y0+x] + 4*tmp[y1+x] + 6*tmp[o+x] + 4*tmp[y3+x] + tmp[y4+x]) / 16;
+        }
+      }
+    };
+    ch.forEach(blur);
+
+    // Colour Sobel: per pixel keep the channel with the strongest gradient.
+    const mag = new Float32Array(n), gxA = new Float32Array(n), gyA = new Float32Array(n);
+    for (let y = 1; y < h-1; y++) for (let x = 1; x < w-1; x++){
+      const i = y*w + x; let best = -1, bx = 0, by = 0;
+      for (let k = 0; k < 3; k++){
+        const a = ch[k];
+        const gx = (a[i-w+1] + 2*a[i+1] + a[i+w+1]) - (a[i-w-1] + 2*a[i-1] + a[i+w-1]);
+        const gy = (a[i+w-1] + 2*a[i+w] + a[i+w+1]) - (a[i-w-1] + 2*a[i-w] + a[i-w+1]);
+        const m = gx*gx + gy*gy;
+        if (m > best){ best = m; bx = gx; by = gy; }
+      }
+      mag[i] = Math.sqrt(best); gxA[i] = bx; gyA[i] = by;
+    }
+    // Thresholds from the gradient distribution (the page outline is among the stronger, longer edges).
+    const hist = new Uint32Array(1024); let cnt = 0;
+    for (let i = 0; i < n; i++){ if (mag[i] > 0.5){ hist[Math.min(1023, mag[i] | 0)]++; cnt++; } }
+    const pct = p => { let acc = 0, t = cnt * p; for (let b = 0; b < 1024; b++){ acc += hist[b]; if (acc >= t) return b; } return 1023; };
+    const thr = Math.max(7, pct(0.80)), low = Math.max(3, thr * 0.25);
+
+    // Thin edges (non-maximum suppression) for line voting; looser mask for checking support.
+    const edge = new Uint8Array(n), thin = new Uint8Array(n);
+    for (let y = 2; y < h-2; y++) for (let x = 2; x < w-2; x++){
+      const i = y*w + x, m = mag[i];
+      if (m < low) continue;
+      edge[i] = 1;
+      const gx = gxA[i], gy = gyA[i], ax = Math.abs(gx), ay = Math.abs(gy);
+      let o;
+      if (ay < ax*0.4142) o = 1; else if (ax < ay*0.4142) o = w; else o = (gx*gy > 0) ? w+1 : w-1;
+      if (m >= mag[i-o] && m >= mag[i+o]) thin[i] = 1;
+    }
+
+    // Hough transform; each edge pixel only votes near its own gradient direction.
+    const T = 180, diag = Math.ceil(Math.hypot(w, h)), R = 2*diag + 1;
+    const cosT = new Float32Array(T), sinT = new Float32Array(T);
+    for (let t = 0; t < T; t++){ cosT[t] = Math.cos(t*Math.PI/180); sinT[t] = Math.sin(t*Math.PI/180); }
+    const acc = new Float32Array(T*R);
+    for (let y = 2; y < h-2; y++) for (let x = 2; x < w-2; x++){
+      const i = y*w + x; if (!thin[i]) continue;
+      const wt = Math.min(1, Math.sqrt(mag[i] / thr));
+      let phi = Math.atan2(gyA[i], gxA[i]) * 180 / Math.PI; if (phi < 0) phi += 180;
+      const c = Math.round(phi);
+      for (let dt = -7; dt <= 7; dt++){
+        let t = c + dt;
+        if (t < 0) t += 180; else if (t >= 180) t -= 180;
+        const r = x*cosT[t] + y*sinT[t];
+        const ri = Math.round(r) + diag;
+        acc[t*R + ri] += wt * (1 - Math.abs(dt) / 9);
+      }
+    }
+    // Peaks.
+    const minVotes = Math.min(w, h) * 0.10, peaks = [];
+    for (let t = 0; t < T; t++) for (let r = 2; r < R-2; r++){
+      const v = acc[t*R + r]; if (v < minVotes) continue;
+      let isMax = true;
+      for (let dt = -2; dt <= 2 && isMax; dt++){
+        const tt = (t + dt + T) % T;
+        for (let dr = -2; dr <= 2; dr++){ if (acc[tt*R + r + dr] > v){ isMax = false; break; } }
+      }
+      if (isMax) peaks.push({t, rho: r - diag, v});
+    }
+    peaks.sort((a, b) => b.v - a.v);
+    const lines = [];
+    for (const p of peaks){
+      if (lines.some(l => {
+        let dt = Math.abs(l.t - p.t), dr = Math.abs(l.rho - p.rho);
+        if (dt > 90){ dt = 180 - dt; dr = Math.abs(l.rho + p.rho); }
+        return dt < 6 && dr < Math.max(6, Math.min(w, h)*0.025);
+      })) continue;
+      lines.push(p);
+      if (lines.length >= 60) break;
+    }
+    const mkLine = (t, rho, border) => ({t, rho, c: Math.cos(t*Math.PI/180), s: Math.sin(t*Math.PI/180), border});
+    const horiz = [], vert = [];
+    // Keep a spread of angles, so a striped or wood-grain background can't crowd out the page's own edges.
+    const perBucket = {};
+    lines.forEach(l => {
+      const g = l.t >= 45 && l.t < 135 ? horiz : vert, bk = Math.round(((l.t + 1) % 180) / 2);
+      if (g.length >= 24 || (perBucket[bk] = (perBucket[bk] || 0) + 1) > 8) return;
+      g.push(mkLine(l.t, l.rho, false));
+    });
+    horiz.push(mkLine(90, 0, true), mkLine(90, h-1, true));
+    vert.push(mkLine(0, 0, true), mkLine(0, w-1, true));
+
+    const meet = (a, b) => {
+      const det = a.c*b.s - b.c*a.s; if (Math.abs(det) < 1e-6) return null;
+      return [(a.rho*b.s - b.rho*a.s) / det, (a.c*b.rho - b.c*a.rho) / det];
+    };
+    const off = Math.max(3, Math.round(Math.max(w, h) * 0.012));
+    const inImg = (x, y) => x >= 0 && y >= 0 && x < w && y < h;
+    // Walk a path and measure: how much of it is an edge running the same way, and the colour
+    // difference between a strip just inside (towards `inn`) and just outside.
+    function walk(p, q, inn, tolP, cosTol, from, to){
+      const L = Math.hypot(q[0]-p[0], q[1]-p[1]) || 1;
+      let nx = -(q[1]-p[1]) / L, ny = (q[0]-p[0]) / L;
+      if (nx*inn[0] + ny*inn[1] < 0){ nx = -nx; ny = -ny; }
+      const steps = Math.max(6, Math.floor(L * (to - from) / 2));
+      let hits = 0, conSum = 0, conN = 0, iR = 0, iG = 0, iB = 0;
+      for (let k = 0; k < steps; k++){
+        const f = from + (to - from) * (k + 0.5) / steps, x = p[0] + (q[0]-p[0])*f, y = p[1] + (q[1]-p[1])*f;
+        for (let o = 0; o <= tolP; o = o > 0 ? -o : -o + 1){
+          const xi = Math.round(x + nx*o), yi = Math.round(y + ny*o);
+          if (!inImg(xi, yi)) { if (o === tolP) break; continue; }
+          const i = yi*w + xi;
+          if (edge[i] && Math.abs(gxA[i]*nx + gyA[i]*ny) / (mag[i] || 1) >= cosTol){ hits++; break; }
+          if (o === tolP) break;
+        }
+        const ix = Math.round(x + nx*off), iy = Math.round(y + ny*off), ox = Math.round(x - nx*off), oy = Math.round(y - ny*off);
+        if (inImg(ix, iy) && inImg(ox, oy)){
+          const a = iy*w + ix, b = oy*w + ox;
+          conSum += Math.hypot(ch[0][a]-ch[0][b], ch[1][a]-ch[1][b], ch[2][a]-ch[2][b]); conN++;
+          iR += ch[0][a]; iG += ch[1][a]; iB += ch[2][a];
+        }
+      }
+      return {sup: hits / steps, con: conN ? conSum / conN : 0, conN, inC: conN ? [iR/conN, iG/conN, iB/conN] : null};
+    }
+    const onBorder = p => p[1] < 1.5 ? 'T' : p[1] > h - 2.5 ? 'B' : p[0] < 1.5 ? 'L' : p[0] > w - 2.5 ? 'R' : '';
+    const sameBorder = (p, q) => {
+      if (p[1] < 1.5 && q[1] < 1.5) return true;
+      if (p[1] > h-2.5 && q[1] > h-2.5) return true;
+      if (p[0] < 1.5 && q[0] < 1.5) return true;
+      if (p[0] > w-2.5 && q[0] > w-2.5) return true;
+      return false;
+    };
+
+    // 1) Corner candidates: where a horizontal-ish and a vertical-ish line meet, and both edges
+    //    run away from that point in the right directions (and not past it).
+    const arm = Math.min(w, h) * 0.16, cos22 = Math.cos(22 * Math.PI / 180);
+    const ROLES = {tl: [1, 1], tr: [-1, 1], br: [-1, -1], bl: [1, -1]};   // x and y direction of the arms
+    const cands = {tl: [], tr: [], br: [], bl: []};
+    for (const H_ of horiz) for (const V_ of vert){
+      const p = meet(H_, V_);
+      if (!p || p[0] < -0.03*w || p[0] > 1.03*w || p[1] < -0.03*h || p[1] > 1.03*h) continue;
+      const pc = [clamp(p[0], 0, w-1), clamp(p[1], 0, h-1)];
+      let hd = [-H_.s, H_.c], vd = [-V_.s, V_.c];            // unit directions along each line
+      for (const role in ROLES){
+        const [sx, sy] = ROLES[role];
+        if ((role[1] === 'l' && pc[0] > 0.75*w) || (role[1] === 'r' && pc[0] < 0.25*w) || (role[0] === 't' && pc[1] > 0.75*h) || (role[0] === 'b' && pc[1] < 0.25*h)) continue;
+        const ha = hd[0]*sx >= 0 ? hd : [-hd[0], -hd[1]], va = vd[1]*sy >= 0 ? vd : [-vd[0], -vd[1]];
+        const armOf = (L_, dir, inn) => {
+          if (L_.border) return {sup: 0.55, con: 22, ext: 0, border: true};
+          const q = [pc[0] + dir[0]*arm, pc[1] + dir[1]*arm], back = [pc[0] - dir[0]*arm*0.6, pc[1] - dir[1]*arm*0.6];
+          const a = walk(pc, q, inn, 2, cos22, 0.04, 1);
+          const e = walk(pc, back, inn, 2, cos22, 0.12, 1);
+          return {sup: a.sup, con: a.con, ext: e.conN ? (e.con > 10 ? e.sup : 0) : 0};
+        };
+        const A = armOf(H_, ha, va), B = armOf(V_, va, ha);
+        if (A.border && B.border) continue;
+        if (A.sup < 0.4 || B.sup < 0.4 || A.con < 6 || B.con < 6) continue;
+        const score = Math.sqrt(A.sup * B.sup) * Math.min(1, (A.con + B.con) / 30) * (1 - 0.4 * Math.max(A.ext, B.ext)) * ((A.border || B.border) ? 0.45 : 1);
+        const outside = (p[0] < -0.5 || p[1] < -0.5 || p[0] > w - 0.5 || p[1] > h - 0.5) ? 0.5 : 1;
+        if (score * outside > 0.05) cands[role].push({p: pc, score: score * outside, hl: H_, vl: V_});
+      }
+    }
+    const minSep = Math.min(w, h) * 0.03;
+    for (const role in cands){
+      cands[role].sort((a, b) => b.score - a.score);
+      const kept = [];
+      for (const c of cands[role]){ if (!kept.some(k => Math.hypot(k.p[0]-c.p[0], k.p[1]-c.p[1]) < minSep)) kept.push(c); if (kept.length >= 14) break; }
+      cands[role] = kept;
+    }
+    // Image corners as a last resort for pages running out of the photo.
+    const bT = horiz[horiz.length - 2], bB = horiz[horiz.length - 1], bL = vert[vert.length - 2], bR = vert[vert.length - 1];
+    cands.tl.push({p: [0, 0], score: 0.08, hl: bT, vl: bL}); cands.tr.push({p: [w-1, 0], score: 0.08, hl: bT, vl: bR});
+    cands.br.push({p: [w-1, h-1], score: 0.08, hl: bB, vl: bR}); cands.bl.push({p: [0, h-1], score: 0.08, hl: bB, vl: bL});
+
+    // 2) Join corners into outlines and score the four sides as chords (which tolerates a bent or folded edge).
+    const chordCache = new Map(), cos28 = Math.cos(28 * Math.PI / 180);
+    function chord(p, q, ctr){
+      const key = p[0].toFixed(1) + ',' + p[1].toFixed(1) + '|' + q[0].toFixed(1) + ',' + q[1].toFixed(1);
+      if (chordCache.has(key)) return chordCache.get(key);
+      const L = Math.hypot(q[0]-p[0], q[1]-p[1]);
+      let r;
+      if (sameBorder(p, q)) r = {sup: 0.55, con: 22, len: L, border: true};
+      else {
+        const mid = [(p[0]+q[0])/2, (p[1]+q[1])/2];
+        const a = walk(p, q, [ctr[0]-mid[0], ctr[1]-mid[1]], Math.max(2, Math.round(L * 0.01)), cos28, 0, 1);
+r = {sup: a.sup, con: a.con, len: L, border: false};
+      }
+      chordCache.set(key, r);
+      return r;
+    }
+    // A side follows the edge line leaving each of its two corners. Both corners on one line: a straight side.
+    // Two different lines: allowed only if they meet partway along (a folded or curled edge), never if they jump
+    // from one object to another.
+    const sideCache = new Map();
+    function sideOf(p, q, l1, l2, ctr){
+      const L = Math.hypot(q[0]-p[0], q[1]-p[1]);
+      const straight = () => chord(p, q, ctr);
+      if (l1 === l2) return straight();
+      if (l1.border || l2.border) return null;
+      const key = p.join() + '|' + q.join();
+      if (sideCache.has(key)) return sideCache.get(key);
+      let res = null;
+      const X = meet(l1, l2), ux = (q[0]-p[0]) / L, uy = (q[1]-p[1]) / L;
+      const dA = Math.abs(((l1.t - l2.t) + 540) % 180 - 0) ;
+      if (!X){ res = straight(); }
+      else {
+        const along = ((X[0]-p[0])*ux + (X[1]-p[1])*uy) / L, dev = Math.abs((X[0]-p[0])*uy - (X[1]-p[1])*ux) / L;
+        if (along > 0.1 && along < 0.9 && dev < 0.08){
+          if (dev < 0.01) res = straight();
+          else {
+            const a = chord(p, X, ctr), b = chord(X, q, ctr);
+            res = {sup: (a.sup*a.len + b.sup*b.len) / (a.len + b.len), con: (a.con*a.len + b.con*b.len) / (a.len + b.len), len: L, border: false};
+          }
+        } else if (along <= 0.1 || along >= 0.9 || !isFinite(along)){
+          // nearly the same edge found twice: accept as straight only if both lines run along the chord
+          const offL = (l, pt) => Math.abs(l.c*pt[0] + l.s*pt[1] - l.rho);
+          const mid = [(p[0]+q[0])/2, (p[1]+q[1])/2];
+          if (offL(l1, mid) < Math.max(2, L*0.015) && offL(l2, mid) < Math.max(2, L*0.015)) res = straight();
+        }
+      }
+      sideCache.set(key, res);
+      return res;
+    }
+    let best = null, bestScore = 0;
+    const pool = [], minSide = Math.min(w, h) * 0.2;
+    for (const A of cands.tl) for (const B of cands.tr) for (const C of cands.br) for (const D of cands.bl){
+      const Q = [A.p, B.p, C.p, D.p];
+      let area = 0, convex = true, okAng = true;
+      for (let i = 0; i < 4; i++){
+        const p0 = Q[(i+3)%4], p1 = Q[i], p2 = Q[(i+1)%4];
+        area += p1[0]*p2[1] - p2[0]*p1[1];
+        const ux = p0[0]-p1[0], uy = p0[1]-p1[1], vx = p2[0]-p1[0], vy = p2[1]-p1[1];
+        if (ux*vy - uy*vx > 0) convex = false;              // clockwise on screen: tl → tr → br → bl
+        const lv = Math.hypot(vx, vy);
+        if (lv < minSide) okAng = false;
+        const cosA = (ux*vx + uy*vy) / ((Math.hypot(ux, uy) * lv) || 1);
+        if (Math.abs(cosA) > 0.72) okAng = false;
+      }
+      area = Math.abs(area) / 2;
+      const af = area / (w*h);
+      if (!convex || !okAng || af < 0.12) continue;
+      const ctr = [(Q[0][0]+Q[1][0]+Q[2][0]+Q[3][0])/4, (Q[0][1]+Q[1][1]+Q[2][1]+Q[3][1])/4];
+      let ok = true, supLen = 0, lenSum = 0, conSum = 0, minCon = 1e9, nb = 0;
+      const SL = [[A.hl, B.hl], [B.vl, C.vl], [C.hl, D.hl], [D.vl, A.vl]];
+      for (let i = 0; i < 4; i++){
+        const r = sideOf(Q[i], Q[(i+1)%4], SL[i][0], SL[i][1], ctr);
+        if (!r){ ok = false; break; }
+        if (r.border) nb++;
+        if (r.sup < 0.35 || r.con < 6){ ok = false; break; }
+        supLen += r.sup * r.len; lenSum += r.len; conSum += r.con; minCon = Math.min(minCon, r.con);
+      }
+      if (!ok || nb > 2) continue;
+      const cover = supLen / lenSum, meanCon = conSum / 4;
+      if (cover < 0.5) continue;
+      const corners = Math.pow(A.score * B.score * C.score * D.score, 0.25);
+      const balance = Math.min(1, minCon / 20);
+      const score = cover * Math.sqrt(af) * Math.min(1, meanCon / 28) * balance * Math.sqrt(corners) * [1, 0.8, 0.45][nb];
+      pool.push({Q, score, cover, af, meanCon, minCon, corners, nb});
+    }
+    // 3) Material check on the best few: the paper should run right up to every edge from the inside,
+    //    and the strip just outside should be something else (desk, table, background).
+    pool.sort((a, b) => b.score - a.score);
+    const col = (x, y) => { const xi = clamp(Math.round(x), 0, w-1), yi = clamp(Math.round(y), 0, h-1), j = yi*w + xi; return [ch[0][j], ch[1][j], ch[2][j]]; };
+    const T2 = 32*32, d2 = (a, b) => (a[0]-b[0])**2 + (a[1]-b[1])**2 + (a[2]-b[2])**2;
+    const med = arr => { const t = arr.slice().sort((u, v) => u - v); return t[t.length >> 1]; };
+    for (const c of pool.slice(0, 40)){
+      const Q = c.Q, rs = [], gs = [], bs = [];
+      for (let iu = 0; iu < 7; iu++) for (let iv = 0; iv < 7; iv++){
+        const u = 0.15 + 0.7*iu/6, v = 0.15 + 0.7*iv/6;
+        const x = (1-u)*(1-v)*Q[0][0] + u*(1-v)*Q[1][0] + u*v*Q[2][0] + (1-u)*v*Q[3][0];
+        const y = (1-u)*(1-v)*Q[0][1] + u*(1-v)*Q[1][1] + u*v*Q[2][1] + (1-u)*v*Q[3][1];
+        const k = col(x, y); rs.push(k[0]); gs.push(k[1]); bs.push(k[2]);
+      }
+      const m = [med(rs), med(gs), med(bs)];
+      const ctr = [(Q[0][0]+Q[1][0]+Q[2][0]+Q[3][0])/4, (Q[0][1]+Q[1][1]+Q[2][1]+Q[3][1])/4];
+      let inSum = 0, inMin = 1, nSides = 0, outHit = 0, outN = 0;
+      for (let i = 0; i < 4; i++){
+        const p = Q[i], q = Q[(i+1)%4];
+        if (sameBorder(p, q)) continue;
+        const L = Math.hypot(q[0]-p[0], q[1]-p[1]) || 1, mid = [(p[0]+q[0])/2, (p[1]+q[1])/2];
+        let nx = -(q[1]-p[1]) / L, ny = (q[0]-p[0]) / L;
+        if (nx*(ctr[0]-mid[0]) + ny*(ctr[1]-mid[1]) < 0){ nx = -nx; ny = -ny; }
+        let hit = 0; const n = 24;
+        for (let k = 0; k < n; k++){
+          const f = 0.1 + 0.8*(k + 0.5)/n, x = p[0] + (q[0]-p[0])*f, y = p[1] + (q[1]-p[1])*f;
+          for (const dep of [1.5, 3, 5]) if (d2(col(x + nx*off*dep, y + ny*off*dep), m) < T2){ hit++; break; }
+          const ox = x - nx*off*1.5, oy = y - ny*off*1.5;
+          if (inImg(ox, oy)){ outN++; if (d2(col(ox, oy), m) >= T2) outHit++; }
+        }
+        const fr = hit / n; inSum += fr; inMin = Math.min(inMin, fr); nSides++;
+      }
+      const inFrac = nSides ? inSum / nSides : 1, outFrac = outN ? outHit / outN : 1;
+      c.inF = inFrac; c.inMin = inMin; c.outF = outFrac;
+      c.final = c.score * (0.25 + 0.75*inFrac) * (0.75 + 0.25*inMin) * (0.3 + 0.7*outFrac);
+      if (c.final > bestScore){ bestScore = c.final; best = Q; }
+    }
+    if (!best) return null;
+    return best.map(([px, py]) => [clamp(px / s, 0, W), clamp(py / s, 0, H)]);
+  }
+
+  // Find the page: straight-edge search first; the older bright-region method is the fallback.
   function detectCorners(src){
+    let q = null;
+    try { q = detectQuad(src); } catch(e){ console.error(e); }
+    return q || detectCornersBlob(src);
+  }
+
+  // Fallback: bright, low-saturation region; take its largest connected blob and its four extreme corners.
+  function detectCornersBlob(src){
     const W = src.width, H = src.height;
     const s = Math.min(1, 240 / Math.max(W, H));
     const w = Math.max(8, Math.round(W*s)), h = Math.max(8, Math.round(H*s));
@@ -1247,9 +1575,13 @@ footer p{margin:0 0 6px;max-width:68ch}
   $('edTabCrop').addEventListener('click', () => setTab('crop'));
   $('edTabEnh').addEventListener('click', () => setTab('enh'));
   $('edNext').addEventListener('click', () => setTab('enh'));
-  $('edAuto').addEventListener('click', () => {
+  $('edAuto').addEventListener('click', async () => {
+    if (!ed) return;
+    $('edBusy').textContent = 'Finding page edges…'; $('edBusy').hidden = false;
+    await new Promise(r => setTimeout(r, 30));
     if (!ed) return;
     const c = detectCorners(ed.src);
+    $('edBusy').hidden = true; $('edBusy').textContent = 'Processing…';
     const full = isFull(c, ed.src.width, ed.src.height);
     ed.corners = c; ed.dirtyWarp = true; drawCrop();
     snack(full ? 'Could not find clear page edges. Drag the corners by hand.' : 'Page edges found. Adjust the corners if needed.');
