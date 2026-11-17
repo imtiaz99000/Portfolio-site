@@ -70,7 +70,7 @@ h2{font-family:var(--display);font-weight:700;font-size:20px;margin:0;letter-spa
 .dev-photo{flex:0 0 auto;width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid var(--accent);background:var(--accent-soft)}
 .dev-text{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;min-width:0}
 
-.tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border-radius:12px;background:var(--surface);border:1px solid var(--line)}
+.tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:4px;border-radius:12px;background:var(--surface);border:1px solid var(--line)}
 .tabs button{border:0;background:transparent;border-radius:9px;padding:10px 8px;font-weight:600;color:var(--muted)}
 .tabs button[aria-selected="true"]{background:var(--accent);color:var(--accent-ink)}
 
@@ -82,7 +82,7 @@ button.small{padding:6px 10px;font-size:13px}
 .label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .note{font-size:13px;color:var(--muted);margin:0}
 .panel{display:grid;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
-select,input[type=text]{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--fg);min-width:0;width:100%}
+select,input[type=text],input[type=search]{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--fg);min-width:0;width:100%}
 
 /* ---- Scan view ---- */
 .capture{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -168,6 +168,29 @@ select,input[type=text]{font:inherit;padding:8px 10px;border:1px solid var(--lin
 footer{font-size:13px;color:var(--muted)}
 footer p{margin:0 0 6px;max-width:68ch}
 
+/* ---- History ---- */
+.tabs .count{font-family:var(--mono);font-size:.85em;font-weight:600;opacity:.85}
+.hhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:8px}
+.hhead > div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.hbar{display:flex;flex-direction:column;gap:10px}
+.hbar .chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.hbar .chips button{flex:0 0 auto;border-radius:999px;padding:7px 12px;font-size:13px}
+.hbar .chips button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.hlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.hday{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.hday:first-child{margin-top:0}
+.hrow{display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.hthumb{width:48px;height:62px;border-radius:6px;background:var(--stage);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden;color:var(--accent)}
+.hthumb img{width:100%;height:100%;object-fit:contain;display:block}
+.hthumb svg{width:24px;height:24px}
+.hinfo{display:flex;flex-direction:column;gap:3px;min-width:0}
+.kind{display:inline-block;font-family:var(--body);font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent);margin-right:6px;vertical-align:1px}
+.kind.k-Compressed{background:var(--good-soft);color:var(--good)}
+.kind.k-Merged{background:var(--warn-soft);color:var(--warn)}
+.hact{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.hkeep{display:flex;align-items:center;gap:10px;font-weight:600;cursor:pointer}
+.hkeep input{width:18px;height:18px;accent-color:var(--accent);flex:0 0 auto}
+
 /* ---- Full-screen modals ---- */
 .modal{position:fixed;inset:0;z-index:50;background:var(--bg);display:flex;flex-direction:column;gap:10px;padding-top:calc(10px + env(safe-area-inset-top, 0px));padding-bottom:calc(10px + env(safe-area-inset-bottom, 0px));padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
 .mbar{display:flex;align-items:center;justify-content:space-between;gap:10px}
@@ -208,6 +231,9 @@ footer p{margin:0 0 6px;max-width:68ch}
 .snack-in button{background:transparent;border-color:currentColor;color:inherit;padding:5px 10px;font-size:13px}
 
 @media (max-width:620px){
+  .tabs button{font-size:14px;padding:9px 4px}
+  .hrow{grid-template-columns:48px minmax(0,1fr)}
+  .hact{grid-column:1/-1;justify-content:flex-start}
   .levels{grid-template-columns:repeat(2,minmax(0,1fr))}
   .row{grid-template-columns:minmax(0,1fr)}
   .right{justify-self:start}
@@ -229,6 +255,7 @@ footer p{margin:0 0 6px;max-width:68ch}
   <nav class="tabs" role="tablist" aria-label="Tools">
     <button id="tab-scan" role="tab" aria-selected="true" aria-controls="view-scan">Scan to PDF</button>
     <button id="tab-compress" role="tab" aria-selected="false" aria-controls="view-compress">Compress &amp; merge</button>
+    <button id="tab-history" role="tab" aria-selected="false" aria-controls="view-history">History<span class="count" id="hCount"></span></button>
   </nav>
 
   <!-- ================= SCAN ================= -->
@@ -338,8 +365,27 @@ footer p{margin:0 0 6px;max-width:68ch}
     <ul class="queue" id="queue"></ul>
   </section>
 
+  <!-- ================= HISTORY ================= -->
+  <section id="view-history" role="tabpanel" aria-labelledby="tab-history" hidden style="flex-direction:column;gap:16px">
+    <div class="hhead">
+      <div><h2>Recent work</h2><p class="note" id="hUsage">Your last 100 saved files, kept on this device.</p></div>
+      <button class="small" id="hClear" disabled>Clear history</button>
+    </div>
+    <div class="hbar">
+      <input type="search" id="hSearch" placeholder="Search by file name" aria-label="Search history by file name" spellcheck="false">
+      <div class="chips" id="hFilter" role="group" aria-label="Show">
+        <button data-k="all" aria-pressed="true">All</button><button data-k="Scan" aria-pressed="false">Scans</button><button data-k="Compressed" aria-pressed="false">Compressed</button><button data-k="Merged" aria-pressed="false">Merged</button><button data-k="JPEG" aria-pressed="false">JPEG</button>
+      </div>
+    </div>
+    <ul class="hlist" id="hList" aria-live="polite"></ul>
+    <section class="panel" aria-label="History settings">
+      <label class="hkeep"><input type="checkbox" id="hKeep" checked> Keep a copy of every file I save (last 100)</label>
+      <p class="note">History stays only in this browser on this device. It is not uploaded or synced, and clearing your browser data removes it. On a shared phone, turn this off before scanning ID cards or other private papers.</p>
+    </section>
+  </section>
+
   <footer>
-    <p>Scanned pages stay in this page only until you close it, so save your PDF before leaving. Password-protected PDFs are skipped by the compressor.</p>
+    <p>Scanned pages stay in this page only until you close it, so save your PDF before leaving. Saved files are kept in History on this device. Password-protected PDFs are skipped by the compressor.</p>
     <p>For many files, the ZIP is one tap instead of many. <a href="/">Made by Mohd Imtiaz Karim</a>.</p>
   </footer>
 </div>
@@ -443,7 +489,9 @@ footer p{margin:0 0 6px;max-width:68ch}
     if (!dlP) dlP = (async () => { try { return window.claude && window.claude.use ? await window.claude.use('downloads') : null; } catch(e){ return null; } })();
     return dlP;
   }
-  async function saveData(filename, data){
+  async function saveData(filename, data, o = {}){
+    if (!(data instanceof Blob) && typeof data !== 'string') data = new Blob([data]);
+    if (!o.noHistory) addHistory(filename, data, o);
     const dl = await getDownloads();
     if (!dl){ snack('Saving is not available in this browser. Try Chrome or Safari.', {err:true}); return false; }
     try { await dl.save({filename, data}); snack('Saved ' + filename + '.'); return true; }
@@ -459,16 +507,232 @@ footer p{margin:0 0 6px;max-width:68ch}
   getDownloads();
 
   /* ---------- tabs ---------- */
+  const VIEWS = ['scan','compress','history'];
+  const viewFromHash = () => { const v = location.hash.slice(1); return VIEWS.includes(v) ? v : 'scan'; };
   function showView(v){
-    ['scan','compress'].forEach(n => {
+    VIEWS.forEach(n => {
       const sec = $('view-' + n); sec.hidden = n !== v; sec.style.display = n === v ? 'flex' : '';
       $('tab-' + n).setAttribute('aria-selected', String(n === v));
     });
   }
   $('tab-scan').addEventListener('click', () => { location.hash = 'scan'; showView('scan'); });
   $('tab-compress').addEventListener('click', () => { location.hash = 'compress'; showView('compress'); });
-  window.addEventListener('hashchange', () => showView(location.hash === '#compress' ? 'compress' : 'scan'));
-  showView(location.hash === '#compress' ? 'compress' : 'scan');
+  $('tab-history').addEventListener('click', () => { location.hash = 'history'; showView('history'); hLoad(); });
+  window.addEventListener('hashchange', () => { const v = viewFromHash(); showView(v); if (v === 'history') hLoad(); });
+  showView(viewFromHash());
+
+  /* ---------- history (IndexedDB, this device only) ---------- */
+  const H_MAX = 100, H_MAX_BYTES = 1024 * 1048576;
+  const ICON_DOC = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>';
+  const ICON_ZIP = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M12 3v2m0 2v2m0 2v2"/><rect x="10.5" y="13" width="3" height="4" rx="1"/></svg>';
+  let hdbP = null, hItems = [], hFilter = 'all', hURLs = [], hChain = Promise.resolve();
+  const hPending = new Set();
+  const hEnabled = () => store.get('history', '1') === '1';
+
+  function hdb(){
+    if (!hdbP){
+      hdbP = new Promise((res, rej) => {
+        if (!window.indexedDB) return rej(new Error('IndexedDB unavailable'));
+        const r = indexedDB.open('pdf-squeeze', 1);
+        r.onupgradeneeded = () => { r.result.createObjectStore('history', {keyPath: 'id'}); };
+        r.onsuccess = () => res(r.result);
+        r.onerror = () => rej(r.error);
+        r.onblocked = () => rej(new Error('blocked'));
+      });
+      hdbP.catch(() => { hdbP = null; });
+    }
+    return hdbP;
+  }
+  function hTx(mode, fn){
+    return hdb().then(db => new Promise((res, rej) => {
+      const t = db.transaction('history', mode), req = fn(t.objectStore('history'));
+      t.oncomplete = () => res(req ? req.result : undefined);
+      t.onerror = () => rej(t.error);
+      t.onabort = () => rej(t.error || new Error('aborted'));
+    }));
+  }
+  const hAll = () => hTx('readonly', s => s.getAll());
+  const hPut = rec => hTx('readwrite', s => s.put(rec));
+  const hDel = id => hTx('readwrite', s => s.delete(id));
+
+  async function hThumb(blob, name, from){
+    try {
+      if (from || /\.(jpe?g|png)$/i.test(name)){
+        const bmp = await createImageBitmap(from || blob);
+        const s = Math.min(1, 160 / Math.max(bmp.width, bmp.height));
+        const c = mk(Math.max(1, Math.round(bmp.width*s)), Math.max(1, Math.round(bmp.height*s)));
+        c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+        if (bmp.close) bmp.close();
+        return {thumb: await toBlob(c, 0.75)};
+      }
+      if (/\.pdf$/i.test(name) && window.pdfjsLib){
+        const pdf = await pdfjsLib.getDocument({data: new Uint8Array(await blob.arrayBuffer()), isEvalSupported: false}).promise;
+        try {
+          const page = await pdf.getPage(1), b = page.getViewport({scale: 1});
+          const vp = page.getViewport({scale: 160 / Math.max(b.width, b.height)});
+          const c = mk(Math.ceil(vp.width), Math.ceil(vp.height)), x = c.getContext('2d', {alpha: false});
+          x.fillStyle = '#ffffff'; x.fillRect(0, 0, c.width, c.height);
+          await page.render({canvasContext: x, viewport: vp}).promise;
+          const thumb = await toBlob(c, 0.75); c.width = 0;
+          return {thumb, pages: pdf.numPages};
+        } finally { await pdf.destroy(); }
+      }
+    } catch(e){}
+    return {};
+  }
+
+  async function hDropOldest(){
+    const all = await hAll();
+    if (!all.length) return false;
+    all.sort((a, b) => a.created - b.created);
+    await hDel(all[0].id);
+    return true;
+  }
+  async function hTrim(){
+    const all = (await hAll()).sort((a, b) => b.created - a.created);
+    let bytes = 0;
+    for (let i = 0; i < all.length; i++){
+      bytes += all[i].size || 0;
+      if (i >= H_MAX || (i > 0 && bytes > H_MAX_BYTES)) await hDel(all[i].id);
+    }
+  }
+
+  function addHistory(name, data, o = {}){
+    if (!hEnabled()) return;
+    const blob = data instanceof Blob ? data : new Blob([data]);
+    hChain = hChain.then(async () => {
+      try {
+        const t = await hThumb(blob, name, o.thumbFrom);
+        const rec = {
+          id: Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
+          name, kind: o.kind || (/\.pdf$/i.test(name) ? 'Scan' : 'JPEG'),
+          size: blob.size, pages: o.pages || t.pages || null, files: o.files || null,
+          created: Date.now(), blob, thumb: t.thumb || null
+        };
+        for (let tries = 0; ; tries++){
+          try { await hPut(rec); break; }
+          catch(e){
+            if (e && e.name === 'QuotaExceededError' && tries < 5 && await hDropOldest()) continue;
+            throw e;
+          }
+        }
+        await hTrim();
+        if (navigator.storage && navigator.storage.persist && !store.get('persist', '')){
+          store.set('persist', '1');
+          navigator.storage.persist().catch(() => {});
+        }
+        await hLoad();
+      } catch(e){
+        console.error(e);
+        snack('This file could not be kept in history. Your device may be low on storage, or this is a private window.', {err: true});
+      }
+    });
+  }
+
+  async function hLoad(){
+    try { hItems = (await hAll()).sort((a, b) => b.created - a.created); }
+    catch(e){ hItems = null; }
+    hRender();
+  }
+
+  function hDay(t){
+    const d = new Date(t), now = new Date(), y = new Date(now);
+    y.setDate(now.getDate() - 1);
+    if (d.toDateString() === now.toDateString()) return 'Today';
+    if (d.toDateString() === y.toDateString()) return 'Yesterday';
+    return d.toLocaleDateString('en-GB', {weekday: 'short', day: 'numeric', month: 'short', year: d.getFullYear() === now.getFullYear() ? undefined : 'numeric'});
+  }
+
+  function hRender(){
+    hURLs.forEach(u => URL.revokeObjectURL(u)); hURLs = [];
+    const list = $('hList'); list.innerHTML = '';
+    const visible = (hItems || []).filter(r => !hPending.has(r.id));
+    const total = visible.reduce((s, r) => s + (r.size || 0), 0);
+    $('hCount').textContent = visible.length ? ` (${visible.length})` : '';
+    $('hClear').disabled = !visible.length;
+    $('hUsage').textContent = hItems === null ? 'History is not available in this browser.'
+      : visible.length ? `${visible.length} of ${H_MAX} files · ${fmt(total)} on this device` : `Your last ${H_MAX} saved files, kept on this device.`;
+    const empty = html => { const li = document.createElement('li'); li.className = 'empty'; li.innerHTML = html; list.appendChild(li); };
+    if (hItems === null){ empty('<strong>History is not available here</strong>Private or incognito windows, and some in-app browsers, do not keep files. Open the page in Chrome or Safari.'); return; }
+    const q = $('hSearch').value.trim().toLowerCase();
+    const shown = visible.filter(r => (hFilter === 'all' || r.kind === hFilter) && (!q || r.name.toLowerCase().includes(q)));
+    if (!shown.length){
+      if (visible.length) empty('<strong>No files match</strong>Try another name or show All.');
+      else if (!hEnabled()) empty('<strong>History is off</strong>Turn it on below to keep a copy of the next files you save.');
+      else empty('<strong>No saved work yet</strong>Every file you save from Scan to PDF or Compress &amp; merge appears here, so you can download it again later.');
+      return;
+    }
+    let last = '';
+    shown.forEach(r => {
+      const day = hDay(r.created);
+      if (day !== last){ last = day; const h = document.createElement('li'); h.className = 'hday'; h.textContent = day; list.appendChild(h); }
+      const li = document.createElement('li'); li.className = 'hrow';
+      const th = document.createElement('div'); th.className = 'hthumb';
+      if (r.thumb){ const u = URL.createObjectURL(r.thumb); hURLs.push(u); const im = document.createElement('img'); im.alt = ''; im.src = u; th.appendChild(im); }
+      else th.innerHTML = /\.zip$/i.test(r.name) ? ICON_ZIP : ICON_DOC;
+      const info = document.createElement('div'); info.className = 'hinfo';
+      const nm = document.createElement('div'); nm.className = 'name'; nm.textContent = r.name;
+      const meta = document.createElement('div'); meta.className = 'meta';
+      const kind = document.createElement('span'); kind.className = 'kind k-' + r.kind; kind.textContent = r.kind;
+      const bits = [];
+      if (r.pages) bits.push(r.pages + (r.pages === 1 ? ' page' : ' pages'));
+      else if (r.files) bits.push(r.files + ' files');
+      bits.push(fmt(r.size));
+      bits.push(new Date(r.created).toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit'}));
+      meta.append(kind, document.createTextNode(bits.join(' · ')));
+      info.append(nm, meta);
+      const act = document.createElement('div'); act.className = 'hact';
+      act.innerHTML = `<button class="small primary" data-h="dl" data-id="${r.id}">Download</button>` +
+        (/\.pdf$/i.test(r.name) ? `<button class="small" data-h="cmp" data-id="${r.id}">Compress</button>` : '') +
+        `<button class="small" data-h="del" data-id="${r.id}" aria-label="Delete from history">✕</button>`;
+      li.append(th, info, act);
+      list.appendChild(li);
+    });
+  }
+
+  $('hList').addEventListener('click', e => {
+    const b = e.target.closest('[data-h]'); if (!b) return;
+    const r = (hItems || []).find(x => x.id === b.dataset.id); if (!r) return;
+    if (b.dataset.h === 'dl') saveData(r.name, r.blob, {noHistory: true});
+    else if (b.dataset.h === 'cmp'){
+      location.hash = 'compress'; showView('compress');
+      addPdfFiles([new File([r.blob], r.name, {type: 'application/pdf'})]);
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    } else if (b.dataset.h === 'del'){
+      hPending.add(r.id); hRender();
+      snack(`Removed ${r.name} from history.`, {
+        action(){ hPending.delete(r.id); hRender(); },
+        onExpire(){ if (hPending.has(r.id)) hDel(r.id).catch(() => {}).then(() => { hPending.delete(r.id); return hLoad(); }); }
+      });
+    }
+  });
+  $('hClear').addEventListener('click', () => {
+    const ids = (hItems || []).map(r => r.id).filter(id => !hPending.has(id));
+    if (!ids.length) return;
+    ids.forEach(id => hPending.add(id)); hRender();
+    snack(`History cleared (${ids.length} file${ids.length > 1 ? 's' : ''}).`, {
+      action(){ ids.forEach(id => hPending.delete(id)); hRender(); },
+      onExpire(){
+        const gone = ids.filter(id => hPending.has(id));
+        Promise.all(gone.map(id => hDel(id).catch(() => {}))).then(() => { gone.forEach(id => hPending.delete(id)); return hLoad(); });
+      }
+    });
+  });
+  $('hSearch').addEventListener('input', hRender);
+  $('hFilter').addEventListener('click', e => {
+    const b = e.target.closest('[data-k]'); if (!b) return;
+    hFilter = b.dataset.k;
+    [...$('hFilter').children].forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    hRender();
+  });
+  $('hKeep').checked = hEnabled();
+  $('hKeep').addEventListener('change', e => {
+    store.set('history', e.target.checked ? '1' : '0');
+    snack(e.target.checked ? 'History is on. Files you save from now on are kept here.' : 'History is off. Files already here stay until you remove them.');
+    hRender();
+  });
+  hLoad();
+
 
   /* =====================================================================
      IMAGE MATH
@@ -1092,7 +1356,7 @@ footer p{margin:0 0 6px;max-width:68ch}
     const p = pages[vw.i]; if (!p) return;
     await renderChain;
     if (!p.outBlob){ snack('This page is still being prepared. Try again in a moment.', {err:true}); return; }
-    await saveData(`${baseName()}-page-${vw.i + 1}.jpg`, await pageJpeg(p, QUAL[opt.qual]));
+    await saveData(`${baseName()}-page-${vw.i + 1}.jpg`, await pageJpeg(p, QUAL[opt.qual]), {kind: 'JPEG', pages: 1});
   });
   $('vwPdf').addEventListener('click', exportPdf);
   let swipeX = null;
@@ -1173,7 +1437,7 @@ footer p{margin:0 0 6px;max-width:68ch}
       if (!await ready()) return;
       const {bytes, note} = await buildPdf();
       snack(`PDF ready: ${allSheets().length} page${allSheets().length > 1 ? 's' : ''}, ${fmt(bytes.length)}.${note}`, {sticky:true});
-      await saveData(baseName() + '.pdf', new Blob([bytes], {type:'application/pdf'}));
+      await saveData(baseName() + '.pdf', new Blob([bytes], {type:'application/pdf'}), {kind: 'Scan'});
     });
   }
   $('exPdf').addEventListener('click', exportPdf);
@@ -1182,12 +1446,12 @@ footer p{margin:0 0 6px;max-width:68ch}
   $('exJpg').addEventListener('click', () => withExport(async () => {
     if (!await ready()) return;
     const qual = QUAL[opt.qual], base = baseName();
-    if (pages.length === 1){ await saveData(base + '.jpg', await pageJpeg(pages[0], qual)); return; }
+    if (pages.length === 1){ await saveData(base + '.jpg', await pageJpeg(pages[0], qual), {kind: 'JPEG', pages: 1}); return; }
     snack('Building a ZIP of JPEG pages…', {sticky:true});
     const zip = new JSZip();
     for (let i = 0; i < pages.length; i++) zip.file(`${base}-${String(i+1).padStart(2, '0')}.jpg`, await pageJpeg(pages[i], qual));
     const blob = await zip.generateAsync({type:'blob', compression:'STORE'});
-    await saveData(base + '-jpeg.zip', blob);
+    await saveData(base + '-jpeg.zip', blob, {kind: 'JPEG', pages: pages.length, thumbFrom: pages[0].outBlob});
   }));
   $('exSend').addEventListener('click', () => withExport(async () => {
     snack('Building PDF…', {sticky:true});
@@ -1391,7 +1655,7 @@ footer p{margin:0 0 6px;max-width:68ch}
       used.add(n); zip.file(n, it.bytes);
     });
     const blob = await zip.generateAsync({type: 'blob', compression: 'STORE'});
-    await saveData(`compressed-pdfs-${done.length}.zip`, blob);
+    await saveData(`compressed-pdfs-${done.length}.zip`, blob, {kind: 'Compressed', files: done.length});
     refresh();
   }
 
@@ -1413,7 +1677,7 @@ footer p{margin:0 0 6px;max-width:68ch}
       const bytes = await out.save({useObjectStreams: true});
       busy = false; refresh();
       snack(`Merged ${done.length} files, ${count} pages, ${fmt(bytes.length)}.`, {sticky:true});
-      await saveData(name + '.pdf', new Blob([bytes], {type: 'application/pdf'}));
+      await saveData(name + '.pdf', new Blob([bytes], {type: 'application/pdf'}), {kind: 'Merged'});
     } catch(e){
       busy = false; refresh();
       snack('Could not merge these files. Try compressing them again, then merge.', {err:true});
@@ -1579,7 +1843,7 @@ footer p{margin:0 0 6px;max-width:68ch}
     const dn = e.target.closest('[data-down]'); if (dn){ moveItem(+dn.dataset.down, 1); return; }
     const b = e.target.closest('[data-save]'); if (!b) return;
     const it = items.find(i => i.id === +b.dataset.save);
-    if (it && it.bytes) saveData(outName(it.name), new Blob([it.bytes], {type: 'application/pdf'}));
+    if (it && it.bytes) saveData(outName(it.name), new Blob([it.bytes], {type: 'application/pdf'}), {kind: 'Compressed'});
   });
   document.querySelectorAll('input[name=lvl], #gray, #targetOn, #targetMb').forEach(el => el.addEventListener('change', () => {
     if (busy) return;
